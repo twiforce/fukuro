@@ -1,10 +1,11 @@
-Tinyboard - A lightweight PHP imageboard.
+Synch Imageboard Engine, based on Tinyboard
 ==========================================
 
 About
 ------------
 Tinyboard is a free light-weight, fast, highly configurable and user-friendly
 imageboard software package. It is written in PHP and has few dependencies.
+Synch IE is a fork with several cool features that shoud work out of the box.
 
 Requirements
 ------------
@@ -14,9 +15,9 @@ Requirements
 4.	[PHP GD](http://www.php.net/manual/en/intro.image.php)
 5.	[PHP PDO](http://www.php.net/manual/en/intro.pdo.php)
 
-We try to make sure Tinyboard is compatible with all major web servers and
-operating systems. Tinyboard does not include an Apache ```.htaccess``` file nor does
-it need one.
+@savetheinternet and its crew are trying to make sure Tinyboard is compatible with all
+major web servers and operating systems. SynchIE, just like Tinyboard, does not include an Apache
+```.htaccess``` file nor does it need one.
 
 ### Recommended
 1.	MySQL server >= 5.5.3
@@ -34,14 +35,17 @@ If you need help developing a patch, please join our IRC channel.
 
 Installation
 -------------
+0.  Make sure that you really know what are you doind. I've never tried
+    to install this anywhere and you're aware of this. Tinyboard is great
+    but SynchIE has some critical vulnerabilities.
 1.	Download and extract Tinyboard to your web directory or get the latest
 	development version with:
 
-        git clone git://github.com/savetheinternet/Tinyboard.git
+        git clone git://github.com/twiforce/synch-dev.git
 	
 2.	Navigate to ```install.php``` in your web browser and follow the
 	prompts.
-3.	Tinyboard should now be installed. Log in to ```mod.php``` with the
+3.	SynchIE should now be installed. Log in to ```mod.php``` with the
 	default username and password combination: **admin / password**.
 
 Please remember to change the administrator account password.
@@ -52,6 +56,8 @@ Support
 --------
 Tinyboard is still beta software -- there are bound to be bugs. If you find a
 bug, please report it.
+
+SynchIE is even more beta software, but at some time it'll be pretty useable.
 
 If you need assistance with installing, configuring, or using Tinyboard, you may
 find support from a variety of sources:
@@ -65,5 +71,5 @@ find support from a variety of sources:
 
 License
 --------
-See [LICENSE.md](http://github.com/savetheinternet/Tinyboard/blob/master/LICENSE.md).
+See original [LICENSE.md](http://github.com/savetheinternet/Tinyboard/blob/master/LICENSE.md).
 
