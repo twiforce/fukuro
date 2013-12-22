@@ -1,0 +1,21 @@
+# use basic template to generate index page
+/index.html
+
+# instance-config
+/inc/instance-config.php
+
+# .installed
+/.installed
+
+# script file
+/main.js
+
+# templates cache
+/templates/cache
+
+# other stuff
+.DS_Store
+.idea
+thumbs.db
+Icon?
+Thumbs.db

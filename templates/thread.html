@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	{% include 'header.html' %}
+	<title>{{ board.url }} - {% if config.thread_subject_in_title and thread.subject %}{{ thread.subject }}{% else %}{{ board.title|e }}{% endif %}</title>
+</head>
+<body>
+	{{ boardlist.top }}
+	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr />{% endif %}
+	{% if config.url_banner %}<img class="banner" src="{{ config.url_banner }}" {% if config.banner_width or config.banner_height %}style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" />{% endif %}
+	<header>
+		<h1><a href="http://syn-ch.ru{{ board.url }}">{{ board.url }} - {{ board.name }}</a></h1>
+		<div class="subtitle">
+			{% if board.subtitle %}
+				{% if config.allow_subtitle_html %}
+					{{ board.subtitle }}
+				{% else %}
+					{{ board.subtitle|e }}
+				{% endif %}
+			{% endif %}
+			{% if mod %}<p><a href="?/">{% trans %}Return to dashboard{% endtrans %}</a></p>{% endif %}
+		</div>
+	</header>
+
+	<div class="banner">{% trans %}Posting mode: Reply{% endtrans %} <a class="unimportant" href="{{ return }}">[{% trans %}Return{% endtrans %}]</a></div>
+
+	{% include 'post_form.html' %}
+
+	{% if config.global_message %}<hr /><div class="blotter">{{ config.global_message }}</div>{% endif %}
+	<hr />
+	<form name="postcontrols" action="{{ config.post_url }}" method="post">
+	<input type="hidden" name="board" value="{{ board.uri }}" />
+	{% if mod %}<input type="hidden" name="mod" value="1" />{% endif %}
+	{{ body }}
+	{% include 'report_delete.html' %}
+	</form>
+	<a href="{{ return }}">[{% trans %}Return{% endtrans %}]</a>
+	{{ boardlist.bottom }}
+	<footer>
+		<p class="unimportant" style="margin-top:20px;text-align:center;">Synch Imageboard Engine v. {{ config.subversion }} | <a href="http://tinyboard.org/">Tinyboard</a> {{ config.version }}</p>
+		{% for footer in config.footer %}<p class="unimportant" style="text-align:center;">{{ footer }}</p>{% endfor %}
+	</footer>
+	<script type="text/javascript">{% raw %}
+		ready();
+	{% endraw %}</script>
+</body>
+</html>

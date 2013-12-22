@@ -1,0 +1,234 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('webfonts/roboto_regular_cyrillic/Roboto-Regular-webfont.eot');
+    src: url('webfonts/roboto_regular_cyrillic/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/roboto_regular_cyrillic/Roboto-Regular-webfont.woff') format('woff'),
+         url('webfonts/roboto_regular_cyrillic/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('webfonts/roboto_regular_cyrillic/Roboto-Regular-webfont.svg#RobotoRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('webfonts/roboto_italic_cyrillic/Roboto-Italic-webfont.eot');
+    src: url('webfonts/roboto_italic_cyrillic/Roboto-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/roboto_italic_cyrillic/Roboto-Italic-webfont.woff') format('woff'),
+         url('webfonts/roboto_italic_cyrillic/Roboto-Italic-webfont.ttf') format('truetype'),
+         url('webfonts/roboto_italic_cyrillic/Roboto-Italic-webfont.svg#RobotoItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('webfonts/roboto_bold_cyrillic/Roboto-Bold-webfont.eot');
+    src: url('webfonts/roboto_bold_cyrillic/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/roboto_bold_cyrillic/Roboto-Bold-webfont.woff') format('woff'),
+         url('webfonts/roboto_bold_cyrillic/Roboto-Bold-webfont.ttf') format('truetype'),
+         url('webfonts/roboto_bold_cyrillic/Roboto-Bold-webfont.svg#RobotoBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('webfonts/roboto_bolditalic_cyrillic/Roboto-BoldItalic-webfont.eot');
+    src: url('webfonts/roboto_bolditalic_cyrillic/Roboto-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/roboto_bolditalic_cyrillic/Roboto-BoldItalic-webfont.woff') format('woff'),
+         url('webfonts/roboto_bolditalic_cyrillic/Roboto-BoldItalic-webfont.ttf') format('truetype'),
+         url('webfonts/roboto_bolditalic_cyrillic/Roboto-BoldItalic-webfont.svg#RobotoBoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('webfonts/roboto_light_cyrillic/Roboto-Light-webfont.eot');
+    src: url('webfonts/roboto_light_cyrillic/Roboto-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/roboto_light_cyrillic/Roboto-Light-webfont.woff') format('woff'),
+         url('webfonts/roboto_light_cyrillic/Roboto-Light-webfont.ttf') format('truetype'),
+         url('webfonts/roboto_light_cyrillic/Roboto-Light-webfont.svg#RobotoLight') format('svg');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('webfonts/roboto_lightitalic_cyrillic/Roboto-LightItalic-webfont.eot');
+    src: url('webfonts/roboto_lightitalic_cyrillic/Roboto-LightItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/roboto_lightitalic_cyrillic/Roboto-LightItalic-webfont.woff') format('woff'),
+         url('webfonts/roboto_lightitalic_cyrillic/Roboto-LightItalic-webfont.ttf') format('truetype'),
+         url('webfonts/roboto_lightitalic_cyrillic/Roboto-LightItalic-webfont.svg#RobotoLightItalic') format('svg');
+    font-weight: 100;
+    font-style: italic;
+}
+
+body {
+	background-image: none;
+	background-color: #151515;
+	color: #666666;
+	font-family: 'Roboto', Arial, sans-serif;
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased;
+}
+a {
+	color: #777777!important;
+	text-decoration: none!important;
+}
+a.post_no, #navigation a:hover, #markup a:hover, div.post.reply div.body a {
+	color: #cccccc!important;
+	text-decoration: none!important;
+}
+div.post.reply div.body a {
+	text-decoration: underline!important;
+}
+a:hover, a.post_no:hover, p.intro a.email:hover span.name  {
+	color: #cccccc;
+	text-decoration: underline!important;
+}
+div.post.reply , form[name="post"], #navigation, #settingsPopup {
+	color: #aaaaaa;
+	background: #333333!important;
+	border: solid 1px #222222;
+	padding: 2px 10px 3px 10px;
+	margin: 5px;
+	border-spacing: 2px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-bottom-width: 2px;
+	border-top-width: 0;
+}
+form[name="post"] {
+	padding: 2px!important;
+}
+div.post.reply.highlighted {
+	background: #CCCCCC;
+	border-color: #BBBBBB;
+}
+p.intro {
+	font-size: 1.1em;
+	font-weight: 100;
+	border-bottom: 1px solid #222222;
+}
+
+p.fileinfo, p.fileinfo a {
+	color: #aaaaaa;
+}
+p.fileinfo span.unimportant {
+	font-size: 12px;
+	font-weight: 100;
+	color: #b5b5b5;
+	font-style: italic;
+}
+div.post.reply div.body {
+	margin-left: 0em;
+	padding-right: 0em;
+	margin-top: 7px;
+}
+p.intro span.subject {
+	font-size: 1.2em;
+	color: #cccccc;
+	font-weight: bold;
+}
+p.intro span.name {
+	color: #cccccc;
+	font-weight: normal;
+}
+p.intro span.trip {
+	color: #789922;
+}
+form table tr th {
+	background: #DDDDDD;
+}
+div.ban h2 {
+	background: #FCA;
+	color: inherit;
+}
+div.ban {
+	border-color: #800;
+}
+div.ban p {
+	color: black;
+}
+div.pages {
+	background: #F0E0D6;
+	border-color: #D9BFB7;
+}
+div.pages a.selected {
+	color: #800;
+}
+hr {
+	border-color: #CCCCCC;
+}
+h1 {
+	color: #FF6600;
+	letter-spacing: 0px;
+	font-size: 2em;
+	font-family: 'Roboto', Arial;
+	font-weight: bold;
+	text-decoration: none;
+}
+div.boardlist {
+	color: #333333;
+	font-size: 1em;
+}
+div.boardlist a {
+	color: #333333;
+}
+table.modlog tr th {
+	background: #СССССС;
+}
+span.spoiler {
+	background: #666666;
+	color: #666666;
+}
+span.spoiler:hover {
+	background: #666666;
+	color: #000000;
+}
+span.quote {
+	color:#789922;
+}
+div.post img.post-image {
+	padding: 5px 0px 5px 0px;
+}
+.unimportant {
+	font-size: 0.8 em;
+}
+
+textarea, input[type="text"], input[type="file"], input[type="password"], input[name="snum"], input[type="search"] {
+	background-color: #333333;
+	border: solid 1px #222222;
+	border-radius: 2px;
+	color: #cccccc;
+}
+
+input[type="text"], input[type="file"], input[type="password"], input[name="snum"], input[type="search"] {
+	font-family: 'Roboto', Arial, sans-serif;
+}
+p.intro time:after{
+	color: #789922;
+}
+
+input[type="submit"], input[type="reset"], .buttons input[type="button"], .ui-button, #code_markup_select, .linkbutton, .uname, .button li  {
+	-o-appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: #333333;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid #222222;
+	color: #aaaaaa;
+}
+input[type="submit"]:hover, input[type="reset"]:hover, .buttons input[type="button"]:hover, .button li:hover {
+	-o-appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: #333333;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid #222222;
+	color: #aaaaaa;
+	border-bottom-width: 2px;
+}

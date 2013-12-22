@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Codegroove.net
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid   ""
+msgstr  "Project-Id-Version: Tinyboard i18n\n"
+        "Report-Msgid-Bugs-To: savetheinternet@tinyboard.org\n"
+        "POT-Creation-Date: 2010-05-28 06:18-0500\n"
+        "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+        "Last-Translator: Tinyboard <translate@tinyboard.org>\n"
+        "Language-Team: Tinyboard <translate@tinyboard.org>\n"
+        "MIME-Version: 1.0\n"
+        "Content-Type: text/plain; charset=UTF-8\n"
+        "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Email"
+msgstr "Адрес"
+
+msgid "Subject"
+msgstr "Тема"
+
+msgid "Comment"
+msgstr "Комментарий"
+
+msgid "Verification"
+msgstr "Подтверждение"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Embed"
+msgstr "Вставить медиа"
+
+msgid "Flags"
+msgstr "Флаги"
+
+msgid "Password"
+msgstr "Пaроль"
+
+msgid "(For file deletion.)"
+msgstr "(Для удаления файлов.)"
+
+msgid "Spoiler Image"
+msgstr "Картинка-спойлер"
+
+msgid "Return"
+msgstr "Назад"
+
+msgid "Posting mode: Reply"
+msgstr "Ответ"
+
+msgid "Reply"
+msgstr "Ответить"
+
+msgid "Sticky"
+msgstr "Sticky"
+
+msgid "Lock"
+msgstr "Lock"
+
+msgid "Raw HTML"
+msgstr "Сырой HTML"
+
+msgid "Delete Post"
+msgstr "удалить пост"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Reason"
+msgstr "Причина"
+
+msgid "Report"
+msgstr "Пожаловаться"
+
+msgid "Previous"
+msgstr "Предыдущий"
+
+msgid "Next"
+msgstr "Следующий"
+

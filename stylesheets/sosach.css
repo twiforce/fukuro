@@ -1,0 +1,109 @@
+body {
+	background-image: none;
+	background-color: #EEEEEE;
+	color: #333333;
+	font-family: Verdana,sans-serif;
+	font-size: 0.9em;
+}
+a, a:visited, p.intro a.email , div.post.reply div.body a {
+	color: #FF6600;
+}
+a:hover, p.intro a.post_no:hover , div.post.reply div.body a:hover {
+	color: #0066FF;
+}
+a.post_no {
+	color: #800000;
+}
+div.post.reply , form[name="post"], #navigation, #settingsPopup {
+	background: #DDDDDD!important;
+	border: solid 1px #CCCCCC;
+	padding: 2px 10px 3px 10px;
+	margin: 5px;
+	border-spacing: 2px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+form[name="post"] {
+	padding: 2px!important;
+}
+#navigation {
+	bottom: -5px!important;
+}
+div.post.reply.highlighted {
+	background: #CCCCCC;
+	border-color: #BBBBBB;
+}
+p.intro span.subject {
+	font-size: 1.2em;
+	color: #002244;
+	font-weight: bold;
+}
+p.intro span.name {
+	color: #333333;
+	font-weight: normal;
+}
+p.intro span.trip {
+	color: #228854;
+}
+form table tr th {
+	background: #DDDDDD;
+}
+div.ban h2 {
+	background: #FCA;
+	color: inherit;
+}
+div.ban {
+	border-color: #800;
+}
+div.ban p {
+	color: black;
+}
+div.pages {
+	background: #F0E0D6;
+	border-color: #D9BFB7;
+}
+div.pages a.selected {
+	color: #800;
+}
+hr {
+	border-color: #CCCCCC;
+}
+h1 {
+	color: #FF6600;
+	letter-spacing: 0px;
+	font-size: 2em;
+}
+div.boardlist {
+	color: #B86;
+}
+div.boardlist a {
+	color: #800;
+}
+table.modlog tr th {
+	background: #СССССС;
+}
+span.spoiler {
+	background: #BBBBBB;
+	color: #BBBBBB;
+}
+span.spoiler:hover {
+	background: #BBBBBB;
+	color: #333333;
+}
+span.quote {
+	color:#789922;
+	}
+p.markup>a {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #DDDDDD), color-stop(1, #CCCCCC) );
+	background:-moz-linear-gradient( center top, #DDDDDD 5%, #CCCCCC 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#DDDDDD', endColorstr='#CCCCCC');
+	color: #FF6600;
+	border:1px solid #CCCCCC;
+	text-shadow:1px 1px 0px #DDDDDD;
+}
+p.markup>a:hover {
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CCCCCC), color-stop(1, #DDDDDD) );background: -moz-linear-gradient( center top, #CCCCCC 5%, #DDDDDD 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCCCCC', endColorstr='#DDDDDD');
+	color: #0066FF;
+}

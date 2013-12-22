@@ -1,0 +1,113 @@
+body {
+	color: #999;
+	text-shadow: 1px 1px 0px #666;
+	font-family: Verdana,sans-serif;
+	font-size: 0.9em;
+	background: url('http://fc04.deviantart.net/fs71/f/2012/223/4/0/doctor_whooves_and_the_tardis_by_theevilflashanimator-d5ap4na.png') no-repeat bottom right fixed, url('http://upload.wikimedia.org/wikipedia/commons/8/80/NGC_2818_by_the_Hubble_Space_Telescope.jpg') no-repeat center center fixed;
+	background-size: auto 90%, auto;
+}
+a, a:visited, p.intro a.email , div.post.reply div.body a, h1, h1 a, div.boardlist a, a.post_no {
+	color: #007AAD;
+	text-decoration: none;
+	font-weight: bold;
+	text-shadow: none;
+}
+a:hover, p.intro a.post_no:hover , div.post.reply div.body a:hover {
+	color: #007AAD;
+	text-decoration: underline;
+}
+div.post.reply , form[name="post"], #navigation, #settingsPopup {
+	color: black;
+	background: rgba(190, 161, 101, 0.8)!important;
+	border: solid 3px #917534;
+	padding: 2px 10px 3px 10px;
+	margin: 5px;
+	border-spacing: 2px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-shadow: none;
+}
+div.post.reply {
+	background: rgba(190, 161, 101, 0.8) url('img/whooves_cutie_mark.png') no-repeat bottom right;
+}
+form[name="post"] {
+	padding: 2px!important;
+}
+#navigation {
+	bottom: -5px!important;
+}
+div.post.reply.highlighted {
+	background: #CCCCCC;
+	border-color: #BBBBBB;
+}
+p.intro span.subject {
+	font-size: 1.2em;
+	color: #002244;
+	font-weight: bold;
+}
+p.intro span.name {
+	color: #333333;
+	font-weight: normal;
+}
+p.intro span.trip {
+	color: #228854;
+}
+form table tr th {
+	background: #DDDDDD;
+}
+div.ban h2 {
+	background: #FCA;
+	color: inherit;
+}
+div.ban {
+	border-color: #800;
+}
+div.ban p {
+	color: black;
+}
+div.pages {
+	background: #F0E0D6;
+	border-color: #D9BFB7;
+}
+div.pages a.selected {
+	color: #800;
+}
+hr {
+	border-color: #CCCCCC;
+}
+h1 {
+	color: #FF6600;
+	letter-spacing: 0px;
+	font-size: 2em;
+}
+div.boardlist {
+	color: #B86;
+}
+table.modlog tr th {
+	background: #СССССС;
+}
+span.spoiler {
+	background: #BBBBBB;
+	color: #BBBBBB;
+}
+span.spoiler:hover {
+	background: #BBBBBB;
+	color: #333333;
+}
+span.quote {
+	color:green;
+	}
+p.markup>a {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #DDDDDD), color-stop(1, #CCCCCC) );
+	background:-moz-linear-gradient( center top, #DDDDDD 5%, #CCCCCC 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#DDDDDD', endColorstr='#CCCCCC');
+	color: #FF6600;
+	border:1px solid #CCCCCC;
+	text-shadow:1px 1px 0px #DDDDDD;
+}
+p.markup>a:hover {
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CCCCCC), color-stop(1, #DDDDDD) );background: -moz-linear-gradient( center top, #CCCCCC 5%, #DDDDDD 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCCCCC', endColorstr='#DDDDDD');
+	color: #0066FF;
+}

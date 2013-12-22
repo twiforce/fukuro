@@ -1,0 +1,254 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Codegroove.net
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid   ""
+msgstr  "Project-Id-Version: Tinyboard i18n\n"
+        "Report-Msgid-Bugs-To: savetheinternet@tinyboard.org\n"
+        "POT-Creation-Date: 2010-05-28 06:18-0500\n"
+        "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+        "Last-Translator: Riku <admin@fukkensaved.org>\n"
+        "Language-Team: Tinyboard <translate@tinyboard.org>\n"
+        "MIME-Version: 1.0\n"
+        "Content-Type: text/plain; charset=UTF-8\n"
+        "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Subject"
+msgstr "Aihe"
+
+msgid "Comment"
+msgstr "Viesti"
+
+msgid "Verification"
+msgstr "Varmennus"
+
+msgid "File"
+msgstr "Tiedosto"
+
+msgid "Embed"
+msgstr "Upote"
+
+msgid "Flags"
+msgstr "Arvot"
+
+msgid "Password"
+msgstr "Salasana"
+
+msgid "(For file deletion.)"
+msgstr "(Tiedoston poistoon.)"
+
+msgid "Spoiler Image"
+msgstr "Spoiler Image"
+
+msgid "Return"
+msgstr "Takaisin"
+
+msgid "Posting mode: Reply"
+msgstr "Viestin tyyppi: Vastaus"
+
+msgid "Reply"
+msgstr "Vastaa"
+
+msgid "Sticky"
+msgstr "Sticky"
+
+msgid "Lock"
+msgstr "Lukko"
+
+msgid "Raw HTML"
+msgstr "Raaka HTML"
+
+msgid "Delete Post"
+msgstr "Poista Viesti"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Reason"
+msgstr "Syy"
+
+msgid "Report"
+msgstr "Report"
+
+msgid "Previous"
+msgstr "Edellinen"
+
+msgid "Next"
+msgstr "Seuraava"
+
+msgid "Return to dashboard"
+msgstr "Palaa hallintaan"
+
+msgid "PM Inbox"
+msgstr "Viestilaatikko"
+
+msgid "empty"
+msgstr "tyhjä"
+
+msgid "unread"
+msgstr "lukematon"
+
+msgid "No private messages for you."
+msgstr "Sinulle ei ole uusia viestejä."
+
+msgid "Manage users"
+msgstr "Hallitse käyttäjiä"
+
+msgid "ID"
+msgstr ""
+
+msgid "Username"
+msgstr "Käyttäjänimi"
+
+msgid "User"
+msgstr "Käyttäjä"
+
+msgid "IP address"
+msgstr "IP osoite"
+
+msgid "Type"
+msgstr "Tyyppi"
+
+msgid "Last action"
+msgstr "Viimeinen tapahtuma"
+
+msgid "Boards"
+msgstr "Laudat"
+
+msgid "Create new board"
+msgstr "Luo uusi lauta"
+
+msgid "Create new user"
+msgstr "Luo uusi käyttäjä"
+
+msgid "News"
+msgstr "Uutiset"
+
+msgid "no subject"
+msgstr "ei aihetta"
+
+msgid "View all entries"
+msgstr "Näytä kaikki tiedotteet"
+
+msgid "Dashboard"
+msgstr "Hallinta"
+
+msgid "Noticeboard"
+msgstr "Tiedotteet"
+
+msgid "Report queue"
+msgstr "Ilmiannot"
+
+msgid "Ban list"
+msgstr "Bannit"
+
+msgid "Moderation log"
+msgstr "Moderaatio logi"
+
+msgid "Rebuild static files"
+msgstr "Rakenna uudelleen"
+
+msgid "Show configuration"
+msgstr "Näytä asetukset"
+
+msgid "Configuration"
+msgstr "Asetukset"
+
+msgid "Themes"
+msgstr "Teemat"
+
+msgid "Manage themes"
+msgstr "Hallitse teemoja"
+
+msgid "Search"
+msgstr "Etsi"
+
+msgid "Phrase:"
+msgstr "Lause tai sana:"
+
+msgid "(Search is case-insensitive, and based on keywords. To match exact phrases, use \"quotes\". Use an asterisk (*) for wildcard.)"
+msgstr "(Haku etsii sanoja ja lauseita myös muiden lauseiden ja sanojen sisältä. Löytääksesi tietyn fraasin käytä \"lainausmerkkejä\". Voit käyttää myös (*) merkkiä jokerina.)"
+
+msgid "Version"
+msgstr "Versio"
+
+msgid "Description"
+msgstr "Kuvaus"
+
+msgid "Thumbnail"
+msgstr ""
+
+msgid "Uninstall all themes."
+msgstr "Poista kaikki teemat"
+
+msgid "Reconfigure"
+msgstr "Asetukset"
+
+msgid "Rebuild"
+msgstr "Rakenna uudelleen"
+
+msgid "Uninstall"
+msgstr "Poista"
+
+msgid "Install"
+msgstr "Asenna"
+
+msgid "Use theme"
+msgstr "Käytä teemaa"
+
+msgid "Actions"
+msgstr "Toiminto"
+
+msgid "Body"
+msgstr "Viesti"
+
+msgid "Ago"
+msgstr "Viesti"
+
+msgid "Board"
+msgstr "Lauta"
+
+msgid "Action"
+msgstr "Tapahtuma"
+
+msgid "Set"
+msgstr "Aseta"
+
+msgid "Expires"
+msgstr "Vanhenee"
+
+msgid "Staff"
+msgstr "Moderaattori"
+
+msgid "all boards"
+msgstr "kaikki laudat"
+
+msgid "Post to news"
+msgstr "Lähetä uutisiin"
+
+msgid "Post to noticeboard"
+msgstr "Lähetä tiedotteisiin"
+
+msgid "Showing all %d reports."
+msgstr ""
+
+msgid "Logout"
+msgstr "Kirjaudu ulos"
+
+msgid "Login"
+msgstr "Kirjaudu sisään"
+
+msgid "Continue"
+msgstr "Jatka"
+
+msgid "Administration"
+msgstr "Hallinta"
+

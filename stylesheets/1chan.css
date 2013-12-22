@@ -1,0 +1,159 @@
+body {
+background:#fff;
+}
+
+p.intro a.post_no {
+color:#36c;
+text-decoration:underline;
+}
+
+div.boardlist {
+width:80%;
+height:25px;
+background:none repeat scroll 0 0 #eaf4ff;
+margin:0 auto;
+text-align:center;
+font-size:15px;
+text-shadow:1px 1px 2px #ddd;
+border:1px solid #ddd;
+border-radius:5px 5px 5px 5px;
+font-weight:400;
+}
+
+header {
+height:170px;
+background:url(http://raw.github.com/jlbyrey/1chan/master/www/img/mascot.jpg) no-repeat scroll center bottom transparent;
+}
+
+header div.subtitle,h1 {
+color:#ff5a00;
+}
+
+form table tr th {
+background:none repeat scroll 0 0 #eaf4ff;
+border-radius:20px 0 0 20px;
+font-size:.9em;
+color:#999;
+text-shadow:1px 1px 2px #ddd;
+}
+
+input[type="text"],input[type="password"],textarea {
+border-radius:0 20px 20px 0;
+}
+
+textarea {
+border-radius:0 20px 0 0;
+}
+
+input[name=file_url] {
+border-radius:20px 20px 20px 20px;
+}
+
+div.banner {
+height:20px;
+margin:0 auto 16px;
+padding:0 10px;
+background:none repeat scroll 0 0 #ffb975;
+border-radius:8px 8px 8px 8px;
+color:#fff;
+font-weight:400;
+}
+
+p.fileinfo {
+padding:3px 10px 4px;
+border:none;
+font-size:.8em;
+color:#aaa;
+}
+
+p.intro span.subject {
+color:#ff5a00;
+font-size:1.4em;
+font-weight:400;
+text-decoration:underline;
+}
+
+p.intro span.name {
+color:#999;
+}
+
+div.post.op {
+width:60%;
+margin:0 auto 5px 255px;
+}
+
+div.post.reply {
+width:60%;
+margin:0 auto 5px 255px;
+background:none repeat scroll 0 0 #eaf4ff;
+padding:5px 10px 0;
+border:none;
+border-radius:8px 8px 8px 8px;
+display:inline-block;
+}
+
+div.post.reply.highlighted {
+width:60%;
+margin:0 auto -12px 255px;
+background:none repeat scroll 0 0 #eaf4ff;
+padding:5px 10px 0;
+border-radius:8px 8px 8px 8px;
+border:1px solid #bbb;
+display:block;
+}
+
+div.post.reply div.body a:link,div.post.reply div.body a:visited {
+color:#36c;
+}
+
+div.post.reply div.body a:hover {
+color:#ff5a00;
+}
+
+img.post-image {
+display:block;
+margin-left:auto;
+margin-right:auto;
+}
+
+div.pages {
+margin:0 auto;
+width:40%;
+display:block;
+background:none #fff;
+text-shadow:1px 1px 2px #ddd;
+border:1px solid #ddd;
+border-radius:5px 5px 5px 5px;
+}
+
+span.spoiler,span.spoiler a {
+background:none repeat scroll 0 0 #ddd;
+color:#ddd;
+}
+
+span.spoiler:hover {
+background:none repeat scroll 0 0 #ddd;
+color:#000;
+}
+
+span.spoiler a:hover {
+background:none repeat scroll 0 0 #ddd;
+color:#ff5a00;
+}
+
+p.intro a {
+font-size:1.1em;
+color:#ff5a00;
+}
+
+p.intro a:hover {
+font-size:1.1em;
+color:#ff5a00;
+text-decoration:none;
+}
+
+footer,span.omitted {
+font-size:.65em;
+text-align:center;
+color:#999;
+}

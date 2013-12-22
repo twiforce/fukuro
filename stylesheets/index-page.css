@@ -1,0 +1,109 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_regular_cyrillic/Roboto-Regular-webfont.eot');
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_regular_cyrillic/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_regular_cyrillic/Roboto-Regular-webfont.woff') format('woff'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_regular_cyrillic/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_regular_cyrillic/Roboto-Regular-webfont.svg#RobotoRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_italic_cyrillic/Roboto-Italic-webfont.eot');
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_italic_cyrillic/Roboto-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_italic_cyrillic/Roboto-Italic-webfont.woff') format('woff'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_italic_cyrillic/Roboto-Italic-webfont.ttf') format('truetype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_italic_cyrillic/Roboto-Italic-webfont.svg#RobotoItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_bold_cyrillic/Roboto-Bold-webfont.eot');
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_bold_cyrillic/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_bold_cyrillic/Roboto-Bold-webfont.woff') format('woff'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_bold_cyrillic/Roboto-Bold-webfont.ttf') format('truetype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_bold_cyrillic/Roboto-Bold-webfont.svg#RobotoBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_bolditalic_cyrillic/Roboto-BoldItalic-webfont.eot');
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_bolditalic_cyrillic/Roboto-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_bolditalic_cyrillic/Roboto-BoldItalic-webfont.woff') format('woff'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_bolditalic_cyrillic/Roboto-BoldItalic-webfont.ttf') format('truetype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_bolditalic_cyrillic/Roboto-BoldItalic-webfont.svg#RobotoBoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_light_cyrillic/Roboto-Light-webfont.eot');
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_light_cyrillic/Roboto-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_light_cyrillic/Roboto-Light-webfont.woff') format('woff'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_light_cyrillic/Roboto-Light-webfont.ttf') format('truetype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_light_cyrillic/Roboto-Light-webfont.svg#RobotoLight') format('svg');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_lightitalic_cyrillic/Roboto-LightItalic-webfont.eot');
+    src: url('http://static.syn-ch.com/stylesheets/webfonts/roboto_lightitalic_cyrillic/Roboto-LightItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_lightitalic_cyrillic/Roboto-LightItalic-webfont.woff') format('woff'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_lightitalic_cyrillic/Roboto-LightItalic-webfont.ttf') format('truetype'),
+         url('http://static.syn-ch.com/stylesheets/webfonts/roboto_lightitalic_cyrillic/Roboto-LightItalic-webfont.svg#RobotoLightItalic') format('svg');
+    font-weight: 100;
+    font-style: italic;
+}
+
+html, body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p{
+	font-family: "Roboto", Helvetica, Arial, sans;
+}
+h1, .h1 {
+	font-weight: bold;
+	font-size: 38.5px;
+}
+body {
+	margin-top: 50px;
+	background-color: #E5E5E5;
+}
+
+.navbar-brand  {
+	font-size: 28px;
+}
+
+.navbar-nav > li {
+	font-size: 16px;
+}
+.navbar-inverse {
+	background-color: #002140;
+	border-color: #002140;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+	color: #fff;
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-brand{
+	color: #fff;
+}
+
+.container>.navbar-header {
+	padding-left: 15px;
+	background: url('http://static.syn-ch.com/synch-logo-header.png') no-repeat 0 50%;
+}
+
+#main {
+	margin-top: 42px;
+}
+
+#boardlinks {
+	margin-top: 20px;
+}
+.posts {
+	display: none;
+}

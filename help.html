@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <title>Синч - анонимный имиджборд</title>
+
+    <!– Bootstrap core CSS –>
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
+    <!– Custom styles for this template –>
+    <link href="stylesheets/index-page.css" rel="stylesheet">
+	
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+   
+    <!– HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries –>
+    <!–[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]–>
+	
+	<style>
+		span.spoiler {
+			background: black;
+			color: black;
+			padding: 0px 1px;
+		}
+		span.spoiler a {
+			color: black;
+		}
+		span.spoiler:hover, span.spoiler:hover a {
+			color: white;
+		}
+	</style>
+  </head>
+
+  <body>
+    <!– Fixed navbar –>
+    <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Син.ч</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/index.html">Главная</a></li>
+            <li><a href="/rules.html">Правила</a></li>
+            <li class="active"><a href="/help.html">Помощь</a>
+            <li><a href="/donate.html">Поддержка</a></li>
+          </ul>
+        </div><!–/.nav-collapse –>
+      </div>
+    </div>
+	<div class="container" style="z-index: 10;"><div class="col-md-3" id="boardlinks">
+			<div class="list-group">
+				<a href="/meta/" class="list-group-item">/meta/ — все треды<span id="meta" class="badge posts pull-right">0</span></a>
+				<a href="/b/" class="list-group-item">/b/ — Бардак<span id="b" class="badge posts pull-right">0</span></a>
+				<a href="/d/" class="list-group-item">/d/ — developers<span id="d" class="badge posts pull-right">0</span></a>
+			</div>
+			<div class="list-group" class="list-group-item">
+				<a href="/mlp/" class="list-group-item">/mlp/ — My Little Pony<span id="mlp" class="badge posts pull-right">0</span></a>
+				<a href="/mu/" class="list-group-item">/mu/ — Музыка<span id="mu" class="badge posts pull-right">0</span></a>
+				<a href="/tv/" class="list-group-item">/tv/ — Зомбоящик<span id="tv" class="badge posts pull-right">0</span></a>
+				<a href="/vg/" class="list-group-item">/vg/ — Видеоигры<span id="vg" class="badge posts pull-right">0</span></a>
+			</div>
+			<div class="list-group" class="list-group-item">
+				<a href="/old/" class="list-group-item">/old/ — Чулан<span id="old" class="badge posts pull-right">0</span></a>
+				<a href="/test/" class="list-group-item">/test/ — Старая школа<span id="test" class="badge posts pull-right">0</span></a>
+			</div>
+			<div class="list-group" class="list-group-item">
+				<a href="http://synchtube.ru/" class="list-group-item">Синхтуб</a>
+				<a href="http://synchtube.ru/r/synch" class="list-group-item">/r/synch — Убежище</a>
+				<a href="http://bugtracker.syn-ch.ru" class="list-group-item">Багтрекер</a>
+				<a href="http://mail.syn-ch.ru" class="list-group-item">Почта @syn-ch.ru</a>
+				<a href="http://9ch.ru" class="list-group-item">9ch.ru — Оверчан</a>
+			</div>
+			<div class="list-group">
+				<li class="list-group-item">
+					<h4 class="list-group-item-heading">Контакты:</h4>
+					<p class="list-group-item-text"><a href="mailto:admin@syn-ch.ru">admin@syn-ch.ru</a></p>
+					<p class="list-group-item-text"><a href="skype:twi4ce">skype: twi4ce</a></p>
+				</li>
+			</div>
+		</div>
+		
+		<div class="col-md-9">
+		<h1>Помощь</h1>
+		<h2>Возможности</h2>
+		<ul>
+			<li>Максимальный размер файла: 50 МБ</li>
+			<li>Максимальное разрешение изображения: 15000x15000</li>
+            <li>Допустимые расширения файлов: jpg, png, bmp, svg, swf, mp3, m4a, flac, zip, rar, tar, gz, txt, pdf</li>
+            <li>Допустимые медиафайлы: Youtube, Pleer.com, Vimeo, Dailymotion, Metacafe, Vocaroo</li>
+		</ul>
+		<h2>Известные проблемы</h2>
+		<ul>
+			<li>Не работает перенаправление в тред (<a href="http://bugtracker.syn-ch.ru/index.php?do=details&task_id=5">FS#5</a>)</li>
+			<li>Иногда отваливается автообновление (<a href="http://bugtracker.syn-ch.ru/index.php?do=details&task_id=70">FS#70</a>)</li>
+			<li>Не работает удаление файлов и постов (<a href="http://bugtracker.syn-ch.ru/index.php?do=details&task_id=33">FS#33</a>)</li>
+			<li>Не обновляются посты в Internet Explorer (<a href="http://bugtracker.syn-ch.ru/index.php?do=details&task_id=4">FS#4</a>)</li>
+		</ul>
+		<h2>Разметка</h2>
+		<table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Стиль</th>
+            <th>BBCode</th>
+            <th>Markdown</th>
+            <th>Хоткей</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Жирный</strong></td>
+            <td>[b]<strong>Жирный</strong>[/b]</td>
+            <td>**<strong>Жирный</strong>**</td>
+            <td>Ctrl+B</td>
+          </tr>
+          <tr>
+            <td><em>Курсив</em></td>
+            <td>[i]<em>Курсив</em>[/i]</td>
+            <td>*<em>Курсив</em>*</td>
+            <td>Ctrl+I</td>
+          </tr>
+          <tr>
+            <td><span style="text-decoration: underline">Подчеркнутый</span></td>
+            <td>[u]<span style="text-decoration: underline">Подчеркнутый</span>[/u]</td>
+            <td>__<span style="text-decoration: underline">Подчеркнутый</span>__</td>
+            <td>Ctrl+U</td>
+          </tr>
+          <tr>
+            <td><span style="text-decoration: line-through">Зачеркнутый</span></td>
+            <td>[s]<span style="text-decoration: line-through">Зачеркнутый</span>[/s]</td>
+            <td>___<span style="text-decoration: line-through">Зачеркнутый</span>___</td>
+            <td>Ctrl+S</td>
+          </tr>
+          <tr>
+            <td><span class="spoiler">Спойлер</span></td>
+            <td>[spoiler]<span class="spoiler">Спойлер</span>[/spoiler]</td>
+            <td>%%<span class="spoiler">Спойлер</span>%%</td>
+            <td>Ctrl+H</td>
+          </tr>
+          <tr>
+            <td><span style="font-family: monospace">Моноширинный</span></td>
+            <td>[code]<span style="font-family: monospace">Моноширинный</span>[/code]</td>
+            <td>`<span style="font-family: monospace">Моноширинный</span>`</td>
+            <td>Ctrl+K</td>
+          </tr>
+          <tr>
+            <td><sub>Нижний индекс</sub></td>
+            <td>[sub]<sub>Нижний индекс</sub>[/sub]</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><sup>Верхний индекс</sup></td>
+            <td>[sup]<sup>Верхний индекс</sup>[/sup]</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Отправить сообщение</td>
+            <td></td>
+            <td></td>
+            <td>Ctrl+Enter</td>
+          </tr>
+          <tr>
+            <td>Прикрепленная форма</td>
+            <td></td>
+            <td></td>
+            <td>Ctrl+\</td>
+          </tr>
+          <tr>
+            <td>Вверх/вниз страницы</td>
+            <td></td>
+            <td></td>
+            <td>Ctrl+Вверх/Вниз</td>
+          </tr>
+        </tbody>
+      </table>
+	  <h2>Модификаторы</h2>
+		<table class="table table-striped">
+        <tbody>
+          <tr>
+            <td>sage</td>
+            <td>Email</td>
+            <td>Не поднимать тред. Не работает с изображениями и медиа.</td>
+          </tr>
+          <tr>
+            <td>noko</td>
+            <td>Email</td>
+            <td>Остаться в треде после отправки поста.</td>
+          </tr>
+          <tr>
+            <td>#8ball</td>
+            <td>Email</td>
+            <td>Прикрепить к посту одну из 20 произвольных фраз Magic 8 Ball.</td>
+          </tr>
+          <tr>
+            <td>#letstry</td>
+            <td>Email</td>
+            <td>Прикрепить к посту случайную фразу.</td>
+          </tr>
+		  <tr>
+            <td>#hide</td>
+            <td>Email</td>
+            <td>Спрятать название файла (временно).</td>
+          </tr>
+		  <tr>
+            <td>##xdy##</td>
+            <td>Сообщение</td>
+            <td>Бросить x дайсов с y граней. ##1d6## бросит один кубик. Можно бросать до 20 дайсов со 100 000 граней за раз.</td>
+          </tr>
+        </tbody>
+      </table>
+	  <h2>API</h2>
+		<p>Указанные интерфейсы работают на всех досках, для всех тредов. Если вы собираетесь отправлять <b>очень</b> много запросов, пожалуйста, напишите нам на почту.</p>
+		<table class="table table-striped">
+        <tbody>
+          <tr>
+            <td>/b/catalog.json</td>
+            <td>Возвращает список тредов.</td>
+          </tr>
+          <tr>
+            <td>/b/0.json</td>
+            <td>Возвращает список тредов с выбранной страницы.</td>
+          </tr>
+          <tr>
+            <td>/b/res/380943.json</td>
+            <td>Возвращает список постов указанного треда.</td>
+          </tr>
+          <tr>
+            <td>/testcount.json</td>
+            <td>Возвращает скорость борды и текущий онлайн.</td>
+          </tr>
+        </tbody>
+      </table>
+	</div>
+	</div>
+	<br/>
+  </body>
+</html>
