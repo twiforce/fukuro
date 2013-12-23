@@ -737,6 +737,11 @@
 	// Allow unfiltered HTML in board subtitles. This is useful for placing icons and links.
 	$config['allow_subtitle_html'] = false;
 
+	// Enable dices
+    $config['dice'] = true;
+    // Amount of unique dices that can be rolled in a single post
+    $config['dice_limit'] = 5;
+
 /*
  * ====================
  *  Display settings

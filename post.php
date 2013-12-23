@@ -791,12 +791,13 @@ if (isset($_POST['delete'])) {
 		}
 	
 	// Dice replacer
-	
-	if (preg_match("/##\s?(\d+)?d(\d+)?([\+\-]\d+)?\s?##/", $post['body'], $dicematches)) {
-		$post['body'] = preg_replace_callback("/##\s?(\d+)?d(\d+)?([\+\-]\d+)?\s?##/", 'dice', $post['body']);
-	} else {
-		$post['body'] = $post['body'];
-	}
+    if ($config['dice']) {
+        if (preg_match("/##\s?(\d+)?d(\d+)?([\+\-]\d+)?\s?##/", $post['body'], $dicematches)) {
+            $post['body'] = preg_replace_callback("/##\s?(\d+)?d(\d+)?([\+\-]\d+)?\s?##/", 'dice', $post['body'], $config['dice_limit']);
+        } else {
+            $post['body'] = $post['body'];
+        }
+    }
 	
 	// Remove board directories before inserting them into the database.
 	if ($post['has_file']) {
