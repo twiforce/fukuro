@@ -14,7 +14,7 @@ $(document).ready(function(){
 		var do_addinlineform = function() {
 			var post = this;
 			var id = $(this).attr('id');
-			$(this).append('<span><a class="inline-form-link" href="javascript:void(0)" style="text-decoration: none;"><i class="icon-play-sign"></i></a></span>');
+			$(this).append('<span><a class="inline-form-link" href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-caret-square-o-right"></i></a></span>');
 			$('.inline-form-link').click(function() { $('form[name="post"]').appendTo($(this).parent().parent().parent()) });
 			// That's a bit faster than parents().get(3)
 		};
