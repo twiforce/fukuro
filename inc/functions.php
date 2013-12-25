@@ -994,6 +994,9 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 			file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $post['id']));
 			file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $post['id']));
 
+            // Delete JSON thread file
+            file_unlink($board['dir'] . $config['dir']['res'] . $post['id'] . '.json');
+
 			$antispam_query = prepare('DELETE FROM ``antispam`` WHERE `board` = :board AND `thread` = :thread');
 			$antispam_query->bindValue(':board', $board['uri']);
 			$antispam_query->bindValue(':thread', $post['id']);
