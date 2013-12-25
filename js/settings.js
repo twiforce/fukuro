@@ -16,7 +16,7 @@
 
 // Default settings
 if (localStorage.getItem("settings") == null)
-	localStorage.setItem("settings", "{\"ajax\":true, \"showInfo\":true, \"markupButtons\":true, \"showSpoiler\":false, \"showNewMessages\":true, \"showSaveOriginalLinks\":true, \"showBackLinks\":true}");
+	localStorage.setItem("settings", "{\"ajax\":true, \"useLocalTime\":true, \"showInfo\":true, \"markupButtons\":true, \"showSpoiler\":false, \"showNewMessages\":true, \"showSaveOriginalLinks\":true, \"showBackLinks\":true}");
 
 var settings = JSON.parse(localStorage.getItem("settings"));
 
@@ -66,6 +66,7 @@ $(document).ready(function () {
 	<input type="checkbox" name="autoResizeForm">Автоматически расширять поле ввода<br>\
 	<input type="checkbox" name="showFormOnCite">Показывать прикрепленную форму при цитировании поста<br>\
 	</div><div id="con_tab3" class="tabs">\
+	<input type="checkbox" name="useLocalTime">Использовать местное время<br>\
 	<input type="checkbox" name="showSaveOriginalLinks">Сохранять оригинальное название файла<br>\
 	<input type="checkbox" name="showSpoiler">Раскрывать изображения-спойлеры<br>\
 	<input type="checkbox" name="textSpoiler">Раскрывать текстовые спойлеры<br>\
@@ -116,7 +117,8 @@ $(document).ready(function () {
 	if (settings.noRefresh) { $('#ajaxPolling option[value="noRefresh"]').attr('selected', 'selected'); }
 	if (settings.externalPolling) { $('#ajaxPolling option[value="externalPolling"]').attr('selected', 'selected'); }
 	if (settings.quoteSelection) { $("input[name=quoteSelection]").attr('checked', true); }
-	if (settings.showSaveOriginalLinks) { $("input[name=showSaveOriginalLinks]").attr('checked', true); }
+    if (settings.useLocalTime) { $("input[name=useLocalTime]").attr('checked', true); }
+    if (settings.showSaveOriginalLinks) { $("input[name=showSaveOriginalLinks]").attr('checked', true); }
 	if (settings.hideImageLinks) { $("input[name=hideImageLinks]").attr('checked', true); }
 	if (settings.hidePosts) { $("input[name=hidePosts]").attr('checked', true); }
 	if (settings.showSpoiler) { $("input[name=showSpoiler]").attr('checked', true); }
@@ -166,8 +168,9 @@ $(document).ready(function () {
 		if ($("input[name=boopNewMessages]").prop('checked')) { settings.boopNewMessages = true } else { settings.boopNewMessages = false };
 		if ($("input[name=showBackLinks]").prop('checked')) { settings.showBackLinks = true } else { settings.showBackLinks = false };
 		if ($("input[name=quoteSelection]").prop('checked')) { settings.quoteSelection = true } else { settings.quoteSelection = false };
-		if ($("input[name=showSaveOriginalLinks]").prop('checked')) { settings.showSaveOriginalLinks = true } else { settings.showSaveOriginalLinks = false };
-		if ($("input[name=hideImageLinks]").prop('checked')) { settings.hideImageLinks = true } else { settings.hideImageLinks = false };
+        if ($("input[name=useLocalTime]").prop('checked')) { settings.useLocalTime = true } else { settings.useLocalTime = false };
+        if ($("input[name=showSaveOriginalLinks]").prop('checked')) { settings.showSaveOriginalLinks = true } else { settings.showSaveOriginalLinks = false };
+        if ($("input[name=hideImageLinks]").prop('checked')) { settings.hideImageLinks = true } else { settings.hideImageLinks = false };
 		if ($("input[name=hidePosts]").prop('checked')) { settings.hidePosts = true } else { settings.hidePosts = false };
 		if ($("input[name=showSpoiler]").prop('checked')) { settings.showSpoiler = true } else { settings.showSpoiler = false };
 		if ($("input[name=textSpoiler]").prop('checked')) { settings.textSpoiler = true } else { settings.textSpoiler = false };
@@ -182,7 +185,7 @@ $(document).ready(function () {
         if ($("input[name=enableBots]").prop('checked')) { settings.enableBots = true } else { settings.enableBots = false };
         if ($("input[name=useCustomCSS]").prop('checked')) { settings.useCustomCSS = true; } else { settings.useCustomCSS = false };
         settings.customCSS = $("textarea[name=customCSS]").val();
-		localStorage.setItem("settings", JSON.stringify(settings));
+        localStorage.setItem("settings", JSON.stringify(settings));
 		location.reload();
 	});
 	
