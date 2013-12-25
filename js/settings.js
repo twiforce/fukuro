@@ -18,6 +18,11 @@
 if (localStorage.getItem("settings") == null)
 	localStorage.setItem("settings", "{\"ajax\":true, \"useLocalTime\":true, \"showInfo\":true, \"markupButtons\":true, \"showSpoiler\":false, \"showNewMessages\":true, \"showSaveOriginalLinks\":true, \"showBackLinks\":true}");
 
+// Current settings version. We'll be using this to notinfy users for updates
+// Let's just start from one. That's kinda not the first settings.js but still, whatever, nobody cares
+
+var version = 1;
+
 var settings = JSON.parse(localStorage.getItem("settings"));
 
 // Setting user-agent
@@ -185,7 +190,8 @@ $(document).ready(function () {
         if ($("input[name=enableBots]").prop('checked')) { settings.enableBots = true } else { settings.enableBots = false };
         if ($("input[name=useCustomCSS]").prop('checked')) { settings.useCustomCSS = true; } else { settings.useCustomCSS = false };
         settings.customCSS = $("textarea[name=customCSS]").val();
-        localStorage.setItem("settings", JSON.stringify(settings));
+        settings.version = version;
+		localStorage.setItem("settings", JSON.stringify(settings));
 		location.reload();
 	});
 	
@@ -203,6 +209,14 @@ $(document).ready(function () {
 			localStorage.setItem("dollScriptNotice", "shown");
 			$(this).hide();
 		});
+    } else if (settings.version != version) {
+        $('body').append('<div id="updateInfo"><b>Обратите внимание!</b><br/>Произошло обновление сайта. Возможно, добавились некоторые новые функции, или вам необходимо включить отсутствующий функционал в настройках. Загляните на <a href="/">главную страницу</a>, чтобы узнать список изменений.<br/>Кликните на это окно, чтобы закрыть его.</div>');
+        $('#updateInfo').css({'position': 'fixed', 'cursor': 'pointer', 'top': '10px', 'width': '60%', 'padding': '5px', 'border-radius': '2px', 'background-color': 'white'});
+        $( "#updateInfo" ).click(function() {
+            settings.version = version;
+            localStorage.setItem("settings", JSON.stringify(settings));
+            $("#updateInfo").hide();
+        });
     }
 });
 });
