@@ -47,6 +47,7 @@ $(document).ready(function () {
 	<a href="javascript:;" id="tab1" class="tabs active">Посты</a>\
 	<a href="javascript:;" id="tab2" class="tabs">Форма</a>\
 	<a href="javascript:;" id="tab3" class="tabs">Полезности</a>\
+	<a href="javascript:;" id="tab4" class="tabs">Оформление</a>\
 	<div id="con_tab1" class="tabs active">\
 	<input type="checkbox" name="updateThread">Обновлять тред каждые <input type="text" maxlength="3" size="3" name="updateFrequency">с<br>\
 	Использовать <select id="ajaxPolling"><option value="ajax">новую</option><option value="noRefresh">старую</option><option value="externalPolling">обычную</option></select> AJAX-отправку сообщений<br>\
@@ -70,6 +71,9 @@ $(document).ready(function () {
 	<input type="checkbox" name="textSpoiler">Раскрывать текстовые спойлеры<br>\
 	<input type="checkbox" name="hideRoleplay">Не отображать тег [rp]<br>\
 	<input type="checkbox" name="showInfo">Показывать онлайн и скорость борды<br>\
+	</div><div id="con_tab4" class="tabs">\
+	<input type="checkbox" name="useCustomCSS">Использовать свой CSS<button id="applyCSS" style="float: right">Предпросмотр</button><br>\
+	<textarea id="customCSS" rows="10" cols="45" name="customCSS"></textarea>\
 	</div></div><p><a id="save" href="javascript:void(0);">Сохранить</a>&nbsp;<a id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()">Закрыть</a>&nbsp;<a href="javascript:void(0);" onclick="localStorage.removeItem(\'settings\');location.reload();">Сбросить</a></p>');
 	
 	// http://jsfiddle.net/gxy45/2/
@@ -99,8 +103,7 @@ $(document).ready(function () {
 	});
 	
 	// Holy shit that's a lot
-	
-	
+    $("textarea[name=customCSS]").val(settings.customCSS);
 	if (settings.updateFrequency < 10 ) { $('input[name="updateFrequency"]').val(10) }
 		else if (settings.updateFrequency > 0 ) { $('input[name="updateFrequency"]').val(settings.updateFrequency) };
 	
@@ -128,7 +131,8 @@ $(document).ready(function () {
 	if (settings.autoResizeForm) { $("input[name=autoResizeForm]").attr('checked', true); }
 	if (settings.showFormOnCite) { $("input[name=showFormOnCite]").attr('checked', true); }
 	if (settings.showInfo) { $("input[name=showInfo]").attr('checked', true); }
-	if (settings.enableBots) { $("input[name=enableBots]").attr('checked', true); }
+    if (settings.enableBots) { $("input[name=enableBots]").attr('checked', true); }
+    if (settings.useCustomCSS) { $("input[name=useCustomCSS]").attr('checked', true); }
 	if (settings.markupButtons) { $("input[name=markupButtons]").attr('checked', true); }
 	if (settings.markupHotkeys) { $("input[name=markupHotkeys]").attr('checked', true); }
 	if (settings.showBackLinks) { $("input[name=showBackLinks]").attr('checked', true); }
@@ -136,7 +140,8 @@ $(document).ready(function () {
 	
 	$('#save').click(function () {
 		// Oh my god this is awkward.
-		if ($('#ajaxPolling option:selected').val() == "ajax") {
+        settings.updateFrequency = $("input[name=updateFrequency]").val();
+        if ($('#ajaxPolling option:selected').val() == "ajax") {
 			settings.ajax = true; settings.noRefresh = false; settings.externalPolling = false
 			} else if ($('#ajaxPolling option:selected').val() == "noRefresh") {
 				settings.ajax = false; settings.noRefresh = true; settings.externalPolling = false
@@ -174,8 +179,9 @@ $(document).ready(function () {
 		if ($("input[name=autoResizeForm]").prop('checked')) { settings.autoResizeForm = true } else { settings.autoResizeForm = false };
 		if ($("input[name=showFormOnCite]").prop('checked')) { settings.showFormOnCite = true } else { settings.showFormOnCite = false };
 		if ($("input[name=showInfo]").prop('checked')) { settings.showInfo = true } else { settings.showInfo = false };
-		if ($("input[name=enableBots]").prop('checked')) { settings.enableBots = true } else { settings.enableBots = false };
-		settings.updateFrequency = $('input[name="updateFrequency"]').val();
+        if ($("input[name=enableBots]").prop('checked')) { settings.enableBots = true } else { settings.enableBots = false };
+        if ($("input[name=useCustomCSS]").prop('checked')) { settings.useCustomCSS = true; } else { settings.useCustomCSS = false };
+        settings.customCSS = $("textarea[name=customCSS]").val();
 		localStorage.setItem("settings", JSON.stringify(settings));
 		location.reload();
 	});
