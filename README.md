@@ -1,75 +1,63 @@
-Synch Imageboard Engine, based on Tinyboard
+Synch Imageboard Engine
 ==========================================
 
-About
+О движке
 ------------
-Tinyboard is a free light-weight, fast, highly configurable and user-friendly
-imageboard software package. It is written in PHP and has few dependencies.
-Synch IE is a fork with several cool features that shoud work out of the box.
+Synch Imageboard Engine (или просто Synch IE) основан на исходном коде Tinyboard, является бесплатным,
+легковесным, быстрым, гибким и отзвычивым движком для создания современных имиджборд.
+Он написан на PHP с некоторыми зависимостями и содержит множество гибких настроек, работающих "из коробки".
 
-Requirements
+Минимальные системные требования
 ------------
 1.	PHP >= 5.3
-2.	MySQL server
+2.	Сервер MySQL
 3.	[mbstring](http://www.php.net/manual/en/mbstring.installation.php) 
 4.	[PHP GD](http://www.php.net/manual/en/intro.image.php)
 5.	[PHP PDO](http://www.php.net/manual/en/intro.pdo.php)
 
-@savetheinternet and its crew are trying to make sure Tinyboard is compatible with all
-major web servers and operating systems. SynchIE, just like Tinyboard, does not include an Apache
-```.htaccess``` file nor does it need one.
+Synch IE не требует файла ```.htaccess``` для работы, так что вы можете запустить его
+практически на любом веб-сервере.
 
-### Recommended
-1.	MySQL server >= 5.5.3
-2.	ImageMagick (command-line ImageMagick or GraphicsMagick preferred).
-3.	[APC (Alternative PHP Cache)](http://php.net/manual/en/book.apc.php), [XCache](http://xcache.lighttpd.net/) or [Memcached](http://www.php.net/manual/en/intro.memcached.php)
+### Рекомендованные системные требования
+1.	Сервер MySQL >= 5.5.3
+2.	ImageMagick (предпочтительнее командная строка ImageMagick или GraphicsMagick).
+3.	[APC (Alternative PHP Cache)](http://php.net/manual/en/book.apc.php), [XCache](http://xcache.lighttpd.net/) или [Memcached](http://www.php.net/manual/en/intro.memcached.php)
 
-Contributing
+Помощь в разработке
 ------------
-You can contribute to Tinyboard by:
-*	Developing patches/improvements/translations and using GitHub to submit pull requests
-*	Providing feedback and suggestions
-*	Writing/editing documentation
+Вы можете помочь нам:
+*   Создавая патчи, исправляя ошибки, добавляя новые крутые штуки, используя систему пулл-реквестов Github
+*   Отписываясь в [багтрекере](http://bugtracker.syn-ch.ru) о найденных ошибках и предлагая там идеи
+*   Дополнив или исправив документацию
+Кроме этого, вы можете помочь оригинальному проекту Tinyboard. Если вам нужна помощь, обращайтесь за ней.
 
-If you need help developing a patch, please join our IRC channel.
-
-Installation
+Установка
 -------------
-0.  Make sure that you really know what are you doind. I've never tried
-    to install this anywhere and you're aware of this. Tinyboard is great
-    but SynchIE has some critical vulnerabilities.
-1.	Download and extract Tinyboard to your web directory or get the latest
-	development version with:
+0.  Очень важно, чтобы вы были уверены в том, что делаете. На данном этапе движок еще не устанавливался
+    "с нуля", содержит несколько критических уязвимостей и ни в коем случае не может рекомендоваться для
+    использования на реальном сервере. Мы будем делать все возможное, чтобы установка Synch IE была простой,
+    так что если вы не ищете трудностей, вам придется немного подождать.
+1.  Загрузите и распакуйте Synch IE на ваш веб-сервер, или получите последнюю версию с помощью команды
 
         git clone git://github.com/twiforce/synch-dev.git
 	
-2.	Navigate to ```install.php``` in your web browser and follow the
-	prompts.
-3.	SynchIE should now be installed. Log in to ```mod.php``` with the
-	default username and password combination: **admin / password**.
+2.	Откройте файл ```install.php``` в вашем браузере и следуйте инструкциям установщика.
+3.	SynchIE теперь должен быть установлен. Авторизуйтесь на ```mod.php``` с помощью стандартной комбинации: **admin / password**.
 
-Please remember to change the administrator account password.
+Не забудьте поменять пароль администратора после окончания установки.
 
-See also: [Configuration Basics](http://tinyboard.org/docs/?p=Config).
+Дополнительная информация: [Configuration Basics](http://tinyboard.org/docs/?p=Config) (англ.).
 
-Support
+Поддержка
 --------
-Tinyboard is still beta software -- there are bound to be bugs. If you find a
-bug, please report it.
+Пожалуйста, сообщайте о найденных ошибках в багтрекер или на Github.
 
-SynchIE is even more beta software, but at some time it'll be pretty useable.
+*	Информация о подробной настройке и конфигурации основного функционала находится
+    в комментариях к файлу ```inc/config.php```.
+*	Документацию можно найти [тут](http://tinyboard.org/docs/) (англ.).
 
-If you need assistance with installing, configuring, or using Tinyboard, you may
-find support from a variety of sources:
-
-*	If you're unsure about how to enable or configure certain features, make
-	sure you have read the comments in ```inc/config.php```.
-*	Documentation can be found [here](http://tinyboard.org/docs/).
-*	You can join Tinyboard's IRC channel for support and general queries: 
-	[irc.datnode.net #tinyboard](irc://irc.datnode.net/tinyboard).
-*	You may find help at [tinyboard.org](http://tinyboard.org/#help).
-
-License
+Лицензия
 --------
-See original [LICENSE.md](http://github.com/savetheinternet/Tinyboard/blob/master/LICENSE.md).
+Synch IE основан на открытом исходном коде Tinyboard. [LICENSE.md](http://github.com/savetheinternet/Tinyboard/blob/master/LICENSE.md).
 
+Исходные коды данного репозитория распространяются под лицензией MIT, с сохранением оригинальных авторских прав на некоторые файлы.
