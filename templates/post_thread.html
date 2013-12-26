@@ -11,7 +11,7 @@
 	<p class="fileinfo">{% trans %}File:{% endtrans %} <a href="{{ config.uri_img }}{{ post.file }}">{{ post.file }}</a> <span class="unimportant">
 	(
 		{% if post.thumb == 'spoiler' %}
-			{% trans %}Spoiler Image{% endtrans %}, 
+			{% trans %}Spoiler Image{% endtrans %},
 		{% endif %}
 		{{ post.filesize|filesize }}
 		{% if post.filewidth and post.fileheight %}
@@ -21,7 +21,7 @@
 			{% endif %}
 		{% endif %}
 		{% if config.show_filename and post.filename %}
-			, 
+			,
 			{% if post.filename|length > config.max_filename_display %}
 				<span class="postfilename" title="{{ post.filename|e }}">{{ post.filename|truncate(config.max_filename_display)|bidi_cleanup }}</span>
 			{% else %}
@@ -29,7 +29,7 @@
 			{% endif %}
 		{% endif %}
 		{% if post.thumb != 'file' and config.image_identification %}
-			, 
+			,
 			<span class='image_id'>
 			 <a href="http://imgops.com/{{ config.domain }}{{ config.uri_img }}{{ post.file }}">io</a>
 			{% if post.file|extension == 'jpg' %}
@@ -56,7 +56,7 @@
 		{{ config.uri_thumb }}{{ post.thumb }}
 	{% endif %}" style="width:{{ post.thumbwidth }}px;height:{{ post.thumbheight }}px;  {% if post.file|extension == 'mp3' %}display:none;{% endif %}" alt="" /></a>
 {% endif %}
-<div class="post op"><p class="intro"{% if not index %} id="{{ post.id }}"{% endif %}>
+<div class="post op" id="reply_{{ post.id }}"><p class="intro"{% if not index %} id="{{ post.id }}"{% endif %}>
 	<input type="checkbox" class="delete" name="delete_{{ post.id }}" id="delete_{{ post.id }}" />
 	<label for="delete_{{ post.id }}">
 		{% if post.subject|length > 0 %}
