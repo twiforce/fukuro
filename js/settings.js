@@ -16,12 +16,12 @@
 
 // Default settings
 if (localStorage.getItem("settings") == null)
-	localStorage.setItem("settings", "{\"ajax\":true, \"useLocalTime\":true, \"showInfo\":true, \"markupButtons\":true, \"showSpoiler\":false, \"showNewMessages\":true, \"showSaveOriginalLinks\":true, \"showBackLinks\":true}");
+	localStorage.setItem("settings", "{\"ajax\":true, \"useLocalTime\":true, \"showInfo\":true, \"showPostHover\":true, \"markupButtons\":true, \"showSpoiler\":false, \"showNewMessages\":true, \"showSaveOriginalLinks\":true, \"showBackLinks\":true}");
 
 // Current settings version. We'll be using this to notinfy users for updates
 // Let's just start from one. That's kinda not the first settings.js but still, whatever, nobody cares
 
-var version = 1;
+var version = 2;
 
 var settings = JSON.parse(localStorage.getItem("settings"));
 
@@ -59,6 +59,7 @@ $(document).ready(function () {
 	<p></p><input type="checkbox" name="updateThread">Обновлять тред каждые <input type="text" maxlength="3" size="3" name="updateFrequency">с<br>\
 	Использовать <select id="ajaxPolling"><option value="ajax">новую</option><option value="noRefresh">старую</option><option value="externalPolling">обычную</option></select> AJAX-отправку сообщений<br>\
 	<input type="checkbox" name="showBackLinks">Отображать ссылки на ответы <select id="backLinksStyle"><option value="backLinksNormal">внизу</option><option value="backLinks4chan">наверху</option></select><br>\
+	<input type="checkbox" name="showPostHover">Показывать пост при наведении на ссылку<br>\
 	<input type="checkbox" name="showNewMessages">Отображать количество новых постов в заголовке<br>\
 	<input type="checkbox" name="boopNewMessages">Звуковые уведомления о новых постах<br>\
 	<input type="checkbox" name="quoteSelection">Цитировать текст при выделении в посте<br>\
@@ -123,8 +124,9 @@ $(document).ready(function () {
 	if (settings.updateThread) { $("input[name=updateThread]").attr('checked', true);
 		if (settings.updateFrequency <= 0 ) { $('input[name="updateFrequency"]').val(30) }
 		}
-	if (settings.showNewMessages) { $("input[name=showNewMessages]").attr('checked', true); }
-	if (settings.boopNewMessages) { $("input[name=boopNewMessages]").attr('checked', true); }
+    if (settings.showNewMessages) { $("input[name=showNewMessages]").attr('checked', true); }
+    if (settings.showPostHover) { $("input[name=showPostHover]").attr('checked', true); }
+    if (settings.boopNewMessages) { $("input[name=boopNewMessages]").attr('checked', true); }
 	if (settings.ajax) { $('#ajaxPolling option[value="ajax"]').attr('selected', 'selected'); }
 	if (settings.noRefresh) { $('#ajaxPolling option[value="noRefresh"]').attr('selected', 'selected'); }
 	if (settings.externalPolling) { $('#ajaxPolling option[value="externalPolling"]').attr('selected', 'selected'); }
@@ -176,8 +178,9 @@ $(document).ready(function () {
 			} else {
 				settings.backLinksStyle = false; }
 		if ($("input[name=updateThread]").prop('checked')) { settings.updateThread = true } else { settings.updateThread = false };
-		if ($("input[name=showNewMessages]").prop('checked')) { settings.showNewMessages = true } else { settings.showNewMessages = false };
-		if ($("input[name=boopNewMessages]").prop('checked')) { settings.boopNewMessages = true } else { settings.boopNewMessages = false };
+        if ($("input[name=showNewMessages]").prop('checked')) { settings.showNewMessages = true } else { settings.showNewMessages = false };
+        if ($("input[name=showPostHover]").prop('checked')) { settings.showPostHover = true } else { settings.showPostHover = false };
+        if ($("input[name=boopNewMessages]").prop('checked')) { settings.boopNewMessages = true } else { settings.boopNewMessages = false };
 		if ($("input[name=showBackLinks]").prop('checked')) { settings.showBackLinks = true } else { settings.showBackLinks = false };
 		if ($("input[name=quoteSelection]").prop('checked')) { settings.quoteSelection = true } else { settings.quoteSelection = false };
         if ($("input[name=useLocalTime]").prop('checked')) { settings.useLocalTime = true } else { settings.useLocalTime = false };
