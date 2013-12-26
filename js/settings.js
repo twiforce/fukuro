@@ -33,7 +33,7 @@ var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
 $(document).ready(function () {
 	if(isAndroid) { $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>');
 	} else { $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs"></i> Настройки</a>'); }
-	$('body').append('<div id="settingsPopup"><b>Настройки</b></div>');
+	$('body').append('<div id="settingsPopup"><h2>Настройки</h2></div>');
 	
 	var bottom = document.getElementsByClassName('boardlist bottom')[0];
 	var link = document.createElement('a');
@@ -49,12 +49,13 @@ $(document).ready(function () {
 	});
 	
 	$('#settingsPopup').append('<div id="wrapper">\
-	<a href="javascript:;" id="tab1" class="tabs active">Посты</a>\
-	<a href="javascript:;" id="tab2" class="tabs">Форма</a>\
-	<a href="javascript:;" id="tab3" class="tabs">Полезности</a>\
-	<a href="javascript:;" id="tab4" class="tabs">Оформление</a>\
+	<a href="javascript:;" id="tab1" class="tabs active"><i class="fa fa-comments-o"></i> Посты</a>\
+	<a href="javascript:;" id="tab2" class="tabs"><i class="fa fa-pencil-square-o"></i> Форма</a>\
+	<a href="javascript:;" id="tab3" class="tabs"><i class="fa fa-puzzle-piece"></i> Полезности</a>\
+	<a href="javascript:;" id="tab4" class="tabs"><i class="fa fa-wrench"></i> CSS</a>\
+	<br/>\
 	<div id="con_tab1" class="tabs active">\
-	<input type="checkbox" name="updateThread">Обновлять тред каждые <input type="text" maxlength="3" size="3" name="updateFrequency">с<br>\
+	<p></p><input type="checkbox" name="updateThread">Обновлять тред каждые <input type="text" maxlength="3" size="3" name="updateFrequency">с<br>\
 	Использовать <select id="ajaxPolling"><option value="ajax">новую</option><option value="noRefresh">старую</option><option value="externalPolling">обычную</option></select> AJAX-отправку сообщений<br>\
 	<input type="checkbox" name="showBackLinks">Отображать ссылки на ответы <select id="backLinksStyle"><option value="backLinksNormal">внизу</option><option value="backLinks4chan">наверху</option></select><br>\
 	<input type="checkbox" name="showNewMessages">Отображать количество новых постов в заголовке<br>\
@@ -62,26 +63,28 @@ $(document).ready(function () {
 	<input type="checkbox" name="quoteSelection">Цитировать текст при выделении в посте<br>\
 	<input type="checkbox" name="hidePosts">Добавить кнопки для скрытия постов<br>\
 	<input type="checkbox" name="hideImageLinks">Добавить кнопки для скрытия изображений<br>\
-	</div><div id="con_tab2" class="tabs">\
-	<select id="formStyle"><option value="defaultForm">Обычная</option><option value="stickyForm">Прикрепленная</option><option value="quickReply">Плавающая</option><option value="inlineForm">Внутри постов (*)</option></select> форма ответа<br>\
+	</p></div><div id="con_tab2" class="tabs">\
+	<p><select id="formStyle"><option value="defaultForm">Обычная</option><option value="stickyForm">Прикрепленная</option><option value="quickReply">Плавающая</option><option value="inlineForm">Внутри постов (*)</option></select> форма ответа<br>\
 	<input type="checkbox" name="simpleForm">Упрощенная форма<br>\
 	<input type="checkbox" name="markupButtons">Отображать кнопки разметки<br>\
 	<input type="checkbox" name="markupHotkeys">Включить хоткеи<br>\
 	<input type="checkbox" name="textCountForm">Отображать количество введенных символов<br>\
 	<input type="checkbox" name="autoResizeForm">Автоматически расширять поле ввода<br>\
 	<input type="checkbox" name="showFormOnCite">Показывать прикрепленную форму при цитировании поста<br>\
-	</div><div id="con_tab3" class="tabs">\
-	<input type="checkbox" name="useLocalTime">Использовать местное время<br>\
+	</p></div><div id="con_tab3" class="tabs">\
+	<p></p><input type="checkbox" name="useLocalTime">Использовать местное время<br>\
 	<input type="checkbox" name="showSaveOriginalLinks">Сохранять оригинальное название файла<br>\
 	<input type="checkbox" name="showSpoiler">Раскрывать изображения-спойлеры<br>\
 	<input type="checkbox" name="textSpoiler">Раскрывать текстовые спойлеры<br>\
 	<input type="checkbox" name="hideRoleplay">Не отображать тег [rp]<br>\
 	<input type="checkbox" name="showInfo">Показывать онлайн и скорость борды<br>\
-	</div><div id="con_tab4" class="tabs">\
-	<input type="checkbox" name="useCustomCSS">Использовать свой CSS<button id="applyCSS" style="float: right">Предпросмотр</button><br>\
+	</p></div><div id="con_tab4" class="tabs">\
+	<p><input type="checkbox" name="useCustomCSS">Использовать свой CSS<button id="applyCSS" style="float: right">Предпросмотр</button><br>\
 	<textarea id="customCSS" rows="10" cols="45" name="customCSS"></textarea>\
-	</div></div><p><a id="save" href="javascript:void(0);">Сохранить</a>&nbsp;<a id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()">Закрыть</a>&nbsp;<a href="javascript:void(0);" onclick="localStorage.removeItem(\'settings\');location.reload();">Сбросить</a></p>');
-	
+	</p></div></div><p><button id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> Сохранить</button>&nbsp;\
+    <button id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()"><i class="fa fa-times"></i> Закрыть</button>&nbsp;\
+    <button id="clear" href="javascript:void(0);"><i class="fa fa-eraser"></i> Сбросить настройки</button></p>');
+
 	// http://jsfiddle.net/gxy45/2/
 	$('#wrapper a').click(function() {
 		var tab_id=$(this).attr('id');
@@ -196,27 +199,33 @@ $(document).ready(function () {
 	});
 	
 	$(document).ready(function() {
-    if ( ($('#de-main').length) && (localStorage.getItem("dollScriptNotice") != "shown") ){
-        $('body').append('<div id="dollScriptInfo"><b>Обратите внимание!</b><br/>Кажется, у вас активирован пользовательский скрипт Dollchan Extension Tools ("Куклоскрипт"). Для стабильной работы сайта просим вас отключить этот пользовательский скрипт или <a id="dismissDollScript" href="javascript:void(0);">автоматически настроить имиджборд для корректной работы</a> (страница перезагрузится).<br/>Кликните на это окно, чтобы закрыть его.</div>');
-		$('#dollScriptInfo').css({'position': 'fixed', 'cursor': 'pointer', 'top': '10px', 'width': '60%', 'padding': '5px', 'border-radius': '2px', 'background-color': 'white'});
-		$( "#dismissDollScript" ).click(function() {
-			localStorage.setItem("settings", "{\"ajax\":false, \"showInfo\":true, \"markupButtons\":true, \"showSpoiler\":false}");
-			localStorage.setItem("dollScriptNotice", "shown");
-			$("#dollScriptInfo").hide();
-			location.reload();
-		});
-		$( "#dollScriptInfo" ).click(function() {
-			localStorage.setItem("dollScriptNotice", "shown");
-			$(this).hide();
-		});
-    } else if (settings.version != version) {
-        $('body').append('<div id="updateInfo"><b>Обратите внимание!</b><br/>Произошло обновление сайта. Возможно, добавились некоторые новые функции, или вам необходимо включить отсутствующий функционал в настройках. Загляните на <a href="/">главную страницу</a>, чтобы узнать список изменений.<br/>Кликните на это окно, чтобы закрыть его.</div>');
-        $('#updateInfo').css({'position': 'fixed', 'cursor': 'pointer', 'top': '10px', 'width': '60%', 'padding': '5px', 'border-radius': '2px', 'background-color': 'white'});
-        $( "#updateInfo" ).click(function() {
-            settings.version = version;
-            localStorage.setItem("settings", JSON.stringify(settings));
-            $("#updateInfo").hide();
+        if ( ($('#de-main').length) && (localStorage.getItem("dollScriptNotice") != "shown") ){
+            $('body').append('<div id="dollScriptInfo"><b>Обратите внимание!</b><br/>Кажется, у вас активирован пользовательский скрипт Dollchan Extension Tools ("Куклоскрипт"). Для стабильной работы сайта просим вас отключить этот пользовательский скрипт или <a id="dismissDollScript" href="javascript:void(0);">автоматически настроить имиджборд для корректной работы</a> (страница перезагрузится).<br/>Кликните на это окно, чтобы закрыть его.</div>');
+            $('#dollScriptInfo').css({'position': 'fixed', 'cursor': 'pointer', 'top': '10px', 'width': '60%', 'padding': '5px', 'border-radius': '2px', 'background-color': 'white'});
+            $( "#dismissDollScript" ).click(function() {
+                localStorage.setItem("settings", "{\"ajax\":false, \"showInfo\":true, \"markupButtons\":true, \"showSpoiler\":false}");
+                localStorage.setItem("dollScriptNotice", "shown");
+                $("#dollScriptInfo").hide();
+                location.reload();
+            });
+            $( "#dollScriptInfo" ).click(function() {
+                localStorage.setItem("dollScriptNotice", "shown");
+                $(this).hide();
+            });
+        } else if (settings.version != version) {
+            $('body').append('<div id="updateInfo"><b>Обратите внимание!</b><br/>Произошло обновление сайта. Возможно, добавились некоторые новые функции, или вам необходимо включить отсутствующий функционал в настройках. Загляните на <a href="/">главную страницу</a>, чтобы узнать список изменений.<br/>Кликните на это окно, чтобы закрыть его.</div>');
+            $('#updateInfo').css({'position': 'fixed', 'cursor': 'pointer', 'top': '10px', 'width': '60%', 'padding': '5px', 'border-radius': '2px', 'background-color': 'white'});
+            $( "#updateInfo" ).click(function() {
+                settings.version = version;
+                localStorage.setItem("settings", JSON.stringify(settings));
+                $("#updateInfo").hide();
+            });
+        }
+        $( "#clear" ).click(function() {
+            if (confirm('Вы уверены, что хотите вернуть настройки борды к стандартным?')) {
+                localStorage.removeItem('settings');
+                location.reload();
+            }
         });
-    }
-});
+    });
 });
