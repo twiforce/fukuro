@@ -53,6 +53,7 @@ $(document).ready(function () {
 	<a href="javascript:;" id="tab2" class="tabs"><i class="fa fa-pencil-square-o"></i> Форма</a>\
 	<a href="javascript:;" id="tab3" class="tabs"><i class="fa fa-puzzle-piece"></i> Полезности</a>\
 	<a href="javascript:;" id="tab4" class="tabs"><i class="fa fa-wrench"></i> CSS</a>\
+	<a href="javascript:;" id="tab5" class="tabs"><i class="fa fa-info"></i> Дополнительно</a>\
 	<br/>\
 	<div id="con_tab1" class="tabs active">\
 	<p></p><input type="checkbox" name="updateThread">Обновлять тред каждые <input type="text" maxlength="3" size="3" name="updateFrequency">с<br>\
@@ -81,7 +82,9 @@ $(document).ready(function () {
 	</p></div><div id="con_tab4" class="tabs">\
 	<p><input type="checkbox" name="useCustomCSS">Использовать свой CSS<button id="applyCSS" style="float: right">Предпросмотр</button><br>\
 	<textarea id="customCSS" rows="10" cols="45" name="customCSS"></textarea>\
-	</p></div></div><p><button id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> Сохранить</button>&nbsp;\
+	</p></div><div id="con_tab5" class="tabs">\
+	<p>Экспорт/импорт настроек<button id="applySettingsPlain" style="float: right"><i class="fa fa-check"></i> Применить</button></p>\
+	<textarea id="settingsPlain" rows="10" cols="45" name="settingsPlain"></textarea>\</div></div><p><button id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> Сохранить</button>&nbsp;\
     <button id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()"><i class="fa fa-times"></i> Закрыть</button>&nbsp;\
     <button id="clear" href="javascript:void(0);"><i class="fa fa-eraser"></i> Сбросить настройки</button></p>');
 
@@ -226,6 +229,11 @@ $(document).ready(function () {
                 localStorage.removeItem('settings');
                 location.reload();
             }
+        });
+        $("#settingsPlain").val(localStorage.getItem("settings"));
+        $( "#applySettingsPlain" ).click(function() {
+            localStorage.setItem("settings", $("#settingsPlain").val());
+            location.reload();
         });
     });
 });
