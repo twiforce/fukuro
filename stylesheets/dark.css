@@ -50,7 +50,7 @@ a.post_no:hover {
 	color: #32DD72 !important;
 	text-decoration: underline overline;
 }
-div.post.reply , form[name="post"], #navigation , #settingsPopup{
+div.post.reply , form[name="post"], #navigation , #settingsPopup, div.op.post-hover {
 	background: #333333!important;
 	border: #555555 1px solid;
 		-webkit-border-radius: 10px;

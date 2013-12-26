@@ -14,7 +14,7 @@ a:hover, p.intro a.post_no:hover , div.post.reply div.body a:hover {
 a.post_no {
 	color: #800000;
 }
-div.post.reply , form[name="post"], #navigation , #settingsPopup {
+div.post.reply , form[name="post"], #navigation , #settingsPopup, div.op.post-hover {
 	background: url('/stylesheets/img/muon_posts.jpg')!important;
 	color: #C6985C;
 	border: solid 1px #34352D;

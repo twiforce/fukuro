@@ -82,7 +82,7 @@ a:hover, a.post_no:hover, p.intro a.email:hover span.name  {
 	color: #cccccc;
 	text-decoration: underline!important;
 }
-div.post.reply , form[name="post"], #navigation, #settingsPopup {
+div.post.reply , form[name="post"], #navigation, #settingsPopup, div.op.post-hover {
 	color: #aaaaaa;
 	background: #333333!important;
 	border: solid 1px #222222;
