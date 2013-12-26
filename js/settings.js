@@ -84,7 +84,8 @@ $(document).ready(function () {
 	<textarea id="customCSS" rows="10" cols="45" name="customCSS"></textarea>\
 	</p></div><div id="con_tab5" class="tabs">\
 	<p>Экспорт/импорт настроек<button id="applySettingsPlain" style="float: right"><i class="fa fa-check"></i> Применить</button></p>\
-	<textarea id="settingsPlain" rows="10" cols="45" name="settingsPlain"></textarea>\</div></div><p><button id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> Сохранить</button>&nbsp;\
+	<textarea id="settingsPlain" rows="10" cols="45" name="settingsPlain"></textarea></div></div>\
+	<p><button id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> Сохранить</button>&nbsp;\
     <button id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()"><i class="fa fa-times"></i> Закрыть</button>&nbsp;\
     <button id="clear" href="javascript:void(0);"><i class="fa fa-eraser"></i> Сбросить настройки</button></p>');
 
