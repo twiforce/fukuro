@@ -90,7 +90,16 @@ $(document).ready(function () {
 			$('input[name="email"]').appendTo($('input[name="name"]').parent());
 			$('input[name="email"], input[name="name"]').attr('size',18);
 			$('input[name="subject"]').attr('size',28);
-			$('input[name="spoiler"], label[for="spoiler"]').appendTo($('input[name="file"]').parent())
+			$('input[name="spoiler"], label[for="spoiler"]').appendTo($('input[name="file"]').parent());
+            $('form[name=post]').css({ "padding": '0px!important', });
+            $('form[name=post] table').css({ "border-spacing": '0px', });
+            $('form[name=post] input[type=text]').css({ "height": '17px', });
+            $('input[name=embed]').css({ "width": 'calc(100% - 2px)', });
+            $('textarea[name=body]').css({ "width": 'calc(100% - 6px)', });
+            $('input[name=name]').css({ "width": '48%', });
+            $('input[name=email]').css({ "width": '48%', "float": 'right', });
+            $('input[name=post]').css({ "float": 'right', });
+            $('input[name=subject]').css({ "width": 'calc(100% - 80px)', });
 		}
 		
 		if (isAndroid) {
