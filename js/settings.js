@@ -81,7 +81,7 @@ $(document).ready(function () {
 	<input type="checkbox" name="hideRoleplay">' + _('Не отображать тег [rp]') + '<br>\
 	<input type="checkbox" name="showInfo">' + _('Показывать онлайн и скорость борды') + '<br>\
 	</p></div><div id="con_tab4" class="tabs">\
-	<p><input type="checkbox" name="useCustomCSS">' + _('Использовать свой CSS') + '<button id="applyCSS" style="float: right">' + _('Предпросмотр') + '</button><br>\
+	<p><input type="checkbox" name="useCustomCSS">' + _('Использовать свой CSS') + '<button id="applyCSS" style="float: right"><i class="fa fa-eye"></i> ' + _('Предпросмотр') + '</button><br>\
 	<textarea id="customCSS" rows="10" cols="45" name="customCSS"></textarea>\
 	</p></div><div id="con_tab5" class="tabs">\
 	<p>' + _('Экспорт/импорт настроек') + '<button id="applySettingsPlain" style="float: right"><i class="fa fa-check"></i> ' + _('Применить') + '</button></p>\
