@@ -7,7 +7,6 @@
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
  *   $config['additional_javascript'][] = 'js/jquery.textareaCounter.plugin.js';
- *   $config['additional_javascript'][] = 'js/jquery.autosize.min.js';
  *   $config['additional_javascript'][] = 'js/jquery.form.js';
  *   $config['additional_javascript'][] = 'js/sticky-form.js';
  *
@@ -30,13 +29,13 @@ $(document).ready(function () {
 		});
 		
 		var hideButton = '<i class=\"fa fa-compress\"></i>';
-			if (!(isAndroid)) hideButton = hideButton + ' Спрятать';
+			if (!(isAndroid)) hideButton = hideButton + _(' Спрятать');
 		var showButton = '<i class=\"fa fa-arrows-alt\"></i>';
-			if (!(isAndroid)) showButton = showButton + ' Открыть';
+			if (!(isAndroid)) showButton = showButton + _(' Открыть');
 		var upButton = '<i class=\"fa fa-chevron-up\"></i>';
-			if (!(isAndroid)) upButton = upButton + ' Поднять';
+			if (!(isAndroid)) upButton = upButton + _(' Поднять');
 		var downButton = '<i class=\"fa fa-chevron-down\"></i>';
-			if (!(isAndroid)) downButton = downButton + ' Опустить';
+			if (!(isAndroid)) downButton = downButton + _(' Опустить');
 		
 		$('#toggleForm').click(function () {
 			var link = $(this);
@@ -80,11 +79,11 @@ $(document).ready(function () {
 		if (settings.simpleForm) {
 			$('form[name=post] th').remove();
 			$("label[for='spoiler']").text('Spoiler');
-			$('input[name=name]').attr('placeholder', 'Имя (оставьте пустым)');
-			$('input[name=email]').attr('placeholder', 'Email (или sage)');
-			$('input[name=subject]').attr('placeholder', 'Тема');
-			$('input[name=body]').attr('placeholder', 'Введите сообщение');
-			$('input[name=embed]').attr('placeholder', 'Youtube/Pleer');
+			$('input[name=name]').attr('placeholder', _('Имя (оставьте пустым)'));
+			$('input[name=email]').attr('placeholder', _('Email (или sage)'));
+			$('input[name=subject]').attr('placeholder', _('Тема'));
+			$('input[name=body]').attr('placeholder', _('Введите сообщение'));
+			$('input[name=embed]').attr('placeholder', _('Youtube/Pleer'));
 			$('input[name=password]').hide();
 			$('input[name="email"]').appendTo($('input[name="name"]').parent());
 			$('input[name="email"], input[name="name"]').attr('size',18);
@@ -126,7 +125,7 @@ $(document).ready(function () {
 			uploadProgress: function(event, position, total, percentComplete) {
 				var percentVal = percentComplete + '%';
 				$('input[name=post]').attr("disabled", true);
-				$('input[name=post]').attr('value','Отправка: ' + percentVal);
+				$('input[name=post]').attr('value',_('Отправка: ') + percentVal);
 			},
 			success: function(response, textStatus, xhr, form) {
 				console.log($('response').contents().find('h1').text());
@@ -138,7 +137,7 @@ $(document).ready(function () {
 				if (!(ajaxErrors)) {
 					clearForm();
 					$('input[name=post]').attr("disabled", false);
-					$('input[name=post]').attr('value','Ответить');
+					$('input[name=post]').attr('value',_('Ответить'));
 				}
 			}
 		});       
@@ -148,7 +147,7 @@ $(document).ready(function () {
 		$('#body').textareaCount({  
 			'maxCharacterSize': 4000,  
 			'originalStyle': 'originalDisplayInfo',
-			'displayFormat': '#input символов | #left осталось'  
+			'displayFormat': _('#input символов | #left осталось')
 		});
 		$(".originalDisplayInfo").css({
 			"font-size": '0.7em',
