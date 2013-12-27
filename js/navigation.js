@@ -13,7 +13,7 @@
  
 $(document).ready(function () {
 	$('body').append("<div id=\"navigation\"></div>")
-		$("<a id=\"scrollUp\"><i class=\"fa fa-arrow-up\"></i> Наверх</a>&nbsp;<a id=\"scrollDown\"><i class=\"fa fa-arrow-down\"></i> Вниз</a>&nbsp;<a onclick=\"clearForm();\"><i class=\"fa fa-trash-o\"></i> Очистить</a>&nbsp;<a id=\"toggleForm\"><i class=\"fa fa-compress\"></i> Спрятать</a>&nbsp;<a id=\"formPosition\"><i class=\"fa fa-chevron-up\"></i> Поднять</a>").appendTo('#navigation');
+		$("<a id=\"scrollUp\"><i class=\"fa fa-arrow-up\"></i> " + _("Наверх") + "</a>&nbsp;<a id=\"scrollDown\"><i class=\"fa fa-arrow-down\"></i> " + _("Вниз") + "</a>&nbsp;<a onclick=\"clearForm();\"><i class=\"fa fa-trash-o\"></i> " + _("Очистить") + "</a>&nbsp;<a id=\"toggleForm\"><i class=\"fa fa-compress\"></i> " + _("Спрятать") + "</a>&nbsp;<a id=\"formPosition\"><i class=\"fa fa-chevron-up\"></i> " + _("Поднять") + "</a>").appendTo('#navigation');
 		$('#navigation').css({
 			"position": 'fixed',
 			"bottom": '0px',
