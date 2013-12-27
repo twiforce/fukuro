@@ -86,7 +86,6 @@ $(document).ready(function () {
 			$('input[name=body]').attr('placeholder', 'Введите сообщение');
 			$('input[name=embed]').attr('placeholder', 'Youtube/Pleer');
 			$('input[name=password]').hide();
-			$('input[name="name"], input[name="file"]').after(' ');
 			$('input[name="email"]').appendTo($('input[name="name"]').parent());
 			$('input[name="email"], input[name="name"]').attr('size',18);
 			$('input[name="subject"]').attr('size',28);
@@ -96,10 +95,10 @@ $(document).ready(function () {
             $('form[name=post] input[type=text]').css({ "height": '17px', });
             $('input[name=embed]').css({ "width": 'calc(100% - 2px)', });
             $('textarea[name=body]').css({ "width": 'calc(100% - 6px)', });
-            $('input[name=name]').css({ "width": '48%', });
-            $('input[name=email]').css({ "width": '48%', "float": 'right', });
+            $('input[name=name]').css({ "width": '49%', });
+            $('input[name=email]').css({ "width": '49%', "float": 'right', });
             $('input[name=post]').css({ "float": 'right', });
-            $('input[name=subject]').css({ "width": 'calc(100% - 80px)', });
+            $('input[name=subject]').css({ "width": '49%', });
 		}
 		
 		if (isAndroid) {
