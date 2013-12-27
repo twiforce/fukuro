@@ -52,7 +52,7 @@ $(document).ready(function(){
 	if(isAndroid) {
 		$("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh fa-2x"></i></a>&nbsp;');
 	} else {
-		$("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh"></i> Обновить</a>&nbsp;');
+		$("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh"></i> ' + _('Обновить') + '</a>&nbsp;');
 	}
 	
 	function pollNewPosts() {
