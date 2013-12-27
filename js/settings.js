@@ -204,8 +204,7 @@ $(document).ready(function () {
 		localStorage.setItem("settings", JSON.stringify(settings));
 		location.reload();
 	});
-	
-	$(document).ready(function() {
+
         if ( ($('#de-main').length) && (localStorage.getItem("dollScriptNotice") != "shown") ){
             $('body').append('<div id="dollScriptInfo"><b>' + _('Обратите внимание!') + '</b><br/>' + _('Кажется, у вас активирован пользовательский скрипт Dollchan Extension Tools ("Куклоскрипт"). Для стабильной работы сайта просим вас отключить этот пользовательский скрипт или <a id="dismissDollScript" href="javascript:void(0);">автоматически настроить имиджборд для корректной работы</a> (страница перезагрузится).') + '<br/>' + _('Кликните на это окно, чтобы закрыть его.') + '</div>');
             $('#dollScriptInfo').css({'position': 'fixed', 'cursor': 'pointer', 'top': '10px', 'width': '60%', 'padding': '5px', 'border-radius': '2px', 'background-color': 'white'});
@@ -239,5 +238,4 @@ $(document).ready(function () {
             localStorage.setItem("settings", $("#settingsPlain").val());
             location.reload();
         });
-    });
 });
