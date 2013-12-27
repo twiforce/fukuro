@@ -6,6 +6,7 @@
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
+ *   $config['additional_javascript'][] = 'js/rangyinputs.min.js';
  *   $config['additional_javascript'][] = 'js/keymaster.js';
  *   $config['additional_javascript'][] = 'js/settings.js';
  *   $config['additional_javascript'][] = 'js/markup-buttons.js';
@@ -28,9 +29,10 @@ $(document).ready(function () {
 		$('#m-strikethrough').click(function () {
 			$("#body").surroundSelectedText("[s]", "[/s]");
 		});
-		$('#m-quote').click(function () {
-			$("#body").surroundSelectedText(">", "");
-		});
+        $('#m-quote').click(function () {
+            var seltext = $("#body").getSelection();
+            $("#body").replaceSelectedText('>' + seltext.text.replace(/\n/g, '\n>'));
+        });
 		$('#m-spoiler').click(function () {
 			$("#body").surroundSelectedText("[h]", "[/h]");
 		});
