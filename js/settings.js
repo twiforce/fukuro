@@ -32,14 +32,14 @@ var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
 // A very rough and dirty settings panel, dollscript-like. Needs rewiting ASAP.
 $(document).ready(function () {
 	if(isAndroid) { $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>');
-	} else { $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs"></i> Настройки</a>'); }
-	$('body').append('<div id="settingsPopup"><h2>Настройки</h2></div>');
+	} else { $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs"></i> ' + _('Настройки') +'</a>'); }
+	$('body').append('<div id="settingsPopup"><h2>' + _('Настройки') +'</h2></div>');
 	
 	var bottom = document.getElementsByClassName('boardlist bottom')[0];
 	var link = document.createElement('a');
 	link.href = 'javascript:void(0);';
 	link.id = 'settingsBottom';
-	link.textContent = '[Настройки]';
+	link.textContent = _('[Настройки]');
 	link.style.paddingLeft = '10px';
 	link.style.textDecoration = "underline";
 	document.body.insertBefore(link, bottom);
@@ -49,46 +49,46 @@ $(document).ready(function () {
 	});
 	
 	$('#settingsPopup').append('<div id="wrapper">\
-	<a href="javascript:;" id="tab1" class="tabs active"><i class="fa fa-comments-o"></i> Посты</a>\
-	<a href="javascript:;" id="tab2" class="tabs"><i class="fa fa-pencil-square-o"></i> Форма</a>\
-	<a href="javascript:;" id="tab3" class="tabs"><i class="fa fa-puzzle-piece"></i> Полезности</a>\
-	<a href="javascript:;" id="tab4" class="tabs"><i class="fa fa-wrench"></i> CSS</a>\
-	<a href="javascript:;" id="tab5" class="tabs"><i class="fa fa-info"></i> Дополнительно</a>\
+	<a href="javascript:;" id="tab1" class="tabs active"><i class="fa fa-comments-o"></i> ' + _('Посты') + '</a>\
+	<a href="javascript:;" id="tab2" class="tabs"><i class="fa fa-pencil-square-o"></i> ' + _('Форма') + '</a>\
+	<a href="javascript:;" id="tab3" class="tabs"><i class="fa fa-puzzle-piece"></i> ' + _('Полезности') + '</a>\
+	<a href="javascript:;" id="tab4" class="tabs"><i class="fa fa-wrench"></i> ' + _('CSS') + '</a>\
+	<a href="javascript:;" id="tab5" class="tabs"><i class="fa fa-info"></i> ' + _('Дополнительно') + '</a>\
 	<br/>\
 	<div id="con_tab1" class="tabs active">\
-	<p></p><input type="checkbox" name="updateThread">Обновлять тред каждые <input type="text" maxlength="3" size="3" name="updateFrequency">с<br>\
-	Использовать <select id="ajaxPolling"><option value="ajax">новую</option><option value="noRefresh">старую</option><option value="externalPolling">обычную</option></select> AJAX-отправку сообщений<br>\
-	<input type="checkbox" name="showBackLinks">Отображать ссылки на ответы <select id="backLinksStyle"><option value="backLinksNormal">внизу</option><option value="backLinks4chan">наверху</option></select><br>\
-	<input type="checkbox" name="showPostHover">Показывать пост при наведении на ссылку<br>\
-	<input type="checkbox" name="showNewMessages">Отображать количество новых постов в заголовке<br>\
-	<input type="checkbox" name="boopNewMessages">Звуковые уведомления о новых постах<br>\
-	<input type="checkbox" name="quoteSelection">Цитировать текст при выделении в посте<br>\
-	<input type="checkbox" name="hidePosts">Добавить кнопки для скрытия постов<br>\
-	<input type="checkbox" name="hideImageLinks">Добавить кнопки для скрытия изображений<br>\
+	<p></p><input type="checkbox" name="updateThread">' + _('Обновлять тред каждые') + ' <input type="text" maxlength="3" size="3" name="updateFrequency"> ' + _('с') + '<br>\
+	' + _('Использовать') + ' <select id="ajaxPolling"><option value="ajax">' + _('новую') + '</option><option value="noRefresh">' + _('старую') + '</option><option value="externalPolling">' + _('внешнюю') + '</option></select> ' + _('AJAX-отправку сообщений') + '<br>\
+	<input type="checkbox" name="showBackLinks">' + _('Отображать ссылки на ответы') + ' <select id="backLinksStyle"><option value="backLinksNormal">' + _('внизу') + '</option><option value="backLinks4chan">' + _('наверху') + '</option></select><br>\
+	<input type="checkbox" name="showPostHover">' + _('Показывать пост при наведении на ссылку') + '<br>\
+	<input type="checkbox" name="showNewMessages">' + _('Отображать количество новых постов в заголовке') + '<br>\
+	<input type="checkbox" name="boopNewMessages">' + _('Звуковые уведомления о новых постах') + '<br>\
+	<input type="checkbox" name="quoteSelection">' + _('Цитировать текст при выделении в посте') + '<br>\
+	<input type="checkbox" name="hidePosts">' + _('Добавить кнопки для скрытия постов') + '<br>\
+	<input type="checkbox" name="hideImageLinks">' + _('Добавить кнопки для скрытия изображений') + '<br>\
 	</p></div><div id="con_tab2" class="tabs">\
-	<p><select id="formStyle"><option value="defaultForm">Обычная</option><option value="stickyForm">Прикрепленная</option><option value="quickReply">Плавающая</option><option value="inlineForm">Внутри постов (*)</option></select> форма ответа<br>\
-	<input type="checkbox" name="simpleForm">Упрощенная форма<br>\
-	<input type="checkbox" name="markupButtons">Отображать кнопки разметки<br>\
-	<input type="checkbox" name="markupHotkeys">Включить хоткеи<br>\
-	<input type="checkbox" name="textCountForm">Отображать количество введенных символов<br>\
-	<input type="checkbox" name="autoResizeForm">Автоматически расширять поле ввода<br>\
-	<input type="checkbox" name="showFormOnCite">Показывать прикрепленную форму при цитировании поста<br>\
+	<p><select id="formStyle"><option value="defaultForm">' + _('Обычная') + '</option><option value="stickyForm">' + _('Прикрепленная') + '</option><option value="quickReply">' + _('Плавающая') + '</option><option value="inlineForm">' + _('Внутри постов (*)') + '</option></select> ' + _('форма ответа') + '<br>\
+	<input type="checkbox" name="simpleForm">' + _('Упрощенная форма') + '<br>\
+	<input type="checkbox" name="markupButtons">' + _('Отображать кнопки разметки') + '<br>\
+	<input type="checkbox" name="markupHotkeys">' + _('Включить хоткеи') + '<br>\
+	<input type="checkbox" name="textCountForm">' + _('Отображать количество введенных символов') + '<br>\
+	<input type="checkbox" name="autoResizeForm">' + _('Автоматически расширять поле ввода') + '<br>\
+	<input type="checkbox" name="showFormOnCite">' + _('Показывать прикрепленную форму при цитировании поста') + '<br>\
 	</p></div><div id="con_tab3" class="tabs">\
-	<p></p><input type="checkbox" name="useLocalTime">Использовать местное время<br>\
-	<input type="checkbox" name="showSaveOriginalLinks">Сохранять оригинальное название файла<br>\
-	<input type="checkbox" name="showSpoiler">Раскрывать изображения-спойлеры<br>\
-	<input type="checkbox" name="textSpoiler">Раскрывать текстовые спойлеры<br>\
-	<input type="checkbox" name="hideRoleplay">Не отображать тег [rp]<br>\
-	<input type="checkbox" name="showInfo">Показывать онлайн и скорость борды<br>\
+	<p></p><input type="checkbox" name="useLocalTime">' + _('Использовать местное время') + '<br>\
+	<input type="checkbox" name="showSaveOriginalLinks">' + _('Сохранять оригинальное название файла') + '<br>\
+	<input type="checkbox" name="showSpoiler">' + _('Раскрывать изображения-спойлеры') + '<br>\
+	<input type="checkbox" name="textSpoiler">' + _('Раскрывать текстовые спойлеры') + '<br>\
+	<input type="checkbox" name="hideRoleplay">' + _('Не отображать тег [rp]') + '<br>\
+	<input type="checkbox" name="showInfo">' + _('Показывать онлайн и скорость борды') + '<br>\
 	</p></div><div id="con_tab4" class="tabs">\
-	<p><input type="checkbox" name="useCustomCSS">Использовать свой CSS<button id="applyCSS" style="float: right">Предпросмотр</button><br>\
+	<p><input type="checkbox" name="useCustomCSS">' + _('Использовать свой CSS') + '<button id="applyCSS" style="float: right">' + _('Предпросмотр') + '</button><br>\
 	<textarea id="customCSS" rows="10" cols="45" name="customCSS"></textarea>\
 	</p></div><div id="con_tab5" class="tabs">\
-	<p>Экспорт/импорт настроек<button id="applySettingsPlain" style="float: right"><i class="fa fa-check"></i> Применить</button></p>\
+	<p>' + _('Экспорт/импорт настроек') + '<button id="applySettingsPlain" style="float: right"><i class="fa fa-check"></i> ' + _('Применить') + '</button></p>\
 	<textarea id="settingsPlain" rows="10" cols="45" name="settingsPlain"></textarea></div></div>\
-	<p><button id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> Сохранить</button>&nbsp;\
-    <button id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()"><i class="fa fa-times"></i> Закрыть</button>&nbsp;\
-    <button id="clear" href="javascript:void(0);"><i class="fa fa-eraser"></i> Сбросить настройки</button></p>');
+	<p><button id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> ' + _('Сохранить') + '</button>&nbsp;\
+    <button id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()"><i class="fa fa-times"></i> ' + _('Закрыть') + '</button>&nbsp;\
+    <button id="clear" href="javascript:void(0);"><i class="fa fa-eraser"></i> ' + _('Сбросить настройки') + '</button></p>');
 
 	// http://jsfiddle.net/gxy45/2/
 	$('#wrapper a').click(function() {
@@ -207,7 +207,7 @@ $(document).ready(function () {
 	
 	$(document).ready(function() {
         if ( ($('#de-main').length) && (localStorage.getItem("dollScriptNotice") != "shown") ){
-            $('body').append('<div id="dollScriptInfo"><b>Обратите внимание!</b><br/>Кажется, у вас активирован пользовательский скрипт Dollchan Extension Tools ("Куклоскрипт"). Для стабильной работы сайта просим вас отключить этот пользовательский скрипт или <a id="dismissDollScript" href="javascript:void(0);">автоматически настроить имиджборд для корректной работы</a> (страница перезагрузится).<br/>Кликните на это окно, чтобы закрыть его.</div>');
+            $('body').append('<div id="dollScriptInfo"><b>' + _('Обратите внимание!') + '</b><br/>' + _('Кажется, у вас активирован пользовательский скрипт Dollchan Extension Tools ("Куклоскрипт"). Для стабильной работы сайта просим вас отключить этот пользовательский скрипт или <a id="dismissDollScript" href="javascript:void(0);">автоматически настроить имиджборд для корректной работы</a> (страница перезагрузится).') + '<br/>' + _('Кликните на это окно, чтобы закрыть его.') + '</div>');
             $('#dollScriptInfo').css({'position': 'fixed', 'cursor': 'pointer', 'top': '10px', 'width': '60%', 'padding': '5px', 'border-radius': '2px', 'background-color': 'white'});
             $( "#dismissDollScript" ).click(function() {
                 localStorage.setItem("settings", "{\"ajax\":false, \"showInfo\":true, \"markupButtons\":true, \"showSpoiler\":false}");
@@ -220,7 +220,7 @@ $(document).ready(function () {
                 $(this).hide();
             });
         } else if (settings.version != version) {
-            $('body').append('<div id="updateInfo"><b>Обратите внимание!</b><br/>Произошло обновление сайта. Возможно, добавились некоторые новые функции, или вам необходимо включить отсутствующий функционал в настройках. Загляните на <a href="/">главную страницу</a>, чтобы узнать список изменений.<br/>Кликните на это окно, чтобы закрыть его.</div>');
+            $('body').append('<div id="updateInfo"><b>' + _('Обратите внимание!') + '</b><br/>' + _('Произошло обновление сайта. Возможно, добавились некоторые новые функции, или вам необходимо включить отсутствующий функционал в настройках. Загляните на <a href="/">главную страницу</a>, чтобы узнать список изменений.') + '<br/>' + _('Кликните на это окно, чтобы закрыть его.') + '</div>');
             $('#updateInfo').css({'position': 'fixed', 'cursor': 'pointer', 'top': '10px', 'width': '60%', 'padding': '5px', 'border-radius': '2px', 'background-color': 'white'});
             $( "#updateInfo" ).click(function() {
                 settings.version = version;
@@ -229,7 +229,7 @@ $(document).ready(function () {
             });
         }
         $( "#clear" ).click(function() {
-            if (confirm('Вы уверены, что хотите вернуть настройки борды к стандартным?')) {
+            if (confirm(_('Вы уверены, что хотите вернуть настройки борды к стандартным?'))) {
                 localStorage.removeItem('settings');
                 location.reload();
             }
