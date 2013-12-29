@@ -1133,6 +1133,9 @@ function index($page, $mod=false) {
 			$thread->add(new Post($po, $mod ? '?/' : $config['root'], $mod));
 		}
 
+        $thread->images = $num_images;
+        $thread->replies = isset($omitted['post_count']) ? $omitted['post_count'] : count($replies);
+
 		if ($omitted) {
 			$thread->omitted = $omitted['post_count'] - ($th['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview']);
 			$thread->omitted_images = $omitted['image_count'] - $num_images;
@@ -1411,6 +1414,10 @@ function buildIndex() {
 		$json = json_encode($api->translateCatalog($catalog), JSON_UNESCAPED_UNICODE);
 		$jsonFilename = $board['dir'] . 'catalog.json';
 		file_write($jsonFilename, $json);
+
+		$json = json_encode($api->translateCatalog($catalog, true));
+        $jsonFilename = $board['dir'] . 'threads.json';
+        file_write($jsonFilename, $json);
 	}
 
 	if ($config['try_smarter'])
