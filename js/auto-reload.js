@@ -30,6 +30,7 @@ $(document).ready(function(){
 	var poll = function() {
 		$.ajax({
 			url: document.location,
+            data: {nocache: Math.random()},
 			beforeSend: function() { $('#updateThread i').addClass('fa-spin') },
 			success: function(data) {
 				$(data).find('div.post.reply').each(function() {
