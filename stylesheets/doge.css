@@ -1,0 +1,169 @@
+@font-face {
+    font-family: 'Comic Sans MS';
+    src: url('webfonts/comic_sans_ms/comic_sans_ms-webfont.eot');
+    src: url('webfonts/comic_sans_ms/comic_sans_ms-webfont.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/comic_sans_ms/comic_sans_ms-webfont.woff') format('woff'),
+         url('webfonts/comic_sans_ms/comic_sans_ms-webfont.ttf') format('truetype'),
+         url('webfonts/comic_sans_ms/comic_sans_ms-webfont.svg#ComicSans') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Comic Sans MS';
+    src: url('webfonts/comic_sans_ms_bold/922666-webfont.eot');
+    src: url('webfonts/comic_sans_ms_bold/922666-webfont.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/comic_sans_ms_bold/922666-webfont.woff') format('woff'),
+         url('webfonts/comic_sans_ms_bold/922666-webfont.ttf') format('truetype'),
+         url('webfonts/comic_sans_ms_bold/922666-webfont.svg#ComicSansBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+body {
+	background: #BFA666 url('img/doge.png') no-repeat bottom right fixed;
+	background-size: 40%;
+	color: #333333;
+	font-family: 'Comic Sans MS', sans-serif;
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased;
+}
+a, a.post_no, #navigation a:hover, #markup a:hover, div.post.reply div.body a {
+	color: #333333!important;
+	text-decoration: none!important;
+}
+div.post.reply div.body a {
+	text-decoration: underline!important;
+}
+a:hover, a.post_no:hover {
+	color: #333333;
+	text-decoration: underline!important;
+}
+div.post.reply , form[name="post"], #navigation, #settingsPopup, div.op.post-hover {
+	background: #E9E3C6!important;
+	border: 1px solid #999999;
+	padding: 2px 10px 3px 10px;
+	margin: 5px;
+	border-spacing: 2px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+form[name="post"] {
+	padding: 2px!important;
+}
+div.post.reply.highlighted {
+	background: #CCCCCC;
+	border-color: #BBBBBB;
+}
+p.fileinfo, p.fileinfo a {
+	color: #aaaaaa;
+}
+p.fileinfo span.unimportant {
+	font-size: 12px;
+	font-weight: 100;
+	color: #b5b5b5;
+	font-style: italic;
+}
+div.post.reply div.body {
+	margin-left: 0em;
+	padding-right: 0em;
+	margin-top: 7px;
+}
+p.intro span.subject {
+	font-size: 1.2em;
+	color: #002244;
+	font-weight: bold;
+}
+p.intro span.name {
+	color: #333333;
+	font-weight: normal;
+}
+p.intro span.trip {
+	color: #228854;
+}
+form table tr th {
+	background: #DDDDDD;
+}
+div.ban h2 {
+	background: #FCA;
+	color: inherit;
+}
+div.ban {
+	border-color: #800;
+}
+div.ban p {
+	color: black;
+}
+div.pages {
+	background: #F0E0D6;
+	border-color: #D9BFB7;
+}
+div.pages a.selected {
+	color: #800;
+}
+hr {
+	border-color: #CCCCCC;
+}
+h1 {
+	color: #002244;
+	letter-spacing: 0px;
+	font-size: 2em;
+	font-family: 'Comic Sans MS', sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+}
+table.modlog tr th {
+	background: #СССССС;
+}
+span.spoiler {
+	background: #BBBBBB;
+	color: #BBBBBB;
+}
+span.spoiler:hover {
+	background: #BBBBBB;
+	color: #333333;
+}
+span.quote {
+	color:#789922;
+}
+div.post img.post-image {
+	padding: 5px 0px 5px 0px;
+}
+.unimportant {
+	font-size: 0.8 em;
+}
+textarea, input[type="text"], input[type="file"], input[type="password"], input[name="snum"], input[type="search"] {
+	border: solid 1px #d8d8d8;
+	border-radius: 2px;
+	color: #333333;
+}
+
+input[type="text"], input[type="file"], input[type="password"], input[name="snum"], input[type="search"] {
+	font-family: 'Comic Sans MS', sans-serif;
+}
+input[type="submit"], input[type="reset"], .buttons input[type="button"], .ui-button, #code_markup_select, .linkbutton, .uname, .button li  {
+	-o-appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	font-family: 'Comic Sans MS', sans-serif;
+	background-color: #FFFFFF;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid #d8d8d8;
+	color: #333333;
+}
+input[type="submit"]:hover, input[type="reset"]:hover, .buttons input[type="button"]:hover, .button li:hover {
+	-o-appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	font-family: 'Comic Sans MS', sans-serif;
+	background-color: #e5e5e5;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid #d8d8d8;
+	color: #333333;
+}
