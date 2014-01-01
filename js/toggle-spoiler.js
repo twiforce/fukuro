@@ -13,7 +13,7 @@
 onready(function(){
 	if (settings.textSpoiler) {
 		var do_unspoil = function() {
-			$('.spoiler').css({'color':'black'})
+			$('.spoiler').css({'color':'black', 'background-color': '#BBBBBB'})
 		}
 		
 		do_unspoil(document);
