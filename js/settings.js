@@ -74,7 +74,8 @@ $(document).ready(function () {
 	<input type="checkbox" name="autoResizeForm">' + _('Автоматически расширять поле ввода') + '<br>\
 	<input type="checkbox" name="showFormOnCite">' + _('Показывать прикрепленную форму при цитировании поста') + '<br>\
 	</p></div><div id="con_tab3" class="tabs">\
-	<p></p><input type="checkbox" name="useLocalTime">' + _('Использовать местное время') + '<br>\
+	<p></p><input type="checkbox" name="snowfall">' + _('Включить снег') + '<br>\
+	<input type="checkbox" name="useLocalTime">' + _('Использовать местное время') + '<br>\
 	<input type="checkbox" name="showSaveOriginalLinks">' + _('Сохранять оригинальное название файла') + '<br>\
 	<input type="checkbox" name="showSpoiler">' + _('Раскрывать изображения-спойлеры') + '<br>\
 	<input type="checkbox" name="textSpoiler">' + _('Раскрывать текстовые спойлеры') + '<br>\
@@ -146,7 +147,8 @@ $(document).ready(function () {
 	if (settings.textCountForm) { $("input[name=textCountForm]").attr('checked', true); }
 	if (settings.autoResizeForm) { $("input[name=autoResizeForm]").attr('checked', true); }
 	if (settings.showFormOnCite) { $("input[name=showFormOnCite]").attr('checked', true); }
-	if (settings.showInfo) { $("input[name=showInfo]").attr('checked', true); }
+    if (settings.showInfo) { $("input[name=showInfo]").attr('checked', true); }
+    if (settings.snowfall) { $("input[name=snowfall]").attr('checked', true); }
     if (settings.enableBots) { $("input[name=enableBots]").attr('checked', true); }
     if (settings.useCustomCSS) { $("input[name=useCustomCSS]").attr('checked', true); }
 	if (settings.markupButtons) { $("input[name=markupButtons]").attr('checked', true); }
@@ -196,7 +198,8 @@ $(document).ready(function () {
 		if ($("input[name=textCountForm]").prop('checked')) { settings.textCountForm = true } else { settings.textCountForm = false };
 		if ($("input[name=autoResizeForm]").prop('checked')) { settings.autoResizeForm = true } else { settings.autoResizeForm = false };
 		if ($("input[name=showFormOnCite]").prop('checked')) { settings.showFormOnCite = true } else { settings.showFormOnCite = false };
-		if ($("input[name=showInfo]").prop('checked')) { settings.showInfo = true } else { settings.showInfo = false };
+        if ($("input[name=snowfall]").prop('checked')) { settings.snowfall = true } else { settings.snowfall = false };
+        if ($("input[name=showInfo]").prop('checked')) { settings.showInfo = true } else { settings.showInfo = false };
         if ($("input[name=enableBots]").prop('checked')) { settings.enableBots = true } else { settings.enableBots = false };
         if ($("input[name=useCustomCSS]").prop('checked')) { settings.useCustomCSS = true; } else { settings.useCustomCSS = false };
         settings.customCSS = $("textarea[name=customCSS]").val();
