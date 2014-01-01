@@ -37,7 +37,7 @@ onready(function(){
                 times[i].setAttribute('data-local', 'true');
                 times[i].innerHTML =
                     [_("Sun"), _("Mon"), _("Tue"), _("Wed"), _("Thu"), _("Fri"), _("Sat"), _("Sun")][t.getDay()] + " " + zeropad(t.getDate(), 2) + " " +
-                    [_("Jan"), _("Feb"), _("Mar"), _("Apr"), _("May"), _("Jun"), _("Jul"), _("Aug"), _("Sep"), _("Oct"), _("Nov"), _("Dec")][zeropad(t.getMonth(), 2)]
+                    [_("Jan"), _("Feb"), _("Mar"), _("Apr"), _("May"), _("Jun"), _("Jul"), _("Aug"), _("Sep"), _("Oct"), _("Nov"), _("Dec"), _("Jan")][parseInt(zeropad(t.getMonth(), 2))]
                     + " " + t.getFullYear() + " " + zeropad(t.getHours(), 2) + ":" + zeropad(t.getMinutes(), 2) + ":" + zeropad(t.getSeconds(), 2);
             };
         };
