@@ -21,7 +21,7 @@ if (localStorage.getItem("settings") == null)
 // Current settings version. We'll be using this to notinfy users for updates
 // Let's just start from one. That's kinda not the first settings.js but still, whatever, nobody cares
 
-var version = 2;
+var version = 3;
 
 var settings = JSON.parse(localStorage.getItem("settings"));
 
@@ -60,6 +60,7 @@ $(document).ready(function () {
 	' + _('Использовать') + ' <select id="ajaxPolling"><option value="ajax">' + _('новую') + '</option><option value="noRefresh">' + _('старую') + '</option><option value="externalPolling">' + _('внешнюю') + '</option></select> ' + _('AJAX-отправку сообщений') + '<br>\
 	<input type="checkbox" name="showBackLinks">' + _('Отображать ссылки на ответы') + ' <select id="backLinksStyle"><option value="backLinksNormal">' + _('внизу') + '</option><option value="backLinks4chan">' + _('наверху') + '</option></select><br>\
 	<input type="checkbox" name="showPostHover">' + _('Показывать пост при наведении на ссылку') + '<br>\
+	<input type="checkbox" name="imageHover">' + _('Показывать изображение при наведении на превью') + '<br>\
 	<input type="checkbox" name="showNewMessages">' + _('Отображать количество новых постов в заголовке') + '<br>\
 	<input type="checkbox" name="boopNewMessages">' + _('Звуковые уведомления о новых постах') + '<br>\
 	<input type="checkbox" name="quoteSelection">' + _('Цитировать текст при выделении в посте') + '<br>\
@@ -127,6 +128,7 @@ $(document).ready(function () {
 		}
     if (settings.showNewMessages) { $("input[name=showNewMessages]").attr('checked', true); }
     if (settings.showPostHover) { $("input[name=showPostHover]").attr('checked', true); }
+    if (settings.imageHover) { $("input[name=imageHover]").attr('checked', true); }
     if (settings.boopNewMessages) { $("input[name=boopNewMessages]").attr('checked', true); }
 	if (settings.ajax) { $('#ajaxPolling option[value="ajax"]').attr('selected', 'selected'); }
 	if (settings.noRefresh) { $('#ajaxPolling option[value="noRefresh"]').attr('selected', 'selected'); }
@@ -182,6 +184,7 @@ $(document).ready(function () {
 		if ($("input[name=updateThread]").prop('checked')) { settings.updateThread = true } else { settings.updateThread = false };
         if ($("input[name=showNewMessages]").prop('checked')) { settings.showNewMessages = true } else { settings.showNewMessages = false };
         if ($("input[name=showPostHover]").prop('checked')) { settings.showPostHover = true } else { settings.showPostHover = false };
+        if ($("input[name=imageHover]").prop('checked')) { settings.imageHover = true } else { settings.imageHover = false };
         if ($("input[name=boopNewMessages]").prop('checked')) { settings.boopNewMessages = true } else { settings.boopNewMessages = false };
 		if ($("input[name=showBackLinks]").prop('checked')) { settings.showBackLinks = true } else { settings.showBackLinks = false };
 		if ($("input[name=quoteSelection]").prop('checked')) { settings.quoteSelection = true } else { settings.quoteSelection = false };
