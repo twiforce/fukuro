@@ -24,6 +24,10 @@ $(document).ready(function(){
                 if($image.attr('data-old-src'))
                     return;
 
+                if($image.parent().attr('data-src')) {
+                    return;
+                }
+
                 hovered_at = {'x': e.pageX, 'y': e.pageY};
 
                 var $newImage = $("<img/>");
