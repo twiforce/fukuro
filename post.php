@@ -708,7 +708,8 @@ if (isset($_POST['delete'])) {
 	
 	if (!$post['op'] && strtolower($post['email']) == '#8ball') {
 		/* Add some random strings */
-		$mquotes = array("<div style='color: blue'><i>— Бесспорно.</i></div>",
+		$mquotes = array("<div style='color: pink'><i>— Boku no Pico.</i></div>",
+		"<div style='color: blue'><i>— Бесспорно.</i></div>",
 		"<div style='color: blue'><i>— Это предрешено.</i></div>",
 		"<div style='color: blue'><i>— Никаких сомнений.</i></div>",
 		"<div style='color: blue'><i>— Определённо да.</i></div>",
@@ -729,7 +730,7 @@ if (isset($_POST['delete'])) {
 		"<div style='color: red'><i>— Перспективы не очень хорошие.</i></div>",
 		"<div style='color: red'><i>— Весьма сомнительно.</i></div>");
 		
-		$post['body'] = $post['body'] . $mquotes[mt_rand (1, (count($mquotes)-1))];
+		$post['body'] = $post['body'] . $mquotes[mt_rand (0, (count($mquotes)-1))];
 	}
 	
 	// Lottery
