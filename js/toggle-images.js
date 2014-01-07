@@ -11,7 +11,7 @@
  */
 
 $(document).ready(function(){
-	var hide_images = localStorage['hideimages'] ? true : false;
+	var hide_images = settings.hideImages ? true : false;
 
 	var hideImage = function() {
 		if ($(this).parent()[0].dataset.expanded == 'true') {
@@ -61,10 +61,12 @@ $(document).ready(function(){
 			hide_images = !hide_images;
 			if (hide_images) {
 				$('img.post-image').each(hideImage);
-				localStorage.hideimages = true;
+				settings.hideImages = true;
+                localStorage.setItem("settings", JSON.stringify(settings));
 			} else {
 				$('img.post-image').each(restoreImage);
-				delete localStorage.hideimages;
+				settings.hideImages = false;
+                localStorage.setItem("settings", JSON.stringify(settings));
 			}
 			
 			show_hide_hide_images_buttons();
