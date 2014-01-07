@@ -50,7 +50,7 @@ $(document).ready(function(){
 		}
 	};
 	
-	if(device_type = "mobile") {
+	if(device_type == "mobile") {
 		$("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh fa-2x"></i></a>&nbsp;');
 	} else {
 		$("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh"></i> ' + _('Обновить') + '</a>&nbsp;');

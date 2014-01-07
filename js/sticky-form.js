@@ -29,13 +29,13 @@ $(document).ready(function () {
 		});
 		
 		var hideButton = '<i class=\"fa fa-compress\"></i>';
-			if (device_type = "desktop") hideButton = hideButton + _(' Спрятать');
+			if (device_type == "desktop") hideButton = hideButton + _(' Спрятать');
 		var showButton = '<i class=\"fa fa-arrows-alt\"></i>';
-			if (device_type = "desktop") showButton = showButton + _(' Открыть');
+			if (device_type == "desktop") showButton = showButton + _(' Открыть');
 		var upButton = '<i class=\"fa fa-chevron-up\"></i>';
-			if (device_type = "desktop") upButton = upButton + _(' Поднять');
+			if (device_type == "desktop") upButton = upButton + _(' Поднять');
 		var downButton = '<i class=\"fa fa-chevron-down\"></i>';
-			if (device_type = "desktop") downButton = downButton + _(' Опустить');
+			if (device_type == "desktop") downButton = downButton + _(' Опустить');
 		
 		$('#toggleForm').click(function () {
 			var link = $(this);
@@ -100,7 +100,7 @@ $(document).ready(function () {
             $('input[name=subject]').css({ "width": '49%', });
 		}
 		
-		if (device_type = "mobile") {
+		if (device_type == "mobile") {
 			postform.css({ "margin-bottom": '50px', });
 			$('input[name=password]').remove();
 			$('.fa-compress .fa-arrows-alt fa-chevron-up fa-chevron-down').addClass('fa-2x');

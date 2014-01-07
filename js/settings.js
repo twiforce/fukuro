@@ -26,7 +26,7 @@ var settings = JSON.parse(localStorage.getItem("settings"));
 
 // A very rough and dirty settings panel, dollscript-like. Needs rewiting ASAP.
 $(document).ready(function () {
-	if (device_type = "mobile") {
+	if (device_type == "mobile") {
         $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>');
 	} else {
         $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs"></i> ' + _('Настройки') +'</a>');
