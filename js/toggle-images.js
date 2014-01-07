@@ -13,7 +13,7 @@
 $(document).ready(function(){
 	var hide_images = localStorage['hideimages'] ? true : false;
 
-	$('<style type="text/css"> img.hidden{ opacity: 1; background: none; border: 1px solid #000; } </style>').appendTo($('head'));
+	$('<style type="text/css"> img.hidden{ opacity: 0.05 } </style>').appendTo($('head'));
 
 	var hideImage = function() {
 		if ($(this).parent()[0].dataset.expanded == 'true') {
@@ -21,7 +21,7 @@ $(document).ready(function(){
 		}
 		$(this)
 			.attr('data-orig', this.src)
-			.attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')
+			//.attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')
 			.addClass('hidden');
 	};
 
@@ -52,10 +52,9 @@ $(document).ready(function(){
 		}
 	};
 
-	$('hr:first').before('<div id="toggle-images" style="text-align:right"><a class="unimportant" href="javascript:void(0)">-</a></div>');
-	$('div#toggle-images a')
-		.text(hide_images ? _('Show images') : _('Hide images'))
-		.click(function() {
+    $('#scrollUp').before('<a id="toggle-images" href="javascript:void(0)"></a>&nbsp;');
+    $('#toggle-images').html(hide_images ? '<i class="fa fa-eye-slash"></i> ' + _('NSFW: On') : '<i class="fa fa-eye"></i> ' + _('NSFW: Off'));
+	$('#toggle-images').click(function() {
 			hide_images = !hide_images;
 			if (hide_images) {
 				$('img.post-image').each(hideImage);
@@ -67,7 +66,7 @@ $(document).ready(function(){
 			
 			show_hide_hide_images_buttons();
 			
-			$(this).text(hide_images ? _('Show images') : _('Hide images'))
+			$(this).html(hide_images ? '<i class="fa fa-eye-slash"></i> ' + _('NSFW: On')  : '<i class="fa fa-eye"></i> ' + _('NSFW: Off'))
 		});
 
 	if (hide_images) {
