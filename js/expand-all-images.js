@@ -15,7 +15,7 @@
  */
 
 $(document).ready(function() {
-	$('#scrollUp').before('<a id="expand-all-images" href="javascript:void(0)"><i class="fa fa-search-plus"></i> ' + _('Expand all images') + '</a> ');
+	$('#scrollUp').before('<a id="expand-all-images" href="javascript:void(0)"><i class="fa fa-search-plus"></i> ' + _('Expand all images') + '</a>&nbsp;');
 	$('#expand-all-images').click(function() {
 			$('a img.post-image').each(function() {
 				if (!$(this).parent()[0].dataset.expanded)
