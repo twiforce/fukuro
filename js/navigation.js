@@ -38,6 +38,6 @@ $(document).ready(function () {
         $("html, body").animate({ scrollTop: $(document).height() }, "slow");
 	});
 	$('#scrollUp').click(function () {
-        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+        $("html, body").animate({ scrollTop: 0 }, "slow");
 	});
 });
