@@ -80,6 +80,7 @@ $(document).ready(function () {
 	<input type="checkbox" name="showSaveOriginalLinks">' + _('Сохранять оригинальное название файла') + '<br>\
 	<input type="checkbox" name="showSpoiler">' + _('Раскрывать изображения-спойлеры') + '<br>\
 	<input type="checkbox" name="textSpoiler">' + _('Раскрывать текстовые спойлеры') + '<br>\
+	<input type="checkbox" name="forcedAnon">' + _('Принудительная анонимизация') + '<br>\
 	<input type="checkbox" name="hideRoleplay">' + _('Не отображать тег [rp]') + '<br>\
 	<input type="checkbox" name="showInfo">' + _('Показывать онлайн и скорость борды') + '<br>\
 	</p></div><div id="con_tab4" class="tabs">\
@@ -153,7 +154,8 @@ $(document).ready(function () {
     if (settings.snowfall) { $("input[name=snowfall]").attr('checked', true); }
     if (settings.enableBots) { $("input[name=enableBots]").attr('checked', true); }
     if (settings.useCustomCSS) { $("input[name=useCustomCSS]").attr('checked', true); }
-	if (settings.markupButtons) { $("input[name=markupButtons]").attr('checked', true); }
+    if (settings.markupButtons) { $("input[name=markupButtons]").attr('checked', true); }
+    if (settings.forcedAnon) { $("input[name=forcedAnon]").attr('checked', true); }
 	if (settings.markupHotkeys) { $("input[name=markupHotkeys]").attr('checked', true); }
 	if (settings.showBackLinks) { $("input[name=showBackLinks]").attr('checked', true); }
 	if (settings.backLinksStyle) { $('#backLinksStyle option[value="backLinks4chan"]').attr('selected', 'selected'); }
@@ -202,6 +204,7 @@ $(document).ready(function () {
 		if ($("input[name=autoResizeForm]").prop('checked')) { settings.autoResizeForm = true } else { settings.autoResizeForm = false };
 		if ($("input[name=showFormOnCite]").prop('checked')) { settings.showFormOnCite = true } else { settings.showFormOnCite = false };
         if ($("input[name=snowfall]").prop('checked')) { settings.snowfall = true } else { settings.snowfall = false };
+        if ($("input[name=forcedAnon]").prop('checked')) { settings.forcedAnon = true } else { settings.forcedAnon = false };
         if ($("input[name=showInfo]").prop('checked')) { settings.showInfo = true } else { settings.showInfo = false };
         if ($("input[name=enableBots]").prop('checked')) { settings.enableBots = true } else { settings.enableBots = false };
         if ($("input[name=useCustomCSS]").prop('checked')) { settings.useCustomCSS = true; } else { settings.useCustomCSS = false };
