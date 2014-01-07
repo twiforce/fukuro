@@ -6,7 +6,6 @@
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
- *   $config['additional_javascript'][] = 'js/jquery.scrollTo.min.js';
  *   $config['additional_javascript'][] = 'js/navigation.js';
  *
  */
@@ -36,9 +35,9 @@ $(document).ready(function () {
 			float: 'left'
 		});
 	$('#scrollDown').click(function () {
-		jQuery.scrollTo('100%', 400);
+        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
 	});
 	$('#scrollUp').click(function () {
-		jQuery.scrollTo('0%', 400);
+        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
 	});
 });
