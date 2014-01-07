@@ -14,15 +14,12 @@
  *
  */
 
-onready(function(){
-	$('hr:first').before('<div id="expand-all-images" style="text-align:right"><a class="unimportant" href="javascript:void(0)"></a></div>');
-	$('div#expand-all-images a')
-		.text(_('Expand all images'))
-		.click(function() {
+$(document).ready(function() {
+	$('#scrollUp').before('<a id="expand-all-images" href="javascript:void(0)"><i class="fa fa-search-plus"></i> ' + _('Expand all images') + '</a> ');
+	$('#expand-all-images').click(function() {
 			$('a img.post-image').each(function() {
 				if (!$(this).parent()[0].dataset.expanded)
 					$(this).parent().click();
 			});
-			$(this).parent().remove();
 		});
 });
