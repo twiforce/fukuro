@@ -29,6 +29,13 @@ $(document).ready(function(){
 		do_replace_audio(post);
 		//do_replace_math(post);
 	});
+
+    if (device_type == "mobile") {
+        $("#navigation .fa").addClass("fa-2x");
+        $("#navigation .fa").click(function() {
+            $("#navigation .fa").addClass("fa-2x");
+        });
+    }
 });
 
 function showInfo() { 

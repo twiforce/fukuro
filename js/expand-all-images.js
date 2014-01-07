@@ -15,6 +15,9 @@
  */
 
 $(document).ready(function() {
+    if (device_type == "mobile") {
+        $('#scrollUp').before('<a id="expand-all-images" href="javascript:void(0)"><i class="fa fa-search-plus"></i></a>&nbsp;');
+    } else
 	$('#scrollUp').before('<a id="expand-all-images" href="javascript:void(0)"><i class="fa fa-search-plus"></i> ' + _('Expand all images') + '</a>&nbsp;');
 	$('#expand-all-images').click(function() {
 			$('a img.post-image').each(function() {

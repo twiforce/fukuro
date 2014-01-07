@@ -53,7 +53,10 @@ $(document).ready(function(){
 	};
 
     $('#scrollUp').before('<a id="toggle-images" href="javascript:void(0)"></a>&nbsp;');
-    $('#toggle-images').html(hide_images ? '<i class="fa fa-eye-slash"></i> ' + _('NSFW: On') : '<i class="fa fa-eye"></i> ' + _('NSFW: Off'));
+    if (device_type == "mobile") {
+        $('#toggle-images').html(hide_images ? '<i class="fa fa-eye-slash fa-2x"></i>' : '<i class="fa fa-eye fa-2x"></i>');
+    } else
+        $('#toggle-images').html(hide_images ? '<i class="fa fa-eye-slash"></i> ' + _('NSFW: On') : '<i class="fa fa-eye"></i> ' + _('NSFW: Off'));
 	$('#toggle-images').click(function() {
 			hide_images = !hide_images;
 			if (hide_images) {
@@ -65,8 +68,11 @@ $(document).ready(function(){
 			}
 			
 			show_hide_hide_images_buttons();
-			
-			$(this).html(hide_images ? '<i class="fa fa-eye-slash"></i> ' + _('NSFW: On')  : '<i class="fa fa-eye"></i> ' + _('NSFW: Off'))
+
+        if (device_type == "mobile") {
+            $(this).html(hide_images ? '<i class="fa fa-eye-slash fa-2x"></i>' : '<i class="fa fa-eye fa-2x"></i>');
+        } else
+            $(this).html(hide_images ? '<i class="fa fa-eye-slash"></i> ' + _('NSFW: On')  : '<i class="fa fa-eye"></i> ' + _('NSFW: Off'))
 		});
 
 	if (hide_images) {

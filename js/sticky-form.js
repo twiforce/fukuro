@@ -28,14 +28,17 @@ $(document).ready(function () {
 			'background': '#AAAAAA',
 		});
 		
-		var hideButton = '<i class=\"fa fa-compress\"></i>';
-			if (device_type == "desktop") hideButton = hideButton + _(' Спрятать');
-		var showButton = '<i class=\"fa fa-arrows-alt\"></i>';
-			if (device_type == "desktop") showButton = showButton + _(' Открыть');
-		var upButton = '<i class=\"fa fa-chevron-up\"></i>';
-			if (device_type == "desktop") upButton = upButton + _(' Поднять');
-		var downButton = '<i class=\"fa fa-chevron-down\"></i>';
-			if (device_type == "desktop") downButton = downButton + _(' Опустить');
+		if (device_type == "mobile") {
+            var hideButton = '<i class=\"fa fa-compress fa-2x\"></i>';
+            var showButton = '<i class=\"fa fa-arrows-alt fa-2x\"></i>';
+            var upButton = '<i class=\"fa fa-chevron-up fa-2x\"></i>';
+            var downButton = '<i class=\"fa fa-chevron-down fa-2x\"></i>';
+        } else {
+            var hideButton = '<i class=\"fa fa-compress\"></i> '+ _(' Спрятать');
+            var showButton = '<i class=\"fa fa-arrows-alt\"></i> ' + _(' Открыть');
+            var upButton = '<i class=\"fa fa-chevron-up\"></i> ' + _(' Поднять');
+            var downButton = '<i class=\"fa fa-chevron-down\"></i> ' + _(' Опустить');
+        }
 		
 		$('#toggleForm').click(function () {
 			var link = $(this);
@@ -78,13 +81,13 @@ $(document).ready(function () {
 		$('.banner').hide();
 		if (settings.simpleForm) {
 			$('form[name=post] th').remove();
-			$("label[for='spoiler']").text('Spoiler');
+			$('label[for="spoiler"]').text('Spoiler');
 			$('input[name=name]').attr('placeholder', _('Имя (оставьте пустым)'));
 			$('input[name=email]').attr('placeholder', _('Email (или sage)'));
 			$('input[name=subject]').attr('placeholder', _('Тема'));
 			$('input[name=body]').attr('placeholder', _('Введите сообщение'));
 			$('input[name=embed]').attr('placeholder', _('Youtube/Pleer'));
-			$('input[name=password]').hide();
+			$('form[name=post] input[name=password]').hide();
 			$('input[name="email"]').appendTo($('input[name="name"]').parent());
 			$('input[name="email"], input[name="name"]').attr('size',18);
 			$('input[name="subject"]').attr('size',28);
@@ -103,7 +106,6 @@ $(document).ready(function () {
 		if (device_type == "mobile") {
 			postform.css({ "margin-bottom": '50px', });
 			$('input[name=password]').remove();
-			$('.fa-compress .fa-arrows-alt fa-chevron-up fa-chevron-down').addClass('fa-2x');
 		}
 	}
 	
