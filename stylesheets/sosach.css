@@ -93,7 +93,10 @@ span.spoiler:hover {
 }
 span.quote {
 	color:#789922;
-	}
+}
+p.intro .fa, .hide-thread-link, #navigation a, #settingsPopup a {
+    color: #666666;
+}
 p.markup>a {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #DDDDDD), color-stop(1, #CCCCCC) );
 	background:-moz-linear-gradient( center top, #DDDDDD 5%, #CCCCCC 100% );
