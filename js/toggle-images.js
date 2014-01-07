@@ -13,8 +13,6 @@
 $(document).ready(function(){
 	var hide_images = localStorage['hideimages'] ? true : false;
 
-	$('<style type="text/css"> img.hidden{ opacity: 0.05 } </style>').appendTo($('head'));
-
 	var hideImage = function() {
 		if ($(this).parent()[0].dataset.expanded == 'true') {
 			$(this).parent().click();
