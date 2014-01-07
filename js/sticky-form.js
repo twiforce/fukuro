@@ -28,7 +28,12 @@ $(document).ready(function () {
 			'background': '#AAAAAA',
 		});
 		
-		if (device_type == "mobile") {
+		if (settings.simpleNavbar) {
+            var hideButton = '<i class=\"fa fa-compress fa-lg\"></i>';
+            var showButton = '<i class=\"fa fa-arrows-alt fa-lg\"></i>';
+            var upButton = '<i class=\"fa fa-chevron-up fa-lg\"></i>';
+            var downButton = '<i class=\"fa fa-chevron-down fa-lg\"></i>';
+        } else if (device_type == "mobile") {
             var hideButton = '<i class=\"fa fa-compress fa-2x\"></i>';
             var showButton = '<i class=\"fa fa-arrows-alt fa-2x\"></i>';
             var upButton = '<i class=\"fa fa-chevron-up fa-2x\"></i>';

@@ -53,7 +53,9 @@ $(document).ready(function(){
 	};
 
     $('#scrollUp').before('<a id="toggle-images" href="javascript:void(0)"></a>&nbsp;');
-    if (device_type == "mobile") {
+    if (settings.simpleNavbar) {
+        $('#toggle-images').html(hide_images ? '<i class="fa fa-eye-slash fa-lg"></i>' : '<i class="fa fa-eye fa-lg"></i>');
+    } else if (device_type == "mobile") {
         $('#toggle-images').html(hide_images ? '<i class="fa fa-eye-slash fa-2x"></i>' : '<i class="fa fa-eye fa-2x"></i>');
     } else
         $('#toggle-images').html(hide_images ? '<i class="fa fa-eye-slash"></i> ' + _('NSFW: On') : '<i class="fa fa-eye"></i> ' + _('NSFW: Off'));
@@ -69,7 +71,9 @@ $(document).ready(function(){
 			
 			show_hide_hide_images_buttons();
 
-        if (device_type == "mobile") {
+        if (settings.simpleNavbar) {
+            $(this).html(hide_images ? '<i class="fa fa-eye-slash fa-lg"></i>' : '<i class="fa fa-eye fa-lg"></i>');
+        } else if (device_type == "mobile") {
             $(this).html(hide_images ? '<i class="fa fa-eye-slash fa-2x"></i>' : '<i class="fa fa-eye fa-2x"></i>');
         } else
             $(this).html(hide_images ? '<i class="fa fa-eye-slash"></i> ' + _('NSFW: On')  : '<i class="fa fa-eye"></i> ' + _('NSFW: Off'))
