@@ -20,19 +20,17 @@ if (localStorage.getItem("settings") == null)
 
 // Current settings version. We'll be using this to notinfy users for updates
 // Let's just start from one. That's kinda not the first settings.js but still, whatever, nobody cares
-
-var version = 3;
+var version = 4;
 
 var settings = JSON.parse(localStorage.getItem("settings"));
 
-// Setting user-agent
-var ua = navigator.userAgent.toLowerCase();
-var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");		
-
 // A very rough and dirty settings panel, dollscript-like. Needs rewiting ASAP.
 $(document).ready(function () {
-	if(isAndroid) { $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>');
-	} else { $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs"></i> ' + _('Настройки') +'</a>'); }
+	if (device_type = "mobile") {
+        $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>');
+	} else {
+        $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs"></i> ' + _('Настройки') +'</a>');
+    }
 	$('body').append('<div id="settingsPopup"><h2>' + _('Настройки') +'</h2></div>');
 	
 	var bottom = document.getElementsByClassName('boardlist bottom')[0];

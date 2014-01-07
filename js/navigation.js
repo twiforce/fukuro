@@ -22,7 +22,7 @@ $(document).ready(function () {
 			'background': '#AAAAAA',
 		});
 		
-		if(isAndroid) {
+		if(device_type = "mobile") {
 			$('#navigation').html('<a id=\"scrollUp\"><i class=\"fa fa-arrow-up fa-2x\"></i></a>\
 			<a id=\"scrollDown\"><i class=\"fa fa-arrow-down fa-2x\"></i></a>\
 			<a onclick=\"clearForm();\"><i class=\"fa fa-trash-o fa-2x\"></i></a>\
