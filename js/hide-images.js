@@ -15,8 +15,6 @@
 
 $(document).ready(function(){
 	if (settings.hideImageLinks) {
-		$('<style type="text/css"> img.hidden{ opacity: 1; background: none; border: 1px solid #000; } </style>').appendTo($('head'));
-		
 		var board = $('form input[name="board"]').val().toString();
 
 		if (!localStorage.hiddenimages)
@@ -73,7 +71,7 @@ $(document).ready(function(){
 				}
 				$(img)
 					.data('orig', img.src)
-					.attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')
+					//.attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')
 					.addClass('hidden');
 			});
 			
