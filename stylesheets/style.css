@@ -205,6 +205,7 @@ div.post.reply div.body, div.op.post-hover {
 	padding-bottom: 0.3em;
 	max-height: 300px;
 	overflow-y: auto;
+    min-width: 200px;
 }
 div.post.reply.highlighted {
 	background: #D6BAD0;
