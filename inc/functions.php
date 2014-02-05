@@ -1233,16 +1233,16 @@ function make_comment_hex($str) {
 	// the numbers don't matter
 	$str = preg_replace('!>>>/[A-Za-z0-9]+/!', '', $str);
 
-	if (function_exists('iconv')) {
+	/*if (function_exists('iconv')) {
 		// remove diacritics and other noise
 		// FIXME: this removes cyrillic entirely
 		$str = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $str);
-	}
+	}*/
 
 	$str = strtolower($str);
 
 	// strip all non-alphabet characters
-	$str = preg_replace('/[^a-z]/', '', $str);
+	$str = preg_replace('/[^a-zа-я]/', '', $str);
 
 	return md5($str);
 }
