@@ -31,7 +31,7 @@
  */
 
     // Subversion
-    $config['subversion'] = '4.61 Beta 1';
+    $config['subversion'] = '5.0 Beta 1';
 
 	// Global announcement -- the very simple version.
 	// This used to be wrongly named $config['blotter'] (still exists as an alias).
