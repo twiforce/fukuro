@@ -63,8 +63,8 @@ header div.subtitle, h1 {
 header div.subtitle {
 	font-size: 8pt;
 }
-form {
-	margin-bottom: 4em;
+form:not(#searchform) {
+    margin-bottom: 4em;
 }
 form table {
 	margin: auto;

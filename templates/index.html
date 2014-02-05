@@ -5,7 +5,16 @@
 	{% include 'header.html' %}
 	<title>{{ board.url }} - {{ board.title|e }}</title>
 </head>
-<body>	
+<body>
+    {% if config.search.enable %}
+        <form id="searchform" style="display:inline; float: right;" action="/search.php" method="get">
+            <input id="search" name="search" type="text" size="20" value="sdf">
+            <select name="board" style="display: none;">
+                <option value="{{ board.uri }}" selected="">{{ board.url }}</option>
+            </select>
+            <input type="submit" value="Поиск">
+        </form>
+    {% endif %}
 	{{ boardlist.top }}
 	
 	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr />{% endif %}
