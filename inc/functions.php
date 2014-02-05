@@ -1577,6 +1577,7 @@ function unicodify($body) {
 	$body = str_replace('...', '&hellip;', $body);
 	$body = str_replace('&lt;--', '&larr;', $body);
 	$body = str_replace('--&gt;', '&rarr;', $body);
+	$body = str_replace('&amp;', '&', $body);
 	
 	$body = str_replace('=/=', '&ne;', $body);
 
