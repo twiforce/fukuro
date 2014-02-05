@@ -5,7 +5,6 @@
  * Must be loaded as the very last js file, be careful.
  *
  */
-
 $(document).ready(function(){
 	$('#navigation a, #markup a').css({
 		"cursor": 'pointer',
@@ -16,17 +15,23 @@ $(document).ready(function(){
 		showInfo();
 		setInterval("showInfo()",60000);
 	}
-	var do_replace_audio = function() {
-		$('audio').mediaelementplayer();
-	}
-	/*var do_replace_math = function() {
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
-	}*/
-	
-	do_replace_audio(document);
+    var do_replace_audio = function() {
+        $('audio').mediaelementplayer();
+    }
+    var do_add_shorten = function() {
+        $("div.post.reply div.body").shorten({
+            moreText: 'Весь текст',
+            lessText: 'Скрыть',
+            showChars: '1000',
+        });
+    }
+
+    do_replace_audio(document);
+    do_add_shorten(document);
 	
 	$(document).bind('new_post', function(e, post) {
-		do_replace_audio(post);
+        do_replace_audio(post);
+        do_add_shorten(post);
 		//do_replace_math(post);
 	});
 
