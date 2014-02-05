@@ -20,6 +20,7 @@ var clearForm = function() {
 $(document).ready(function () {
 	var postform = $('form[name="post"]');
 	if  (settings.stickyForm) {
+        postform.attr('id', 'quick-reply');
 		postform.css({
 			"position": 'fixed',
 			"bottom": '0px',
@@ -85,7 +86,7 @@ $(document).ready(function () {
 		};
 		$('.banner').hide();
 		if (settings.simpleForm) {
-			$('form[name=post] th').remove();
+			$('form[name=post] th').hide();
 			$('label[for="spoiler"]').text('Spoiler');
 			$('input[name=name]').attr('placeholder', _('Имя (оставьте пустым)'));
 			$('input[name=email]').attr('placeholder', _('Email (или sage)'));
