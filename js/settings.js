@@ -123,18 +123,19 @@ $(document).ready(function () {
 	
 	// Holy shit that's a lot
     $("textarea[name=customCSS]").val(settings.customCSS);
-    if (settings.updateFrequency < 10 ) { $('input[name="updateFrequency"]').val(10) }
-    else if (settings.updateFrequency > 0 ) { $('input[name="updateFrequency"]').val(settings.updateFrequency) };
-
-    if (settings.updateThread) { $("input[name=updateThread]").attr('checked', true);
-        if (settings.updateFrequency <= 0 ) { $('input[name="updateFrequency"]').val(30) }
+    if (settings.updateThread) {
+        $("input[name=updateThread]").attr('checked', true);
+        if (typeof settings.updateFrequency == 'undefined')
+            $('input[name="updateFrequency"]').val(30)
+        else if (settings.updateFrequency <= 10)
+            settings.updateFrequency = 20;
+        $('input[name="updateFrequency"]').val(settings.updateFrequency)
     }
     if (settings.hideLongText) {
         $("input[name=hideLongText]").attr('checked', true);
-        if (typeof settings.hideLongTextNum == 'undefined')
-            $('input[name="hideLongTextNum"]').val(1000)
-        else
-            $('input[name="hideLongTextNum"]').val(settings.hideLongTextNum)
+        if (typeof settings.hideLongTextNum == 'undefined' || settings.hideLongTextNum == '')
+           settings.hideLongTextNum = 2000;
+        $('input[name="hideLongTextNum"]').val(settings.hideLongTextNum)
     }
     if (settings.showNewMessages) { $("input[name=showNewMessages]").attr('checked', true); }
     if (settings.showPostHover) { $("input[name=showPostHover]").attr('checked', true); }
