@@ -143,6 +143,9 @@ $(document).ready(function () {
 			complete: function(xhr, textStatus) {
 				if (!(ajaxErrors)) {
 					clearForm();
+                    if (typeof Recaptcha != 'undefined') {
+                        Recaptcha.reload();
+                    }
 					$('input[name=post]').attr("disabled", false);
 					$('input[name=post]').attr('value',_('Ответить'));
 				}
