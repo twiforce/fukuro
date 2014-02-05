@@ -20,7 +20,7 @@ if (localStorage.getItem("settings") == null)
 
 // Current settings version. We'll be using this to notinfy users for updates
 // Let's just start from one. That's kinda not the first settings.js but still, whatever, nobody cares
-var version = 4;
+var version = 5;
 
 var settings = JSON.parse(localStorage.getItem("settings"));
 
@@ -83,6 +83,7 @@ $(document).ready(function () {
 	<input type="checkbox" name="forcedAnon">' + _('Принудительная анонимизация') + '<br>\
 	<input type="checkbox" name="simpleNavbar">' + _('Упрощенная панель навигации') + '<br>\
 	<input type="checkbox" name="hideRoleplay">' + _('Не отображать тег [rp]') + '<br>\
+	<input type="checkbox" name="hideLongText">' + _('Скрывать текст длиной более') + ' <input type="text" maxlength="4" size="4" name="hideLongTextNum"> ' + _('символов') + '<br>\
 	<input type="checkbox" name="showInfo">' + _('Показывать онлайн и скорость борды') + '<br>\
 	</p></div><div id="con_tab4" class="tabs">\
 	<p><input type="checkbox" name="useCustomCSS">' + _('Использовать свой CSS') + '<button id="applyCSS" style="float: right"><i class="fa fa-eye"></i> ' + _('Предпросмотр') + '</button><br>\
@@ -122,12 +123,19 @@ $(document).ready(function () {
 	
 	// Holy shit that's a lot
     $("textarea[name=customCSS]").val(settings.customCSS);
-	if (settings.updateFrequency < 10 ) { $('input[name="updateFrequency"]').val(10) }
-		else if (settings.updateFrequency > 0 ) { $('input[name="updateFrequency"]').val(settings.updateFrequency) };
-	
-	if (settings.updateThread) { $("input[name=updateThread]").attr('checked', true);
-		if (settings.updateFrequency <= 0 ) { $('input[name="updateFrequency"]').val(30) }
-		}
+    if (settings.updateFrequency < 10 ) { $('input[name="updateFrequency"]').val(10) }
+    else if (settings.updateFrequency > 0 ) { $('input[name="updateFrequency"]').val(settings.updateFrequency) };
+
+    if (settings.updateThread) { $("input[name=updateThread]").attr('checked', true);
+        if (settings.updateFrequency <= 0 ) { $('input[name="updateFrequency"]').val(30) }
+    }
+    if (settings.hideLongText) {
+        $("input[name=hideLongText]").attr('checked', true);
+        if (typeof settings.hideLongTextNum == 'undefined')
+            $('input[name="hideLongTextNum"]').val(1000)
+        else
+            $('input[name="hideLongTextNum"]').val(settings.hideLongTextNum)
+    }
     if (settings.showNewMessages) { $("input[name=showNewMessages]").attr('checked', true); }
     if (settings.showPostHover) { $("input[name=showPostHover]").attr('checked', true); }
     if (settings.imageHover) { $("input[name=imageHover]").attr('checked', true); }
@@ -159,12 +167,13 @@ $(document).ready(function () {
     if (settings.forcedAnon) { $("input[name=forcedAnon]").attr('checked', true); }
     if (settings.simpleNavbar) { $("input[name=simpleNavbar]").attr('checked', true); }
 	if (settings.markupHotkeys) { $("input[name=markupHotkeys]").attr('checked', true); }
-	if (settings.showBackLinks) { $("input[name=showBackLinks]").attr('checked', true); }
+    if (settings.showBackLinks) { $("input[name=showBackLinks]").attr('checked', true); }
 	if (settings.backLinksStyle) { $('#backLinksStyle option[value="backLinks4chan"]').attr('selected', 'selected'); }
 	
 	$('#save').click(function () {
 		// Oh my god this is awkward.
         settings.updateFrequency = $("input[name=updateFrequency]").val();
+        settings.hideLongTextNum = $("input[name=hideLongTextNum]").val();
         if ($('#ajaxPolling option:selected').val() == "ajax") {
 			settings.ajax = true; settings.noRefresh = false; settings.externalPolling = false
 			} else if ($('#ajaxPolling option:selected').val() == "noRefresh") {
@@ -209,6 +218,7 @@ $(document).ready(function () {
         if ($("input[name=forcedAnon]").prop('checked')) { settings.forcedAnon = true } else { settings.forcedAnon = false };
         if ($("input[name=simpleNavbar]").prop('checked')) { settings.simpleNavbar = true } else { settings.simpleNavbar = false };
         if ($("input[name=showInfo]").prop('checked')) { settings.showInfo = true } else { settings.showInfo = false };
+        if ($("input[name=hideLongText]").prop('checked')) { settings.hideLongText = true } else { settings.hideLongText = false };
         if ($("input[name=enableBots]").prop('checked')) { settings.enableBots = true } else { settings.enableBots = false };
         if ($("input[name=useCustomCSS]").prop('checked')) { settings.useCustomCSS = true; } else { settings.useCustomCSS = false };
         settings.customCSS = $("textarea[name=customCSS]").val();

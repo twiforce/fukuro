@@ -18,20 +18,23 @@ $(document).ready(function(){
     var do_replace_audio = function() {
         $('audio').mediaelementplayer();
     }
+
     var do_add_shorten = function() {
         $("div.post.reply div.body").shorten({
             moreText: 'Весь текст',
             lessText: 'Скрыть',
-            showChars: '1000',
+            showChars: (settings.hideLongTextNum),
         });
     }
 
     do_replace_audio(document);
-    do_add_shorten(document);
+    if (settings.hideLongText)
+        do_add_shorten(document);
 	
 	$(document).bind('new_post', function(e, post) {
         do_replace_audio(post);
-        do_add_shorten(post);
+        if (settings.hideLongText)
+            do_add_shorten(post);
 		//do_replace_math(post);
 	});
 
