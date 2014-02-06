@@ -8,7 +8,7 @@
 <body>
     {% if config.search.enable %}
         <form id="searchform" style="display:inline; float: right;" action="/search.php" method="get">
-            <input id="postsearch" name="postsearch" type="text" size="20" value="sdf">
+            <input id="search" name="search" type="text" size="20" value="sdf">
             <select name="board" style="display: none;">
                 <option value="{{ board.uri }}" selected="">{{ board.url }}</option>
             </select>
