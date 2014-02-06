@@ -52,9 +52,7 @@
 		{{ post.id }}
 	</a>
 	</p>
-	{% if post.embed %}
-		{{ post.embed }}
-	{% elseif post.file == 'deleted' %}
+	{% if post.file == 'deleted' %}
 		<img class="post-image deleted" src="{{ config.image_deleted }}" alt="" />
 	{% elseif post.file and post.file %}
 		<p class="fileinfo">File: <a href="{{ config.uri_img }}{{ post.file }}">{{ post.file }}</a> <span class="unimportant">
@@ -120,6 +118,9 @@
 			<source src="{{ config.domain }}{{ config.uri_img }}{{ post.file }}" type="audio/mp3" />
 		</audio>
 	{% endif %}
+    {% if post.embed %}
+        {{ post.embed }}
+    {% endif %}
 	<div class="body">
 		{% endfilter %}{% if index %}{{ post.body|truncate_body(post.link) }}{% else %}{{ post.body }}{% endif %}{% filter remove_whitespace %}
 		{% if post.modifiers['ban message'] %}

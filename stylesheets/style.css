@@ -205,7 +205,7 @@ div.post.reply div.body, div.op.post-hover {
 	padding-bottom: 0.3em;
 	max-height: 400px;
 	overflow-y: auto;
-    min-width: 200px;
+    min-width: 20px;
 }
 div.post.reply.highlighted {
 	background: #D6BAD0;
@@ -469,7 +469,9 @@ a[href="mailto:sage"]:after,  a[href="mailto:Sage"]:after, a[href="mailto:SAGE"]
 	font-size: 0.8em;
 	text-decoration: none !important;
 }
-
+.video-container {
+    display: inline-block;
+}
 @media screen and (max-width: 520px) {
 	@viewport {
 	   user-zoom: fixed;
@@ -506,7 +508,6 @@ a[href="mailto:sage"]:after,  a[href="mailto:Sage"]:after, a[href="mailto:SAGE"]
 		height: 95%!important;
 	}
 }
-
 div.post.reply.closed p.fileinfo, div.post.reply.closed div.body, div.post.reply.closed .post-image, div.post.reply.closed .video-container, div.post.reply.closed object, div.post.reply.closed iframe {
 	display: none;
 }
