@@ -768,6 +768,10 @@ if (isset($_POST['delete'])) {
 			if ($edges >= 100000) {
 				$edges = 100000;
 			}
+
+			if ($edges < 1) {
+				$edges = 1;
+			}
 			$counter = 1;
 			
 			if ($dices >= 2) {
