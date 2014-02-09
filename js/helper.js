@@ -35,7 +35,6 @@ $(document).ready(function(){
         do_replace_audio(post);
         if (settings.hideLongText)
             do_add_shorten(post);
-		//do_replace_math(post);
 	});
 
     if (device_type == "mobile") {
