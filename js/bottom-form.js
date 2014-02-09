@@ -11,9 +11,11 @@
  */
 
 $(document).ready(function(){
-    if($('div.banner').length == 0)
-        return; // not index
+    if (settings.bottomForm) {
+        if($('div.banner').length == 0)
+            return; // not index
 
-    $("div.banner").insertBefore("div.delete:first");
-    $("form[name='post']").insertBefore("div.delete:first");
+        $("div.banner").insertBefore("div.delete:first");
+        $("form[name='post']").insertBefore("div.delete:first");
+    }
 });

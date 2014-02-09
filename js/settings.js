@@ -67,7 +67,7 @@ $(document).ready(function () {
 	<input type="checkbox" name="hidePosts">' + _('Добавить кнопки для скрытия постов') + '<br>\
 	<input type="checkbox" name="hideImageLinks">' + _('Добавить кнопки для скрытия изображений') + '<br>\
 	</p></div><div id="con_tab2" class="tabs">\
-	<p><select id="formStyle"><option value="defaultForm">' + _('Обычная') + '</option><option value="stickyForm">' + _('Прикрепленная') + '</option><option value="quickReply">' + _('Плавающая') + '</option><option value="inlineForm">' + _('Внутри постов (*)') + '</option></select> ' + _('форма ответа') + '<br>\
+	<p><select id="formStyle"><option value="defaultForm">' + _('Обычная (наверху)') + '</option><option value="bottomForm">' + _('Обычная (внизу)') + '</option><option value="stickyForm">' + _('Прикрепленная') + '</option><option value="quickReply">' + _('Плавающая') + '</option><option value="inlineForm">' + _('Внутри постов (*)') + '</option></select> ' + _('форма ответа') + '<br>\
 	<input type="checkbox" name="simpleForm">' + _('Упрощенная форма') + '<br>\
 	<input type="checkbox" name="markupButtons">' + _('Отображать кнопки разметки') + '<br>\
 	<input type="checkbox" name="markupHotkeys">' + _('Включить хоткеи') + '<br>\
@@ -152,7 +152,8 @@ $(document).ready(function () {
 	if (settings.showSpoiler) { $("input[name=showSpoiler]").attr('checked', true); }
 	if (settings.textSpoiler) { $("input[name=textSpoiler]").attr('checked', true); }
 	if (settings.hideRoleplay) { $("input[name=hideRoleplay]").attr('checked', true); }
-	if (settings.defaultForm) {  $('#formStyle option[value="defaultForm"]').attr('selected', 'selected'); }
+    if (settings.defaultForm) {  $('#formStyle option[value="defaultForm"]').attr('selected', 'selected'); }
+    if (settings.bottomForm) {  $('#formStyle option[value="bottomForm"]').attr('selected', 'selected'); }
 	if (settings.stickyForm) {  $('#formStyle option[value="stickyForm"]').attr('selected', 'selected'); }
 	if (settings.inlineForm) {  $('#formStyle option[value="inlineForm"]').attr('selected', 'selected'); }
 	if (settings.simpleForm) { $("input[name=simpleForm]").attr('checked', true); }
@@ -177,20 +178,22 @@ $(document).ready(function () {
         settings.hideLongTextNum = $("input[name=hideLongTextNum]").val();
         if ($('#ajaxPolling option:selected').val() == "ajax") {
 			settings.ajax = true; settings.noRefresh = false; settings.externalPolling = false
-			} else if ($('#ajaxPolling option:selected').val() == "noRefresh") {
-				settings.ajax = false; settings.noRefresh = true; settings.externalPolling = false
-				} else if ($('#ajaxPolling option:selected').val() == "externalPolling") {
-					settings.ajax = false; settings.noRefresh = false; settings.externalPolling = true
-					}
+		} else if ($('#ajaxPolling option:selected').val() == "noRefresh") {
+			settings.ajax = false; settings.noRefresh = true; settings.externalPolling = false
+		} else if ($('#ajaxPolling option:selected').val() == "externalPolling") {
+			settings.ajax = false; settings.noRefresh = false; settings.externalPolling = true
+		}
 		if ($('#formStyle option:selected').val() == "stickyForm") {
-			settings.stickyForm = true; settings.quickReply = false; settings.defaultForm = false; settings.inlineForm = false
-			} else if ($('#formStyle option:selected').val() == "quickReply") {
-				 settings.stickyForm = false;settings.quickReply = true; settings.defaultForm = false; settings.inlineForm = false
-				} else if ($('#formStyle option:selected').val() == "defaultForm") {
-					 settings.stickyForm = false;settings.quickReply = false; settings.defaultForm = true; settings.inlineForm = false
-					} else if ($('#formStyle option:selected').val() == "inlineForm") {
-						 settings.stickyForm = false;settings.quickReply = false; settings.defaultForm = false; settings.inlineForm = true
-						}
+            settings.stickyForm = true; settings.bottomForm = false; settings.quickReply = false; settings.defaultForm = false; settings.inlineForm = false
+		} else if ($('#formStyle option:selected').val() == "bottomForm") {
+            settings.stickyForm = false; settings.bottomForm = true; settings.quickReply = false; settings.defaultForm = false; settings.inlineForm = false
+        } else if ($('#formStyle option:selected').val() == "quickReply") {
+			settings.stickyForm = false; settings.bottomForm = false; settings.quickReply = true; settings.defaultForm = false; settings.inlineForm = false
+		} else if ($('#formStyle option:selected').val() == "defaultForm") {
+			settings.stickyForm = false; settings.bottomForm = false; settings.quickReply = false; settings.defaultForm = true; settings.inlineForm = false
+		} else if ($('#formStyle option:selected').val() == "inlineForm") {
+            settings.stickyForm = false; settings.bottomForm = false; settings.quickReply = false; settings.defaultForm = false; settings.inlineForm = true
+        }
 		if ($('#backLinksStyle option:selected').val() == "backLinks4chan") {
 			settings.backLinksStyle = true;
 			} else {
