@@ -26,7 +26,7 @@ onready(function(){
 	
 	if (settings.hideRoleplay) {
 		var do_unroleplay = function() {
-			$('.body span.roleplay').removeClass('roleplay');
+			$('.body span.roleplay').remove();
 		}
 		
 		do_unroleplay(document);
