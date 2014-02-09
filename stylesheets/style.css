@@ -304,8 +304,7 @@ span.code {
 	font-family: monospace;
 }
 span.roleplay {
-	background: #444444;
-	color: #F5F500;
+    background-color: rgba(0,0,0,0.1);
 }
 div.styles {
 	float: right;
