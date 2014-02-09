@@ -43,6 +43,9 @@ $(document).ready(function(){
                     .insertAfter($image.parent())
                     .load(function() {
                         $(this).trigger('mousemove');
+                        if (($(this.naturalWidth)[0] > 8000) || ($(this.naturalHeight)[0] > 8000)) {
+                            $('.image-hover').remove();
+                        }
                     });
                 $image.trigger('mousemove');
             }, function() {
@@ -68,7 +71,7 @@ $(document).ready(function(){
 
         $('a:not([class="file"]) > img.post-image:not(.spoiler)').each(init_image_hover);
         $(document).on('new_post', function(e, post) {
-            $(post).find('> a:not([class="file"]) > img.post-image:not(.spoiler)').each(init_image_hover);
+            $(post).find('a:not([class="file"]) > img.post-image:not(.spoiler)').each(init_image_hover);
         });
     }
 });
