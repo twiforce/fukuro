@@ -66,9 +66,9 @@ $(document).ready(function(){
                 });
         }
 
-        $('a:not([class="file"]) > img.post-image').each(init_image_hover);
+        $('a:not([class="file"]) > img.post-image:not(.spoiler)').each(init_image_hover);
         $(document).on('new_post', function(e, post) {
-            $(post).find('> a:not([class="file"]) > img.post-image').each(init_image_hover);
+            $(post).find('> a:not([class="file"]) > img.post-image:not(.spoiler)').each(init_image_hover);
         });
     }
 });
