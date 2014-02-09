@@ -16,7 +16,10 @@ $(document).ready(function(){
 		setInterval("showInfo()",60000);
 	}
     var do_replace_audio = function() {
-        $('audio').mediaelementplayer();
+        $('audio').mediaelementplayer({
+                plugins:['flash','silverlight'],
+                pluginPath:'/js/mediaelement/'
+        });
     }
 
     var do_add_shorten = function() {
