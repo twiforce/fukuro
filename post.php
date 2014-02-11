@@ -596,7 +596,7 @@ if (isset($_POST['delete'])) {
 				$post['thumbwidth'] = $thumb->width;
 				$post['thumbheight'] = $thumb->height;
 				
-				if ($config['spoiler_images'] && isset($_POST['spoiler'])) {
+				if (($config['spoiler_images'] && isset($_POST['spoiler'])) || ($config['spoiler_images'] && strpos($post['filename'], 'explicit') == true))  {
 					$post['thumb'] = 'spoiler';
 				}
 				
