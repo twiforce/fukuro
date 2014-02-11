@@ -25,22 +25,35 @@
 
 onready(function(){
 	var do_embed_yt = function(tag) {
-		//var videoID = $('div.video-container', tag).data("video");
-		//console.log(videoID);
 		$('div.video-container a', tag).click(function() {
 			var videoID = $(this.parentNode).data('video');
 			$(this.parentNode).html('<iframe type="text/html" width="360" height="270" src="//www.youtube.com/embed/' + videoID + '?autoplay=1" frameborder="0"/>');
-			$.getJSON('http://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=jsonc', function(data,status,xhr){
-				console.log(data.data.title);
-			});
 			return false;
 		});
 	};
-	do_embed_yt(document);
 
-        // allow to work with auto-reload.js, etc.
-        $(document).bind('new_post', function(e, post) {
-                do_embed_yt(post);
+    do_embed_yt(document);
+
+    var do_yt_loadName = function (tag) {
+        $('div.video-container').each(function () {
+            var videoID = $(this).data('video');
+            var vidtmp = $(this);   // omg
+            $.ajax({
+                dataType: "json",
+                url: 'http://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=jsonc',
+                success: function (data, status, xhr) {
+                    vidtmp.attr("title", data.data.title);
+                }
+            });
         });
+    }
+
+    do_yt_loadName(document);
+
+    // allow to work with auto-reload.js, etc.
+    $(document).bind('new_post', function(e, post) {
+        do_embed_yt(post);
+        do_yt_loadName(post);
+    });
 });
 
