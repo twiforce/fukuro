@@ -7,12 +7,13 @@
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
+ *   $config['additional_javascript'][] = 'js/settings.js';
  *   $config['additional_javascript'][] = 'js/post-hover.js';
  *
  */
 
 onready(function(){
-    if (settings.showPostHover) {
+    if (settings.postHoverOld) {
         var dont_fetch_again = [];
         init_hover = function() {
             var $link = $(this);
