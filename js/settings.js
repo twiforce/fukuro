@@ -59,7 +59,7 @@ $(document).ready(function () {
 	<p></p><input type="checkbox" name="updateThread">' + _('Обновлять тред каждые') + ' <input type="text" maxlength="3" size="3" name="updateFrequency"> ' + _('с') + '<br>\
 	' + _('Использовать') + ' <select id="ajaxPolling"><option value="ajax">' + _('новую') + '</option><option value="noRefresh">' + _('старую') + '</option><option value="externalPolling">' + _('внешнюю') + '</option></select> ' + _('AJAX-отправку сообщений') + '<br>\
 	<input type="checkbox" name="showBackLinks">' + _('Отображать ссылки на ответы') + ' <select id="backLinksStyle"><option value="backLinksNormal">' + _('внизу') + '</option><option value="backLinks4chan">' + _('наверху') + '</option></select><br>\
-	<select id="postHover"><option value="postHover">' + _('Новый') + '</option><option value="postHoverOld">' + _('Старый') + '</option></select> ' + _('предпросмотр поста при наведении на ссылку') + '<br>\
+	<select id="postHover"><option value="postHover">' + _('Новое') + '</option><option value="postHoverOld">' + _('Старое') + '</option><option value="postHoverDisabled">'+ _('Не отображать') + '</option></select> ' + _('превью поста при наведении на ссылку') + '<br>\
 	<input type="checkbox" name="imageHover">' + _('Показывать изображение при наведении на превью') + '<br>\
 	<input type="checkbox" name="showNewMessages">' + _('Отображать количество новых постов в заголовке') + '<br>\
 	<input type="checkbox" name="boopNewMessages">' + _('Звуковые уведомления о новых постах') + '<br>\
@@ -140,6 +140,7 @@ $(document).ready(function () {
     if (settings.showNewMessages) { $("input[name=showNewMessages]").attr('checked', true); }
     if (settings.postHover) {  $('#postHover option[value="postHover"]').attr('selected', 'selected'); }
     if (settings.postHoverOld) {  $('#postHover option[value="postHoverOld"]').attr('selected', 'selected'); }
+    if (settings.postHoverDisabled) {  $('#postHover option[value="postHoverDisabled"]').attr('selected', 'selected'); }
     if (settings.imageHover) { $("input[name=imageHover]").attr('checked', true); }
     if (settings.boopNewMessages) { $("input[name=boopNewMessages]").attr('checked', true); }
 	if (settings.ajax) { $('#ajaxPolling option[value="ajax"]').attr('selected', 'selected'); }
@@ -201,9 +202,11 @@ $(document).ready(function () {
             settings.backLinksStyle = false;
         }
         if ($('#postHover option:selected').val() == "postHover") {
-            settings.postHover = true; settings.postHoverOld = false;
-        } else {
-            settings.postHover = false; settings.postHoverOld = true;
+            settings.postHover = true; settings.postHoverOld = false; settings.postHoverDisabled = false;
+        } else if ($('#postHover option:selected').val() == "postHoverOld") {
+            settings.postHover = false; settings.postHoverOld = true; settings.postHoverDisabled = false;
+        } else if ($('#postHover option:selected').val() == "postHoverDisabled") {
+            settings.postHover = false; settings.postHoverOld = false; settings.postHoverDisabled = true;
         }
 		if ($("input[name=updateThread]").prop('checked')) { settings.updateThread = true } else { settings.updateThread = false };
         if ($("input[name=showNewMessages]").prop('checked')) { settings.showNewMessages = true } else { settings.showNewMessages = false };
