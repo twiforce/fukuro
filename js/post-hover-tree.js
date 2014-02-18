@@ -12,22 +12,34 @@
 
 $(document).ready(function () {
     if (settings.postHover) {
+        var hovering = false;
+        var id;
         function init_hover_tree() {
-            var id;
             $("div.body > a, .mentioned > a").hover(function() {
+                hovering = true;
                 if(id = $(this).text().match(/^>>(\d+)$/)) {
-                    $("#reply_" + id[1]).clone().addClass("hover").css({'position': 'absolute', 'top': $(this).offset().top+20, 'left': $(this).offset().left+20 }).appendTo("body");
+                    $("#reply_" + id[1]).clone().addClass("hover").css({'position': 'absolute', 'top': $(this).offset().top+20, 'left': $(this).offset().left+20 }).hide().appendTo("body").fadeIn(200);
                 } else {
+                    hovering = false;
                     return;
                 }
             }, function() {
+                hovering = true;
                 $(".hover").hover(function() {
+                    hovering = true;
+                    $("#reply_" + id[1]).trigger(init_hover_tree());
                 }, function() {
+                    hovering = false;
+                })
+            });
+            $("body").mousemove(function() {
+                if (!(hovering) && ($(".hover").is(":visible"))) {
+                    $(".hover").fadeOut(200);
                     setTimeout(function() {
                         $(".hover").remove();
                     }, 500);
-                })
-            });
+                }
+            })
         }
 
         init_hover_tree(document);
