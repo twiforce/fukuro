@@ -55,9 +55,11 @@ if (isset($_POST['delete'])) {
 		if ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 			if ($password != '' && $post['password'] != $password)
 				error($config['error']['invalidpassword']);
-			
-			if ($post['time'] <= time() - $config['delete_time']) {
-				error(sprintf($config['error']['delete_too_old'], until($post['time'] + $config['delete_time'])));
+
+			if ($post['time'] > time() - $config['delete_time']) {
+			    error(sprintf($config['error']['delete_too_soon'], until($post['time'] + $config['delete_time'])));
+            } else if ($post['time'] <= time() - $config['delete_max_time']) {
+				error(sprintf($config['error']['delete_too_old']));
 			}
 			
 			if (isset($_POST['file'])) {
