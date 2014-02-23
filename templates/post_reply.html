@@ -55,10 +55,10 @@
 	{% if post.file == 'deleted' %}
 		<img class="post-image deleted" src="{{ config.image_deleted }}" alt="" />
 	{% elseif post.file and post.file %}
-    <ul id="filestuff">
+    <ul id="filestuff" class="fileinfo">
         <li>
-            {% trans %}File:{% endtrans %}<span id="filehover"><a href="{{ config.uri_img }}{{ post.file }}">{{ post.file }}</a></span>
-            {% if post.thumb == 'spoiler' %}{% trans %}Spoiler Image{% endtrans %}{% endif %}
+            {% trans %}File:{% endtrans %} <a href="{{ config.uri_img }}{{ post.file }}">{{ post.file }}</a>
+            {% if post.thumb == 'spoiler' %}({% trans %}Spoiler Image{% endtrans %}){% endif %}
             <ul id="fileDropdown">
                 <li><i class="fa fa-info"></i> {{ post.filesize|filesize }}{% if post.filewidth and post.fileheight %}, {{ post.filewidth}}x{{ post.fileheight }}{% if config.show_ratio %}, {{ post.ratio }}{% endif %}{% endif %}
                 </li>
