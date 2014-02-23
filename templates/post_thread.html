@@ -8,39 +8,33 @@
 {% elseif post.file == 'deleted' %}
 	<img class="post-image deleted" src="{{ config.image_deleted }}" alt="" />
 {% elseif post.file and post.file %}
-	<p class="fileinfo">{% trans %}File:{% endtrans %} <a href="{{ config.uri_img }}{{ post.file }}">{{ post.file }}</a> <span class="unimportant">
-	(
-		{% if post.thumb == 'spoiler' %}
-			{% trans %}Spoiler Image{% endtrans %},
-		{% endif %}
-		{{ post.filesize|filesize }}
-		{% if post.filewidth and post.fileheight %}
-			, {{ post.filewidth}}x{{ post.fileheight }}
-			{% if config.show_ratio %}
-				, {{ post.ratio }}
-			{% endif %}
-		{% endif %}
-		{% if config.show_filename and post.filename %}
-			,
-			{% if post.filename|length > config.max_filename_display %}
-				<span class="postfilename" title="{{ post.filename|e }}">{{ post.filename|truncate(config.max_filename_display)|bidi_cleanup }}</span>
-			{% else %}
-				<span class="postfilename">{{ post.filename|e|bidi_cleanup }}</span>
-			{% endif %}
-		{% endif %}
-		{% if post.thumb != 'file' and config.image_identification %}
-			,
-			<span class='image_id'>
-			 <a href="http://imgops.com/{{ config.domain }}{{ config.uri_img }}{{ post.file }}">io</a>
-			{% if post.file|extension == 'jpg' %}
-				 <a href="http://regex.info/exif.cgi?url={{ config.domain }}{{ config.uri_img }}{{ post.file }}">e</a>
-			{% endif %}
-			 <a href="http://www.google.com/searchbyimage?image_url={{ config.domain }}{{ config.uri_img }}{{ post.file }}">g</a>
-			 <a href="http://www.tineye.com/search?url={{ config.domain }}{{ config.uri_img }}{{ post.file }}">t</a>
-			</span>
-		{% endif %}
-	)
-	</span></p>
+    <ul id="filestuff">
+        <li>
+            {% trans %}File:{% endtrans %} <a href="{{ config.uri_img }}{{ post.file }}">{{ post.file }}</a>
+            {% if post.thumb == 'spoiler' %}{% trans %}Spoiler Image{% endtrans %}{% endif %}
+            <ul id="fileDropdown">
+                <li><i class="fa fa-info"></i> {{ post.filesize|filesize }}{% if post.filewidth and post.fileheight %}, {{ post.filewidth}}x{{ post.fileheight }}{% if config.show_ratio %}, {{ post.ratio }}{% endif %}{% endif %}
+                </li>
+                {% if config.show_filename and post.filename %}
+                <li><i class="fa fa-file-o"></i> <a download="{{ post.filename|e|bidi_cleanup }}" href="{{ config.uri_img }}{{ post.file }}">
+                    {% if post.filename|length > config.max_filename_display %}
+                    <span class="postfilename" title="{{ post.filename|e }}">
+                    {{ post.filename|truncate(config.max_filename_display)|bidi_cleanup }}</span>
+                    {% else %}{{ post.filename|e|bidi_cleanup }}
+                    {% endif %}
+                </a></li>
+                {% endif %}
+                {% if post.thumb != 'file' and config.image_identification %}
+                <li><i class="fa fa-wrench"></i> <a href="http://imgops.com/{{ config.domain }}{{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}Edit in ImgOps{% endtrans %}</a></li>
+                {% if post.file|extension == 'jpg' %}
+                <li><i class="fa fa-camera-retro"></i> <a href="http://regex.info/exif.cgi?url={{ config.domain }}{{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}View EXIF{% endtrans %}</a></li>
+                {% endif %}
+                <li><i class="fa fa-search"></i> <a href="http://www.google.com/searchbyimage?image_url={{ config.domain }}{{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}Search in Google{% endtrans %}</a></li>
+                <li><i class="fa fa-search"></i> <a href="http://www.tineye.com/search?url={{ config.domain }}{{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}Search in TinEye{% endtrans %}</a></li>
+                {% endif %}
+            </ul>
+        </li>
+    </ul>
 <a href="{{ config.uri_img }}{{ post.file }}" target="_blank"{% if post.thumb == 'file' or post.modifiers['is_file'] == '1' %} class="file"{% endif %}>
 <img class="post-image" src="
 	{% if post.thumb == 'file' %}

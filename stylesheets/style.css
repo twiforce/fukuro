@@ -463,10 +463,36 @@ time:after{
     width:100%;
 }
 a[href="mailto:sage"]:after,  a[href="mailto:Sage"]:after, a[href="mailto:SAGE"]:after {
-	content: " [sage]" !important;
-	color: red;
-	font-size: 0.8em;
-	text-decoration: none !important;
+    font-family: FontAwesome;
+    content: ' \f088';
+    color: red;
+    text-decoration: none !important;
+}
+ul#filestuff {
+    padding: 0px;
+    margin: 0px;
+    width: 250px;
+    height: 10px;
+    margin-top: 4px;
+}
+ul#filestuff li {
+    position:relative;
+    list-style-type:none;
+    padding:0px;
+    width: auto;
+    height: 20px;
+}
+ul#fileDropdown {
+    position:relative;
+    left:0px;
+    visibility: hidden;
+    padding: 0px;
+    margin: 0px!important;
+    background-color: gray;
+}
+ul#filestuff li:hover #fileDropdown {
+    visibility:visible;
+    display: inline-block;
 }
 .video-container {
     display: inline-block;
@@ -507,6 +533,6 @@ a[href="mailto:sage"]:after,  a[href="mailto:Sage"]:after, a[href="mailto:SAGE"]
 		height: 95%!important;
 	}
 }
-div.post.reply.closed p.fileinfo, div.post.reply.closed div.body, div.post.reply.closed .post-image, div.post.reply.closed .video-container, div.post.reply.closed object, div.post.reply.closed iframe {
+div.post.reply.closed p.fileinfo, div.post.reply.closed div.body, div.post.reply.closed .post-image, div.post.reply.closed .video-container, div.post.reply.closed object, div.post.reply.closed iframe, div.post.reply.closed #filestuff {
 	display: none;
 }
