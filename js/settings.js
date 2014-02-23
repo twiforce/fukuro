@@ -77,7 +77,6 @@ $(document).ready(function () {
 	</p></div><div id="con_tab3" class="tabs">\
 	<p></p><input type="checkbox" name="snowfall">' + _('Включить снег') + '<br>\
 	<input type="checkbox" name="useLocalTime">' + _('Использовать местное время') + '<br>\
-	<input type="checkbox" name="showSaveOriginalLinks">' + _('Сохранять оригинальное название файла') + '<br>\
 	<input type="checkbox" name="showSpoiler">' + _('Раскрывать изображения-спойлеры') + '<br>\
 	<input type="checkbox" name="textSpoiler">' + _('Раскрывать текстовые спойлеры') + '<br>\
 	<input type="checkbox" name="forcedAnon">' + _('Принудительная анонимизация') + '<br>\
@@ -148,7 +147,6 @@ $(document).ready(function () {
 	if (settings.externalPolling) { $('#ajaxPolling option[value="externalPolling"]').attr('selected', 'selected'); }
 	if (settings.quoteSelection) { $("input[name=quoteSelection]").attr('checked', true); }
     if (settings.useLocalTime) { $("input[name=useLocalTime]").attr('checked', true); }
-    if (settings.showSaveOriginalLinks) { $("input[name=showSaveOriginalLinks]").attr('checked', true); }
 	if (settings.hideImageLinks) { $("input[name=hideImageLinks]").attr('checked', true); }
 	if (settings.hidePosts) { $("input[name=hidePosts]").attr('checked', true); }
 	if (settings.showSpoiler) { $("input[name=showSpoiler]").attr('checked', true); }
@@ -215,7 +213,6 @@ $(document).ready(function () {
 		if ($("input[name=showBackLinks]").prop('checked')) { settings.showBackLinks = true } else { settings.showBackLinks = false };
 		if ($("input[name=quoteSelection]").prop('checked')) { settings.quoteSelection = true } else { settings.quoteSelection = false };
         if ($("input[name=useLocalTime]").prop('checked')) { settings.useLocalTime = true } else { settings.useLocalTime = false };
-        if ($("input[name=showSaveOriginalLinks]").prop('checked')) { settings.showSaveOriginalLinks = true } else { settings.showSaveOriginalLinks = false };
         if ($("input[name=hideImageLinks]").prop('checked')) { settings.hideImageLinks = true } else { settings.hideImageLinks = false };
 		if ($("input[name=hidePosts]").prop('checked')) { settings.hidePosts = true } else { settings.hidePosts = false };
 		if ($("input[name=showSpoiler]").prop('checked')) { settings.showSpoiler = true } else { settings.showSpoiler = false };
