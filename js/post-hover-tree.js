@@ -20,7 +20,6 @@ $(document).ready(function () {
                 if(id = $(this).text().match(/^>>(\d+)$/)) {
                     $("#reply_" + id[1]).clone().addClass("hover").css({'position': 'absolute', 'top': $(this).offset().top+20, 'left': $(this).offset().left+20 }).hide().appendTo("body").fadeIn(200);
                 } else {
-                    hovering = false;
                     return;
                 }
             }, function() {
