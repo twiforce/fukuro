@@ -496,6 +496,12 @@ ul#filestuff li:hover #fileDropdown {
 }
 .video-container {
     display: inline-block;
+    float: left;
+}
+@media screen and (max-width: 920px) {
+    .video-container {
+        float: none;
+    }
 }
 @media screen and (max-width: 520px) {
 	@viewport {
