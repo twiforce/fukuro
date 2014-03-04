@@ -55,17 +55,29 @@
 				{{ antibot.html() }}
 			</td>
 		</tr>
-		{% if config.recaptcha %}
-		<tr>
-			<th>
-				{% trans %}Verification{% endtrans %}
-				{{ antibot.html() }}
-			</th>
-			<td>
-				<script type="text/javascript" src="//www.google.com/recaptcha/api/challenge?k={{ config.recaptcha_public }}"></script>
-				{{ antibot.html() }}
-			</td>
-		</tr>
+        {% if config.captcha %}
+        <tr>
+            <th>
+                {% trans %}Verification{% endtrans %}
+                {{ antibot.html() }}
+            </th>
+            <td>
+            <img src="/inc/lib/captcha/captcha.php" id="captchaimg" name="captchaimg" width="120" style="margin-top: 2px; cursor: pointer;" height="20" onclick="javascript:document.getElementById('captchaimg').src = '/play/captcha/captcha.php?' + Math.random();$('#captcha').val('').focus();return false;">
+            <input type="text" id="captcha" name="captcha" class="form-control" size="4" required="">
+                {{ antibot.html() }}
+            </td>
+        </tr>
+        {% elseif config.recaptcha %}
+        <tr>
+            <th>
+                {% trans %}Verification{% endtrans %}
+                {{ antibot.html() }}
+            </th>
+            <td>
+                <script type="text/javascript" src="//www.google.com/recaptcha/api/challenge?k={{ config.recaptcha_public }}"></script>
+                {{ antibot.html() }}
+            </td>
+        </tr>
 		{% endif %}
 		<tr>
 			<th>

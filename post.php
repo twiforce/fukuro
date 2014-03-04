@@ -194,7 +194,21 @@ if (isset($_POST['delete'])) {
 	
 	// Check if banned
 	checkBan($board['uri']);
-	
+
+	// CAPTCHA
+	if ($config['captcha']) {
+        if (isset($_POST['captcha']) and $_POST['captcha'] != "") {
+            session_start();
+            if (isset($_SESSION['captcha']) && strtoupper($_SESSION['captcha']) == strtoupper($_POST['captcha']))
+                unset($_SESSION['captcha']);
+            else {
+                error($config['error']['captcha']);
+                unset($_SESSION['captcha']);
+            }
+         } else
+            error($config['error']['bot']);
+	}
+
 	// Check for CAPTCHA right after opening the board so the "return" link is in there
 	if ($config['recaptcha']) {
 		if (!isset($_POST['recaptcha_challenge_field']) || !isset($_POST['recaptcha_response_field']))

@@ -269,6 +269,7 @@
 		'lock',
 		'raw',
 		'embed',
+		'captcha',
 		'recaptcha_challenge_field',
 		'recaptcha_response_field',
 		'spoiler',
@@ -277,6 +278,9 @@
 		'file_url',
 		'json_response',
 	);
+
+	// Simple captcha
+	$config['captcha'] = false;
 
 	// Enable reCaptcha to make spam even harder. Rarely necessary.
 	$config['recaptcha'] = false;
