@@ -18,7 +18,7 @@ $(document).ready(function () {
             $("div.body > a, .mentioned > a").hover(function() {
                 hovering = true;
                 if(id = $(this).text().match(/^>>(\d+)$/)) {
-                    $("#reply_" + id[1]).clone().addClass("hover").css({'position': 'absolute', 'top': $(this).offset().top+20, 'left': $(this).offset().left+20 }).hide().appendTo("body").fadeIn(200);
+                    $("#reply_" + id[1]).clone().addClass("hover").css({'position': 'absolute', 'top': $(this).offset().top+20, 'left': $(this).offset().left+20 }).appendTo("body");
                 } else {
                     return;
                 }
@@ -33,7 +33,6 @@ $(document).ready(function () {
             });
             $("body").mousemove(function() {
                 if (!(hovering) && ($(".hover").is(":visible"))) {
-                    $(".hover").fadeOut(200);
                     setTimeout(function() {
                         $(".hover").remove();
                     }, 500);
