@@ -54,6 +54,9 @@ $(window).ready(function() {
                         if (typeof Recaptcha != 'undefined') {
                             Recaptcha.reload();
                         }
+                        if ($('#captchaimg')) {
+                            $('#captchaimg').click();
+                        }
 						if (post_response.error) {
 							if (post_response.banned) {
 								// You are banned. Must post the form normally so the user can see the ban message.

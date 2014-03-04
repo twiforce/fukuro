@@ -147,6 +147,9 @@ $(document).ready(function () {
                     if (typeof Recaptcha != 'undefined') {
                         Recaptcha.reload();
                     }
+                    if ($('#captchaimg')) {
+                        $('#captchaimg').click();
+                    }
 					$('input[name=post]').attr("disabled", false);
 					$('input[name=post]').attr('value',_('Ответить'));
 				}
