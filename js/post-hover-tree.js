@@ -15,27 +15,37 @@ $(document).ready(function () {
         var hovering = false;
         var id;
         function init_hover_tree() {
-            $("div.body > a, .mentioned > a").hover(function() {
-                hovering = true;
-                if(id = $(this).text().match(/^>>(\d+)$/)) {
-                    $("#reply_" + id[1]).clone().addClass("hover").css({'position': 'absolute', 'top': $(this).offset().top+20, 'left': $(this).offset().left+20 }).appendTo("body");
-                } else {
-                    return;
+            $("div.body > a, .mentioned > a").on({
+                mouseenter: function() {
+                    if(id = $(this).text().match(/^>>(\d+)$/)) {
+                        $("#reply_" + id[1]).clone().addClass("hover")
+                            .css({'position': 'absolute', 'top': $(this).offset().top+20, 'left': $(this).offset().left+20 })
+                            .appendTo("body");
+                        hovering = true;
+                    } else {
+                        hovering = false;
+                        return;
+                    }
+                },
+                mouseleave: function() {
+                    $(".hover").hover(function() {
+                        hovering = true;
+                        $("#reply_" + id[1]).trigger(init_hover_tree());
+                    }, function() {
+                        hovering = false;
+                    })
                 }
-            }, function() {
-                hovering = true;
-                $(".hover").hover(function() {
-                    hovering = true;
-                    $("#reply_" + id[1]).trigger(init_hover_tree());
-                }, function() {
-                    hovering = false;
-                })
             });
-            $("body").mousemove(function() {
+            $("html").mousemove(function() {
                 if (!(hovering) && ($(".hover").is(":visible"))) {
                     setTimeout(function() {
                         $(".hover").remove();
                     }, 500);
+                }
+            })
+            $("body").click(function(e) {
+                if (!($(e.target).hasClass('hover'))) {
+                    $(".hover").remove();
                 }
             })
         }
