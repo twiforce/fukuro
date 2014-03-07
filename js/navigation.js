@@ -40,9 +40,6 @@ $(document).ready(function () {
 			"letter-spacing": '5px',
 		});
 	}
-	$('#style-select').css({
-		float: 'left'
-	});
 	$('#scrollDown').click(function () {
         $("html, body").animate({ scrollTop: $(document).height() }, "slow");
 	});
