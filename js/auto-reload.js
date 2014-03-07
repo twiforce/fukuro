@@ -43,20 +43,12 @@ $(document).ready(function(){
 				});
 			}
 		});
-		if (settings.updateThread == "false") {
-			poll_interval = false;
-		} else {
-			poll_interval = setTimeout(poll, poll_accuracy);
-		}
+		(settings.updateThread == "false") ? poll_interval = false : poll_interval = setTimeout(poll, poll_accuracy);
 	};
 
-    if(settings.simpleNavbar) {
-        $("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh fa-lg"></i></a>&nbsp;');
-    } else if(device_type == "mobile") {
-        $("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh fa-2x"></i></a>&nbsp;');
-    } else {
-		$("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh"></i> ' + _('Обновить') + '</a>&nbsp;');
-	}
+    (settings.simpleNavbar) ? $("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh fa-lg"></i></a>&nbsp;') :
+        (device_type == "mobile") ? $("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh fa-2x"></i></a>&nbsp;') :
+            $("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh"></i> ' + _('Обновить') + '</a>&nbsp;');
 	
 	function pollNewPosts() {
 		clearTimeout(poll_interval);

@@ -26,13 +26,9 @@ var settings = JSON.parse(localStorage.getItem("settings"));
 
 // A very rough and dirty settings panel, dollscript-like. Needs rewiting ASAP.
 $(document).ready(function () {
-    if (settings.simpleNavbar) {
-        $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-lg"></i></a>');
-    } else if (device_type == "mobile") {
-        $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>');
-    } else {
-        $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs"></i> ' + _('Настройки') +'</a>');
-    }
+    (settings.simpleNavbar) ? $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-lg"></i></a>') :
+        (device_type == "mobile") ? $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>') :
+            $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs"></i> ' + _('Настройки') +'</a>');
 	$('body').append('<div id="settingsPopup"><h2>' + _('Настройки') +'</h2></div>');
 	
 	var bottom = document.getElementsByClassName('boardlist bottom')[0];
@@ -125,8 +121,8 @@ $(document).ready(function () {
     if (settings.updateThread) {
         $("input[name=updateThread]").attr('checked', true);
         if (typeof settings.updateFrequency == 'undefined')
-            $('input[name="updateFrequency"]').val(30)
-        else if (settings.updateFrequency <= 10)
+            $('input[name="updateFrequency"]').val(30);
+        if (settings.updateFrequency <= 10)
             settings.updateFrequency = 20;
         $('input[name="updateFrequency"]').val(settings.updateFrequency)
     }
@@ -194,11 +190,6 @@ $(document).ready(function () {
 		} else if ($('#formStyle option:selected').val() == "inlineForm") {
             settings.stickyForm = false; settings.bottomForm = false; settings.quickReply = false; settings.defaultForm = false; settings.inlineForm = true
         }
-        if ($('#backLinksStyle option:selected').val() == "backLinks4chan") {
-            settings.backLinksStyle = true;
-        } else {
-            settings.backLinksStyle = false;
-        }
         if ($('#postHover option:selected').val() == "postHover") {
             settings.postHover = true; settings.postHoverOld = false; settings.postHoverDisabled = false;
         } else if ($('#postHover option:selected').val() == "postHoverOld") {
@@ -206,31 +197,32 @@ $(document).ready(function () {
         } else if ($('#postHover option:selected').val() == "postHoverDisabled") {
             settings.postHover = false; settings.postHoverOld = false; settings.postHoverDisabled = true;
         }
-		if ($("input[name=updateThread]").prop('checked')) { settings.updateThread = true } else { settings.updateThread = false };
-        if ($("input[name=showNewMessages]").prop('checked')) { settings.showNewMessages = true } else { settings.showNewMessages = false };
-        if ($("input[name=imageHover]").prop('checked')) { settings.imageHover = true } else { settings.imageHover = false };
-        if ($("input[name=boopNewMessages]").prop('checked')) { settings.boopNewMessages = true } else { settings.boopNewMessages = false };
-		if ($("input[name=showBackLinks]").prop('checked')) { settings.showBackLinks = true } else { settings.showBackLinks = false };
-		if ($("input[name=quoteSelection]").prop('checked')) { settings.quoteSelection = true } else { settings.quoteSelection = false };
-        if ($("input[name=useLocalTime]").prop('checked')) { settings.useLocalTime = true } else { settings.useLocalTime = false };
-        if ($("input[name=hideImageLinks]").prop('checked')) { settings.hideImageLinks = true } else { settings.hideImageLinks = false };
-		if ($("input[name=hidePosts]").prop('checked')) { settings.hidePosts = true } else { settings.hidePosts = false };
-		if ($("input[name=showSpoiler]").prop('checked')) { settings.showSpoiler = true } else { settings.showSpoiler = false };
-		if ($("input[name=textSpoiler]").prop('checked')) { settings.textSpoiler = true } else { settings.textSpoiler = false };
-		if ($("input[name=hideRoleplay]").prop('checked')) { settings.hideRoleplay = true } else { settings.hideRoleplay = false };
-		if ($("input[name=markupButtons]").prop('checked')) { settings.markupButtons = true } else { settings.markupButtons = false };
-		if ($("input[name=markupHotkeys]").prop('checked')) { settings.markupHotkeys = true } else { settings.markupHotkeys = false };
-		if ($("input[name=simpleForm]").prop('checked')) { settings.simpleForm = true } else { settings.simpleForm = false };
-		if ($("input[name=textCountForm]").prop('checked')) { settings.textCountForm = true } else { settings.textCountForm = false };
-		if ($("input[name=autoResizeForm]").prop('checked')) { settings.autoResizeForm = true } else { settings.autoResizeForm = false };
-		if ($("input[name=showFormOnCite]").prop('checked')) { settings.showFormOnCite = true } else { settings.showFormOnCite = false };
-        if ($("input[name=snowfall]").prop('checked')) { settings.snowfall = true } else { settings.snowfall = false };
-        if ($("input[name=forcedAnon]").prop('checked')) { settings.forcedAnon = true } else { settings.forcedAnon = false };
-        if ($("input[name=simpleNavbar]").prop('checked')) { settings.simpleNavbar = true } else { settings.simpleNavbar = false };
-        if ($("input[name=showInfo]").prop('checked')) { settings.showInfo = true } else { settings.showInfo = false };
-        if ($("input[name=hideLongText]").prop('checked')) { settings.hideLongText = true } else { settings.hideLongText = false };
-        if ($("input[name=enableBots]").prop('checked')) { settings.enableBots = true } else { settings.enableBots = false };
-        if ($("input[name=useCustomCSS]").prop('checked')) { settings.useCustomCSS = true; } else { settings.useCustomCSS = false };
+        ($('#backLinksStyle option:selected').val() == "backLinks4chan") ? settings.backLinksStyle = true : settings.backLinksStyle = false;
+		($("input[name=updateThread]").prop('checked')) ? settings.updateThread = true : settings.updateThread = false;
+        ($("input[name=showNewMessages]").prop('checked')) ? settings.showNewMessages = true : settings.showNewMessages = false;
+        ($("input[name=imageHover]").prop('checked')) ? settings.imageHover = true : settings.imageHover = false;
+        ($("input[name=boopNewMessages]").prop('checked')) ? settings.boopNewMessages = true : settings.boopNewMessages = false;
+		($("input[name=showBackLinks]").prop('checked')) ? settings.showBackLinks = true : settings.showBackLinks = false;
+		($("input[name=quoteSelection]").prop('checked')) ? settings.quoteSelection = true : settings.quoteSelection = false;
+        ($("input[name=useLocalTime]").prop('checked')) ? settings.useLocalTime = true : settings.useLocalTime = false;
+        ($("input[name=hideImageLinks]").prop('checked')) ? settings.hideImageLinks = true : settings.hideImageLinks = false;
+		($("input[name=hidePosts]").prop('checked')) ? settings.hidePosts = true : settings.hidePosts = false;
+		($("input[name=showSpoiler]").prop('checked')) ? settings.showSpoiler = true : settings.showSpoiler = false;
+		($("input[name=textSpoiler]").prop('checked')) ? settings.textSpoiler = true : settings.textSpoiler = false;
+		($("input[name=hideRoleplay]").prop('checked')) ? settings.hideRoleplay = true : settings.hideRoleplay = false;
+		($("input[name=markupButtons]").prop('checked')) ? settings.markupButtons = true : settings.markupButtons = false;
+		($("input[name=markupHotkeys]").prop('checked')) ? settings.markupHotkeys = true : settings.markupHotkeys = false;
+		($("input[name=simpleForm]").prop('checked')) ? settings.simpleForm = true : settings.simpleForm = false;
+		($("input[name=textCountForm]").prop('checked')) ? settings.textCountForm = true : settings.textCountForm = false;
+		($("input[name=autoResizeForm]").prop('checked')) ? settings.autoResizeForm = true : settings.autoResizeForm = false;
+		($("input[name=showFormOnCite]").prop('checked')) ? settings.showFormOnCite = true : settings.showFormOnCite = false;
+        ($("input[name=snowfall]").prop('checked')) ? settings.snowfall = true : settings.snowfall = false;
+        ($("input[name=forcedAnon]").prop('checked')) ? settings.forcedAnon = true : settings.forcedAnon = false;
+        ($("input[name=simpleNavbar]").prop('checked')) ? settings.simpleNavbar = true : settings.simpleNavbar = false;
+        ($("input[name=showInfo]").prop('checked')) ? settings.showInfo = true : settings.showInfo = false;
+        ($("input[name=hideLongText]").prop('checked')) ? settings.hideLongText = true : settings.hideLongText = false;
+        ($("input[name=enableBots]").prop('checked')) ? settings.enableBots = true : settings.enableBots = false;
+        ($("input[name=useCustomCSS]").prop('checked')) ? settings.useCustomCSS = true : settings.useCustomCSS = false;
         settings.customCSS = $("textarea[name=customCSS]").val();
         settings.version = version;
 		localStorage.setItem("settings", JSON.stringify(settings));
