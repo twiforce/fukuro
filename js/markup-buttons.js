@@ -16,7 +16,7 @@
 $(document).ready(function () {
 	if (settings.markupButtons) {
 		$("#body").before('<div id=\"markup\"></div><br/>');
-		$("<a id=\"m-bold\"><i class=\"fa fa-bold\"></i></a><a id=\"m-italic\"><i class=\"fa fa-italic\"></i></a><a id=\"m-underline\"><i class=\"fa fa-underline\"></i></a><a id=\"m-strikethrough\"><i class=\"fa fa-strikethrough\"></i></a><a id=\"m-quote\"><i class=\"fa fa-chevron-right\"></i></a><a id=\"m-spoiler\"><i class=\"fa fa-square\"></i></a><a id=\"m-code\"><i class=\"fa fa-code\"></i></a><a id=\"m-roleplay\"><i class=\"fa fa-comments\"></i></a><a id=\"m-subscript\"><i class=\"fa fa-subscript\"></i></a><a id=\"m-superscript\"><i class=\"fa fa-superscript\"></i></a><a id=\"m-dice\"><i class=\"fa fa-question\"></i></a>").appendTo('#markup');
+		$("<a id=\"m-bold\"><i class=\"fa fa-bold\"></i></a><a id=\"m-italic\"><i class=\"fa fa-italic\"></i></a><a id=\"m-underline\"><i class=\"fa fa-underline\"></i></a><a id=\"m-strikethrough\"><i class=\"fa fa-strikethrough\"></i></a><a id=\"m-quote\"><i class=\"fa fa-chevron-right\"></i></a><a id=\"m-spoiler\"><i class=\"fa fa-square\"></i></a><a id=\"m-code\"><i class=\"fa fa-code\"></i></a><a id=\"m-irony\"><i class=\"fa fa-pencil-square-o\"></i></a><a id=\"m-roleplay\"><i class=\"fa fa-comments\"></i></a><a id=\"m-subscript\"><i class=\"fa fa-subscript\"></i></a><a id=\"m-superscript\"><i class=\"fa fa-superscript\"></i></a><a id=\"m-dice\"><i class=\"fa fa-question\"></i></a>").appendTo('#markup');
 		$('#m-bold').click(function () {
 			$("#body").surroundSelectedText("[b]", "[/b]");
 		});
@@ -39,9 +39,12 @@ $(document).ready(function () {
 		$('#m-code').click(function () {
 			$("#body").surroundSelectedText("[code]", "[/code]");
 		});
-		$('#m-roleplay').click(function () {
-			$("#body").surroundSelectedText("[rp]", "[/rp]");
-		});
+        $('#m-irony').click(function () {
+            $("#body").surroundSelectedText("[irony]", "[/irony]");
+        });
+        $('#m-roleplay').click(function () {
+            $("#body").surroundSelectedText("[rp]", "[/rp]");
+        });
 		$('#m-subscript').click(function () {
 			$("#body").surroundSelectedText("[sub]", "[/sub]");
 		});
@@ -73,10 +76,14 @@ $(document).ready(function () {
 			$('#m-spoiler').click();
 			return false;
 		});
-		key('⌘+k, ctrl+k', function(event, handler){
-			$('#m-code').click();
-			return false;
-		});
+        key('⌘+k, ctrl+k', function(event, handler){
+            $('#m-code').click();
+            return false;
+        });
+        key('⌘+o, ctrl+o', function(event, handler){
+            $('#m-irony').click();
+            return false;
+        });
 		key('⌘+\\, ctrl+\\', function(event, handler){
 			$('#toggleForm').click();
 			return false;
