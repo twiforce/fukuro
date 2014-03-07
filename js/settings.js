@@ -172,30 +172,78 @@ $(document).ready(function () {
 		// Oh my god this is awkward.
         settings.updateFrequency = $("input[name=updateFrequency]").val();
         settings.hideLongTextNum = $("input[name=hideLongTextNum]").val();
-        if ($('#ajaxPolling option:selected').val() == "ajax") {
-			settings.ajax = true; settings.noRefresh = false; settings.externalPolling = false
-		} else if ($('#ajaxPolling option:selected').val() == "noRefresh") {
-			settings.ajax = false; settings.noRefresh = true; settings.externalPolling = false
-		} else if ($('#ajaxPolling option:selected').val() == "externalPolling") {
-			settings.ajax = false; settings.noRefresh = false; settings.externalPolling = true
+        switch ($('#ajaxPolling option:selected').val()) {
+            case 'ajax':
+                settings.ajax = true;
+                settings.noRefresh = false;
+                settings.externalPolling = false;
+                break;
+            case 'noRefresh':
+                settings.ajax = false;
+                settings.noRefresh = true;
+                settings.externalPolling = false;
+                break;
+            case 'externalPolling':
+                settings.ajax = false;
+                settings.noRefresh = false;
+                settings.externalPolling = true;
+                break;
+            // shouldn't there be default case?
 		}
-		if ($('#formStyle option:selected').val() == "stickyForm") {
-            settings.stickyForm = true; settings.bottomForm = false; settings.quickReply = false; settings.defaultForm = false; settings.inlineForm = false
-		} else if ($('#formStyle option:selected').val() == "bottomForm") {
-            settings.stickyForm = false; settings.bottomForm = true; settings.quickReply = false; settings.defaultForm = false; settings.inlineForm = false
-        } else if ($('#formStyle option:selected').val() == "quickReply") {
-			settings.stickyForm = false; settings.bottomForm = false; settings.quickReply = true; settings.defaultForm = false; settings.inlineForm = false
-		} else if ($('#formStyle option:selected').val() == "defaultForm") {
-			settings.stickyForm = false; settings.bottomForm = false; settings.quickReply = false; settings.defaultForm = true; settings.inlineForm = false
-		} else if ($('#formStyle option:selected').val() == "inlineForm") {
-            settings.stickyForm = false; settings.bottomForm = false; settings.quickReply = false; settings.defaultForm = false; settings.inlineForm = true
+        // huh, I thought it would look better this way
+		switch ($('#formStyle option:selected').val()) {
+            case 'stickyForm':
+                settings.stickyForm = true;
+                settings.bottomForm = false;
+                settings.quickReply = false;
+                settings.defaultForm = false;
+                settings.inlineForm = false;
+                break;
+            case 'bottomForm':
+                settings.stickyForm = false;
+                settings.bottomForm = true;
+                settings.quickReply = false;
+                settings.defaultForm = false;
+                settings.inlineForm = false;
+                break;
+            case 'quickReply':
+                settings.stickyForm = false;
+                settings.bottomForm = false;
+                settings.quickReply = true;
+                settings.defaultForm = false;
+                settings.inlineForm = false;
+                break;
+            case 'defaultForm':
+                settings.stickyForm = false;
+                settings.bottomForm = false;
+                settings.quickReply = false;
+                settings.defaultForm = true;
+                settings.inlineForm = false;
+                break;
+            case 'inlineForm':
+                settings.stickyForm = false;
+                settings.bottomForm = false;
+                settings.quickReply = false;
+                settings.defaultForm = false;
+                settings.inlineForm = true;
+                break;
         }
-        if ($('#postHover option:selected').val() == "postHover") {
-            settings.postHover = true; settings.postHoverOld = false; settings.postHoverDisabled = false;
-        } else if ($('#postHover option:selected').val() == "postHoverOld") {
-            settings.postHover = false; settings.postHoverOld = true; settings.postHoverDisabled = false;
-        } else if ($('#postHover option:selected').val() == "postHoverDisabled") {
-            settings.postHover = false; settings.postHoverOld = false; settings.postHoverDisabled = true;
+        switch ($('#postHover option:selected').val()) {
+            case 'postHover':
+                settings.postHover = true;
+                settings.postHoverOld = false;
+                settings.postHoverDisabled = false;
+                break;
+            case 'postHoverOld':
+                settings.postHover = false;
+                settings.postHoverOld = true;
+                settings.postHoverDisabled = false;
+                break;
+            case 'postHoverDisabled':
+                settings.postHover = false;
+                settings.postHoverOld = false;
+                settings.postHoverDisabled = true;
+                break;
         }
         ($('#backLinksStyle option:selected').val() == "backLinks4chan") ? settings.backLinksStyle = true : settings.backLinksStyle = false;
 		($("input[name=updateThread]").prop('checked')) ? settings.updateThread = true : settings.updateThread = false;
