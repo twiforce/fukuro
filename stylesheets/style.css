@@ -432,24 +432,30 @@ p.intro.thread-hidden {
 	margin: 0px;
 	padding: 0px;
 }
-
 #markup a, #navigaton {
-	cursor: pointer;
-	font-size: 1.2 em;
-	padding: 4px;
-	text-decoration: none;
+    cursor: pointer;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-decoration: none;
 }
-
+#markup a {
+    border: 1px solid gray;
+    border-radius: 2px;
+    margin-right: 3px;
+}
+td > #markup {
+    padding-left: 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
 div.post.op {
 	counter-reset: post;
 }
-
 time:after{
 	counter-increment: post;
     content: " #" counter(post);
 	color: green;
 }
-
 #wrapper div.tabs {
     display:none;
 }
@@ -466,6 +472,12 @@ a[href="mailto:sage"]:after,  a[href="mailto:Sage"]:after, a[href="mailto:SAGE"]
     font-family: FontAwesome;
     content: ' \f088';
     color: red;
+    text-decoration: none !important;
+}
+a[href="mailto:#random"]:after,  a[href="mailto:#Random"]:after, a[href="mailto:#RANDOM"]:after {
+    font-family: FontAwesome;
+    content: ' \f074';
+    color: green;
     text-decoration: none !important;
 }
 ul#filestuff {
@@ -539,6 +551,10 @@ ul#filestuff li:hover #fileDropdown {
 		height: 95%!important;
 	}
 }
-div.post.reply.closed p.fileinfo, div.post.reply.closed div.body, div.post.reply.closed .post-image, div.post.reply.closed .video-container, div.post.reply.closed object, div.post.reply.closed iframe, div.post.reply.closed #filestuff {
+
+button, input[type="submit"], input[type="file"], input[name="spoiler"], label[for="spoiler"] {
+    cursor: pointer;
+}
+div.post.reply.closed p.fileinfo, div.post.reply.closed div.body, div.post.reply.closed .post-image, div.post.reply.closed .video-container, div.post.reply.closed object, div.post.reply.closed iframe, div.post.reply.closed #filestuff, div.post.reply.closed .mejs-container {
 	display: none;
 }

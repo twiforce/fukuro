@@ -90,7 +90,7 @@ div.post.reply , form[name="post"], #navigation, #settingsPopup, div.op.post-hov
 	border-bottom-width: 2px;
 	border-top-width: 0;
 }
-div.post.reply:not(.post-hover) {
+div.post.reply:not(.de-pview):not(.de-menu):not(.hover):not(.post-hover) {
 	width: 100%;
 }
 form[name="post"] {
