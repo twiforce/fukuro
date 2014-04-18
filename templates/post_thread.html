@@ -137,7 +137,6 @@
             <source src="{{ config.domain }}{{ config.uri_img }}{{ post.file }}" type="video/webm" />
         </video>
     {% endif %}
-	{% endif %}
 	</p>
 	<div class="body">
 		{% endfilter %}{% if index %}{{ post.body|truncate_body(post.link) }}{% else %}{{ post.body }}{% endif %}{% filter remove_whitespace %}
