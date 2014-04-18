@@ -20,6 +20,7 @@ $(document).ready(function(){
                 plugins:['flash','silverlight'],
                 pluginPath:'/js/mediaelement/'
         });
+        $('video').mediaelementplayer();
     }
 
     var do_add_shorten = function() {
