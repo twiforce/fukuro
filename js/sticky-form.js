@@ -87,7 +87,7 @@ $(document).ready(function () {
 		$('.banner').hide();
 		if (settings.simpleForm) {
 			$('form[name=post] th').hide();
-			$('label[for="spoiler"]').text('Spoiler');
+			$('label[for="spoiler"]').text(_('Spoiler'));
 			$('input[name=name]').attr('placeholder', _('Имя (оставьте пустым)'));
 			$('input[name=email]').attr('placeholder', _('Email (или sage)'));
 			$('input[name=subject]').attr('placeholder', _('Тема'));
@@ -98,15 +98,15 @@ $(document).ready(function () {
 			$('input[name="email"], input[name="name"]').attr('size',18);
 			$('input[name="subject"]').attr('size',28);
 			$('input[name="spoiler"], label[for="spoiler"]').appendTo($('input[name="file"]').parent());
-            $('form[name=post]').css({ "padding": '0px!important', });
-            $('form[name=post] table').css({ "border-spacing": '0px', });
-            $('form[name=post] input[type=text]').css({ "height": '17px', });
-            $('input[name=embed]').css({ "width": 'calc(100% - 2px)', });
-            $('textarea[name=body]').css({ "width": 'calc(100% - 6px)', });
-            $('input[name=name]').css({ "width": '49%', });
-            $('input[name=email]').css({ "width": '49%', "float": 'right', });
-            $('input[name=post]').css({ "float": 'right', });
-            $('input[name=subject]').css({ "width": '49%', });
+            $('form[name=post]').css({ "padding": '0px!important' });
+            $('form[name=post] table').css({ "border-spacing": '0px' });
+            $('form[name=post] input[type=text]').css({ "height": '17px' });
+            $('input[name=embed]').css({ "width": 'calc(100% - 2px)' });
+            $('textarea[name=body]').css({ "width": 'calc(100% - 6px)' });
+            $('input[name=name]').css({ "width": '49%' });
+            $('input[name=email]').css({ "width": '49%', "float": 'right' });
+            $('input[name=post]').css({ "float": 'right' });
+            $('input[name=subject]').css({ "width": '49%' });
 		}
 		
 		if (device_type == "mobile") {
