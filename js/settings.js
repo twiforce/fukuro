@@ -63,7 +63,7 @@ $(document).ready(function () {
 	<input type="checkbox" name="hidePosts">' + _('Добавить кнопки для скрытия постов') + '<br>\
 	<input type="checkbox" name="hideImageLinks">' + _('Добавить кнопки для скрытия изображений') + '<br>\
 	</p></div><div id="con_tab2" class="tabs">\
-	<p><select id="formStyle"><option value="defaultForm">' + _('Обычная (наверху)') + '</option><option value="bottomForm">' + _('Обычная (внизу)') + '</option><option value="stickyForm">' + _('Прикрепленная') + '</option><option value="quickReply">' + _('Плавающая') + '</option><option value="inlineForm">' + _('Внутри постов (*)') + '</option></select> ' + _('форма ответа') + '<br>\
+	<p><select id="formStyle"><option value="defaultForm">' + _('Обычная (наверху)') + '</option><option value="bottomForm">' + _('Обычная (внизу)') + '</option><option value="stickyForm">' + _('Прикрепленная') + '</option><option value="quickReply">' + _('Плавающая') + '</option><option value="inlineForm">' + _('Внутри постов') + '</option></select> ' + _('форма ответа') + '<br>\
 	<input type="checkbox" name="simpleForm">' + _('Упрощенная форма') + '<br>\
 	<input type="checkbox" name="markupButtons">' + _('Отображать кнопки разметки') + '<br>\
 	<input type="checkbox" name="markupHotkeys">' + _('Включить хоткеи') + '<br>\
