@@ -73,6 +73,7 @@ $(document).ready(function () {
 	</p></div><div id="con_tab3" class="tabs">\
 	<p></p><input type="checkbox" name="snowfall">' + _('Включить снег') + '<br>\
 	<input type="checkbox" name="useLocalTime">' + _('Использовать местное время') + '<br>\
+	<input type="checkbox" name="useMomentJS">' + _('Местное время в формате "x минут назад"') + '<br>\
 	<input type="checkbox" name="showSpoiler">' + _('Раскрывать изображения-спойлеры') + '<br>\
 	<input type="checkbox" name="textSpoiler">' + _('Раскрывать текстовые спойлеры') + '<br>\
 	<input type="checkbox" name="forcedAnon">' + _('Принудительная анонимизация') + '<br>\
@@ -143,6 +144,7 @@ $(document).ready(function () {
     if (settings.externalPolling) $('#ajaxPolling option[value="externalPolling"]').attr('selected', 'selected');
     if (settings.quoteSelection) $("input[name=quoteSelection]").attr('checked', true);
     if (settings.useLocalTime) $("input[name=useLocalTime]").attr('checked', true);
+    if (settings.useMomentJS) $("input[name=useMomentJS]").attr('checked', true);
     if (settings.hideImageLinks) $("input[name=hideImageLinks]").attr('checked', true);
     if (settings.hidePosts) $("input[name=hidePosts]").attr('checked', true);
     if (settings.showSpoiler) $("input[name=showSpoiler]").attr('checked', true);
@@ -252,6 +254,7 @@ $(document).ready(function () {
         ($("input[name=showBackLinks]").prop('checked')) ? settings.showBackLinks = true : settings.showBackLinks = false;
         ($("input[name=quoteSelection]").prop('checked')) ? settings.quoteSelection = true : settings.quoteSelection = false;
         ($("input[name=useLocalTime]").prop('checked')) ? settings.useLocalTime = true : settings.useLocalTime = false;
+        ($("input[name=useMomentJS]").prop('checked')) ? settings.useMomentJS = true : settings.useMomentJS = false;
         ($("input[name=hideImageLinks]").prop('checked')) ? settings.hideImageLinks = true : settings.hideImageLinks = false;
         ($("input[name=hidePosts]").prop('checked')) ? settings.hidePosts = true : settings.hidePosts = false;
         ($("input[name=showSpoiler]").prop('checked')) ? settings.showSpoiler = true : settings.showSpoiler = false;

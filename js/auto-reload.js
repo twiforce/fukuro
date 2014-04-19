@@ -40,6 +40,10 @@ $(document).ready(function(){
 						$(document).trigger('new_post', this);
 						$('#updateThread i').removeClass('fa-spin');
 					}
+                    if (settings.useMomentJS) {
+                        now = moment();
+                        momentize(document);
+                    }
 				});
 			}
 		});
@@ -53,11 +57,11 @@ $(document).ready(function(){
 	function pollNewPosts() {
 		clearTimeout(poll_interval);
 		poll_interval = setTimeout(poll, poll_accuracy);
-	};
+	}
 	
 	if(settings.updateThread) {
-		pollNewPosts();
-	};
+        pollNewPosts();
+	}
 	
 	$('#updateThread').click(function () {
 		$('#updateThread i').addClass('fa-spin');

@@ -11,6 +11,14 @@
  *
  */
 
+var now = moment();
+var momentize = function() {
+    $('time').each(function (i, e) {
+        var time = moment($(e).attr('datetime'));
+        $(e).html('<span>' + time.from(now) + '</span>');
+    });
+};
+
 onready(function(){
     if (settings.useLocalTime) {
         var iso8601 = function(s) {
@@ -39,17 +47,24 @@ onready(function(){
                     [_("Sun"), _("Mon"), _("Tue"), _("Wed"), _("Thu"), _("Fri"), _("Sat"), _("Sun")][t.getDay()] + " " + zeropad(t.getDate(), 2) + " " +
                     [_("Jan"), _("Feb"), _("Mar"), _("Apr"), _("May"), _("Jun"), _("Jul"), _("Aug"), _("Sep"), _("Oct"), _("Nov"), _("Dec"), _("Jan")][parseInt(zeropad(t.getMonth(), 2))]
                     + " " + t.getFullYear() + " " + zeropad(t.getHours(), 2) + ":" + zeropad(t.getMinutes(), 2) + ":" + zeropad(t.getSeconds(), 2);
-            };
+            }
         };
 
         do_localtime(document);
 
-        if (window.jQuery) {
-            // allow to work with auto-reload.js, etc.
-            $(document).bind('new_post', function(e, post) {
-                do_localtime(post);
-            });
-        }
+        // allow to work with auto-reload.js, etc.
+        $(document).bind('new_post', function(e, post) {
+            do_localtime(post);
+        });
+    }
+
+    if (settings.useMomentJS) {
+        momentize(document);
+        
+        // allow to work with auto-reload.js, etc.
+        $(document).bind('new_post', function(e, post) {
+            momentize(post);
+        });
     }
 });
 
