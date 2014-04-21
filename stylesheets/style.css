@@ -446,6 +446,9 @@ p.intro.thread-hidden {
     border: 1px solid gray;
     border-radius: 2px;
     margin-right: 3px;
+    display: block;
+    float: left;
+    width: 15px;
 }
 td > #markup {
     padding-left: 0px;
