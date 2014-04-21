@@ -43,13 +43,13 @@ $(document).ready(function(){
 		var do_hidepost = function() {
 			var post = this;
 			var id = $(this).attr('id');
-			var replacement = $('<span><a class="hide-post-link" href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-minus-square"></i></a></span>');
+			var replacement = $('<span><a class="hide-post-link" title=\"' + _('Hide post') + '\" href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-minus-square"></i></a></span>');
 			
 			replacement.find('a').click(function() {
 				hidden_data[board][id] = Math.round(Date.now() / 1000);
 				store_data();
 				
-				var show_link = $('<a class="show-post-link" href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-plus-square"></i></a>').click(function() {
+				var show_link = $('<a class="show-post-link" title=\"' + _('Show post') + '\"  href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-plus-square"></i></a>').click(function() {
 					delete hidden_data[board][id];
 					store_data();
 					
