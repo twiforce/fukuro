@@ -52,7 +52,7 @@ $(document).ready(function () {
 	<a href="javascript:;" id="tab5" class="tabs"><i class="fa fa-info"></i> ' + _('Дополнительно') + '</a>\
 	<br/>\
 	<div id="con_tab1" class="tabs active">\
-	<p></p><input type="checkbox" name="updateThread">' + _('Обновлять тред каждые') + ' <input type="text" maxlength="3" size="3" name="updateFrequency"> ' + _('с') + '<br>\
+	<p></p><input type="checkbox" name="updateThread">' + _('Обновлять тред каждые') + ' <input type="number" min="10" max="900" name="updateFrequency"> ' + _('с') + '<br>\
 	' + _('Использовать') + ' <select id="ajaxPolling"><option value="ajax">' + _('новую') + '</option><option value="noRefresh">' + _('старую') + '</option><option value="externalPolling">' + _('внешнюю') + '</option></select> ' + _('AJAX-отправку сообщений') + '<br>\
 	<input type="checkbox" name="showBackLinks">' + _('Отображать ссылки на ответы') + ' <select id="backLinksStyle"><option value="backLinksNormal">' + _('внизу') + '</option><option value="backLinks4chan">' + _('наверху') + '</option></select><br>\
 	<select id="postHover"><option value="postHover">' + _('Новое') + '</option><option value="postHoverOld">' + _('Старое') + '</option><option value="postHoverDisabled">' + _('Не отображать') + '</option></select> ' + _('превью поста при наведении на ссылку') + '<br>\
@@ -79,7 +79,7 @@ $(document).ready(function () {
 	<input type="checkbox" name="forcedAnon">' + _('Принудительная анонимизация') + '<br>\
 	<input type="checkbox" name="simpleNavbar">' + _('Упрощенная панель навигации') + '<br>\
 	<input type="checkbox" name="hideRoleplay">' + _('Не отображать тег [rp]') + '<br>\
-	<input type="checkbox" name="hideLongText">' + _('Скрывать текст длиной более') + ' <input type="text" maxlength="4" size="4" name="hideLongTextNum"> ' + _('символов') + '<br>\
+	<input type="checkbox" name="hideLongText">' + _('Скрывать текст длиной более') + ' <input type="number" min="0" max="4000" name="hideLongTextNum"> ' + _('символов') + '<br>\
 	<input type="checkbox" name="showInfo">' + _('Показывать онлайн и скорость борды') + '<br>\
 	</p></div><div id="con_tab4" class="tabs">\
 	<p><input type="checkbox" name="useCustomCSS">' + _('Использовать свой CSS') + '<button id="applyCSS" style="float: right"><i class="fa fa-eye"></i> ' + _('Предпросмотр') + '</button><br>\
