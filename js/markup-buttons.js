@@ -16,7 +16,18 @@
 $(document).ready(function () {
 	if (settings.markupButtons) {
 		$("#body").before('<div id=\"markup\"></div><br/>');
-		$("<a id=\"m-bold\"><i class=\"fa fa-bold\"></i></a><a id=\"m-italic\"><i class=\"fa fa-italic\"></i></a><a id=\"m-underline\"><i class=\"fa fa-underline\"></i></a><a id=\"m-strikethrough\"><i class=\"fa fa-strikethrough\"></i></a><a id=\"m-quote\"><i class=\"fa fa-chevron-right\"></i></a><a id=\"m-spoiler\"><i class=\"fa fa-square\"></i></a><a id=\"m-code\"><i class=\"fa fa-code\"></i></a><a id=\"m-irony\"><i class=\"fa fa-pencil-square-o\"></i></a><a id=\"m-roleplay\"><i class=\"fa fa-comments\"></i></a><a id=\"m-subscript\"><i class=\"fa fa-subscript\"></i></a><a id=\"m-superscript\"><i class=\"fa fa-superscript\"></i></a><a id=\"m-dice\"><i class=\"fa fa-question\"></i></a>").appendTo('#markup');
+		$("<a id=\"m-bold\" title=\"" + _('Bold') + "\"><i class=\"fa fa-bold\"></i></a>" +
+            "<a id=\"m-italic\" title=\"" + _('Cursive') + "\"><i class=\"fa fa-italic\"></i></a>" +
+            "<a id=\"m-underline\" title=\"" + _('Underline') + "\"><i class=\"fa fa-underline\"></i></a>" +
+            "<a id=\"m-strikeout\" title=\"" + _('Strikeout') + "\"><i class=\"fa fa-strikethrough\"></i></a>" +
+            "<a id=\"m-quote\" title=\"" + _('Quote') + "\"><i class=\"fa fa-chevron-right\"></i></a>" +
+            "<a id=\"m-spoiler\" title=\"" + _('Spoiler') + "\"><i class=\"fa fa-square\"></i></a>" +
+            "<a id=\"m-code\" title=\"" + _('Code') + "\"><i class=\"fa fa-code\"></i></a>" +
+            "<a id=\"m-irony\" title=\"" + _('Irony') + "\"><i class=\"fa fa-pencil-square-o\"></i></a>" +
+            "<a id=\"m-roleplay\" title=\"" + _('Role Play') + "\"><i class=\"fa fa-comments\"></i></a>" +
+            "<a id=\"m-subscript\" title=\"" + _('Subscript') + "\"><i class=\"fa fa-subscript\"></i></a>" +
+            "<a id=\"m-superscript\" title=\"" + _('Superscript') + "\"><i class=\"fa fa-superscript\"></i></a>" +
+            "<a id=\"m-dice\" title=\"" + _('Dice (## 1d100 ##)') + "\"><i class=\"fa fa-question\"></i></a>").appendTo('#markup');
 		$('#m-bold').click(function () {
 			$("#body").surroundSelectedText("[b]", "[/b]");
 		});
@@ -26,7 +37,7 @@ $(document).ready(function () {
 		$('#m-underline').click(function () {
 			$("#body").surroundSelectedText("[u]", "[/u]");
 		});
-		$('#m-strikethrough').click(function () {
+		$('#m-strikeout').click(function () {
 			$("#body").surroundSelectedText("[s]", "[/s]");
 		});
         $('#m-quote').click(function () {
@@ -69,7 +80,7 @@ $(document).ready(function () {
 			return false;
 		});
 		key('⌘+s, ctrl+s', function(event, handler){
-			$('#m-strikethrough').click();
+			$('#m-strikeout').click();
 			return false;
 		});
 		key('⌘+h, ctrl+h', function(event, handler){
