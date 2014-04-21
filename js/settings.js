@@ -293,12 +293,20 @@ $(document).ready(function () {
             $(this).hide();
         });
     } else if (settings.version != version) {
-        $('body').append('<div id="updateInfo"><b>' + _('Обратите внимание!') + '</b><br/>' + _('Произошло обновление сайта. Возможно, добавились некоторые новые функции, или вам необходимо включить отсутствующий функционал в настройках. Загляните на <a href="/">главную страницу</a>, чтобы узнать список изменений.') + '<br/>' + _('Кликните на это окно, чтобы закрыть его.') + '</div>');
-        $('#updateInfo').css({'position': 'fixed', 'cursor': 'pointer', 'top': '10px', 'width': '60%', 'padding': '5px', 'border-radius': '2px', 'background-color': 'white'});
-        $("#updateInfo").click(function () {
-            settings.version = version;
-            localStorage.setItem("settings", JSON.stringify(settings));
-            $("#updateInfo").hide();
+        noty({
+            layout: 'topLeft',
+            text: '<b>' + _('Обратите внимание!') + '</b><br/>'
+                + _('Произошло обновление сайта. Возможно, добавились некоторые новые функции,' +
+                    'или вам необходимо включить отсутствующий функционал в настройках.' +
+                    'Загляните на <a href="/">главную страницу</a>, чтобы узнать список изменений.') +
+                    '<br/>' + _('Кликните на это окно, чтобы закрыть его.'),
+            callback: {
+                onClose: function () {
+                    settings.version = version;
+                    localStorage.setItem("settings", JSON.stringify(settings));
+                    $("#updateInfo").hide();
+                }
+            }
         });
     }
     $("#clear").click(function () {

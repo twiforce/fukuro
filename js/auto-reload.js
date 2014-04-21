@@ -32,6 +32,15 @@ $(document).ready(function(){
 			url: document.location,
             data: {nocache: Math.random()},
 			beforeSend: function() { $('#updateThread i').addClass('fa-spin') },
+            error: function(xhr, status, error) {
+                noty({
+                    layout: 'topLeft',
+                    type: 'warning',
+                    timeout: poll_accuracy,
+                    text: '<b>' + _('Соединение потеряно!') + '</b><br/>' +
+                        _('Не удалось получить новые посты.')
+                });
+            },
 			success: function(data) {
 				$(data).find('div.post.reply').each(function() {
 					var id = $(this).attr('id');
