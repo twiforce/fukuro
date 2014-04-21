@@ -23,7 +23,7 @@ $(document).ready(function(){
 	
 	var poll_interval;
 	if ((settings.updateFrequency) <= 10) {
-		settings.updateFrequency == 10;
+		settings.updateFrequency = 10;
 	}
 	var poll_accuracy = settings.updateFrequency * 1000;
 	
@@ -36,7 +36,7 @@ $(document).ready(function(){
 				$(data).find('div.post.reply').each(function() {
 					var id = $(this).attr('id');
 					if($('#' + id).length == 0) {
-						$(this).insertAfter($('div.post:last').next()).after('<br class="clear">');
+						$(this).insertAfter($('div.post:not(.hover):not(.post-hover):last').next()).after('<br class="clear">');
 						$(document).trigger('new_post', this);
 						$('#updateThread i').removeClass('fa-spin');
 					}
