@@ -19,7 +19,6 @@ $(document).ready(function(){
 		}
 		$(this)
 			.attr('data-orig', this.src)
-			//.attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')
 			.addClass('hidden');
 	};
 
