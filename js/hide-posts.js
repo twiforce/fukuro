@@ -13,15 +13,24 @@ $(document).ready(function(){
 	if(settings.hidePosts) {
 		var board = $('form input[name="board"]').val().toString();
 
-		if (!localStorage.hiddenposts)
-			localStorage.hiddenposts = '{}';
+        if (!localStorage.hiddenposts)
+            localStorage.hiddenposts = '{}';
+        if (settings.hidePostsMD5)
+            if (!localStorage.hiddenpostsmd5)
+                localStorage.hiddenpostsmd5 = '{}';
 
 		// Load data from HTML5 localStorage
-		var hidden_data = JSON.parse(localStorage.hiddenposts);
+        var hidden_data = JSON.parse(localStorage.hiddenposts);
+        if (settings.hidePostsMD5)
+            var hidden_data_md5 = JSON.parse(localStorage.hiddenpostsmd5);
 
-		var store_data = function() {
-			localStorage.hiddenposts = JSON.stringify(hidden_data);
-		};
+        var store_data = function() {
+            localStorage.hiddenposts = JSON.stringify(hidden_data);
+        };
+        if (settings.hidePostsMD5)
+            var store_data_md5 = function() {
+                localStorage.hiddenpostsmd5 = JSON.stringify(hidden_data_md5);
+            };
 
 		// Delete old hidden posts (30+ days old)
 		for (var key in hidden_data) {
@@ -33,25 +42,35 @@ $(document).ready(function(){
 			}
 		}
 
-		if (!hidden_data[board]) {
-			hidden_data[board] = {}; // id : timestamp
-		}
-		
-		//var id = $('div.post.op p.intro').attr('id');
+        if (!hidden_data[board]) {
+            hidden_data[board] = {}; // id : timestamp
+        }
+        if (settings.hidePostsMD5)
+            if (!hidden_data_md5[board]) {
+                hidden_data_md5[board] = {}; // id : timestamp
+            }
 
-		//$('div.post.reply p.intro').each(function() {
 		var do_hidepost = function() {
 			var post = this;
-			var id = $(this).attr('id');
+            var id = $(this).attr('id');
+            var hash = $(this).parent().children('a').data('fileHash');
 			var replacement = $('<span><a class="hide-post-link" title=\"' + _('Hide post') + '\" href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-minus-square"></i></a></span>');
 			
 			replacement.find('a').click(function() {
-				hidden_data[board][id] = Math.round(Date.now() / 1000);
-				store_data();
+                hidden_data[board][id] = Math.round(Date.now() / 1000);
+                store_data();
+                if (settings.hidePostsMD5 && hash != undefined) {
+                    hidden_data_md5[board][hash] = Math.round(Date.now() / 1000);
+                    store_data_md5();
+                }
 				
 				var show_link = $('<a class="show-post-link" title=\"' + _('Show post') + '\"  href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-plus-square"></i></a>').click(function() {
 					delete hidden_data[board][id];
 					store_data();
+                    if (settings.hidePostsMD5 && hash != undefined) {
+                        delete hidden_data_md5[board][hash];
+                        store_data_md5();
+                    }
 					
 					$(post).parent().removeClass('closed');
 					$(this).prev().show();
@@ -67,9 +86,12 @@ $(document).ready(function(){
 			});
 			
 			$(this).append(replacement);
-			
-			if (hidden_data[board][id])
-				$(this).find('.hide-post-link').click();
+
+            if (hidden_data[board][id])
+                $(this).find('.hide-post-link').click();
+            if (settings.hidePostsMD5)
+                if (hidden_data_md5[board][hash])
+                    $(this).find('.hide-post-link').click();
 		};
 		
 		$('.post.reply p.intro').each(do_hidepost);

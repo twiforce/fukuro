@@ -18,13 +18,13 @@
 if (localStorage.getItem("settings") == null)
     localStorage.setItem("settings", "{\"ajax\":true, \"useLocalTime\":true, \"showInfo\":true, \"postHover\":true, \"markupButtons\":true, \"showSpoiler\":false, \"showNewMessages\":true, \"showSaveOriginalLinks\":true, \"showBackLinks\":true}");
 
-// Current settings version. We'll be using this to notinfy users for updates
+// Current settings version. We'll be using this to notify users for updates
 // Let's just start from one. That's kinda not the first settings.js but still, whatever, nobody cares
-var version = 6;
+var version = 7;
 
 var settings = JSON.parse(localStorage.getItem("settings"));
 
-// A very rough and dirty settings panel, dollscript-like. Needs rewiting ASAP.
+// A very rough and dirty settings panel, dollscript-like. Needs rewriting ASAP.
 $(document).ready(function () {
     (settings.simpleNavbar) ? $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-lg"></i></a>') :
         (device_type == "mobile") ? $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>') :
@@ -61,6 +61,7 @@ $(document).ready(function () {
 	<input type="checkbox" name="boopNewMessages">' + _('Звуковые уведомления о новых постах') + '<br>\
 	<input type="checkbox" name="quoteSelection">' + _('Цитировать текст при выделении в посте') + '<br>\
 	<input type="checkbox" name="hidePosts">' + _('Добавить кнопки для скрытия постов') + '<br>\
+	<input type="checkbox" name="hidePostsMD5">' + _('Автоматически скрывать посты, содержащие изображения уже скрытых постов') + '<br>\
 	<input type="checkbox" name="hideImageLinks">' + _('Добавить кнопки для скрытия изображений') + '<br>\
 	</p></div><div id="con_tab2" class="tabs">\
 	<p><select id="formStyle"><option value="defaultForm">' + _('Обычная (наверху)') + '</option><option value="bottomForm">' + _('Обычная (внизу)') + '</option><option value="stickyForm">' + _('Прикрепленная') + '</option><option value="quickReply">' + _('Плавающая') + '</option><option value="inlineForm">' + _('Внутри постов') + '</option></select> ' + _('форма ответа') + '<br>\
@@ -147,6 +148,7 @@ $(document).ready(function () {
     if (settings.useMomentJS) $("input[name=useMomentJS]").attr('checked', true);
     if (settings.hideImageLinks) $("input[name=hideImageLinks]").attr('checked', true);
     if (settings.hidePosts) $("input[name=hidePosts]").attr('checked', true);
+    if (settings.hidePostsMD5) $("input[name=hidePostsMD5]").attr('checked', true);
     if (settings.showSpoiler) $("input[name=showSpoiler]").attr('checked', true);
     if (settings.textSpoiler) $("input[name=textSpoiler]").attr('checked', true);
     if (settings.hideRoleplay) $("input[name=hideRoleplay]").attr('checked', true);
@@ -257,6 +259,7 @@ $(document).ready(function () {
         ($("input[name=useMomentJS]").prop('checked')) ? settings.useMomentJS = true : settings.useMomentJS = false;
         ($("input[name=hideImageLinks]").prop('checked')) ? settings.hideImageLinks = true : settings.hideImageLinks = false;
         ($("input[name=hidePosts]").prop('checked')) ? settings.hidePosts = true : settings.hidePosts = false;
+        ($("input[name=hidePostsMD5]").prop('checked')) ? settings.hidePostsMD5 = true : settings.hidePostsMD5 = false;
         ($("input[name=showSpoiler]").prop('checked')) ? settings.showSpoiler = true : settings.showSpoiler = false;
         ($("input[name=textSpoiler]").prop('checked')) ? settings.textSpoiler = true : settings.textSpoiler = false;
         ($("input[name=hideRoleplay]").prop('checked')) ? settings.hideRoleplay = true : settings.hideRoleplay = false;
