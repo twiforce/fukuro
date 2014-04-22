@@ -19,9 +19,13 @@ $(document).ready(function(){
 					$(this).attr("src","http://static.syn-ch.com/spoiler.png");
 					$(this).css({
 						"width": '128px',
-						"height": '128px',
+						"height": '128px'
 					});
 				}
+                if (settings.neverOpenSpoiler) {
+                    $(this).parent().attr('href', 'http://static.syn-ch.com/spoiler.png');
+                    $(this).css('cursor', 'default', 'opacity', '1')
+                }
 			}
 		};
 		

@@ -76,6 +76,7 @@ $(document).ready(function () {
 	<input type="checkbox" name="useLocalTime">' + _('Использовать местное время') + '<br>\
 	<input type="checkbox" name="useMomentJS">' + _('Местное время в формате "x минут назад"') + '<br>\
 	<input type="checkbox" name="showSpoiler">' + _('Раскрывать изображения-спойлеры') + '<br>\
+	<input type="checkbox" name="neverOpenSpoiler">' + _('Никогда не раскрывать изображения-спойлеры') + '<br>\
 	<input type="checkbox" name="textSpoiler">' + _('Раскрывать текстовые спойлеры') + '<br>\
 	<input type="checkbox" name="forcedAnon">' + _('Принудительная анонимизация') + '<br>\
 	<input type="checkbox" name="simpleNavbar">' + _('Упрощенная панель навигации') + '<br>\
@@ -150,6 +151,7 @@ $(document).ready(function () {
     if (settings.hidePosts) $("input[name=hidePosts]").attr('checked', true);
     if (settings.hidePostsMD5) $("input[name=hidePostsMD5]").attr('checked', true);
     if (settings.showSpoiler) $("input[name=showSpoiler]").attr('checked', true);
+    if (settings.neverOpenSpoiler) $("input[name=neverOpenSpoiler]").attr('checked', true);
     if (settings.textSpoiler) $("input[name=textSpoiler]").attr('checked', true);
     if (settings.hideRoleplay) $("input[name=hideRoleplay]").attr('checked', true);
     if (settings.defaultForm)  $('#formStyle option[value="defaultForm"]').attr('selected', 'selected');
@@ -261,6 +263,7 @@ $(document).ready(function () {
         ($("input[name=hidePosts]").prop('checked')) ? settings.hidePosts = true : settings.hidePosts = false;
         ($("input[name=hidePostsMD5]").prop('checked')) ? settings.hidePostsMD5 = true : settings.hidePostsMD5 = false;
         ($("input[name=showSpoiler]").prop('checked')) ? settings.showSpoiler = true : settings.showSpoiler = false;
+        ($("input[name=neverOpenSpoiler]").prop('checked')) ? settings.neverOpenSpoiler = true : settings.neverOpenSpoiler = false;
         ($("input[name=textSpoiler]").prop('checked')) ? settings.textSpoiler = true : settings.textSpoiler = false;
         ($("input[name=hideRoleplay]").prop('checked')) ? settings.hideRoleplay = true : settings.hideRoleplay = false;
         ($("input[name=markupButtons]").prop('checked')) ? settings.markupButtons = true : settings.markupButtons = false;
