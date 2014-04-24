@@ -10,6 +10,8 @@
  */
 
 $(document).ready(function(){
+    if($('div.banner').length == 0)
+        return; // temporary fix
 	if(settings.hidePosts) {
 		var board = $('form input[name="board"]').val().toString();
 
