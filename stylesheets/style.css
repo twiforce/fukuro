@@ -565,3 +565,20 @@ button, input[type="submit"], input[type="file"], input[name="spoiler"], label[f
 div.post.reply.closed p.fileinfo, div.post.reply.closed div.body, div.post.reply.closed .post-image, div.post.reply.closed .video-container, div.post.reply.closed object, div.post.reply.closed iframe, div.post.reply.closed #filestuff, div.post.reply.closed .mejs-container {
 	display: none;
 }
+.pace .pace-progress {
+    background: #29d;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    height: 2px;
+
+    -webkit-transition: width 1s;
+    -moz-transition: width 1s;
+    -o-transition: width 1s;
+    transition: width 1s;
+}
+
+.pace-inactive {
+    display: none;
+}
