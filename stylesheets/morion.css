@@ -100,7 +100,7 @@ form[name="post"] {
 }
 div.post.reply.highlighted {
 	background: #CCCCCC;
-	border-color: #BBBBBB;
+	border-color: #444;
 }
 p.intro {
 	font-size: 1.1em;
@@ -231,4 +231,7 @@ input[type="submit"]:hover, input[type="reset"]:hover, .buttons input[type="butt
 	border: 1px solid #222222;
 	color: #aaaaaa;
 	border-bottom-width: 2px;
+}
+.pace .pace-progress {
+    background: #444444;
 }

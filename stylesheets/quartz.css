@@ -222,3 +222,6 @@ input[type="submit"]:hover, input[type="reset"]:hover, .buttons input[type="butt
 	border: 1px solid #d8d8d8;
 	color: #333333;
 }
+.pace .pace-progress {
+    background: #BBBBBB;
+}
