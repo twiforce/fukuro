@@ -11,7 +11,8 @@ $(document).ready(function(){
 		"text-decoration": 'none'
 	});
 	if (settings.showInfo) {
-		$('footer').append("<p id=\"showInfo\" class=\"unimportant\" style=\"text-align:center;\"></p>");
+        $('footer').append("<p id=\"showInfo\" class=\"unimportant\" style=\"text-align:center;\"></p>");
+        $("footer p").eq(0).append("<p id=\"githubInfo\" class=\"unimportant\" style=\"text-align:center;\"></p>");
 		showInfo();
 		setInterval("showInfo()",60000);
 	}
@@ -49,15 +50,25 @@ $(document).ready(function(){
     }
 });
 
-function showInfo() { 
-	$.ajax({
-		type: 'GET',
-		url: "/testcount.json",
-		dataType: 'json',
-		success: function(data){
-			ajaxInfo = data;
-			$('#showInfo').text("Скорость борды: " + JSON.parse(ajaxInfo.speed) + " п/час | Онлайн: " + JSON.parse(ajaxInfo.online));
-		}
-	});
-	
+function showInfo() {
+    $.ajax({
+        type: 'GET',
+        url: "/testcount.json",
+        dataType: 'json',
+        success: function(data){
+            ajaxInfo = data;
+            $('#showInfo').text("Скорость борды: " + JSON.parse(ajaxInfo.speed) + " п/час | Онлайн: " + JSON.parse(ajaxInfo.online));
+        }
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: "https://api.github.com/repos/twiforce/synch-dev/commits",
+        dataType: 'json',
+        success: function(data){
+            githubInfo = data;
+            $('#githubInfo').html("Последний коммит \"<a href=\"" + githubInfo[0]["html_url"] + "\" target=_blank>"
+                + githubInfo[0]["commit"]["message"] + "</a>\" отправлен " + moment(githubInfo[0]["commit"]["author"]["date"]).fromNow() + ".")
+        }
+    });
 }
