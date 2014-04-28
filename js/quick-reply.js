@@ -129,48 +129,48 @@ if (settings.quickReply) {
 			
 			do_css();
 			
-			var $postForm = $('form[name="post"]').clone();
-			
-			$postForm.clone();
-			
+			var $postForm = $('form[name="post"]').clone(true, true);
+
+			$postForm.clone(true, true);
+
 			$dummyStuff = $('<div class="nonsense"></div>').appendTo($postForm);
-			
+
 			$postForm.find('table tr').each(function() {
 				var $th = $(this).children('th:first');
-				var $td = $(this).children('td:first');		
+				var $td = $(this).children('td:first');
 				if ($th.length && $td.length) {
 					$td.attr('colspan', 2);
-		
+
 					if ($td.find('input[type="text"]').length) {
 						// Replace <th> with input placeholders
 						$td.find('input[type="text"]')
 							.removeAttr('size')
-							.attr('placeholder', $th.clone().children().remove().end().text());
+							.attr('placeholder', $th.clone(true, true).children().remove().end().text());
 					}
-		
+
 					// Move anti-spam nonsense and remove <th>
 					$th.contents().filter(function() {
 						return this.nodeType == 3; // Node.TEXT_NODE
 					}).remove();
 					$th.contents().appendTo($dummyStuff);
 					$th.remove();
-		
+
 					if ($td.find('input[name="password"]').length) {
 						// Hide password field
 						$(this).hide();
 					}
-		
+
 					// Fix submit button
 					if ($td.find('input[type="submit"]').length) {
 						$td.removeAttr('colspan');
 						$('<td class="submit"></td>').append($td.find('input[type="submit"]')).insertAfter($td);
 					}
-		
+
 					// reCAPTCHA
 					if ($td.find('#recaptcha_widget_div').length) {
 						// Just show the image, and have it interact with the real form.
 						var $captchaimg = $td.find('#recaptcha_image img');
-						
+
 						$captchaimg
 							.removeAttr('id')
 							.removeAttr('style')
@@ -178,7 +178,7 @@ if (settings.quickReply) {
 							.click(function() {
 								$('#recaptcha_reload').click();
 							});
-						
+
 						// When we get a new captcha...
 						$('#recaptcha_response_field').focus(function() {
 							if ($captchaimg.attr('src') != $('#recaptcha_image img').attr('src')) {
@@ -187,13 +187,13 @@ if (settings.quickReply) {
 								$postForm.find('input[name="recaptcha_response_field"]').val('').focus();
 							}
 						});
-						
+
 						$postForm.submit(function() {
 							setTimeout(function() {
 								$('#recaptcha_reload').click();
 							}, 200);
 						});
-						
+
 						// Make a new row for the response text
 						var $newRow = $('<tr><td class="recaptcha-response" colspan="2"></td></tr>');
 						$newRow.children().first().append(
@@ -203,23 +203,23 @@ if (settings.quickReply) {
 							.removeAttr('id')
 							.addClass('recaptcha_response_field')
 							.attr('placeholder', $('#recaptcha_response_field').attr('placeholder'));
-						
+
 						$('#recaptcha_response_field').addClass('recaptcha_response_field')
-						
+
 						$td.replaceWith($('<td class="recaptcha" colspan="2"></td>').append($('<span></span>').append($captchaimg)));
-						
+
 						$newRow.insertAfter(this);
 					}
-		
+
 					// Upload section
 					if ($td.find('input[type="file"]').length) {
 						if ($td.find('input[name="file_url"]').length) {
 							$file_url = $td.find('input[name="file_url"]');
-							
+
 							// Make a new row for it
 							var $newRow = $('<tr><td colspan="2"></td></tr>');
-							
-							$file_url.clone().attr('placeholder', _('Upload URL')).appendTo($newRow.find('td'));
+
+							$file_url.clone(true, true).attr('placeholder', _('Upload URL')).appendTo($newRow.find('td'));
 							$file_url.parent().remove();
 							
 							$newRow.insertBefore(this);
