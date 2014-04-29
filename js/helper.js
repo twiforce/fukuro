@@ -60,15 +60,24 @@ function showInfo() {
             $('#showInfo').text("Скорость борды: " + JSON.parse(ajaxInfo.speed) + " п/час | Онлайн: " + JSON.parse(ajaxInfo.online));
         }
     });
-
+    // well thank you Github
+    $.ajax({
+        type: 'GET',
+        url: "https://api.github.com/repos/twiforce/synch-dev/contributors",
+        dataType: 'json',
+        success: function(data){
+            githubContribInfo = data;
+        }
+    });
     $.ajax({
         type: 'GET',
         url: "https://api.github.com/repos/twiforce/synch-dev/commits",
         dataType: 'json',
         success: function(data){
             githubInfo = data;
-            $('#githubInfo').html("Последний коммит \"<a href=\"" + githubInfo[0]["html_url"] + "\" target=_blank>"
-                + githubInfo[0]["commit"]["message"] + "</a>\" отправлен " + moment(githubInfo[0]["commit"]["author"]["date"]).fromNow() + ".")
+            $('#githubInfo').html("Последний коммит #" + githubContribInfo[0]["contributions"] + " \"<a href=\""
+                + githubInfo[0]["html_url"] + "\" target=_blank>" + githubInfo[0]["commit"]["message"]
+                + "</a>\" отправлен " + moment(githubInfo[0]["commit"]["author"]["date"]).fromNow() + ".")
         }
     });
 }
