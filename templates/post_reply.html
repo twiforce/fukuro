@@ -26,7 +26,8 @@
 			{{ capcode.cap }}
 		{% endif %}
 		{% if post.mod and post.mod|hasPermission(config.mod.show_ip, board.uri) %}
-			 [<a class="ip-link" style="margin:0;" href="?/IP/{{ post.ip }}">{{ post.ip }}</a>]
+			 [<a class="ip-link" style="margin:0;" data-hover="{{ post.ip }}" href="?/IP/{{ post.ip }}"><span>{% trans %}IP{% endtrans %}</span></a>]
+             [<a class="ip-search-link" style="margin:0;" href="?/search/posts/{{ post.ip }}">{% trans %}Search{% endtrans %}</a>]
 		{% endif %}
 		{% if config.display_flags and post.modifiers.flag %}
 			 <img class="flag" src="{{ config.uri_flags|sprintf(post.modifiers.flag) }}"
