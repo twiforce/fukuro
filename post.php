@@ -488,9 +488,17 @@ if (isset($_POST['delete'])) {
 			$post['file_id'] = $config['filename_func']($post);
 		else
 			$post['file_id'] = time() . substr(microtime(), 2, 3);
-		
-		$post['file'] = $board['dir'] . $config['dir']['img'] . $post['file_id'] . '.' . $post['extension'];
-		$post['thumb'] = $board['dir'] . $config['dir']['thumb'] . $post['file_id'] . '.' . ($config['thumb_ext'] ? $config['thumb_ext'] : $post['extension']);
+
+		$thumbfiledir = 'cdn/thumb/' . substr(time(), 0, 3) . '/' . substr(time(), 3, 2)  . '/' . substr(time(), 5, 2);
+        if (!file_exists($thumbfiledir) and !is_dir($thumbfiledir)) {
+            mkdir ($thumbfiledir, 0777, true);
+        }
+		$srcfiledir = 'cdn/src/' . substr(time(), 0, 3) . '/' . substr(time(), 3, 2)  . '/' . substr(time(), 5, 2);
+        if (!file_exists($srcfiledir) and !is_dir($srcfiledir)) {
+            mkdir ($srcfiledir, 0777, true);
+        }
+		$post['file'] = 'cdn/src/' . substr(time(), 0, 3) . '/' . substr(time(), 3, 2)  . '/' . substr(time(), 5, 2) . '/' . $post['file_id'] . '.' . $post['extension'];
+		$post['thumb'] = 'cdn/thumb/' . substr(time(), 0, 3) . '/' . substr(time(), 3, 2)  . '/' . substr(time(), 5, 2) . '/' .  $post['file_id'] . '.' . ($config['thumb_ext'] ? $config['thumb_ext'] : $post['extension']);
 	}
 	
 	if ($config['strip_combining_chars']) {
@@ -877,11 +885,11 @@ if (isset($_POST['delete'])) {
 	if ($post['has_file']) {
 		$post['file_path'] = $post['file'];
 		$post['thumb_path'] = $post['thumb'];
-		$post['file'] = mb_substr($post['file'], mb_strlen($board['dir'] . $config['dir']['img']));
+		$post['file'] = mb_substr($post['file'], mb_strlen('cdn/src'));
 		if ($is_an_image && $post['thumb'] != 'spoiler')
-			$post['thumb'] = mb_substr($post['thumb'], mb_strlen($board['dir'] . $config['dir']['thumb']));
+			$post['thumb'] = mb_substr($post['thumb'], mb_strlen('cdn/thumb'));
 	}
-	
+
 	$post = (object)$post;
 	if ($error = event('post', $post)) {
 		undoImage((array)$post);
