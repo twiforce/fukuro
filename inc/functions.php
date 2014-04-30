@@ -927,10 +927,10 @@ function deleteFile($id, $remove_entirely_if_already=true) {
 		$query->bindValue(':file', null, PDO::PARAM_NULL);
 	} else {
 		// Delete thumbnail
-		file_unlink($board['dir'] . $config['dir']['thumb'] . $post['thumb']);
+		file_unlink('cdn/thumb' . $post['thumb']);
 
 		// Delete file
-		file_unlink($board['dir'] . $config['dir']['img'] . $post['file']);
+		file_unlink('cdn/src' . $post['file']);
 
 		// Set file to 'deleted'
 		$query->bindValue(':file', 'deleted', PDO::PARAM_INT);
@@ -1007,11 +1007,11 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 		}
 		if ($post['thumb']) {
 			// Delete thumbnail
-			file_unlink($board['dir'] . $config['dir']['thumb'] . $post['thumb']);
+			file_unlink('cdn/thumb' . $post['thumb']);
 		}
 		if ($post['file']) {
 			// Delete file
-			file_unlink($board['dir'] . $config['dir']['img'] . $post['file']);
+			file_unlink('cdn/src' . $post['file']);
 		}
 
 		$ids[] = (int)$post['id'];
