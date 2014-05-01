@@ -42,7 +42,7 @@
 			{{ config.file_thumb|sprintf(config.file_icons.default) }}
 		{% endif %}
 	{% elseif post.thumb == 'spoiler' %}
-		{{ config.root }}{{ config.spoiler_image }}
+		{{ config.uri_thumb }}{{ post.file|slice(0, 27) }}.png
 	{% else %}
 		{{ config.uri_thumb }}{{ post.thumb }}
 	{% endif %}" style="width:{{ post.thumbwidth }}px;height:{{ post.thumbheight }}px;  {% if post.file|extension == 'mp3' %}display:none;{% endif %}" alt="" /></a>
