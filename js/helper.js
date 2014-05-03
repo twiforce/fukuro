@@ -63,7 +63,7 @@ function showInfo() {
     // well thank you Github
     $.ajax({
         type: 'GET',
-        url: "https://api.github.com/repos/twiforce/synch-dev/contributors",
+        url: "https://api.github.com/repos/twiforce/synch-dev/stats/contributors",
         dataType: 'json',
         success: function(data){
             githubContribInfo = data;
@@ -75,7 +75,7 @@ function showInfo() {
         dataType: 'json',
         success: function(data){
             githubInfo = data;
-            $('#githubInfo').html("Последний коммит #" + githubContribInfo[0]["contributions"] + " \"<a href=\""
+            $('#githubInfo').html("Последний коммит #" + githubContribInfo[0]["total"] + " \"<a href=\""
                 + githubInfo[0]["html_url"] + "\" target=_blank>" + githubInfo[0]["commit"]["message"]
                 + "</a>\" отправлен " + moment(githubInfo[0]["commit"]["author"]["date"]).fromNow() + ".")
         }
