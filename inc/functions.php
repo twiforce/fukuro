@@ -1882,7 +1882,7 @@ function strip_combining_chars($str) {
 		$o = 0;
 		$ord = ordutf8($char, $o);
 
-		if ($ord >= 768 && $ord <= 879)
+		if ($ord >= 768 && $ord <= 879 && !($ord == 860 || $ord == 865))
 			continue;
 
 		if ($ord >= 7616 && $ord <= 7679)
