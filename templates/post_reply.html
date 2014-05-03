@@ -101,11 +101,11 @@
 	{% if post.file|extension == 'mp3' %}
 		<br/>
 		<audio controls="controls" preload="none">
-			<source src="{{ config.domain }}{{ config.uri_img }}{{ post.file }}" type="audio/mpeg" />
+			<source src="{{ config.uri_img }}{{ post.file }}" type="audio/mpeg" />
 		</audio>
     {% elseif post.file|extension == 'webm' %}
         <video width="310" height="200" controls="controls" preload="none">
-            <source src="{{ config.domain }}{{ config.uri_img }}{{ post.file }}" type="video/webm" />
+            <source src="{{ config.uri_img }}{{ post.file }}" type="video/webm" />
         </video>
     {% endif %}
     {% if post.embed %}
