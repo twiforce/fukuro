@@ -14,17 +14,24 @@ $(document).ready(function () {
     if (settings.postHover) {
         var hovering = false;
         var id;
+
+        // whatever this doesn't work anyway
+        $("html *").click(function(e) {
+            if ( e.target.className.indexOf("hover") < 0 ) {
+                $(".hover").remove();
+            }
+        });
+
         function init_hover_tree() {
             $("div.body > a, .mentioned > a").on({
                 mouseenter: function() {
                     if(id = $(this).text().match(/^>>(\d+)$/)) {
                         $("#reply_" + id[1]).clone().addClass("hover")
-                            .css({'position': 'absolute', 'top': $(this).offset().top+20, 'left': $(this).offset().left+20 })
+                            .css({'position': 'absolute', 'top': $(this).offset().top + 20, 'left': $(this).offset().left })
                             .appendTo("body");
                         hovering = true;
                     } else {
                         hovering = false;
-                        return;
                     }
                 },
                 mouseleave: function() {
@@ -33,21 +40,17 @@ $(document).ready(function () {
                         $("#reply_" + id[1]).trigger(init_hover_tree());
                     }, function() {
                         hovering = false;
+                    });
+
+                    $("html").mousemove(function() {
+                        if (!(hovering) && ($(".hover").is(":visible"))) {
+                            setTimeout(function () {
+                                $(".hover").remove();
+                            }, 500);
+                        }
                     })
                 }
             });
-            $("html").mousemove(function() {
-                if (!(hovering) && ($(".hover").is(":visible"))) {
-                    setTimeout(function() {
-                        $(".hover").remove();
-                    }, 500);
-                }
-            })
-            $("body").click(function(e) {
-                if (!($(e.target).hasClass('hover'))) {
-                    $(".hover").remove();
-                }
-            })
         }
 
         init_hover_tree(document);
