@@ -4,7 +4,7 @@
 *
 * Don't load the YouTube player unless the video image is clicked.
 * This increases performance issues when many videos are embedded on the same page.
-* Currently only compatiable with YouTube.
+* Currently only compatible with YouTube.
 *
 * Proof of concept.
 *
@@ -35,7 +35,7 @@ onready(function(){
     do_embed_yt(document);
 
     var do_yt_loadName = function (tag) {
-        $('div.video-container').each(function () {
+        $('div.video-container').hover(function () {
             var videoID = $(this).data('video');
             var vidtmp = $(this);   // omg
             $.ajax({
@@ -46,9 +46,10 @@ onready(function(){
                 }
             });
         });
-    }
 
-    do_yt_loadName(document);
+    };
+
+    do_yt_loadName();
 
     // allow to work with auto-reload.js, etc.
     $(document).bind('new_post', function(e, post) {
