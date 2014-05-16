@@ -125,7 +125,7 @@ $(document).ready(function () {
         $("input[name=updateThread]").attr('checked', true);
         if (typeof settings.updateFrequency == 'undefined')
             $('input[name="updateFrequency"]').val(30);
-        if (settings.updateFrequency <= 10)
+        if (settings.updateFrequency < 10)
             settings.updateFrequency = 20;
         $('input[name="updateFrequency"]').val(settings.updateFrequency)
     }
