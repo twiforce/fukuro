@@ -11,14 +11,18 @@
  */
  
 $(document).ready(function () {
-	$('body').append("<div id=\"navigation\"></div>")
+	$('body').append("<div id='navigation_frame'><a id='show_hide_navigation_frame'><i class=\"fa fa-arrow-right\"></i>"+_("Убрать")+"</a><div id=\"navigation\"></div></div>");
 		$("<a id=\"scrollUp\"><i class=\"fa fa-arrow-up\"></i> " + _("Наверх") + "</a>&nbsp;<a id=\"scrollDown\"><i class=\"fa fa-arrow-down\"></i> " + _("Вниз") + "</a>&nbsp;<a onclick=\"clearForm();\"><i class=\"fa fa-trash-o\"></i> " + _("Очистить") + "</a>&nbsp;<a id=\"toggleForm\"><i class=\"fa fa-compress\"></i> " + _("Спрятать") + "</a>&nbsp;<a id=\"formPosition\"><i class=\"fa fa-chevron-up\"></i> " + _("Поднять") + "</a>").appendTo('#navigation');
-		$('#navigation').css({
+		$('#navigation_frame').css({
 			"position": 'fixed',
 			"bottom": '0px',
 			"right": '0px',
-			'padding': '5px',
-			'background': '#AAAAAA',
+			"padding": '0 0 0 5px',
+		});
+		$('#navigation').css({
+			"display": 'inline-block',
+			"padding": '5px',
+			"margin": '0 0 0 5px'			
 		});
 
     if (settings.simpleNavbar) {
@@ -45,5 +49,14 @@ $(document).ready(function () {
 	});
 	$('#scrollUp').click(function () {
         $("html, body").animate({ scrollTop: 0 }, "slow");
+	});
+	$('#show_hide_navigation_frame').click(function () {
+		if (document.getElementById('navigation_frame').style.right == "0px"){
+			$('#navigation_frame').animate({right: document.getElementById('navigation').offsetWidth*-1}, "slow");
+			this.innerHTML = "<i class=\"fa fa-arrow-left\"></i>"+_("Меню");
+		} else {
+			$('#navigation_frame').animate({right: 0}, "slow");
+			this.innerHTML = "<i class=\"fa fa-arrow-right\"></i>"+_("Убрать");
+		}
 	});
 });
