@@ -52,6 +52,10 @@ class Filter {
 								if ($flood_post['board'] != $post['board'])
 									continue 3;
 								break;
+							case 'nofile':
+								if ($flood_post['filehash'] == "NULL")
+									continue 3;
+								break;
 							case 'isreply':
 								if ($flood_post['isreply'] == $post['op'])
 									continue 3;
