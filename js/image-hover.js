@@ -21,10 +21,7 @@ $(document).ready(function(){
             var hovered_at;
             $image.hover(function(e) {
                 var imageurl = $image.parent().attr("href");
-                if($image.attr('data-old-src'))
-                    return;
-
-                if($image.parent().attr('data-src')) {
+                if(($image.attr('data-old-src')) || ($image.parent().attr('data-src')) || ($image.parent().attr('data-file-height') > 8000) || ($image.parent().attr('data-file-width') > 8000)) {
                     return;
                 }
 
@@ -43,9 +40,6 @@ $(document).ready(function(){
                     .insertAfter($image.parent())
                     .load(function() {
                         $(this).trigger('mousemove');
-                        if (($(this.naturalWidth)[0] > 8000) || ($(this.naturalHeight)[0] > 8000)) {
-                            $('.image-hover').remove();
-                        }
                     });
                 $image.trigger('mousemove');
             }, function() {
