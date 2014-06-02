@@ -751,6 +751,9 @@
     // Amount of unique dices that can be rolled in a single post
     $config['dice_limit'] = 5;
 
+    // #random in email field will attach a random pic from derpiboo.ru
+    $config['derpibooru_random'] = true;
+
 /*
  * ====================
  *  Display settings
