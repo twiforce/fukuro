@@ -44,6 +44,12 @@ l10n = {
     "Spoiler Image":"Спойлер",
     "Comment":"Комментарий",
     "Expand all images":"Раскрыть картинки",
+    "Watch this thread":"Следить за этим тредом",
+    "Stop watching this thread":"Не следить за этим тредом",
+    "Watch this board":"Следить за этой доской",
+    "Stop watching this board":"Не следить за этой доской",
+    "Pin this board":"Закрепить эту доску",
+    "Unpin this board":"Открепить эту доску",
     "Posting... (#%)":"Загрузка...(#%)",
     "Posting...":"Загрузка...",
     "Posted...":"Отправлено..."

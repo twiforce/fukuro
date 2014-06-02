@@ -2,6 +2,13 @@
 <html>
 <head>
 	<meta charset="utf-8">
+    <script type="text/javascript">
+        {% if not no_post_form %}
+        var active_page = "index";
+        {% else %}
+        var active_page = "ukko";
+        {% endif %}
+    </script>
 	{% include 'header.html' %}
 	<title>{{ board.url }} - {{ board.title|e }}</title>
 </head>

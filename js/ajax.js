@@ -87,6 +87,8 @@ $(window).ready(function() {
 											if($('#' + id).length == 0) {
 												$(this).insertAfter($('div.post:not(.hover):not(.post-hover):last').next()).after('<br class="clear">');
 												$(document).trigger('new_post', this);
+                                                // watch.js retrigger
+                                                setTimeout(function() { $(window).trigger("scroll"); }, 100);
 											}
 										});
 										
