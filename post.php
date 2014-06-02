@@ -767,7 +767,7 @@ if (isset($_POST['delete'])) {
 	
 	// Letstry
 	
-	if (!$post['op'] && (strtolower($post['email']) == '#letstry') || (mt_rand(1, 2000) == 495)){
+	if ($config['letstry'] && (!$post['op'] && (strtolower($post['email']) == '#letstry') || (mt_rand(1, 2000) == 495))) {
 		/* Add some random strings */
 		$quotes = array("<div style='color: #FF0000'><i>Автор этого поста три месяца настраивал кусабу.</i></div>",
 		"<div style='color: #008000'><i>Автор этого поста — тян без пруфов.</i></div>",
@@ -794,7 +794,7 @@ if (isset($_POST['delete'])) {
 	
 	// Magic 8 Ball
 	
-	if (!$post['op'] && strtolower($post['email']) == '#8ball') {
+	if ($config['magic8ball'] && (!$post['op'] && strtolower($post['email']) == '#8ball')) {
 		/* Add some random strings */
 		$mquotes = array("<div style='color: pink'><i>— Boku no Pico.</i></div>",
 		"<div style='color: blue'><i>— Бесспорно.</i></div>",

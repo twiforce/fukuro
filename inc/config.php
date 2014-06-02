@@ -754,6 +754,12 @@
     // #random in email field will attach a random pic from derpiboo.ru
     $config['derpibooru_random'] = true;
 
+    // #letstry in email field will add some hardcoded random string
+    $config['letstry'] = true;
+
+    // #8ball in email field to attach a message from Magic 8 Ball
+    $config['magic8ball'] = true;
+
 /*
  * ====================
  *  Display settings
