@@ -1080,7 +1080,7 @@ function mod_move($originBoard, $postID) {
 			error(_('Target and source board are the same.'));
 		
 		// copy() if leaving a shadow thread behind; else, rename().
-		$clone = $shadow ? 'copy' : 'rename';
+		$clone = $shadow ? 'rename' : 'rename';
 		
 		// indicate that the post is a thread
 		$post['op'] = true;
@@ -1107,9 +1107,9 @@ function mod_move($originBoard, $postID) {
 		
 		if ($post['has_file']) {
 			// copy image
-			//$clone($file_src, sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $post['file']);
-			//if (!in_array($post['thumb'], array('spoiler', 'deleted', 'file')))
-			//	$clone($file_thumb, sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $post['thumb']);
+			$clone($file_src, $file_src);
+			if (!in_array($post['thumb'], array('spoiler', 'deleted', 'file')))
+				$clone($file_thumb, $file_thumb);
 		}
 		
 		// go back to the original board to fetch replies
@@ -1175,11 +1175,11 @@ function mod_move($originBoard, $postID) {
 			if ($post['has_file'] && file_exists($post['file_src']) && file_exists($post['file_thumb'])) {
 
 				// copy image
-				//$clone($post['file_src'], sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $post['file']);
+				//$clone($post['file_src'], $post['file_src']);
 				//if ($post['thumb'] == 'spoiler') {
-				//	$clone($post['file_thumb'], sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . substr($post['file'], 0, 13) . '.png');
+				//	$clone('cdn/thumb' . $post['file_thumb'], 'cdn/thumb' . $post['file_thumb']);
 				//} else
-				//	$clone($post['file_thumb'], sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $post['thumb']);
+				//	$clone('cdn/thumb' . $post['file_thumb'], 'cdn/thumb' . $post['file_thumb']);
 				}
 			
 			if (!empty($post['tracked_cites'])) {
@@ -1240,7 +1240,7 @@ function mod_move($originBoard, $postID) {
 			header('Location: ?/' . sprintf($config['board_path'], $originBoard) . $config['dir']['res'] .sprintf($config['file_page'], $postID) .
 				'#' . $botID, true, $config['redirect_http']);
 		} else {
-			deletePost($postID);
+			//deletePost($postID);
 			buildIndex();
 			
 			openBoard($targetBoard);
