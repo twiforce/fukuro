@@ -753,19 +753,70 @@
 	// Allow unfiltered HTML in board subtitles. This is useful for placing icons and links.
 	$config['allow_subtitle_html'] = false;
 
-	// Enable dices
+	// Enable dices.
     $config['dice'] = true;
-    // Amount of unique dices that can be rolled in a single post
+    // Amount of unique dices that can be rolled in a single post.
     $config['dice_limit'] = 5;
 
-    // #random in email field will attach a random pic from derpiboo.ru
+    // #random in email field will attach a random pic from derpiboo.ru.
     $config['derpibooru_random'] = true;
 
-    // #letstry in email field will add some hardcoded random string
+    // #letstry in email field will add some hardcoded random string.
     $config['letstry'] = true;
+    $config['letstry_random'] = array();
+
+    // Attach a random #letstry even without #letstry in email field.
+    $config['letstry_random']['enabled'] = true;
+
+    // Random #letstry-related things
+    // mt_rand(1, max) = luck
+    $config['letstry_random']['max'] = "2000";
+    $config['letstry_random']['luck'] = "555";
+
+    // Quotes to use in #letstry, comma-separated.
+    $config['letstry_quotes'] = array( "<div style='color: #FF0000'><i>Автор этого поста три месяца настраивал кусабу.</i></div>",
+                                		"<div style='color: #008000'><i>Автор этого поста — тян без пруфов.</i></div>",
+                                		"<div style='color: #00008B'><i>Автор этого поста только что сделал бочку.</i></div>",
+                                		"<div style='color: #EE82EE'><i>Автор этого поста — олдфаг, и пруфы ему не нужны.</i></div>",
+                                		"<div style='color: #9CDBFA'><i>Автор этого поста сидел еще на том Синче.</i></div>",
+                                		"<div style='color: #800080'><i>Автор этого поста боится в чем-то признаваться.</i></div>",
+                                		"<div style='color: #9ACD32'><i>Это сообщение отправлено Эквестрийской почтовой службой.</i></div>",
+                                		"<div style='color: #DAA520'><i>Это что, золотой пост?</i></div>",
+                                		"<div style='color: #B22222'><i>Этот пост — провокация, не отвечайте на него.</i></div>",
+                                		"<div style='color: #A52A2A'><i>Этот пост набран вслепую.</i></div>",
+                                		"<div style='color: #5F9EA0'><i>Орфография и пунктуация автора сохранена.</i></div>",
+                                		"<div style='color: #1E90FF'><i>CONGRATULATIONS! A WINNER IS YOU!</i></div>",
+                                		"<div style='color: #BA55D3'><i>Этот пост был сжат на " . mt_rand(1,100) . "% алгоритмом Бабушкина.</i></div>",
+                                		"<div style='color: #4169E1'><i>Этот пост начнет срач с вероятностью " . mt_rand(1,100) . "%.</i></div>",
+                                		"<div style='color: #2E8B57'><i>Этот пост состоит из ереси на " . mt_rand(1,100) . "%.</i></div>",
+                                		"<div style='color: #C71585'><i>Этот пост на " . mt_rand(1,100) . "% золотой.</i></div>",
+                                		"<div style='color: #6A5ACD'><i>Этот пост только что стал на " . mt_rand(1,100) . "% круче.</i></div>",
+                                		"<div style='color: #B0C4DE'><i>Следующее утверждение истинно. Предыдущее утверждение ложно.</i></div>");
 
     // #8ball in email field to attach a message from Magic 8 Ball
     $config['magic8ball'] = true;
+    // Quotes to use in #8ball, comma-separated.
+    $config['magic8ball_quotes'] = array("<div style='color: pink'><i>— Boku no Pico.</i></div>",
+                                  		"<div style='color: blue'><i>— Бесспорно.</i></div>",
+                                  		"<div style='color: blue'><i>— Это предрешено.</i></div>",
+                                  		"<div style='color: blue'><i>— Никаких сомнений.</i></div>",
+                                  		"<div style='color: blue'><i>— Определённо да.</i></div>",
+                                  		"<div style='color: blue'><i>— Можешь быть уверен в этом.</i></div>",
+                                  		"<div style='color: green'><i>— Мне кажется — «да».</i></div>",
+                                  		"<div style='color: green'><i>— Вероятнее всего.</i></div>",
+                                  		"<div style='color: green'><i>— Хорошие перспективы.</i></div>",
+                                  		"<div style='color: green'><i>— Знаки говорят — «да».</i></div>",
+                                  		"<div style='color: green'><i>— Да.</i></div>",
+                                  		"<div style='color: orange'><i>— Пока не ясно, попробуй снова.</i></div>",
+                                  		"<div style='color: orange'><i>— Спроси позже.</i></div>",
+                                  		"<div style='color: orange'><i>— Лучше не рассказывать.</i></div>",
+                                  		"<div style='color: orange'><i>— Сейчас нельзя предсказать.</i></div>",
+                                  		"<div style='color: orange'><i>— Сконцентрируйся и спроси еще раз.</i></div>",
+                                  		"<div style='color: red'><i>— Даже не думай.</i></div>",
+                                  		"<div style='color: red'><i>— Мой ответ — «нет».</i></div>",
+                                  		"<div style='color: red'><i>— По моим данным — «нет».</i></div>",
+                                  		"<div style='color: red'><i>— Перспективы не очень хорошие.</i></div>",
+                                  		"<div style='color: red'><i>— Весьма сомнительно.</i></div>");
 
 /*
  * ====================
