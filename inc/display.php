@@ -507,7 +507,10 @@ class Thread {
 			
 			if (hasPermission($config['mod']['move'], $board['uri'], $this->mod))
 				$built .= ' <a title="'._('Move thread to another board').'" href="?/' . $board['dir'] . 'move/' . $this->id . '">' . $config['mod']['link_move'] . '</a>';
-			
+
+			if (hasPermission($config['mod']['arch'], $board['uri'], $this->mod))
+            	$built .= ' <a title="'._('Move thread to archive').'" href="?/' . $board['dir'] . 'arch/' . $this->id . '">' . $config['mod']['link_arch'] . '</a>';
+
 			// Edit post
 			if (hasPermission($config['mod']['editpost'], $board['uri'], $this->mod))
 				$built .= ' <a title="'._('Edit post').'" href="?/' . $board['dir'] . 'edit' . ($config['mod']['raw_html_default'] ? '_raw' : '') . '/' . $this->id . '">' . $config['mod']['link_editpost'] . '</a>';

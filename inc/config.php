@@ -1182,6 +1182,7 @@
 	$config['mod']['link_bumpunlock'] = '[-Sage]';
 	$config['mod']['link_editpost'] = '[Edit]';
 	$config['mod']['link_move'] = '[Move]';
+	$config['mod']['link_arch'] = '[Archive]';
 
 	// Moderator capcodes.
 	$config['capcode'] = ' <span class="capcode">## %s</span>';
@@ -1334,6 +1335,8 @@
 	$config['mod']['editpost'] = ADMIN;
 	// "Move" a thread to another board (EXPERIMENTAL; has some known bugs)
 	$config['mod']['move'] = DISABLED;
+	// Move generated thread page to /$board/arch
+	$config['mod']['arch'] = DISABLED;
 	// Bypass "field_disable_*" (forced anonymity, etc.)
 	$config['mod']['bypass_field_disable'] = MOD;
 	// Post bypass unoriginal content check on robot-enabled boards

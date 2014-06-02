@@ -1257,6 +1257,51 @@ function mod_move($originBoard, $postID) {
 	mod_page(_('Move thread'), 'mod/move.html', array('post' => $postID, 'board' => $originBoard, 'boards' => $boards, 'token' => $security_token));
 }
 
+function mod_archive($board, $post) {
+	global $config, $mod;
+
+    if (!openBoard($board))
+    	error($config['error']['noboard']);
+
+    if (!hasPermission($config['mod']['arch'], $board))
+    	error($config['error']['noaccess']);
+
+    // Move filepages to arch folder
+    $threadPath = sprintf($config['board_path'], $board) . 'res/' . $post . ".html";
+    $threadJSON = sprintf($config['board_path'], $board) . 'res/' . $post . ".json";
+    $thread50page = sprintf($config['board_path'], $board) . 'res/' . $post . "+50.html";
+    $threadArchPath = sprintf($config['board_path'], $board) . 'arch/' . $post . ".html";
+    if (!file_exists(sprintf($config['board_path'], $board) . 'arch') and !is_dir(sprintf($config['board_path'], $board) . 'arch')) {
+        mkdir (sprintf($config['board_path'], $board) . 'arch', 0777, true);
+    }
+    rename($threadPath, $threadArchPath);
+    if (file_exists($threadJSON)) {
+        file_unlink($threadJSON);
+    }
+    if (file_exists($thread50page)) {
+        file_unlink($thread50page);
+    }
+
+    // Delete thread
+    $query = prepare(sprintf('DELETE FROM ``posts_%s`` WHERE `thread` = :post', $board));
+    $query->bindValue(':post', $post, PDO::PARAM_INT);
+    $query->execute() or error(db_error($query));
+
+    // Delete posts from this thread
+    $query = prepare(sprintf('DELETE FROM ``posts_%s`` WHERE `id` = :post', $board));
+    $query->bindValue(':post', $post, PDO::PARAM_INT);
+    $query->execute() or error(db_error($query));
+
+    // Record the action
+    modLog("Thread #{$post} moved to archive");
+    // Rebuild board
+    buildIndex();
+    // Rebuild themes
+    rebuildThemes('post-delete', $board);
+    // Redirect
+    header('Location: ?/' . sprintf($config['board_path'], $board), true, $config['redirect_http']);
+}
+
 function mod_ban_post($board, $delete, $post, $token = false) {
 	global $config, $mod;
 	

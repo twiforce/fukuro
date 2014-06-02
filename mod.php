@@ -78,6 +78,7 @@ $pages = array(
 	'/(\%b)/deletebyip/(\d+)(/global)?'	=> 'secure deletebyip',		// delete all posts by IP address
 	'/(\%b)/(un)?lock/(\d+)'		=> 'secure lock',		// lock thread
 	'/(\%b)/(un)?sticky/(\d+)'		=> 'secure sticky',		// sticky thread
+	'/(\%b)/arch/(\d+)'		        => 'archive',		// move to archive
 	'/(\%b)/bump(un)?lock/(\d+)'		=> 'secure bumplock',		// "bumplock" thread
 	
 	'/themes'				=> 'themes_list',		// manage themes
