@@ -515,6 +515,13 @@
 	// static spoiler image instead (see $config['spoiler_image']).
 	$config['spoiler_images'] = false;
 
+    // Automatically add spoiler mark to images with specific words in filename field.
+	$config['autospoiler_images'] = array();
+	$config['autospoiler_images'] = true;
+
+    // Array of words to hide with $config['autospoiler_images'], separated by comma.
+	$config['autospoiler_tags'] = array('explicit');
+
 	// With the following, you can disable certain superfluous fields or enable "forced anonymous".
 
 	// When true, all names will be set to $config['anonymous'].

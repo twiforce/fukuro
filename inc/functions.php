@@ -2248,3 +2248,11 @@ function shell_exec_error($command, $suppress_stdout = false) {
 
 	return $return === 'TB_SUCCESS' ? false : $return;
 }
+
+function strposa($haystack, $needle, $offset=0) {
+    if(!is_array($needle)) $needle = array($needle);
+    foreach($needle as $query) {
+        if(strpos($haystack, $query, $offset) !== false) return true; // stop on first true result
+    }
+    return false;
+}
