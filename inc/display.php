@@ -19,20 +19,24 @@ function format_bytes($size) {
 	return round($size, 2).$units[$i];
 }
 
-function doBoardListPart($list, $root) {
+function doBoardListPart($list, $root, &$boards) {
 	global $config;
 	
 	$body = '';
-	foreach ($list as $board) {
+	foreach ($list as $key => $board) {
 		if (is_array($board))
-			$body .= ' [' . doBoardListPart($board, $root) . '] ';
-			// $body .= ' <span class="sub">[' . doBoardListPart($board, $root) . ']</span> ';
+			$body .= ' <span class="sub" data-description="' . $key . '">[' . doBoardListPart($board, $root, $boards) . ']</span> ';
 		else {
-			if (($key = array_search($board, $list)) && gettype($key) == 'string') {
-				$body .= ' <a href="' . $board . '">' . $key . '</a> /';
-			} else {			
-				$body .= ' <a href="' . $root . $board . '/' . $config['file_index'] . '">' . $board . '</a> /';
-			}
+			if (gettype($key) == 'string') {
+            	$body .= ' <a href="' . $board . '">' . $key . '</a> /';
+            } else {
+            	$title = '';
+            	if (isset ($boards[$board])) {
+            		$title = ' title="'.$boards[$board].'"';
+            	}
+
+            	$body .= ' <a href="' . $root . $board . '/' . $config['file_index'] . '"'.$title.'>' . $board . '</a> /';
+            }
 		}
 	}
 	$body = preg_replace('/\/$/', '', $body);
@@ -44,8 +48,14 @@ function createBoardlist($mod=false) {
 	global $config;
 	
 	if (!isset($config['boards'])) return array('top'=>'','bottom'=>'');
-	
-	$body = doBoardListPart($config['boards'], $mod?'?/':$config['root']);
+
+	$xboards = listBoards();
+    $boards = array();
+    foreach ($xboards as $val) {
+    	$boards[$val['uri']] = $val['title'];
+    }
+
+	$body = doBoardListPart($config['boards'], $mod?'?/':$config['root'], $boards);
 	if ($config['boardlist_wrap_bracket'] && !preg_match('/\] $/', $body))
 		$body = '[' . $body . ']';
 	

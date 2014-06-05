@@ -587,3 +587,51 @@ div.post.reply.closed p.fileinfo, div.post.reply.closed div.body, div.post.reply
 .pace-inactive {
     display: none;
 }
+html.desktop-style .boardlist:nth-child(1) {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    /* text-shadow: white 1px 0px 6px, white 1px 0px 6px, black 1px 0px 3px; */
+    margin-top: 0px;
+    z-index: 30;
+}
+.desktop-style .boardlist:nth-child(1):hover, .desktop-style .boardlist:nth-child(1).cb-menu {
+    background-color: rgba(90%, 90%, 90%, 0.6);
+}
+.compact-boardlist {
+    padding: 3px;
+    padding-bottom: 0px;
+}
+.compact-boardlist .cb-item {
+    display: inline-block;
+    vertical-align: middle;
+}
+.compact-boardlist .cb-icon {
+    padding-bottom: 1px;
+}
+.compact-boardlist .cb-fa {
+    font-size: 21px;
+    padding: 2px;
+    padding-top: 0;
+}
+.compact-boardlist .cb-cat {
+    padding: 5px 6px 8px 6px;
+}
+.compact-boardlist #watch-pinned {
+    display: inline-block;
+}
+/* styles also used by watch.js */
+.cb-menuitem {
+    display: table-row;
+}
+.cb-menuitem span {
+    padding: 5px;
+    display: table-cell;
+    text-align: left;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+}
+.cb-menuitem span.cb-uri {
+    text-align: right;
+    padding-left: 0;
+}
