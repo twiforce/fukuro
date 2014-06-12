@@ -25,6 +25,8 @@ $(document).ready(function() {
                 p.children('span.name').text(_('Anonymous'));
                 if(p.children('span.trip').length != 0)
                     p.children('span.trip').text('');
+
+                $('.flag').css({'display': 'none'})
             }
         };
 
