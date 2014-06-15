@@ -354,15 +354,16 @@ if (isset($_POST['delete'])) {
             } else {
                 if (preg_match("/#random:\"(.+)\"/", strtolower($_POST['email']), $booruTagFound)) {
                     $booruTag = str_replace(" ", "+", $booruTagFound[1]);
-                    $booruMax = json_decode(file_get_contents('http://derpiboo.ru/tags/' . $booruTag . '.json?perpage=1'))->{'tag'}->{"images"};
+                    $booruMax = json_decode(file_get_contents('https://derpiboo.ru/tags/' . $booruTag . '.json?perpage=1'))->{'tag'}->{"images"};
                     $booruRandPage = mt_rand(1, ($booruMax/10)); $booruRand = mt_rand(0, 9);
-                    $booruRandJSON = json_decode(file_get_contents('http://derpiboo.ru/tags/' . $booruTag . '.json?perpage=10&page=' . $booruRandPage))->{'images'}[$booruRand];
+                    $booruRandJSON = json_decode(file_get_contents('https://derpiboo.ru/tags/' . $booruTag . '.json?perpage=10&page=' . $booruRandPage))->{'images'}[$booruRand];
                 } else {
-                    $booruMax = json_decode(file_get_contents('http://derpiboo.ru/images.json'))->{'images'}[0]->{"id_number"};
-                    $booruRand = mt_rand(1, $booruMax);
-                    $booruRandJSON = json_decode(file_get_contents('http://derpiboo.ru/' . $booruRand . '.json'));
+                    //$booruMax = json_decode(file_get_contents('https://derpiboo.ru/images.json'))->{'images'}[0]->{"id_number"};
+                    //$booruRand = mt_rand(1, $booruMax);
+                    $booruRand = json_decode(file_get_contents('https://derpiboo.ru/images/random.json'))->{'id'};
+                    $booruRandJSON = json_decode(file_get_contents('https://derpiboo.ru/' . $booruRand . '.json'));
                 }
-                $post['file_url'] = 'http:' . $booruRandJSON->{"image"};
+                $post['file_url'] = 'https:' . $booruRandJSON->{"image"};
                 if (!preg_match('@^https?://derpicdn.net/@', $post['file_url']))
                     error($config['error']['invalidimg']);
 
