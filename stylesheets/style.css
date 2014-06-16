@@ -481,12 +481,6 @@ a[href="mailto:sage"]:after,  a[href="mailto:Sage"]:after, a[href="mailto:SAGE"]
     color: red;
     text-decoration: none !important;
 }
-a[href="mailto:#random"]:after,  a[href="mailto:#Random"]:after, a[href="mailto:#RANDOM"]:after {
-    font-family: FontAwesome;
-    content: ' \f074';
-    color: green;
-    text-decoration: none !important;
-}
 ul#filestuff {
     padding: 0px;
     margin: 0px;
