@@ -63,7 +63,7 @@ function showInfo() {
     // well thank you Github
     $.ajax({
         type: 'GET',
-        url: "https://api.github.com/repos/twiforce/synch-dev/stats/contributors",
+        url: "https://api.github.com/repos/twiforce/fukuro/stats/contributors",
         dataType: 'json',
         success: function(data){
             githubContribInfo = data;
@@ -71,7 +71,7 @@ function showInfo() {
     });
     $.ajax({
         type: 'GET',
-        url: "https://api.github.com/repos/twiforce/synch-dev/commits",
+        url: "https://api.github.com/repos/twiforce/fukuro/commits",
         dataType: 'json',
         success: function(data){
             githubInfo = data;
