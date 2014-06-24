@@ -61,7 +61,7 @@
             {% if post.thumb == 'spoiler' %}({% trans %}Spoiler Image{% endtrans %}){% endif %}
             {% if post.email[:7] == '#random' %}({% trans %}Random Image{% endtrans %}){% endif %}
             {{ post.filesize|filesize }}{% if post.filewidth and post.fileheight %}, {{ post.filewidth}}x{{post.fileheight }}{% if config.show_ratio %}, {{ post.ratio }}{% endif %}{% endif %}
-            {% if config.show_filename and post.filename %}
+            {% if config.show_filename and post.filename %},
             <a download="{{ post.filename|e|bidi_cleanup }}" href="{{ config.uri_img }}{{ post.file }}">
                 {% if post.filename|length > config.max_filename_display %}
                 <span class="postfilename" title="{{ post.filename|e }}">
@@ -72,7 +72,7 @@
             </a>
             {% endif %}
             {% if post.thumb != 'file' and config.image_identification %}
-                <a href="http://imgops.com/{{ config.uri_img }}{{ post.file }}" target="_blank">{% trans%}IO{% endtrans %}</a>
+                , <a href="http://imgops.com/{{ config.uri_img }}{{ post.file }}" target="_blank">{% trans%}IO{% endtrans %}</a>
                 {% if post.file|extension == 'jpg' %}
                     <a href="http://regex.info/exif.cgi?url={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}E{% endtrans %}</a>
                 {% endif %}
