@@ -39,7 +39,7 @@
 	{% if config.poster_ids %}
 		 ID: {{ post.ip|poster_id(post.thread) }}
 	{% endif %}
-    <a class="post_no" href="{{ post.link }}"><i class="fa fa-sort"></i></a>
+    <a class="post_no" href="{% if isnoko50 %}{{ post.link('', config.file_page50) }}{% else %}{{ post.link }}{% endif %}"><i class="fa fa-sort"></i></a>
 	 <a class="post_no"
 		{% if not index %}
 			 onclick="citeReply({{ post.id }});"
