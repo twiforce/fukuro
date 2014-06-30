@@ -358,7 +358,7 @@ if (isset($_POST['delete'])) {
                 } else {
                     $booruRand = json_decode(file_get_contents('https://derpiboo.ru/images/random.json'));
                 }
-                if ($booruRand->{'tag'} == null)
+                if (!isset($booruRand->{'id'}))
                     error($config['error']['invalidtag']);
                 $booruRandJSON = json_decode(file_get_contents('https://derpiboo.ru/' . $booruRand->{'id'} . '.json'));
                 $post['file_url'] = 'https:' . $booruRandJSON->{"image"};
