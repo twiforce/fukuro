@@ -354,11 +354,13 @@ if (isset($_POST['delete'])) {
             } else {
                 if (preg_match("/#random:\"(.+)\"/", strtolower($_POST['email']), $booruTagFound)) {
                     $booruTag = str_replace(" ", "+", $booruTagFound[1]);
-                    $booruRand = json_decode(file_get_contents('https://derpiboo.ru/tags/' . $booruTag . '/random_img.json'))->{'id'};
+                    $booruRand = json_decode(file_get_contents('https://derpiboo.ru/tags/' . $booruTag . '/random_img.json'));
                 } else {
-                    $booruRand = json_decode(file_get_contents('https://derpiboo.ru/images/random.json'))->{'id'};
+                    $booruRand = json_decode(file_get_contents('https://derpiboo.ru/images/random.json'));
                 }
-                $booruRandJSON = json_decode(file_get_contents('https://derpiboo.ru/' . $booruRand . '.json'));
+                if ($booruRand->{'tag'} == null)
+                    error($config['error']['invalidtag']);
+                $booruRandJSON = json_decode(file_get_contents('https://derpiboo.ru/' . $booruRand->{'id'} . '.json'));
                 $post['file_url'] = 'https:' . $booruRandJSON->{"image"};
                 if (!preg_match('@^https?://derpicdn.net/@', $post['file_url']))
                     error($config['error']['invalidimg']);
