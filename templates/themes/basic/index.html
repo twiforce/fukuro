@@ -105,7 +105,7 @@
 								{% else %}
 									<em>Без темы</em>
 								{% endif %}
-								 &mdash; {{ entry.time|date(config.post_date) }}
+								 &mdash; {{ entry.time|date(config.post_date, config.timezone) }}
 							</div>
 						</div>
 					{% endfor %}
