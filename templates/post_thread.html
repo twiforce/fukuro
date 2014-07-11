@@ -11,6 +11,7 @@
     <p class="fileinfo">{% trans %}File:{% endtrans %} <a href="{{ config.uri_img }}{{ post.file }}">{{ post.file[11:] }}</a>
         <span class="unimportant">
             {% if post.thumb == 'spoiler' %}({% trans %}Spoiler Image{% endtrans %}){% endif %}
+            {% if (post.email[:7] == '#random') or (post.email[:8] == '#danrand') %}({% trans %}Random Image{% endtrans %}){% endif %}
             {{ post.filesize|filesize }}{% if post.filewidth and post.fileheight %}, {{ post.filewidth}}x{{post.fileheight }}{% if config.show_ratio %}, {{ post.ratio }}{% endif %}{% endif %}
             {% if config.show_filename and post.filename %},
             <a download="{{ post.filename|e|bidi_cleanup }}" href="{{ config.uri_img }}{{ post.file }}">
