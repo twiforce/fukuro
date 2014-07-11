@@ -431,8 +431,6 @@ if (isset($_POST['delete'])) {
                 $booruRand = mt_rand(1, $booruMax[0]->{"id"});
                 $booruRandJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts/' . $booruRand . '.json'));
                 $post['file_url'] = 'https://danbooru.donmai.us' . $booruRandJSON->{"file_url"};
-                if ((($booruRandJSON->{"rating"} == "e") || ($booruRandJSON->{"rating"} == "q")) && ($config['spoiler_images'] && $config['autospoiler_images']))
-                    $post['thumb'] = 'spoiler';
 
                 // This is still a shitty way to check and upload images.
                 // TODO: merge with upload by url
@@ -475,8 +473,19 @@ if (isset($_POST['delete'])) {
 
                 fclose($fp);
 
+                // These are more useful for $config['autospoiler_images']
+                $danbooruRatings = array(
+                    "s" => "safe",
+                    "q" => "questionable",
+                    "e" => "explicit",
+                );
+
+                // I personally not found <md5.ext> filename anyhow useful.
+                $booruTempFilename = $booruRandJSON->{"id"} . '_' . $booruRandJSON->{"tag_string_character"} . '_' . $danbooruRatings[$booruRandJSON->{"rating"}]
+                     . '_' . $booruRandJSON->{"tag_string_general"} . '.' . $booruRandJSON->{"file_ext"};
+
                 $_FILES['file'] = array(
-                    'name' => basename($url_without_params),
+                    'name' => $booruTempFilename,
                     'tmp_name' => $post['file_tmp'],
                     'error' => 0,
                     'size' => filesize($post['file_tmp'])
