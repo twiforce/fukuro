@@ -357,7 +357,7 @@ if (isset($_POST['delete'])) {
 
 	// Derpibooru random
 	if ($config['derpibooru_random']) {
-        if (strtolower(substr($_POST['email'], 0, 7))  == '#random') {
+        if (strtolower(substr($_POST['email'], 0, 7)) == '#random') {
             if (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != '')) {
                 $_POST['email'] = '';
             } else {
@@ -423,12 +423,36 @@ if (isset($_POST['delete'])) {
     // Danbooru random
     // TODO: merge with derpibooru random
 	if ($config['danbooru_random']) {
-        if (strtolower($_POST['email'])  == '#danrand') {
+        if (strtolower(substr($_POST['email'], 0, 8)) == '#danrand') {
             if (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != '')) {
                 $_POST['email'] = '';
             } else {
-                $booruMax = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?limit=1'));
-                $booruRand = mt_rand(1, $booruMax[0]->{"id"});
+                if (preg_match("/#danrand:\"(.+)\"/", strtolower($_POST['email']), $booruTagFound)) {
+                    // Pretty sure there should be a function for this
+                    $booruTag = str_replace(" ", "_", $booruTagFound[1]);
+                    $booruTag = str_replace("!", "%21", $booruTag);
+                    $booruTag = str_replace("&", "%26", $booruTag);
+                    $booruTag = str_replace("\(", "%28", $booruTag);
+                    $booruTag = str_replace("\)", "%29", $booruTag);
+                    // search[name] is also useful, allows multiple tags search
+                    // TODO: check $booruTagFound and search with search[name] when commas found
+                    $booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/tags.json?search[name_matches]=' . $booruTag));
+                    $booruRandPage = mt_rand(1, $booruMaxJSON[0]->{"post_count"}/20);
+                    // Danbooru have a limit on maximum displayed pages (1000). I don't have any clue why they did that, but whatever.
+                    if ($booruRandPage > 1000)
+                        $booruRandPage = mt_rand(1, 1000);
+                    $booruRandPageJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?tags=' . $booruTag . '&page=' . $booruRandPage));
+                    // Well I already wrote a nice name generator, I don't really want to think about a workaround here.
+                    // So let's just proceed to downloading JSON again, even when /posts.json can give all info we need.
+                    $booruRand = $booruRandPageJSON[mt_rand(1, count ($booruRandPageJSON))]->{"id"};
+                    // count() is here for a reason - last search page may not contain 20 pics.
+                } else {
+                    // This little one simply donwloads a nice tiny json with the latest post on danbooru.
+                    $booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?limit=1'));
+                    $booruRand = mt_rand(1, $booruMaxJSON[0]->{"id"});
+                }
+                // Danbooru allows 500 json requests per hour without API key. We're making at least two requests per image.
+                // TODO: API key support
                 $booruRandJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts/' . $booruRand . '.json'));
                 $post['file_url'] = 'https://danbooru.donmai.us' . $booruRandJSON->{"file_url"};
 
