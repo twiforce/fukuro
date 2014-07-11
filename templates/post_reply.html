@@ -108,6 +108,10 @@
         <video width="310" height="200" controls="controls" preload="none">
             <source src="{{ config.uri_img }}{{ post.file }}" type="video/webm" />
         </video>
+    {% elseif post.file|extension == 'mp4' %}
+    <video width="310" height="200" controls="controls" preload="none">
+        <source src="{{ config.uri_img }}{{ post.file }}" type="video/mp4" />
+    </video>
     {% endif %}
     {% if post.embed %}
         {{ post.embed }}
