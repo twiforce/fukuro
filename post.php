@@ -363,7 +363,7 @@ if (isset($_POST['delete'])) {
             } else {
                 if (preg_match("/#random:\"(.+)\"/", strtolower($_POST['email']), $booruTagFound)) {
                     $booruTag = str_replace(" ", "+", $booruTagFound[1]);
-                    $booruRand = json_decode(file_get_contents('https://derpibooru.org/search.json?q=' . $booruTag . '&random_image=y'));
+                    $booruRand = json_decode(file_get_contents('https://derpiboo.ru/search.json?q=' . $booruTag . '&random_image=y'));
                 } else {
                     $booruRand = json_decode(file_get_contents('https://derpiboo.ru/images/random.json'));
                 }
