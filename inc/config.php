@@ -436,6 +436,9 @@
 
 	// Maximum post body length.
 	$config['max_body'] = 1800;
+	// Maximum email field length.
+	// TODO: fix email field in DB
+	$config['max_email'] = 50;
 	// Maximum number of post body lines to show on the index page.
 	$config['body_truncate'] = 15;
 	// Maximum number of characters to show on the index page.
