@@ -87,6 +87,7 @@ $(document).ready(function () {
 	<p><input type="checkbox" name="useCustomCSS">' + _('Использовать свой CSS') + '<button id="applyCSS" style="float: right"><i class="fa fa-eye"></i> ' + _('Предпросмотр') + '</button><br>\
 	<textarea id="customCSS" rows="10" cols="45" name="customCSS"></textarea>\
 	</p></div><div id="con_tab5" class="tabs">\
+	<p><label><a href="https://derpiboo.ru/users/edit">' + _('API-ключ Derpibooru:') + '</a><input type="text" name="derpibooruAPIKeySettings" size="30"></label></p>\
 	<p>' + _('Экспорт/импорт настроек') + '<button id="applySettingsPlain" style="float: right"><i class="fa fa-check"></i> ' + _('Применить') + '</button><br>\
 	<textarea id="settingsPlain" rows="10" cols="45" name="settingsPlain"></textarea></p></div></div>\
 	<p><button id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> ' + _('Сохранить') + '</button>&nbsp;\
@@ -120,6 +121,7 @@ $(document).ready(function () {
     });
 
     // Holy shit that's a lot
+    $("input[name=derpibooruAPIKeySettings]").val(settings.derpibooruAPIKey);
     $("textarea[name=customCSS]").val(settings.customCSS);
     if (settings.updateThread) {
         $("input[name=updateThread]").attr('checked', true);
@@ -280,6 +282,7 @@ $(document).ready(function () {
         ($("input[name=enableBots]").prop('checked')) ? settings.enableBots = true : settings.enableBots = false;
         ($("input[name=useCustomCSS]").prop('checked')) ? settings.useCustomCSS = true : settings.useCustomCSS = false;
         settings.customCSS = $("textarea[name=customCSS]").val();
+        settings.derpibooruAPIKey = $("input[name=derpibooruAPIKeySettings]").val();
         settings.version = version;
         localStorage.setItem("settings", JSON.stringify(settings));
         location.reload();
@@ -326,4 +329,7 @@ $(document).ready(function () {
         localStorage.setItem("settings", $("#settingsPlain").val());
         location.reload();
     });
+    if(settings.derpibooruAPIKey !== null ) {
+       $('input[name="derpibooruAPIKey"]').val(settings.derpibooruAPIKey);
+    }
 });

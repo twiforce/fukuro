@@ -277,6 +277,7 @@
 		'page',
 		'file_url',
 		'json_response',
+		'derpibooruAPIKey',
 	);
 
 	// Simple captcha

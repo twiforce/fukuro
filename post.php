@@ -363,9 +363,12 @@ if (isset($_POST['delete'])) {
             } else {
                 if (preg_match("/#random:\"(.+)\"/", strtolower($_POST['email']), $booruTagFound)) {
                     $booruTag = str_replace(" ", "+", $booruTagFound[1]);
-                    $booruRand = json_decode(file_get_contents('https://derpiboo.ru/search.json?q=' . $booruTag . '&random_image=y'));
+                    if (isset($_POST['derpibooruAPIKey']) && ($_POST['derpibooruAPIKey'] != ''))
+                        $booruRand = json_decode(file_get_contents('https://derpiboo.ru/search.json?q=' . $booruTag . '&key=' . $_POST['derpibooruAPIKey'] . '&random_image=y'));
+                    else
+                        $booruRand = json_decode(file_get_contents('https://derpiboo.ru/search.json?q=' . $booruTag . '&random_image=y'));
                 } else {
-                    $booruRand = json_decode(file_get_contents('https://derpiboo.ru/images/random.json'));
+                    $booruRand = json_decode(file_get_contents('https://derpiboo.ru/images/random.json?key=' . $_POST['derpibooruAPIKey']));
                 }
                 if (!isset($booruRand->{'id'}))
                     error($config['error']['invalidtag']);
