@@ -1159,6 +1159,13 @@
 	// EXPERIMENTAL: Try not to build pages when we shouldn't have to.
 	$config['try_smarter'] = true;
 
+	// Number of posts in a "View Last X Posts" page
+    $config['noko50_count'] = 50;
+    // Number of posts a thread needs before it gets a "View Last X Posts" page
+    $config['noko50_min'] = 50;
+    // Name of "Last X Posts" page
+    $config['file_page50'] = '%d+50.html';
+
 /*
  * ====================
  *  Mod settings
