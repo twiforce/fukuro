@@ -25,8 +25,9 @@ $(document).ready(function () {
 			"position": 'fixed',
 			"bottom": '0px',
 			"right": '0px',
-			"margin-bottom": '30px',
-			'background': '#AAAAAA',
+			"margin-bottom": '40px',
+            'background': '#AAAAAA',
+            'z-index': '5'
 		});
 		
 		if (settings.simpleNavbar) {

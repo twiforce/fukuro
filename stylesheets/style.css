@@ -94,6 +94,7 @@ input[type="text"], input[type="password"], textarea {
 textarea {
 	display: block;
     min-height:80px;
+    font-family: monospace;
 }
 textarea[name="body"] {
     clear: both;
