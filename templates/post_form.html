@@ -116,7 +116,7 @@
 				{{ antibot.html() }}
 			</th>
 			<td>
-				<input type="text" name="embed" size="30" maxlength="120" autocomplete="off">
+				<input type="text" name="embed" value="" size="30" maxlength="120" autocomplete="off">
 				{{ antibot.html() }}
 			</td>
 		</tr>
@@ -146,9 +146,12 @@
 			<th>
 				{% trans %}Password{% endtrans %}
 				{{ antibot.html() }}
+                <!-- For the great justice of Chrome autofill -->
+                <input type='text' style='display: none'>
+                <input type='password' style='display: none'>
 			</th>
 			<td>
-				<input type="password" name="password" size="12" maxlength="18" autocomplete="off"> 
+				<input type="password" name="password" value="" size="12" maxlength="18" autocomplete="off">
 				{{ antibot.html() }}
 			</td>
 		</tr>{% endif %}
