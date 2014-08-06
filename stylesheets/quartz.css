@@ -102,7 +102,6 @@ p.intro {
 	font-weight: 100;
 	border-bottom: 1px solid #F1F1F1;
 }
-
 p.fileinfo, p.fileinfo a {
 	color: #aaaaaa;
 }
@@ -168,7 +167,7 @@ div.boardlist a {
 	color: #333333;
 }
 table.modlog tr th {
-	background: #СССССС;
+	background: #CCCCCC;
 }
 span.spoiler {
 	background: #BBBBBB;
@@ -183,9 +182,6 @@ span.quote {
 }
 div.post img.post-image {
 	padding: 5px 0px 5px 0px;
-}
-.unimportant {
-	font-size: 0.8 em;
 }
 textarea, input[type="text"], input[type="file"], input[type="password"], input[name="snum"], input[type="search"] {
 	border: solid 1px #d8d8d8;
