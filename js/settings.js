@@ -98,8 +98,10 @@ $(document).ready(function () {
 	</div><div class="tab-pane" id="extra">\
 	<br>' + _('API-ключ Derpibooru:') + '<input type="text" name="derpibooruAPIKeySettings" size="30">\
 	<span class="help-block">Вы можете найти API-ключ на <a href="https://derpiboo.ru/users/edit" target="_blank">странице редактирования профиля</a>. Он нужен для отправки изображений, скрытых стандартным фильтром.</span>\
-	' + _('Экспорт/импорт настроек') + '<button class="btn btn-default pull-right"  id="applySettingsPlain"><i class="fa fa-check"></i> ' + _('Применить') + '</button><br>\
-	<textarea id="settingsPlain" rows="10" style="width: 100%;" name="settingsPlain"></textarea></div></div>\
+	' + _('Экспорт/импорт настроек') + '<br>\
+	<textarea id="settingsPlain" rows="10" style="width: 100%;" name="settingsPlain"></textarea>\
+	<button class="btn btn-default pull-right btn-sm" id="applySettingsPlain"><i class="fa fa-check"></i> ' + _('Применить') + '</button>\
+	<span class="help-block" id="settingsVersion">' + _('Версия настроек') + ': <span class="label" id="settingsInput"></span><span class="pull-right" style="padding-right: 5px">' + _('Актуальная версия') + ': <span class="label" id="settingsActual"></span></span></div></div>\
 	<div class="btn-group">\
     <button type="button" class="btn btn-default" id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> ' + _('Сохранить') + '</button>\
     <button type="button" class="btn btn-default" id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()"><i class="fa fa-times"></i> ' + _('Закрыть') + '</button>\
@@ -110,7 +112,8 @@ $(document).ready(function () {
         "position": 'fixed',
         "top": '0px',
         "right": '0px',
-        "max-width": '500px'
+        "max-width": '500px',
+        "z-index": '10'
     });
     $('#settingsPopup').hide(); // That's how we roll, baby
     $('#toggleSettings').toggle(function () {
@@ -331,4 +334,22 @@ $(document).ready(function () {
     if(settings.derpibooruAPIKey !== null ) {
        $('input[name="derpibooruAPIKey"]').val(settings.derpibooruAPIKey);
     }
+    function settingsVersionChecker() {
+        var inputVersion = JSON.parse($("#settingsPlain").val()).version;
+        $("#settingsInput").text(JSON.parse($("#settingsPlain").val()).version);
+        $("#settingsActual").text(version);
+        if (inputVersion == version) {
+            $("#settingsInput,#settingsActual").attr('class', 'label label-success')
+        } else if (inputVersion > version) {
+            $("#settingsInput").attr('class', 'label label-danger');
+            $("#settingsActual").attr('class', 'label label-info');
+        } else if (inputVersion < version) {
+            $("#settingsInput").attr('class', 'label label-warning');
+            $("#settingsActual").attr('class', 'label label-info');
+        }
+    }
+    settingsVersionChecker();
+    $("#settingsPlain").on("change keyup paste", function(){
+        settingsVersionChecker();
+    });
 });
