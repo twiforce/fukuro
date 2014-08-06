@@ -244,6 +244,12 @@ div.post.reply {
 	clear:both;
 	float: left;
 }
+#settingsPopup .nav>li>a {
+    padding: 5px 5px;
+}
+#settingsPopup .nav>li>a:hover {
+    text-decoration: none!important;
+}
 span.trip {
 	color: #228854;
 }

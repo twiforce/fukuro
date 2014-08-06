@@ -39,7 +39,7 @@ $(document).ready(function () {
     (settings.simpleNavbar) ? $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-lg"></i></a>') :
         (device_type == "mobile") ? $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>') :
             $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs"></i> ' + _('Настройки') + '</a>');
-    $('body').append('<div id="settingsPopup"><h2>' + _('Настройки') + '</h2></div>');
+    $('body').append('<div id="settingsPopup"><h1><small>' + _('Настройки') + '</small></h1></div>');
 
     var bottom = document.getElementsByClassName('boardlist bottom')[0];
     var link = document.createElement('a');
@@ -54,74 +54,63 @@ $(document).ready(function () {
         $('#settingsPopup').toggle();
     });
 
-    $('#settingsPopup').append('<div id="wrapper">\
-	<a href="javascript:;" id="tab1" class="tabs active"><i class="fa fa-comments-o"></i> ' + _('Посты') + '</a>\
-	<a href="javascript:;" id="tab2" class="tabs"><i class="fa fa-pencil-square-o"></i> ' + _('Форма') + '</a>\
-	<a href="javascript:;" id="tab3" class="tabs"><i class="fa fa-puzzle-piece"></i> ' + _('Полезности') + '</a>\
-	<a href="javascript:;" id="tab4" class="tabs"><i class="fa fa-wrench"></i> ' + _('CSS') + '</a>\
-	<a href="javascript:;" id="tab5" class="tabs"><i class="fa fa-info"></i> ' + _('Дополнительно') + '</a>\
-	<br/>\
-	<div id="con_tab1" class="tabs active">\
-	<p></p><input type="checkbox" name="updateThread">' + _('Обновлять тред каждые') + ' <input type="number" min="10" max="900" name="updateFrequency"> ' + _('с') + '<br>\
+    $('#settingsPopup').append('<ul class="nav nav-tabs nav-justified" role="tablist">\
+	<li class="active"><a href="#posts" role="tab" data-toggle="tab"><i class="fa fa-comments-o"></i> ' + _('Посты') + '</a></li>\
+	<li><a href="#form" role="tab" data-toggle="tab"><i class="fa fa-pencil-square-o"></i> ' + _('Форма') + '</a></li>\
+	<li><a href="#goodies" role="tab" data-toggle="tab"><i class="fa fa-puzzle-piece"></i> ' + _('Полезности') + '</a></li>\
+	<li><a href="#css" role="tab" data-toggle="tab"><i class="fa fa-wrench"></i> ' + _('CSS') + '</a></li>\
+	<li><a href="#extra" role="tab" data-toggle="tab"><i class="fa fa-info"></i> ' + _('Дополнительно') + '</a></li></ul>\
+	<div class="tab-content"><div class="tab-pane active" id="posts">\
+	<div class="checkbox"><label><input type="checkbox" name="updateThread">' + _('Обновлять тред каждые') + ' <input type="number" min="10" max="900" name="updateFrequency"> ' + _('с') + '</label></div>\
 	' + _('Использовать') + ' <select id="ajaxPolling"><option value="ajax">' + _('новую') + '</option><option value="noRefresh">' + _('старую') + '</option><option value="externalPolling">' + _('внешнюю') + '</option></select> ' + _('AJAX-отправку сообщений') + '<br>\
-	<input type="checkbox" name="showBackLinks">' + _('Отображать ссылки на ответы') + ' <select id="backLinksStyle"><option value="backLinksNormal">' + _('внизу') + '</option><option value="backLinks4chan">' + _('наверху') + '</option></select><br>\
+	<div class="checkbox"><label><input type="checkbox" name="showBackLinks">' + _('Отображать ссылки на ответы') + ' <select id="backLinksStyle"><option value="backLinksNormal">' + _('внизу') + '</option><option value="backLinks4chan">' + _('наверху') + '</option></select></label></div>\
 	<select id="postHover"><option value="postHover">' + _('Новое') + '</option><option value="postHoverOld">' + _('Старое') + '</option><option value="postHoverDisabled">' + _('Не отображать') + '</option></select> ' + _('превью поста при наведении на ссылку') + '<br>\
-	<input type="checkbox" name="imageHover">' + _('Показывать изображение при наведении на превью') + '<br>\
-	<input type="checkbox" name="showNewMessages">' + _('Отображать количество новых постов в заголовке') + '<br>\
-	<input type="checkbox" name="boopNewMessages">' + _('Звуковые уведомления о новых постах') + '<br>\
-	<input type="checkbox" name="quoteSelection">' + _('Цитировать текст при выделении в посте') + '<br>\
-	<input type="checkbox" name="hidePosts">' + _('Добавить кнопки для скрытия постов') + '<br>\
-	<input type="checkbox" name="hidePostsMD5">' + _('Автоматически скрывать посты, содержащие изображения уже скрытых постов') + '<br>\
-	<input type="checkbox" name="hideImageLinks">' + _('Добавить кнопки для скрытия изображений') + '<br>\
-	</p></div><div id="con_tab2" class="tabs">\
-	<p><select id="formStyle"><option value="defaultForm">' + _('Обычная (наверху)') + '</option><option value="bottomForm">' + _('Обычная (внизу)') + '</option><option value="stickyForm">' + _('Прикрепленная') + '</option><option value="quickReply">' + _('Плавающая') + '</option><option value="inlineForm">' + _('Внутри постов') + '</option></select> ' + _('форма ответа') + '<br>\
-	<input type="checkbox" name="simpleForm">' + _('Упрощенная форма') + '<br>\
-	<input type="checkbox" name="markupButtons">' + _('Отображать кнопки разметки') + '<br>\
-	<input type="checkbox" name="markupHotkeys">' + _('Включить хоткеи') + '<br>\
-	<input type="checkbox" name="textCountForm">' + _('Отображать количество введенных символов') + '<br>\
-	<input type="checkbox" name="autoResizeForm">' + _('Автоматически расширять поле ввода') + '<br>\
-	<input type="checkbox" name="showFormOnCite">' + _('Показывать прикрепленную форму при цитировании поста') + '<br>\
-	</p></div><div id="con_tab3" class="tabs">\
-	<p></p><input type="checkbox" name="snowfall">' + _('Включить снег') + '<br>\
-	<input type="checkbox" name="useLocalTime">' + _('Использовать местное время') + '<br>\
-	<input type="checkbox" name="useMomentJS">' + _('Местное время в формате "x минут назад"') + '<br>\
-	<input type="checkbox" name="showSpoiler">' + _('Раскрывать изображения-спойлеры') + '<br>\
-	<input type="checkbox" name="neverOpenSpoiler">' + _('Никогда не раскрывать изображения-спойлеры') + '<br>\
-	<input type="checkbox" name="textSpoiler">' + _('Раскрывать текстовые спойлеры') + '<br>\
-	<input type="checkbox" name="forcedAnon">' + _('Принудительная анонимизация') + '<br>\
-	<input type="checkbox" name="simpleNavbar">' + _('Упрощенная панель навигации') + '<br>\
-	<input type="checkbox" name="hideRoleplay">' + _('Не отображать тег [rp]') + '<br>\
-	<input type="checkbox" name="hideLongText">' + _('Скрывать текст длиной более') + ' <input type="number" min="0" max="4000" name="hideLongTextNum"> ' + _('символов') + '<br>\
-	<input type="checkbox" name="showInfo">' + _('Показывать онлайн и скорость борды') + '<br>\
-	</p></div><div id="con_tab4" class="tabs">\
-	<p><input type="checkbox" name="useCustomCSS">' + _('Использовать свой CSS') + '<button id="applyCSS" style="float: right"><i class="fa fa-eye"></i> ' + _('Предпросмотр') + '</button><br>\
-	<textarea id="customCSS" rows="10" cols="45" name="customCSS"></textarea>\
-	</p></div><div id="con_tab5" class="tabs">\
-	<p><label><a href="https://derpiboo.ru/users/edit">' + _('API-ключ Derpibooru:') + '</a><input type="text" name="derpibooruAPIKeySettings" size="30"></label></p>\
-	<p>' + _('Экспорт/импорт настроек') + '<button id="applySettingsPlain" style="float: right"><i class="fa fa-check"></i> ' + _('Применить') + '</button><br>\
-	<textarea id="settingsPlain" rows="10" cols="45" name="settingsPlain"></textarea></p></div></div>\
-	<p><button id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> ' + _('Сохранить') + '</button>&nbsp;\
-    <button id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()"><i class="fa fa-times"></i> ' + _('Закрыть') + '</button>&nbsp;\
-    <button id="clear" href="javascript:void(0);"><i class="fa fa-eraser"></i> ' + _('Сбросить настройки') + '</button></p>');
+	<div class="checkbox"><label><input type="checkbox" name="imageHover">' + _('Показывать изображение при наведении на превью') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="showNewMessages">' + _('Отображать количество новых постов в заголовке') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="boopNewMessages">' + _('Звуковые уведомления о новых постах') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="quoteSelection">' + _('Цитировать текст при выделении в посте') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="hidePosts">' + _('Добавить кнопки для скрытия постов') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="hidePostsMD5">' + _('Автоматически скрывать посты, содержащие изображения уже скрытых постов') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="hideImageLinks">' + _('Добавить кнопки для скрытия изображений') + '</label></div>\
+	</div><div class="tab-pane" id="form">\
+	<br><select id="formStyle"><option value="defaultForm">' + _('Обычная (наверху)') + '</option><option value="bottomForm">' + _('Обычная (внизу)') + '</option><option value="stickyForm">' + _('Прикрепленная') + '</option><option value="quickReply">' + _('Плавающая') + '</option><option value="inlineForm">' + _('Внутри постов') + '</option></select> ' + _('форма ответа') + '<br>\
+	<div class="checkbox"><label><input type="checkbox" name="simpleForm">' + _('Упрощенная форма') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="markupButtons">' + _('Отображать кнопки разметки') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="markupHotkeys">' + _('Включить хоткеи') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="textCountForm">' + _('Отображать количество введенных символов') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="autoResizeForm">' + _('Автоматически расширять поле ввода') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="showFormOnCite">' + _('Показывать прикрепленную форму при цитировании поста') + '</label></div>\
+	</div><div class="tab-pane" id="goodies">\
+	<div class="checkbox"><label><input type="checkbox" name="snowfall">' + _('Включить снег') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="useLocalTime">' + _('Использовать местное время') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="useMomentJS">' + _('Местное время в формате "x минут назад"') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="showSpoiler">' + _('Раскрывать изображения-спойлеры') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="neverOpenSpoiler">' + _('Никогда не раскрывать изображения-спойлеры') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="textSpoiler">' + _('Раскрывать текстовые спойлеры') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="forcedAnon">' + _('Принудительная анонимизация') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="simpleNavbar">' + _('Упрощенная панель навигации') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="hideRoleplay">' + _('Не отображать тег [rp]') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="hideLongText">' + _('Скрывать текст длиной более') + ' <input type="number" min="0" max="4000" name="hideLongTextNum"> ' + _('символов') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="showInfo">' + _('Показывать онлайн и скорость борды') + '</label></div>\
+	</div><div class="tab-pane" id="css">\
+	<div class="checkbox"><label><input type="checkbox" name="useCustomCSS">' + _('Использовать свой CSS') + '</label><button id="applyCSS" class="btn btn-default pull-right"><i class="fa fa-eye"></i> ' + _('Предпросмотр') + '</button></div>\
+	<textarea id="customCSS" rows="10" style="width: 100%;" name="customCSS"></textarea>\
+	</div><div class="tab-pane" id="extra">\
+	<br>' + _('API-ключ Derpibooru:') + '<input type="text" name="derpibooruAPIKeySettings" size="30">\
+	<span class="help-block">Вы можете найти API-ключ на <a href="https://derpiboo.ru/users/edit" target="_blank">странице редактирования профиля</a>. Он нужен для отправки изображений, скрытых стандартным фильтром.</span>\
+	' + _('Экспорт/импорт настроек') + '<button class="btn btn-default pull-right"  id="applySettingsPlain"><i class="fa fa-check"></i> ' + _('Применить') + '</button><br>\
+	<textarea id="settingsPlain" rows="10" style="width: 100%;" name="settingsPlain"></textarea></div></div>\
+	<div class="btn-group">\
+    <button type="button" class="btn btn-default" id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> ' + _('Сохранить') + '</button>\
+    <button type="button" class="btn btn-default" id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()"><i class="fa fa-times"></i> ' + _('Закрыть') + '</button>\
+    <button type="button" class="btn btn-default" id="clear" href="javascript:void(0);"><i class="fa fa-eraser"></i> ' + _('Сбросить настройки') + '</button></div>');
 
-    // http://jsfiddle.net/gxy45/2/
-    $('#wrapper a').click(function () {
-        var tab_id = $(this).attr('id');
-        tabClick(tab_id)
-    });
-    function tabClick(tab_id) {
-        if (tab_id != $('#wrapper a.active').attr('id')) {
-            $('#wrapper .tabs').removeClass('active');
-            $('#' + tab_id).addClass('active');
-            $('#con_' + tab_id).addClass('active');
-        }
-    }
 
     $('#settingsPopup').css({
         "position": 'fixed',
         "top": '0px',
         "right": '0px',
-        "width": '400px',
+        "width": '500px'
     });
     $('#settingsPopup').hide(); // That's how we roll, baby
     $('#toggleSettings').toggle(function () {
