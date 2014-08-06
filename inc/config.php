@@ -887,7 +887,7 @@
 	// http://fortawesome.github.io/Font-Awesome/icon/pushpin/
 	// http://fortawesome.github.io/Font-Awesome/icon/lock/
 	$config['font_awesome'] = true;
-	$config['font_awesome_css'] = 'stylesheets/font-awesome/css/font-awesome.min.css';
+	$config['font_awesome_css'] = '/stylesheets/font-awesome/css/font-awesome.min.css';
 
 	// Use Bootstrap framework
     $config['bootstrap'] = true;
