@@ -71,9 +71,19 @@ a {
 	color: #777777!important;
 	text-decoration: none!important;
 }
-a.post_no, #navigation a:hover, #markup a:hover, div.post.reply div.body a {
+a.post_no, #navigation a:hover, #markup a:hover, div.post.reply div.body a, p.intro a.email span.name  {
 	color: #cccccc!important;
 	text-decoration: none!important;
+}
+.btn-default {
+    color: #aaaaaa;
+    background-color: #333333;
+    border-color: #222222;
+}
+.btn-default:hover {
+    color: #000000;
+    background-color: #666666;
+    border-color: #222222;
 }
 div.post.reply div.body a {
 	text-decoration: underline!important;
@@ -173,7 +183,7 @@ div.boardlist a {
 	color: #333333;
 }
 table.modlog tr th {
-	background: #СССССС;
+	background: #333333;
 }
 span.spoiler {
 	background: #666666;

@@ -179,12 +179,19 @@ table.modlog tr th {
 	background: #333333;
 	color: #AAAAAA;
 }
-
 .desktop-style div.boardlist:nth-child(1) {
   text-shadow: black 1px 1px 1px, black -1px -1px 1px, black -1px 1px 1px, black 1px -1px 1px;
 }
-
-
 .desktop-style div.boardlist:nth-child(1):hover {
   background-color: rgba(30%, 30%, 30%, 0.65);
+}
+.btn-default {
+    color: #aaaaaa;
+    background-color: #333333;
+    border-color: #666666;
+}
+.btn-default:hover {
+    color: #000000;
+    background-color: #666666;
+    border-color: #666666;
 }
