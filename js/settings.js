@@ -110,7 +110,7 @@ $(document).ready(function () {
         "position": 'fixed',
         "top": '0px',
         "right": '0px',
-        "width": '500px'
+        "max-width": '500px'
     });
     $('#settingsPopup').hide(); // That's how we roll, baby
     $('#toggleSettings').toggle(function () {
