@@ -15,19 +15,19 @@
 
 $(document).ready(function () {
 	if (settings.markupButtons) {
-		$("#body").before('<div id=\"markup\"></div><br/>');
-		$("<a id=\"m-bold\" title=\"" + _('Bold') + "\"><i class=\"fa fa-bold\"></i></a>" +
-            "<a id=\"m-italic\" title=\"" + _('Cursive') + "\"><i class=\"fa fa-italic\"></i></a>" +
-            "<a id=\"m-underline\" title=\"" + _('Underline') + "\"><i class=\"fa fa-underline\"></i></a>" +
-            "<a id=\"m-strikeout\" title=\"" + _('Strikeout') + "\"><i class=\"fa fa-strikethrough\"></i></a>" +
-            "<a id=\"m-quote\" title=\"" + _('Quote') + "\"><i class=\"fa fa-chevron-right\"></i></a>" +
-            "<a id=\"m-spoiler\" title=\"" + _('Spoiler') + "\"><i class=\"fa fa-square\"></i></a>" +
-            "<a id=\"m-code\" title=\"" + _('Code') + "\"><i class=\"fa fa-code\"></i></a>" +
-            "<a id=\"m-irony\" title=\"" + _('Irony') + "\"><i class=\"fa fa-pencil-square-o\"></i></a>" +
-            "<a id=\"m-roleplay\" title=\"" + _('Role Play') + "\"><i class=\"fa fa-comments\"></i></a>" +
-            "<a id=\"m-subscript\" title=\"" + _('Subscript') + "\"><i class=\"fa fa-subscript\"></i></a>" +
-            "<a id=\"m-superscript\" title=\"" + _('Superscript') + "\"><i class=\"fa fa-superscript\"></i></a>" +
-            "<a id=\"m-dice\" title=\"" + _('Dice (## 1d100 ##)') + "\"><i class=\"fa fa-question\"></i></a>").appendTo('#markup');
+		$("#body").before('<div id="markup" class="btn-group"></div><br/>');
+		$("<button type=\"button\" class=\"btn btn-default\" id=\"m-bold\" title=\"" + _('Bold') + "\"><i class=\"fa fa-bold\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn-default\" id=\"m-italic\" title=\"" + _('Cursive') + "\"><i class=\"fa fa-italic\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn-default\" id=\"m-underline\" title=\"" + _('Underline') + "\"><i class=\"fa fa-underline\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn-default\" id=\"m-strikeout\" title=\"" + _('Strikeout') + "\"><i class=\"fa fa-strikethrough\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn-default\" id=\"m-quote\" title=\"" + _('Quote') + "\"><i class=\"fa fa-chevron-right\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn-default\" id=\"m-spoiler\" title=\"" + _('Spoiler') + "\"><i class=\"fa fa-square\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn-default\" id=\"m-code\" title=\"" + _('Code') + "\"><i class=\"fa fa-code\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn-default\" id=\"m-irony\" title=\"" + _('Irony') + "\"><i class=\"fa fa-pencil-square-o\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn-default\" id=\"m-roleplay\" title=\"" + _('Role Play') + "\"><i class=\"fa fa-comments\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn-default\" id=\"m-subscript\" title=\"" + _('Subscript') + "\"><i class=\"fa fa-subscript\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn-default\" id=\"m-superscript\" title=\"" + _('Superscript') + "\"><i class=\"fa fa-superscript\"></i></button>" +
+            "<button type=\"button\" class=\"btn btn-default\" id=\"m-dice\" title=\"" + _('Dice (## 1d100 ##)') + "\"><i class=\"fa fa-question\"></i></button>").appendTo('#markup');
 		$('#m-bold').click(function () {
 			$("#body").surroundSelectedText("[b]", "[/b]");
 		});

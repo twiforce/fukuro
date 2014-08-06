@@ -5,6 +5,9 @@ input[type=file] {
 label {
     font-weight: inherit;
 }
+#markup .btn {
+    padding: 3px 7px;
+}
 /* Bootstrap fixed end */
 
 body {
