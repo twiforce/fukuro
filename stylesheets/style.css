@@ -1,3 +1,12 @@
+/* Bootstrap fixes */
+input[type=file] {
+    display: inline;
+}
+label {
+    font-weight: inherit;
+}
+/* Bootstrap fixed end */
+
 body {
 	background: #EEF2FF url('img/fade-blue.png') repeat-x 50% 0%;
 	color: black;
@@ -448,7 +457,7 @@ p.intro.thread-hidden {
     margin-right: 3px;
     display: block;
     float: left;
-    width: 15px;
+    width: 22px;
 }
 td > #markup {
     padding-left: 0px;

@@ -889,6 +889,10 @@
 	$config['font_awesome'] = true;
 	$config['font_awesome_css'] = 'stylesheets/font-awesome/css/font-awesome.min.css';
 
+	// Use Bootstrap framework
+    $config['bootstrap'] = true;
+	$config['bootstrap_css'] = '/stylesheets/bootstrap/bootstrap.min.css';
+
 	/*
 	 * For lack of a better name, “boardlinks” are those sets of navigational links that appear at the top
 	 * and bottom of board pages. They can be a list of links to boards and/or other pages such as status
