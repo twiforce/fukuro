@@ -720,6 +720,7 @@
 	// Reject duplicate image uploads within the same thread. Doesn't change anything if
 	//  $config['image_reject_repost'] is true.
 	$config['image_reject_repost_in_thread'] = false;
+	$config['bytes_array'] = array(' B', ' KB', ' MB', ' GB', ' TB');
 
 	// Display the aspect ratio of uploaded files.
 	$config['show_ratio'] = false;

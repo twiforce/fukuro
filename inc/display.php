@@ -14,7 +14,8 @@ if (realpath($_SERVER['SCRIPT_FILENAME']) == str_replace('\\', '/', __FILE__)) {
 	http://www.php.net/manual/en/function.filesize.php#100097
 */
 function format_bytes($size) {
-	$units = array(' B', ' KB', ' MB', ' GB', ' TB');
+    global $config;
+	$units = $config['bytes_array'];
 	for ($i = 0; $size >= 1024 && $i < 4; $i++) $size /= 1024;
 	return round($size, 2).$units[$i];
 }
