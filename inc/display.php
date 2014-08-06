@@ -287,7 +287,7 @@ function bidi_cleanup($data) {
 function secure_link_confirm($text, $title, $confirm_message, $href) {
 	global $config;
 
-	return '<a onclick="if (event.which==2) return true;if (confirm(\'' . htmlentities(addslashes($confirm_message)) . '\')) document.location=\'?/' . htmlspecialchars(addslashes($href . '/' . make_secure_link_token($href))) . '\';return false;" title="' . htmlentities($title) . '" href="?/' . $href . '">' . $text . '</a>';
+	return '<li role="presentation"><a role="menuitem" tabindex="-1" onclick="if (event.which==2) return true;if (confirm(\'' . htmlentities(addslashes($confirm_message)) . '\')) document.location=\'?/' . htmlspecialchars(addslashes($href . '/' . make_secure_link_token($href))) . '\';return false;" title="' . htmlentities($title) . '" href="?/' . $href . '">' . $text . '</a></li<>';
 }
 function secure_link($href) {
 	return $href . '/' . make_secure_link_token($href);
@@ -376,11 +376,11 @@ class Post {
 			
 			// Ban
 			if (hasPermission($config['mod']['ban'], $board['uri'], $this->mod))
-				$built .= ' <a title="'._('Ban').'" href="?/' . $board['dir'] . 'ban/' . $this->id . '">' . $config['mod']['link_ban'] . '</a>';
+				$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Ban').'" href="?/' . $board['dir'] . 'ban/' . $this->id . '">' . $config['mod']['link_ban'] . '</a></li>';
 			
 			// Ban & Delete
 			if (hasPermission($config['mod']['bandelete'], $board['uri'], $this->mod))
-				$built .= ' <a title="'._('Ban & Delete').'" href="?/' . $board['dir'] . 'ban&amp;delete/' . $this->id . '">' . $config['mod']['link_bandelete'] . '</a>';
+				$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Ban & Delete').'" href="?/' . $board['dir'] . 'ban&amp;delete/' . $this->id . '">' . $config['mod']['link_bandelete'] . '</a></li>';
 			
 			// Delete file (keep post)
 			if (!empty($this->file) && hasPermission($config['mod']['deletefile'], $board['uri'], $this->mod))
@@ -392,10 +392,11 @@ class Post {
 
 			// Edit post
 			if (hasPermission($config['mod']['editpost'], $board['uri'], $this->mod))
-				$built .= ' <a title="'._('Edit post').'" href="?/' . $board['dir'] . 'edit' . ($config['mod']['raw_html_default'] ? '_raw' : '') . '/' . $this->id . '">' . $config['mod']['link_editpost'] . '</a>';
+				$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Edit post').'" href="?/' . $board['dir'] . 'edit' . ($config['mod']['raw_html_default'] ? '_raw' : '') . '/' . $this->id . '">' . $config['mod']['link_editpost'] . '</a></li>';
 			
 			if (!empty($built))
-				$built = '<span class="controls">' . $built . '</span>';
+				$built = '<div class="btn-group controls pull-right"><button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">' .
+                		'Mod<span class="caret"></span></button><ul class="dropdown-menu" role="menu">'. $built . '</ul></div>';
 		}
 		return $built;
 	}
@@ -481,11 +482,11 @@ class Thread {
 			
 			// Ban
 			if (hasPermission($config['mod']['ban'], $board['uri'], $this->mod))
-				$built .= ' <a title="'._('Ban').'" href="?/' . $board['dir'] . 'ban/' . $this->id . '">' . $config['mod']['link_ban'] . '</a>';
+				$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Ban').'" href="?/' . $board['dir'] . 'ban/' . $this->id . '">' . $config['mod']['link_ban'] . '</a></li>';
 			
 			// Ban & Delete
 			if (hasPermission($config['mod']['bandelete'], $board['uri'], $this->mod))
-				$built .= ' <a title="'._('Ban & Delete').'" href="?/' . $board['dir'] . 'ban&amp;delete/' . $this->id . '">' . $config['mod']['link_bandelete'] . '</a>';
+				$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Ban & Delete').'" href="?/' . $board['dir'] . 'ban&amp;delete/' . $this->id . '">' . $config['mod']['link_bandelete'] . '</a></li>';
 			
 			// Delete file (keep post)
 			if (!empty($this->file) && $this->file != 'deleted' && hasPermission($config['mod']['deletefile'], $board['uri'], $this->mod))
@@ -498,35 +499,36 @@ class Thread {
 			// Sticky
 			if (hasPermission($config['mod']['sticky'], $board['uri'], $this->mod))
 				if ($this->sticky)
-					$built .= ' <a title="'._('Make thread not sticky').'" href="?/' . secure_link($board['dir'] . 'unsticky/' . $this->id) . '">' . $config['mod']['link_desticky'] . '</a>';
+					$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Make thread not sticky').'" href="?/' . secure_link($board['dir'] . 'unsticky/' . $this->id) . '">' . $config['mod']['link_desticky'] . '</a></li>';
 				else
-					$built .= ' <a title="'._('Make thread sticky').'" href="?/' . secure_link($board['dir'] . 'sticky/' . $this->id) . '">' . $config['mod']['link_sticky'] . '</a>';
+					$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Make thread sticky').'" href="?/' . secure_link($board['dir'] . 'sticky/' . $this->id) . '">' . $config['mod']['link_sticky'] . '</a></li>';
 			
 			if (hasPermission($config['mod']['bumplock'], $board['uri'], $this->mod))
 				if ($this->sage)
-					$built .= ' <a title="'._('Allow thread to be bumped').'" href="?/' . secure_link($board['dir'] . 'bumpunlock/' . $this->id) . '">' . $config['mod']['link_bumpunlock'] . '</a>';
+					$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Allow thread to be bumped').'" href="?/' . secure_link($board['dir'] . 'bumpunlock/' . $this->id) . '">' . $config['mod']['link_bumpunlock'] . '</a></li>';
 				else
-					$built .= ' <a title="'._('Prevent thread from being bumped').'" href="?/' . secure_link($board['dir'] . 'bumplock/' . $this->id) . '">' . $config['mod']['link_bumplock'] . '</a>';
+					$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Prevent thread from being bumped').'" href="?/' . secure_link($board['dir'] . 'bumplock/' . $this->id) . '">' . $config['mod']['link_bumplock'] . '</a></li>';
 			
 			// Lock
 			if (hasPermission($config['mod']['lock'], $board['uri'], $this->mod))
 				if ($this->locked)
-					$built .= ' <a title="'._('Unlock thread').'" href="?/' . secure_link($board['dir'] . 'unlock/' . $this->id) . '">' . $config['mod']['link_unlock'] . '</a>';
+					$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Unlock thread').'" href="?/' . secure_link($board['dir'] . 'unlock/' . $this->id) . '">' . $config['mod']['link_unlock'] . '</a></li>';
 				else
-					$built .= ' <a title="'._('Lock thread').'" href="?/' . secure_link($board['dir'] . 'lock/' . $this->id) . '">' . $config['mod']['link_lock'] . '</a>';
+					$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Lock thread').'" href="?/' . secure_link($board['dir'] . 'lock/' . $this->id) . '">' . $config['mod']['link_lock'] . '</a></li>';
 			
 			if (hasPermission($config['mod']['move'], $board['uri'], $this->mod))
-				$built .= ' <a title="'._('Move thread to another board').'" href="?/' . $board['dir'] . 'move/' . $this->id . '">' . $config['mod']['link_move'] . '</a>';
+				$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Move thread to another board').'" href="?/' . $board['dir'] . 'move/' . $this->id . '">' . $config['mod']['link_move'] . '</a></li>';
 
 			if (hasPermission($config['mod']['arch'], $board['uri'], $this->mod))
-            	$built .= ' <a title="'._('Move thread to archive').'" href="?/' . $board['dir'] . 'arch/' . $this->id . '">' . $config['mod']['link_arch'] . '</a>';
+            	$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Move thread to archive').'" href="?/' . $board['dir'] . 'arch/' . $this->id . '">' . $config['mod']['link_arch'] . '</a></li>';
 
 			// Edit post
 			if (hasPermission($config['mod']['editpost'], $board['uri'], $this->mod))
-				$built .= ' <a title="'._('Edit post').'" href="?/' . $board['dir'] . 'edit' . ($config['mod']['raw_html_default'] ? '_raw' : '') . '/' . $this->id . '">' . $config['mod']['link_editpost'] . '</a>';
+				$built .= '<li role="presentation"><a role="menuitem" tabindex="-1" title="'._('Edit post').'" href="?/' . $board['dir'] . 'edit' . ($config['mod']['raw_html_default'] ? '_raw' : '') . '/' . $this->id . '">' . $config['mod']['link_editpost'] . '</a></li>';
 			
 			if (!empty($built))
-				$built = '<span class="controls op">' . $built . '</span>';
+				$built = '<div class="btn-group controls pull-right"><button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">' .
+				'Mod<span class="caret"></span></button><ul class="dropdown-menu" role="menu">'. $built . '</ul></div>';
 		}
 		return $built;
 	}
