@@ -100,8 +100,8 @@ $(document).ready(function () {
 			$('input[name="spoiler"], label[for="spoiler"]').appendTo($('input[name="file"]').parent());
             $('form[name=post]').css({ "padding": '0px!important' });
             $('form[name=post] table').css({ "border-spacing": '0px' });
-            $('input[name=embed]').css({ "width": 'calc(100% - 2px)' });
-            $('textarea[name=body]').css({ "width": 'calc(100% - 6px)' });
+            $('input[name=embed]').css({ "width": '100%' });
+            $('textarea[name=body]').css({ "width": '100%' });
             $('input[name=name]').css({ "width": '49%' });
             $('input[name=email]').css({ "width": '49%', "float": 'right' });
             $('input[name=post]').css({ "float": 'right' });
