@@ -100,7 +100,6 @@ $(document).ready(function () {
 			$('input[name="spoiler"], label[for="spoiler"]').appendTo($('input[name="file"]').parent());
             $('form[name=post]').css({ "padding": '0px!important' });
             $('form[name=post] table').css({ "border-spacing": '0px' });
-            $('form[name=post] input[type=text]').css({ "height": '17px' });
             $('input[name=embed]').css({ "width": 'calc(100% - 2px)' });
             $('textarea[name=body]').css({ "width": 'calc(100% - 6px)' });
             $('input[name=name]').css({ "width": '49%' });
@@ -116,8 +115,8 @@ $(document).ready(function () {
 	}
 	
 	if (settings.autoResizeForm) {
-		$('textarea').css({ "resize": 'horizontal', "overflow": 'hidden' });
-		$('textarea').keyup(function(){
+		$('textarea[name="body"]').css({ "resize": 'horizontal', "overflow": 'hidden' });
+		$('textarea[name="body"]').keyup(function(){
 			$(this).height(80); // min-height
 			$(this).height(this.scrollHeight);
 		});
