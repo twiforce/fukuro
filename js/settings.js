@@ -14,9 +14,19 @@
  *
  */
 
-// Default settings
+defaultSettings = {
+    ajax: true,
+    useLocalTime: true,
+    showInfo: true,
+    postHover: true,
+    markupButtons: true,
+    showSpoiler: false,
+    showNewMessages: true,
+    showSaveOriginalLinks: true,
+    showBackLinks: true
+};
 if (localStorage.getItem("settings") == null)
-    localStorage.setItem("settings", "{\"ajax\":true, \"useLocalTime\":true, \"showInfo\":true, \"postHover\":true, \"markupButtons\":true, \"showSpoiler\":false, \"showNewMessages\":true, \"showSaveOriginalLinks\":true, \"showBackLinks\":true}");
+    localStorage.setItem("settings", JSON.stringify(defaultSettings));
 
 // Current settings version. We'll be using this to notify users for updates
 // Let's just start from one. That's kinda not the first settings.js but still, whatever, nobody cares
