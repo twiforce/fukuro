@@ -3,7 +3,7 @@ body {
 	background-color: #EEEEEE;
 	color: #333333;
 	font-family: Verdana,sans-serif;
-	font-size: 0.9em;
+	font-size: 14px;
 }
 a, a:visited, p.intro a.email , div.post.reply div.body a {
 	color: #FF6600;

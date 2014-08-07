@@ -1,7 +1,7 @@
 body {
 	color: black;
 	font-family: Verdana,sans-serif;
-	font-size: 0.9em;
+    font-size: 14px;
 	background: #AE83C0 url('img/twily_back.png') no-repeat bottom right fixed;
 	background-size: 40%;
 }

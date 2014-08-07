@@ -2,7 +2,7 @@ body {
 	background: url('/stylesheets/img/muon_bg.jpg');
 	color: #9B8165;
 	font-family: Verdana,sans-serif;
-	font-size: 0.9em;
+    font-size: 14px;
 }
 a, a:visited, p.intro a.email , div.post.reply div.body a {
 	color: #FFD97A;

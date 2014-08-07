@@ -6,6 +6,7 @@ body {
 	font-size: 0.9em;
 	max-width: 1024px;
 	margin: auto;
+    font-size: 14px;
 }
 a, a:visited, p.intro a.email , div.post.reply div.body a, h1 {
 	color: #2B587A;

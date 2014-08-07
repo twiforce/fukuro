@@ -1,7 +1,7 @@
 body {
 	color: black;
 	font-family: Verdana,sans-serif;
-	font-size: 0.9em;
+    font-size: 14px;
 	background: #9EDBF8 url('img/dashie_back.png') no-repeat top right fixed;
 	background-size: 50%;
 }
