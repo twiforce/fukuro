@@ -14,6 +14,16 @@ a:hover, p.intro a.post_no:hover , div.post.reply div.body a:hover {
 a.post_no {
 	color: #800000;
 }
+.btn-default {
+    color: #000000;
+    background-color: #DDDDDD;
+    border-color: #CCCCCC;
+}
+.btn-default:hover {
+    color: #000000;
+    background-color: #DDDDDD;
+    border-color: #666666;
+}
 div.post.reply , form[name="post"], #navigation, #settingsPopup, div.op.post-hover {
 	background: #DDDDDD!important;
 	border: solid 1px #CCCCCC;

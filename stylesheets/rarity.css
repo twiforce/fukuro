@@ -32,6 +32,16 @@ form[name="post"] {
 #navigation {
 	bottom: -5px!important;
 }
+.btn-default {
+    color: #aaaaaa;
+    background-color: #F3F5F7;
+    border-color: #C2C4C6;
+}
+.btn-default:hover {
+    color: #000000;
+    background-color: #F3F5F7;
+    border-color: #C2C4C6;
+}
 div.post.reply.highlighted {
 	background: #CCCCCC;
 	border-color: #BBBBBB;

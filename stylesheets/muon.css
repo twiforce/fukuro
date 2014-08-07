@@ -29,6 +29,21 @@ div.post.reply , form[name="post"], #navigation , #settingsPopup, div.op.post-ho
 #navigation {
 	bottom: -5px!important;
 }
+.btn-default {
+    color: #C6985C;
+    background: url('/stylesheets/img/muon_posts.jpg')!important;
+    border-color: #34352D;
+}
+.btn-default:hover {
+    color: #C6985C;
+    text-shadow: #FCE236 0px 0px 10px;
+    background: url('/stylesheets/img/muon_posts.jpg')!important;
+    border-color: #34352D;
+}
+div.post.reply.highlighted {
+    background: #CCCCCC;
+    border-color: #BBBBBB;
+}
 div.post.reply.highlighted {
 	background: #CCCCCC;
 	border-color: #BBBBBB;

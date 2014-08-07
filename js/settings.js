@@ -112,7 +112,7 @@ $(document).ready(function () {
         "position": 'fixed',
         "top": '0px',
         "right": '0px',
-        "max-width": '500px',
+        "max-width": '550px',
         "z-index": '10'
     });
     $('#settingsPopup').hide(); // That's how we roll, baby
