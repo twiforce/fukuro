@@ -19,13 +19,13 @@ $(document).ready(function(){
 		}
 		$(this)
 			.attr('data-orig', this.src)
-			.addClass('hidden');
+			.addClass('nsfw');
 	};
 
 	var restoreImage = function() {
 		$(this)
 			.attr('src', $(this).attr('data-orig'))
-			.removeClass('hidden');
+			.removeClass('nsfw');
 	};
 
 	// Fix for hide-images.js

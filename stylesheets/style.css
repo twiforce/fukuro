@@ -153,10 +153,10 @@ img.banner {
 	border: 1px solid #a9a9a9;
 	margin: 12px auto 0 auto;
 }
-img.hidden {
+img.nsfw {
     opacity: 0.02;
 }
-img.hidden:hover {
+img.nsfw:hover {
     opacity: 1;
 }
 img.post-image {
