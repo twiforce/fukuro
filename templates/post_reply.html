@@ -56,31 +56,46 @@
 	{% if post.file == 'deleted' %}
 		<img class="post-image deleted" src="{{ config.image_deleted }}" alt="" />
 	{% elseif post.file and post.file %}
-    <p class="fileinfo">
-        <div class="btn-group">
-            <button type="button" class="btn btn-default btn-xs"><a href="{{ config.uri_img }}{{ post.file }}">{{ post.file[11:] }}</a></button>
-            <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                {% if config.show_filename and post.filename %}
-                <li><a download="{{ post.filename|e|bidi_cleanup }}" href="{{ config.uri_img }}{{ post.file }}">{% trans%}Save original{% endtrans %}</a></li>
-                {% endif %}
-                <li class="divider"></li>
-                {% if post.thumb != 'file' and config.image_identification %}
-                <li><a href="http://imgops.com/{{ config.uri_img }}{{ post.file }}" target="_blank">{% trans%}ImgOps{% endtrans %}</a></li>
-                {% if post.file|extension == 'jpg' %}
-                <li><a href="http://regex.info/exif.cgi?url={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}View EXIF{% endtrans %}</a></li>
-                {% endif %}
-                <li><a href="http://www.google.com/searchbyimage?image_url={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}Google Search{% endtrans %}</a></li>
-                <li><a href="http://www.tineye.com/search?url={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}Tineye Search{% endtrans %}</a></li>
-                {% endif %}
-            </ul>
+    <div class="btn-group">
+         <button type="button" class="btn btn-default btn-xs"><a href="{{ config.uri_img }}{{ post.file }}">{{ post.file[11:] }}</a></button>
+             <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+                 <span class="caret"></span>
+                 <span class="sr-only">Toggle</span>
+             </button>
+
+             <ul class="dropdown-menu" role="menu">
+                 {% if config.show_filename and post.filename %}
+                 <li><a download="{{ post.filename|e|bidi_cleanup }}" href="{{ config.uri_img }}{{ post.file }}">{% trans%}Save original{% endtrans %}</a></li>
+                 {% endif %}
+                 <li class="divider"></li>
+                 {% if post.thumb != 'file' and config.image_identification %}
+                 <li><a href="http://imgops.com/{{ config.uri_img }}{{ post.file }}" target="_blank">{% trans%}ImgOps{% endtrans %}</a></li>
+                 {% if post.file|extension == 'jpg' %}
+                 <li><a href="http://regex.info/exif.cgi?url={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}View EXIF{% endtrans %}</a></li>
+                 {% endif %}
+                 <li><a href="http://www.google.com/searchbyimage?image_url={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}Google Search{% endtrans %}</a></li>
+                 <li><a href="http://www.tineye.com/search?url={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}Tineye Search{% endtrans %}</a></li>
+                 {% endif %}
+             </ul>
         </div>
         <span class="unimportant">
             {% if post.thumb == 'spoiler' %}({% trans %}Spoiler Image{% endtrans %}){% endif %}
             {% if (post.email[:7] == '#random') or (post.email[:8] == '#danrand') %}({% trans %}Random Image{% endtrans %}){% endif %}
+            {{ post.filesize|filesize }}{% if post.filewidth and post.fileheight %}, {{ post.filewidth}}x{{post.fileheight }}{% if config.show_ratio %}, {{ post.ratio }}{% endif %}{% endif %}
+            {% if config.show_filename and post.filename %},
+            <a download="{{ post.filename|e|bidi_cleanup }}" href="{{ config.uri_img }}{{ post.file }}">
+                {% if post.filename|length > config.max_filename_display %}
+                <span class="postfilename" title="{{ post.filename|e }}">
+                    {{ post.filename|truncate(config.max_filename_display)|bidi_cleanup }}
+                </span>
+                {% else %}{{ post.filename|e|bidi_cleanup }}
+                {% endif %}
+            </a>
+            {% endif %}
+        </span>
+    <!-- Here goes some Dollchan Extension Tools autism. Well done, guys, your script is awesome. -->
+    <p class="fileinfo hide"><a href="{{ config.uri_img }}{{ post.file }}">{{ post.file[11:] }}</a>
+        <span class="unimportant">
             {{ post.filesize|filesize }}{% if post.filewidth and post.fileheight %}, {{ post.filewidth}}x{{post.fileheight }}{% if config.show_ratio %}, {{ post.ratio }}{% endif %}{% endif %}
             {% if config.show_filename and post.filename %},
             <a download="{{ post.filename|e|bidi_cleanup }}" href="{{ config.uri_img }}{{ post.file }}">
