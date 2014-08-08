@@ -56,7 +56,7 @@
 	{% if post.file == 'deleted' %}
 		<img class="post-image deleted" src="{{ config.image_deleted }}" alt="" />
 	{% elseif post.file and post.file %}
-    <div class="btn-group">
+    <p><div class="btn-group">
          <button type="button" class="btn btn-default btn-xs"><a href="{{ config.uri_img }}{{ post.file }}">{{ post.file[11:] }}</a></button>
              <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
                  <span class="caret"></span>
