@@ -30,7 +30,7 @@ if (localStorage.getItem("settings") == null)
 
 // Current settings version. We'll be using this to notify users for updates
 // Let's just start from one. That's kinda not the first settings.js but still, whatever, nobody cares
-var version = 7;
+var version = 8;
 
 var settings = JSON.parse(localStorage.getItem("settings"));
 
