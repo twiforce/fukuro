@@ -11,13 +11,18 @@
  *   $config['additional_javascript'][] = 'js/ajax.js';
  *
  */
-
+var messageGrowl;
 $(window).ready(function() {
 	if (settings.ajax) {
 		var do_not_ajax = false;
 		
 		var setup_form = function($form) {
 			$form.submit(function() {
+                if (settings.growlEnabled) {
+                    messageGrowl = $.growl({
+                        message: _('Отправка...')
+                    });
+                }
 				if (do_not_ajax)
 					return true;
 				var form = this;
@@ -37,7 +42,10 @@ $(window).ready(function() {
 					else { // Chrome?
 						percentage = Math.round(e.position * 100 / e.total);
 					}
-					$(form).find('input[type="submit"]').val(_('Posting... (#%)').replace('#', percentage));
+                    if (settings.growlEnabled)
+                        messageGrowl.update('message', _('Posting... (#%)').replace('#', percentage));
+                    else
+                        $(form).find('input[type="submit"]').val(_('Posting... (#%)').replace('#', percentage));
 				};
 
 				$.ajax({
@@ -59,6 +67,9 @@ $(window).ready(function() {
                         }
 						if (post_response.error) {
 							if (post_response.banned) {
+                                if (settings.growlEnabled) {
+                                    messageGrowl.update('message', post_response.banned);
+                                }
 								// You are banned. Must post the form normally so the user can see the ban message.
 								do_not_ajax = true;
 								$(form).find('input[type="submit"]').each(function() {
@@ -70,8 +81,12 @@ $(window).ready(function() {
 										.replaceWith($('<input type="button">').val(submit_txt));
 								});
 								$(form).submit();
+
 							} else {
-								alert(post_response.error);
+                                if (settings.growlEnabled)
+                                    messageGrowl.update('message', post_response.error);
+                                else
+                                    alert(post_response.error);
 								$(form).find('input[type="submit"]').val(submit_txt);
 								$(form).find('input[type="submit"]').removeAttr('disabled');
 							}
@@ -91,7 +106,9 @@ $(window).ready(function() {
                                                 setTimeout(function() { $(window).trigger("scroll"); }, 100);
 											}
 										});
-										
+                                        if (settings.growlEnabled) {
+                                            messageGrowl.close();
+                                        }
 										highlightReply(post_response.id);
 										window.location.hash = post_response.id;
 										$(window).scrollTop($('div.post#reply_' + post_response.id).offset().top);
@@ -108,7 +125,10 @@ $(window).ready(function() {
 							}
 							$(form).find('input[type="submit"]').val(_('Posted...'));
 						} else {
-							alert(_('An unknown error occured when posting!'));
+                            if (settings.growlEnabled)
+                                messageGrowl.update('message', _('An unknown error occured when posting!'));
+                            else
+							    alert(_('An unknown error occured when posting!'));
 							$(form).find('input[type="submit"]').val(submit_txt);
 							$(form).find('input[type="submit"]').removeAttr('disabled');
 						}
