@@ -26,22 +26,35 @@ $(document).ready(function(){
 		settings.updateFrequency = 10;
 	}
 	var poll_accuracy = settings.updateFrequency * 1000;
+    var updateGrowl;
+    var connectionGrowl;
 	
 	var poll = function() {
 		$.ajax({
 			url: document.location,
             data: {nocache: Math.random()},
-			beforeSend: function() { $('#updateThread i').addClass('fa-spin') },
+			beforeSend: function() {
+                $('#updateThread i').addClass('fa-spin');
+                if (settings.growlEnabled) {
+                    updateGrowl = $.growl({
+                        message: _('Обновление...')
+                    });
+                }
+            },
             error: function(xhr, status, error) {
-                noty({
-                    layout: 'topLeft',
-                    type: 'warning',
-                    timeout: poll_accuracy,
-                    text: '<b>' + _('Соединение потеряно!') + '</b><br/>' +
-                        _('Не удалось получить новые посты.')
-                });
+                if (settings.growlEnabled) {
+                    connectionGrowl = $.growl({
+                        title: "<b>" + _('Соединение потеряно!') + "</b><br>",
+                        message: _('Не удалось получить новые посты.')
+                    }, {
+                        type: "warning"
+                    });
+                }
             },
 			success: function(data) {
+                if (settings.growlEnabled) {
+                    updateGrowl.close();
+                }
 				$(data).find('div.post.reply').each(function() {
 					var id = $(this).attr('id');
 					if($('#' + id).length == 0) {
