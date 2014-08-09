@@ -32,7 +32,7 @@ stylesSelect.change(function () {
 stylesDiv.hide();
 
 stylesDiv.after(
-    $('<div id="style-select" style="float:right;margin-bottom:10px"></div>')
+    $('<div id="style-select" style="float:left;margin-bottom:10px"></div>')
         .text(_('Style: '))
         .append(stylesSelect)
 );
