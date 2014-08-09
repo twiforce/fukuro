@@ -23,7 +23,10 @@ defaultSettings = {
     showSpoiler: false,
     showNewMessages: true,
     showSaveOriginalLinks: true,
-    showBackLinks: true
+    showBackLinks: true,
+    growlEnabled: true,
+    growlPositionY: 'top',
+    growlPositionX: 'left'
 };
 if (localStorage.getItem("settings") == null)
     localStorage.setItem("settings", JSON.stringify(defaultSettings));
@@ -93,6 +96,9 @@ $(document).ready(function () {
 	<div class="checkbox"><label><input type="checkbox" name="simpleNavbar">' + _('Упрощенная панель навигации') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="hideRoleplay">' + _('Не отображать тег [rp]') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="hideLongText">' + _('Скрывать текст длиной более') + ' <input type="number" min="0" max="4000" name="hideLongTextNum"> ' + _('символов') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="growlEnabled">' + _('Показывать уведомления') +
+        ' <select id="growlPositionY"><option value="top">' + _('наверху') + '</option><option value="bottom">' + _('внизу') + '</option></select>' +
+        ' <select id="growlPositionX"><option value="left">' + _('слева') + '</option><option value="center">' + _('по центру') + '</option><option value="right">' + _('справа') + '</option></select></label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="showInfo">' + _('Показывать онлайн и скорость борды') + '</label></div>\
 	</div><div class="tab-pane" id="css">\
 	<div class="checkbox"><label><input type="checkbox" name="useCustomCSS">' + _('Использовать свой CSS') + '</label><button id="applyCSS" class="btn btn-default pull-right"><i class="fa fa-eye"></i> ' + _('Предпросмотр') + '</button></div>\
@@ -108,7 +114,6 @@ $(document).ready(function () {
     <button type="button" class="btn btn-default" id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> ' + _('Сохранить') + '</button>\
     <button type="button" class="btn btn-default" id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()"><i class="fa fa-times"></i> ' + _('Закрыть') + '</button>\
     <button type="button" class="btn btn-default" id="clear" href="javascript:void(0);"><i class="fa fa-eraser"></i> ' + _('Сбросить настройки') + '</button></div>');
-
 
     $('#settingsPopup').css({
         "position": 'fixed',
@@ -140,6 +145,14 @@ $(document).ready(function () {
         if (typeof settings.hideLongTextNum == 'undefined' || settings.hideLongTextNum == '')
             settings.hideLongTextNum = 2000;
         $('input[name="hideLongTextNum"]').val(settings.hideLongTextNum)
+    }
+    if (settings.growlEnabled) {
+        $("input[name=growlEnabled]").attr('checked', true);
+        (settings.growlPositionY == 'bottom') ? $('#growlPositionY option[value="bottom"]').attr('selected', 'selected') :
+            $('#growlPositionY option[value="top"]').attr('selected', 'selected');
+        (settings.growlPositionX == 'right') ? $('#growlPositionX option[value="right"]').attr('selected', 'selected') :
+            (settings.growlPositionX == 'center') ? $('#growlPositionX option[value="center"]').attr('selected', 'selected') :
+                $('#growlPositionY option[value="left"]').attr('selected', 'selected');
     }
     if (settings.showNewMessages) $("input[name=showNewMessages]").attr('checked', true);
     if (settings.postHover) $('#postHover option[value="postHover"]').attr('selected', 'selected');
@@ -258,6 +271,10 @@ $(document).ready(function () {
                 settings.postHoverDisabled = true;
                 break;
         }
+        ($("input[name=growlEnabled]").prop('checked')) ? settings.growlEnabled = true : settings.growlEnabled = false;
+        $('#growlPositionY option:selected').val() == "bottom" ? settings.growlPositionY = 'bottom' : settings.growlPositionY = 'top';
+        $('#growlPositionX option:selected').val() == "right" ? settings.growlPositionX = 'right' :
+                $('#growlPositionX option:selected').val() == "center" ? settings.growlPositionX = 'center' : settings.growlPositionX ='left';
         ($('#backLinksStyle option:selected').val() == "backLinks4chan") ? settings.backLinksStyle = true : settings.backLinksStyle = false;
         ($("input[name=updateThread]").prop('checked')) ? settings.updateThread = true : settings.updateThread = false;
         ($("input[name=showNewMessages]").prop('checked')) ? settings.showNewMessages = true : settings.showNewMessages = false;
@@ -296,6 +313,24 @@ $(document).ready(function () {
         location.reload();
     });
 
+    // Growl defaults
+    if (settings.growlEnabled) {
+        $.growl(false, {
+            placement: {
+                from: settings.growlPositionY,
+                align: settings.growlPositionX
+            }
+        });
+    } else {
+        $.growl(false, {
+            placement: {
+                from: "top",
+                align: "left"
+            }
+        });
+    }
+
+    // probably not working anymore
     if (($('#de-main').length) && (localStorage.getItem("dollScriptNotice") != "shown")) {
         $('body').append('<div id="dollScriptInfo"><b>' + _('Обратите внимание!') + '</b><br/>' + _('Кажется, у вас активирован пользовательский скрипт Dollchan Extension Tools ("Куклоскрипт"). Для стабильной работы сайта просим вас отключить этот пользовательский скрипт или <a id="dismissDollScript" href="javascript:void(0);">автоматически настроить имиджборд для корректной работы</a> (страница перезагрузится).') + '<br/>' + _('Кликните на это окно, чтобы закрыть его.') + '</div>');
         $('#dollScriptInfo').css({'position': 'fixed', 'cursor': 'pointer', 'top': '10px', 'width': '60%', 'padding': '5px', 'border-radius': '2px', 'background-color': 'white'});
@@ -309,23 +344,26 @@ $(document).ready(function () {
             localStorage.setItem("dollScriptNotice", "shown");
             $(this).hide();
         });
-    } else if (settings.version != version) {
-        noty({
-            layout: 'topLeft',
-            text: '<b>' + _('Обратите внимание!') + '</b><br/>'
-                + _('Произошло обновление сайта. Возможно, добавились некоторые новые функции,' +
-                    'или вам необходимо включить отсутствующий функционал в настройках.' +
-                    'Загляните на <a href="/">главную страницу</a>, чтобы узнать список изменений.') +
-                    '<br/>' + _('Кликните на это окно, чтобы закрыть его.'),
-            callback: {
-                onClose: function () {
-                    settings.version = version;
-                    localStorage.setItem("settings", JSON.stringify(settings));
-                    $("#updateInfo").hide();
-                }
-            }
-        });
     }
+    if (settings.version && settings.version != version) {
+        $.growl({
+            title: "<b>" + _('Обратите внимание!') + "</b><br>",
+            message: _('Произошло обновление сайта, и в настройках появились новые функции.<br>' +
+                'Загляните на <a href="/">главную страницу</a>, чтобы узнать список изменений.')
+        }, {
+            delay: 60000
+        });
+
+        // New Stuff Enabler 2014
+        // v8
+        settings.noko50clear = true;
+        settings.growlEnabled = true;
+        settings.growlPositionY = 'top';
+        settings.growlPositionX = 'left';
+        settings.version = version;
+        localStorage.setItem("settings", JSON.stringify(settings));
+    }
+
     $("#clear").click(function () {
         if (confirm(_('Вы уверены, что хотите вернуть настройки борды к стандартным?'))) {
             localStorage.removeItem('settings');
