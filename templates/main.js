@@ -128,38 +128,6 @@ function init_stylechooser() {
 	}	
 	
 	document.getElementsByTagName('body')[0].insertBefore(newElement, document.getElementsByTagName('body')[0].lastChild.nextSibling);
-
-    // style-select.js
-
-    var stylesDiv = $('div.styles');
-    var stylesSelect = $('<select></select>');
-
-    var i = 1;
-    stylesDiv.children().each(function() {
-        var opt = $('<option></option>')
-            .html(this.innerHTML.replace(/(^\[|\]$)/g, ''))
-            .val(i);
-        if ($(this).hasClass('selected'))
-            opt.attr('selected', true);
-        stylesSelect.append(opt);
-        $(this).attr('id', 'style-select-' + i);
-        i++;
-    });
-
-    stylesSelect.change(function() {
-        $('#style-select-' + $(this).val()).click();
-    });
-
-    stylesDiv.hide();
-
-    stylesDiv.after(
-        $('<div id="style-select" style="float:right;margin-bottom:10px"></div>')
-            .text(_('Style: '))
-            .append(stylesSelect)
-    );
-    $('#style-select').css({
-        float: 'left'
-    });
 }
 
 function get_cookie(cookie_name) {
