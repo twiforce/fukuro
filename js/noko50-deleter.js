@@ -11,14 +11,16 @@
  */
 
 onready(function(){
-    var noko50clear = function() {
-        if (window.location.pathname.split("+").pop() == '50.html')
-            while ($(".post.reply").length > 50)
-                $(".post.reply:first").remove();
-    };
-    noko50clear();
-    // allow to work with auto-reload.js, etc.
-    $(document).bind('new_post', function(e, post) {
+    if (settings.noko50clear) {
+        var noko50clear = function () {
+            if (window.location.pathname.split("+").pop() == '50.html')
+                while ($(".post.reply").length > 50)
+                    $(".post.reply:first").remove();
+        };
         noko50clear();
-    });
+        // allow to work with auto-reload.js, etc.
+        $(document).bind('new_post', function (e, post) {
+            noko50clear();
+        });
+    }
 });

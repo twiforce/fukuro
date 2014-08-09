@@ -71,6 +71,7 @@ $(document).ready(function () {
 	<div class="checkbox"><label><input type="checkbox" name="quoteSelection">' + _('Цитировать текст при выделении в посте') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="hidePosts">' + _('Добавить кнопки для скрытия постов') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="hidePostsMD5">' + _('Автоматически скрывать посты, содержащие изображения уже скрытых постов') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="noko50clear">' + _('Оставлять только 50 постов в версии +50 постов') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="hideImageLinks">' + _('Добавить кнопки для скрытия изображений') + '</label></div>\
 	</div><div class="tab-pane" id="form">\
 	<br><select id="formStyle"><option value="defaultForm">' + _('Обычная (наверху)') + '</option><option value="bottomForm">' + _('Обычная (внизу)') + '</option><option value="stickyForm">' + _('Прикрепленная') + '</option><option value="quickReply">' + _('Плавающая') + '</option><option value="inlineForm">' + _('Внутри постов') + '</option></select> ' + _('форма ответа') + '<br>\
@@ -151,6 +152,7 @@ $(document).ready(function () {
     if (settings.quoteSelection) $("input[name=quoteSelection]").attr('checked', true);
     if (settings.useLocalTime) $("input[name=useLocalTime]").attr('checked', true);
     if (settings.useMomentJS) $("input[name=useMomentJS]").attr('checked', true);
+    if (settings.noko50clear) $("input[name=noko50clear]").attr('checked', true);
     if (settings.hideImageLinks) $("input[name=hideImageLinks]").attr('checked', true);
     if (settings.hidePosts) $("input[name=hidePosts]").attr('checked', true);
     if (settings.hidePostsMD5) $("input[name=hidePostsMD5]").attr('checked', true);
@@ -263,6 +265,7 @@ $(document).ready(function () {
         ($("input[name=quoteSelection]").prop('checked')) ? settings.quoteSelection = true : settings.quoteSelection = false;
         ($("input[name=useLocalTime]").prop('checked')) ? settings.useLocalTime = true : settings.useLocalTime = false;
         ($("input[name=useMomentJS]").prop('checked')) ? settings.useMomentJS = true : settings.useMomentJS = false;
+        ($("input[name=noko50clear]").prop('checked')) ? settings.noko50clear = true : settings.noko50clear = false;
         ($("input[name=hideImageLinks]").prop('checked')) ? settings.hideImageLinks = true : settings.hideImageLinks = false;
         ($("input[name=hidePosts]").prop('checked')) ? settings.hidePosts = true : settings.hidePosts = false;
         ($("input[name=hidePostsMD5]").prop('checked')) ? settings.hidePostsMD5 = true : settings.hidePostsMD5 = false;
