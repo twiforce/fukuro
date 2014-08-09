@@ -24,6 +24,10 @@ $(document).ready(function(){
         $('video').mediaelementplayer();
     }
 
+    var do_preview_webm = function() {
+        $('video').attr('preload', 'true')
+    }
+
     var do_add_shorten = function() {
         $("div.post.reply div.body").shorten({
             moreText: 'Весь текст',
@@ -33,6 +37,8 @@ $(document).ready(function(){
     }
 
     do_replace_audio(document);
+    if (settings.previewWebm)
+        do_preview_webm();
     if (settings.hideLongText)
         do_add_shorten(document);
 	

@@ -88,6 +88,7 @@ $(document).ready(function () {
 	<div class="checkbox"><label><input type="checkbox" name="showSpoiler">' + _('Раскрывать изображения-спойлеры') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="neverOpenSpoiler">' + _('Никогда не раскрывать изображения-спойлеры') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="textSpoiler">' + _('Раскрывать текстовые спойлеры') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="previewWebm">' + _('Загружать превью к .webm-файлам') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="forcedAnon">' + _('Принудительная анонимизация') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="simpleNavbar">' + _('Упрощенная панель навигации') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="hideRoleplay">' + _('Не отображать тег [rp]') + '</label></div>\
@@ -157,6 +158,7 @@ $(document).ready(function () {
     if (settings.hidePosts) $("input[name=hidePosts]").attr('checked', true);
     if (settings.hidePostsMD5) $("input[name=hidePostsMD5]").attr('checked', true);
     if (settings.showSpoiler) $("input[name=showSpoiler]").attr('checked', true);
+    if (settings.previewWebm) $("input[name=previewWebm]").attr('checked', true);
     if (settings.neverOpenSpoiler) $("input[name=neverOpenSpoiler]").attr('checked', true);
     if (settings.textSpoiler) $("input[name=textSpoiler]").attr('checked', true);
     if (settings.hideRoleplay) $("input[name=hideRoleplay]").attr('checked', true);
@@ -269,7 +271,8 @@ $(document).ready(function () {
         ($("input[name=hideImageLinks]").prop('checked')) ? settings.hideImageLinks = true : settings.hideImageLinks = false;
         ($("input[name=hidePosts]").prop('checked')) ? settings.hidePosts = true : settings.hidePosts = false;
         ($("input[name=hidePostsMD5]").prop('checked')) ? settings.hidePostsMD5 = true : settings.hidePostsMD5 = false;
-        ($("input[name=showSpoiler]").prop('checked')) ? settings.showSpoiler = true : settings.showSpoiler = false;
+        ($("input[name=showSpoiler]").prop('checked')) ? settings.showSpoiler = true : settings.showSpoiler = false;;
+        ($("input[name=previewWebm]").prop('checked')) ? settings.previewWebm = true : settings.previewWebm = false;
         ($("input[name=neverOpenSpoiler]").prop('checked')) ? settings.neverOpenSpoiler = true : settings.neverOpenSpoiler = false;
         ($("input[name=textSpoiler]").prop('checked')) ? settings.textSpoiler = true : settings.textSpoiler = false;
         ($("input[name=hideRoleplay]").prop('checked')) ? settings.hideRoleplay = true : settings.hideRoleplay = false;
