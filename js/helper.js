@@ -25,7 +25,7 @@ $(document).ready(function(){
     }
 
     var do_preview_webm = function() {
-        $('video').attr('preload', 'true')
+        $('video').attr('preload', 'metadata')
     }
 
     var do_add_shorten = function() {
@@ -38,7 +38,7 @@ $(document).ready(function(){
 
     do_replace_audio(document);
     if (settings.previewWebm)
-        do_preview_webm();
+        do_preview_webm(document);
     if (settings.hideLongText)
         do_add_shorten(document);
 	
@@ -46,6 +46,8 @@ $(document).ready(function(){
         do_replace_audio(post);
         if (settings.hideLongText)
             do_add_shorten(post);
+        if (settings.previewWebm)
+            do_preview_webm(post);
 	});
 
     if (device_type == "mobile") {
