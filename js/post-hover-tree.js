@@ -16,10 +16,11 @@ $(document).ready(function () {
         var dont_fetch_again = [];
         var id;
 
-        // whatever this doesn't work anyway
-        $("html *").click(function (e) {
-            if (e.target.className.indexOf("hover") < 0) {
+        // http://stackoverflow.com/a/7385673
+        $(document).mouseup(function (e) {
+            if (!$(".hover").is(e.target) && $(".hover").has(e.target).length === 0) {
                 $(".hover").remove();
+                hovering = false;
             }
         });
 
