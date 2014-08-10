@@ -185,7 +185,8 @@ table.modlog tr th {
 .desktop-style div.boardlist:nth-child(1):hover {
   background-color: rgba(30%, 30%, 30%, 0.65);
 }
-.btn-default {
+
+.btn-default, .dropdown-menu, .open>.dropdown-toggle.btn-default, .btn-group>.btn:focus {
     color: #aaaaaa;
     background-color: #333333;
     border-color: #666666;
@@ -194,4 +195,15 @@ table.modlog tr th {
     color: #000000;
     background-color: #666666;
     border-color: #666666;
+}
+.dropdown-menu>li>a {
+    color: #aaaaaa;
+}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    color: #aaaaaa;
+    text-decoration: none;
+    background-color: #151515;
+}
+.dropdown-menu .divider {
+    background-color: #666666;
 }

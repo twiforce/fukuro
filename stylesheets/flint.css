@@ -81,6 +81,24 @@ a:hover, a.post_no:hover {
 	color: #cccccc;
 	text-decoration: underline!important;
 }
+.btn-default, .dropdown-menu, .open>.dropdown-toggle.btn-default, .btn-group>.btn:focus {
+    color: #aaaaaa;
+    background-color: #333333;
+    border-color: #222222;
+}
+.btn-default:hover {
+    color: #000000;
+    background-color: #666666;
+    border-color: #222222;
+}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    color: #000000;
+    text-decoration: none;
+    background-color: #151515;
+}
+.dropdown-menu .divider {
+    background-color: #222222;
+}
 div.post.reply , form[name="post"], #navigation, #settingsPopup, div.op.post-hover {
 	color: #aaaaaa;
 	background: #333333!important;
