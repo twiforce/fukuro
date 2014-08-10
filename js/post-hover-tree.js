@@ -44,7 +44,7 @@ $(document).ready(function () {
                             success: function (data) {
                                 $(data).find('div.post.reply').each(function () {
                                     if ($('#' + $(this).attr('id[1]')).length == 0)
-                                        $('body').prepend($(this).css('display', 'none').addClass('hidden'));
+                                        $('body').prepend($(this).css('display', 'none'));
                                 });
 
                                 $post = $('div.post#reply_' + id);
