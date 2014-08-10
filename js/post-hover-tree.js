@@ -15,6 +15,7 @@ $(document).ready(function () {
         var hovering = false;
         var dont_fetch_again = [];
         var id;
+        var hoversBack = false;
 
         // http://stackoverflow.com/a/7385673
         $(document).mouseup(function (e) {
@@ -52,14 +53,16 @@ $(document).ready(function () {
                                 }
                             }
                         })
-                    } else {
+                    } else if ($("#reply_" + id[1] + ".hover").length == 0) { // mom get the camera
                         $("#reply_" + id[1]).clone().addClass("hover")
                             .css({'display': 'inline', 'position': 'absolute', 'top': $(this).offset().top + 20, 'left': $(this).offset().left })
                             .appendTo("body");
-                        // This is still bad and I should feel bad.
-                        $("#reply_" + id[1]+ ".hover:not(:last-child)").remove();
-                        if ($("body").width()-$("#reply_" + id[1] + ".hover").last().position().left-$("#reply_" + id[1] + ".hover").last().width() < 100)
-                           $("#reply_" + id[1] + ".hover").css({'left': $("body").width()-$("#reply_" + id[1] + ".hover").last().position().left});
+                        if ($("body").width()-$("#reply_" + id[1] + ".hover").last().position().left-$("#reply_" + id[1] + ".hover").last().width() < 15) {
+                            $("#reply_" + id[1] + ".hover").css({
+                                'left': 'auto',
+                                'right': '15px'
+                            });
+                        }
                         hovering = true;
                     }
                 },
