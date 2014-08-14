@@ -38,7 +38,8 @@ function archive() {
             link.textContent = '[' + _('Архив') + ']';
             link.style.paddingLeft = '10px';
             link.style.textDecoration = "underline";
-            document.body.insertBefore(link, bottom);
+            //document.body.insertBefore(link, bottom);
+            $(".boardlist.bottom").before(link);
         }
 
         if (subtitle) {
