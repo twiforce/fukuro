@@ -14,6 +14,10 @@
  *
  */
 
+// Current settings version. We'll be using this to notify users for updates
+// Let's just start from one. That's kinda not the first settings.js but still, whatever, nobody cares
+var version = 8;
+
 defaultSettings = {
     ajax: true,
     useLocalTime: true,
@@ -26,14 +30,11 @@ defaultSettings = {
     showBackLinks: true,
     growlEnabled: true,
     growlPositionY: 'top',
-    growlPositionX: 'left'
+    growlPositionX: 'left',
+    version: version
 };
 if (localStorage.getItem("settings") == null)
     localStorage.setItem("settings", JSON.stringify(defaultSettings));
-
-// Current settings version. We'll be using this to notify users for updates
-// Let's just start from one. That's kinda not the first settings.js but still, whatever, nobody cares
-var version = 8;
 
 var settings = JSON.parse(localStorage.getItem("settings"));
 
@@ -65,9 +66,9 @@ $(document).ready(function () {
 	<li><a href="#css" role="tab" data-toggle="tab"><i class="fa fa-wrench"></i> ' + _('CSS') + '</a></li>\
 	<li><a href="#extra" role="tab" data-toggle="tab"><i class="fa fa-info"></i> ' + _('Дополнительно') + '</a></li></ul>\
 	<div class="tab-content"><div class="tab-pane active" id="posts">\
-	<div class="checkbox"><label><input type="checkbox" name="updateThread">' + _('Обновлять тред каждые') + ' <input type="number" min="10" max="900" name="updateFrequency"> ' + _('с') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="updateThread">' + _('Обновлять тред каждые') + ' </label> <input type="number" min="10" max="900" name="updateFrequency"> ' + _('с') + '</div>\
 	' + _('Использовать') + ' <select id="ajaxPolling"><option value="ajax">' + _('новую') + '</option><option value="noRefresh">' + _('старую') + '</option><option value="externalPolling">' + _('внешнюю') + '</option></select> ' + _('AJAX-отправку сообщений') + '<br>\
-	<div class="checkbox"><label><input type="checkbox" name="showBackLinks">' + _('Отображать ссылки на ответы') + ' <select id="backLinksStyle"><option value="backLinksNormal">' + _('внизу') + '</option><option value="backLinks4chan">' + _('наверху') + '</option></select></label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="showBackLinks">' + _('Отображать ссылки на ответы') + ' </label> <select id="backLinksStyle"><option value="backLinksNormal">' + _('внизу') + '</option><option value="backLinks4chan">' + _('наверху') + '</option></select></div>\
 	<select id="postHover"><option value="postHover">' + _('Новое') + '</option><option value="postHoverOld">' + _('Старое') + '</option><option value="postHoverDisabled">' + _('Не отображать') + '</option></select> ' + _('превью поста при наведении на ссылку') + '<br>\
 	<div class="checkbox"><label><input type="checkbox" name="imageHover">' + _('Показывать изображение при наведении на превью') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="showNewMessages">' + _('Отображать количество новых постов в заголовке') + '</label></div>\
@@ -96,11 +97,11 @@ $(document).ready(function () {
 	<div class="checkbox"><label><input type="checkbox" name="forcedAnon">' + _('Принудительная анонимизация') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="simpleNavbar">' + _('Упрощенная панель навигации') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="hideRoleplay">' + _('Не отображать тег [rp]') + '</label></div>\
-	<div class="checkbox"><label><input type="checkbox" name="hideLongText">' + _('Скрывать текст длиной более') + ' <input type="number" min="0" max="4000" name="hideLongTextNum"> ' + _('символов') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="hideLongText">' + _('Скрывать текст длиной более') + ' </label> <input type="number" min="0" max="4000" name="hideLongTextNum"> ' + _('символов') + '</div>\
 	<div class="checkbox"><label><input type="checkbox" name="growlEnabled">' + _('Показывать уведомления') +
-        ' <select id="growlPositionY"><option value="top">' + _('наверху') + '</option><option value="bottom">' + _('внизу') + '</option></select>' +
+        ' </label> <select id="growlPositionY"><option value="top">' + _('наверху') + '</option><option value="bottom">' + _('внизу') + '</option></select>' +
         ' <select id="growlPositionX"><option value="left">' + _('слева') + '</option><option value="center">' + _('по центру') + '</option><option value="right">' + _('справа') + '</option></select></label></div>\
-	<div class="checkbox"><label><input type="checkbox" name="showInfo">' + _('Показывать онлайн и скорость борды') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="showInfo">' + _('Показывать онлайн и скорость борды') + '</div>\
 	</div><div class="tab-pane" id="css">\
 	<div class="checkbox"><label><input type="checkbox" name="useCustomCSS">' + _('Использовать свой CSS') + '</label><button id="applyCSS" class="btn btn-default pull-right"><i class="fa fa-eye"></i> ' + _('Предпросмотр') + '</button></div>\
 	<textarea id="customCSS" rows="10" style="width: 100%;" name="customCSS"></textarea>\
@@ -120,8 +121,11 @@ $(document).ready(function () {
         "position": 'fixed',
         "top": '0px',
         "right": '0px',
+        "width": '100%',
         "max-width": '550px',
-        "z-index": '10'
+        "z-index": '10',
+        "max-height": '500px',
+        "overflow-x": 'auto'
     });
     $('#settingsPopup').hide(); // That's how we roll, baby
     $('#toggleSettings').toggle(function () {
