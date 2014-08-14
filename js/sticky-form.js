@@ -103,10 +103,10 @@ $(document).ready(function () {
             $('form[name=post] table').css({ "border-spacing": '0px' });
             $('input[name=embed]').css({ "width": '100%' });
             $('textarea[name=body]').css({ "width": '100%' });
-            $('input[name=name]').css({ "width": '49%' });
-            $('input[name=email]').css({ "width": '49%', "float": 'right' });
+            $('input[name=name]').css({ "width": '50%' });
+            $('input[name=email]').css({ "width": '50%', "float": 'right' });
             $('input[name=post]').css({ "float": 'right' });
-            $('input[name=subject]').css({ "width": '49%' });
+            $('input[name=subject]').css({ "width": '50%' });
 		}
 		
 		if (device_type == "mobile") {
