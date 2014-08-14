@@ -9,6 +9,7 @@
 	<title>{{ board.url }} - {% if config.thread_subject_in_title and thread.subject %}{{ thread.subject }}{% else %}{{ board.title|e }}{% endif %}</title>
 </head>
 <body>
+<div class="container-fluid">
 {% if config.search.enable %}
     <form id="searchform" style="display:inline; float: right;" action="/search.php" method="get">
             <input id="search" name="search" type="text" size="20" value="">
@@ -56,5 +57,7 @@
 	<script type="text/javascript">{% raw %}
 		ready();
 	{% endraw %}</script>
+
+</div>
 </body>
 </html>
