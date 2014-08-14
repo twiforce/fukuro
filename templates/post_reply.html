@@ -1,6 +1,6 @@
 {% filter remove_whitespace %}
 {# tabs and new lines will be ignored #}
-<div class="post reply" id="reply_{{ post.id }}">
+<div class="post reply row" id="reply_{{ post.id }}">
 
 <p class="intro"{% if not index %} id="{{ post.id }}"{% endif %}>
 	<input type="checkbox" class="delete" name="delete_{{ post.id }}" id="delete_{{ post.id }}" />
@@ -53,6 +53,7 @@
 		{{ post.id }}
 	</a>
 	</p>
+    {{ post.postControls }}
     <div class="media">
 	{% if post.file == 'deleted' %}
 		<img class="post-image deleted" src="{{ config.image_deleted }}" alt="" />
@@ -145,7 +146,6 @@
     {% if post.embed %}
         {{ post.embed }}
     {% endif %}
-    {{ post.postControls }}
 	<div class="body media-body">
 		{% endfilter %}{% if index %}{{ post.body|truncate_body(post.link) }}{% else %}{{ post.body }}{% endif %}{% filter remove_whitespace %}
 		{% if post.modifiers['ban message'] %}
