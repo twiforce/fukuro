@@ -132,7 +132,7 @@ form table tr td div label {
 .unimportant, .unimportant * {
 	font-size: 10px;
 }
-p.fileinfo {
+.fileinfo, .file-info {
 	display: block;
 	margin: 0;
 	padding-right: 7em;
@@ -542,7 +542,7 @@ ul#filestuff li:hover #fileDropdown {
 	@viewport {
 	   user-zoom: fixed;
 	}
-	p.intro time, .fileinfo {
+	p.intro time, .file-info {
 		display: none!important;
 	}
 	#navigaton  a.title{
@@ -578,7 +578,7 @@ ul#filestuff li:hover #fileDropdown {
 button, input[type="submit"], input[type="file"], input[name="spoiler"], label[for="spoiler"] {
     cursor: pointer;
 }
-div.post.reply.closed p.fileinfo, div.post.reply.closed div.body, div.post.reply.closed .post-image, div.post.reply.closed .video-container, div.post.reply.closed object, div.post.reply.closed iframe, div.post.reply.closed #filestuff, div.post.reply.closed .mejs-container {
+div.post.reply.closed .fileinfo, div.post.reply.closed .file-info, div.post.reply.closed div.body, div.post.reply.closed .post-image, div.post.reply.closed .video-container, div.post.reply.closed object, div.post.reply.closed iframe, div.post.reply.closed #filestuff, div.post.reply.closed .mejs-container {
 	display: none;
 }
 .ip-link:hover span {
