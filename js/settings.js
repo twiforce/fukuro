@@ -59,12 +59,12 @@ $(document).ready(function () {
         $('#settingsPopup').toggle();
     });
 
-    $('#settingsPopup').append('<ul class="nav nav-tabs nav-justified" role="tablist">\
-	<li class="active"><a href="#posts" role="tab" data-toggle="tab"><i class="fa fa-comments-o"></i> ' + _('Посты') + '</a></li>\
-	<li><a href="#form" role="tab" data-toggle="tab"><i class="fa fa-pencil-square-o"></i> ' + _('Форма') + '</a></li>\
-	<li><a href="#goodies" role="tab" data-toggle="tab"><i class="fa fa-puzzle-piece"></i> ' + _('Полезности') + '</a></li>\
-	<li><a href="#css" role="tab" data-toggle="tab"><i class="fa fa-wrench"></i> ' + _('CSS') + '</a></li>\
-	<li><a href="#extra" role="tab" data-toggle="tab"><i class="fa fa-info"></i> ' + _('Дополнительно') + '</a></li></ul>\
+    $('#settingsPopup').append('<ul class="nav nav-tabs" role="tablist">\
+	<li class="active"><a href="#posts" role="tab" data-toggle="tab"><i class="fa fa-comments-o"></i><span class="hidden-xs"> ' + _('Посты') + '</span></a></li>\
+	<li><a href="#form" role="tab" data-toggle="tab"><i class="fa fa-pencil-square-o"></i><span class="hidden-xs"> ' + _('Форма') + '</span></a></li>\
+	<li><a href="#goodies" role="tab" data-toggle="tab"><i class="fa fa-puzzle-piece"></i><span class="hidden-xs"> ' + _('Полезности') + '</span></a></li>\
+	<li><a href="#css" role="tab" data-toggle="tab"><i class="fa fa-wrench"></i><span class="hidden-xs"> ' + _('CSS') + '</span></a></li>\
+	<li><a href="#extra" role="tab" data-toggle="tab"><i class="fa fa-info"></i><span class="hidden-xs"> ' + _('Дополнительно') + '</span></a></li></ul>\
 	<div class="tab-content"><div class="tab-pane active" id="posts">\
 	<div class="checkbox"><label><input type="checkbox" name="updateThread">' + _('Обновлять тред каждые') + ' </label> <input type="number" min="10" max="900" name="updateFrequency"> ' + _('с') + '</div>\
 	' + _('Использовать') + ' <select id="ajaxPolling"><option value="ajax">' + _('новую') + '</option><option value="noRefresh">' + _('старую') + '</option><option value="externalPolling">' + _('внешнюю') + '</option></select> ' + _('AJAX-отправку сообщений') + '<br>\

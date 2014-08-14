@@ -15,6 +15,10 @@ label {
     padding-left: 0px;
     padding-right: 0px;
 }
+.nav-tabs > li {
+    min-width: 50px;
+    text-align: center;
+}
 /* Bootstrap fixed end */
 
 body {
@@ -256,7 +260,7 @@ div.post.reply {
 	float: left;
 }
 #settingsPopup .nav>li>a {
-    padding: 5px 5px;
+    padding: 7px 10px 7px 10px;
 }
 #settingsPopup .nav>li>a:hover {
     text-decoration: none!important;
