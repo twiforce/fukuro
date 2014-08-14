@@ -53,6 +53,7 @@
 		{{ post.id }}
 	</a>
 	</p>
+    <div class="media">
 	{% if post.file == 'deleted' %}
 		<img class="post-image deleted" src="{{ config.image_deleted }}" alt="" />
 	{% elseif post.file and post.file %}
@@ -122,7 +123,7 @@
 			{% endif %}
 		{% elseif post.thumb == 'spoiler' %}
 			{{ config.uri_thumb }}{{ post.file|slice(0, 27) }}.png
-			
+
 		{% else %}
 			{{ config.uri_thumb }}{{ post.thumb }}
 		{% endif %}" style="width:{{ post.thumbwidth }}px;height:{{ post.thumbheight }}px;  {% if post.file|extension == 'mp3' %}display:none;{% endif %}" alt="" />
@@ -146,12 +147,13 @@
         {{ post.embed }}
     {% endif %}
     {{ post.postControls }}
-	<div class="body">
+	<div class="body media-body">
 		{% endfilter %}{% if index %}{{ post.body|truncate_body(post.link) }}{% else %}{{ post.body }}{% endif %}{% filter remove_whitespace %}
 		{% if post.modifiers['ban message'] %}
 			{{ config.mod.ban_message|sprintf(post.modifiers['ban message']) }}
 		{% endif %}
 	</div>
+        </div>
 </div>
 <br/>
 {% endfilter %}

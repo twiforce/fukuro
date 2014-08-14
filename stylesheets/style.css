@@ -8,6 +8,9 @@ label {
 #markup .btn {
     padding: 3px 7px;
 }
+.media {
+    margin-top: 0px;
+}
 /* Bootstrap fixed end */
 
 body {
