@@ -583,18 +583,20 @@
     $config['markup'][] = array("sub", "<sub>{param}</sub>", "true");
     $config['markup'][] = array("sup", "<sup>{param}</sup>", "true");
     $config['markup'][] = array("code", "<code>{param}</code>", "false");
-    $config['markup'][] = array("pre", "<pre>{param}</pre>", "false");
+    // $config['markup'][] = array("pre", "<pre>{param}</pre>", "false");
+    // $config['markup'][] = array("kbd", "<kbd>{param}</kbd>", "false");
+    // $config['markup'][] = array("samp", "<samp>{param}</samp>", "false");
     $config['markup'][] = array("spoiler", "<span class=\"spoiler\">{param}</span>", "true");
     $config['markup'][] = array("h", "<span class=\"spoiler\">{param}</span>", "true");
     $config['markup'][] = array("rp", "<span class=\"roleplay\">{param}</span>", "true");
     $config['markup'][] = array("irony", "<span class=\"irony\">{param}</span>", "true");
 
     // WakabaMark for oldfags
-    $config['old_markup'][] = array("/\*\*(.+?)\*\*/is", "<strong>\$1</strong>");
-    $config['old_markup'][] = array("/\*(.+?)\*/is", "<em>\$1</em>");
-    $config['old_markup'][] = array("/__(.+?)__/is", "<span style=\"text-decoration: underline\">\$1</span>");
-    $config['old_markup'][] = array("/___(.+?)___/is", "<span style=\"text-decoration: line-through\">\$1</span>");
-    $config['old_markup'][] = array("/%%(.+?)%%/is", "<span class=\"spoiler\">\$1</span>");
+    // $config['old_markup'][] = array("/\*\*(.+?)\*\*/is", "<strong>\$1</strong>");
+    // $config['old_markup'][] = array("/\*(.+?)\*/is", "<em>\$1</em>");
+    // $config['old_markup'][] = array("/__(.+?)__/is", "<span style=\"text-decoration: underline\">\$1</span>");
+    // $config['old_markup'][] = array("/___(.+?)___/is", "<span style=\"text-decoration: line-through\">\$1</span>");
+    // $config['old_markup'][] = array("/%%(.+?)%%/is", "<span class=\"spoiler\">\$1</span>");
 
 	// Repair markup with HTML Tidy. This may be slower, but it solves nesting mistakes. Tinyboad, at the
 	// time of writing this, can not prevent out-of-order markup tags (eg. "**''test**'') without help from
