@@ -1634,6 +1634,14 @@ function markup(&$body, $track_cites = false) {
 		}
 	}
 
+    foreach ($config['old_markup'] as $markup) {
+ 		if (is_string($markup[1])) {
+			$body = preg_replace($markup[0], $markup[1], $body);
+		} elseif (is_callable($markup[1])) {
+			$body = preg_replace_callback($markup[0], $markup[1], $body);
+		}
+	}
+
     $parser->addCodeDefinition($builder->build());
     $parser->parse($body);
     $body = $parser->getAsHtml();
