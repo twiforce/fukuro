@@ -575,19 +575,19 @@
  * ====================
  */
 
-	// "Wiki" markup syntax ($config['wiki_markup'] in pervious versions):
-	// $config['markup'][] = array("/'''(.+?)'''/", "<strong>\$1</strong>");
-	// $config['markup'][] = array("/''(.+?)''/", "<em>\$1</em>");
-	// $config['markup'][] = array("/\*\*(.+?)\*\*/", "<span class=\"spoiler\">\$1</span>");
-	// $config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");
-
-	// Highlight PHP code wrapped in <code> tags (PHP 5.3+)
-	// $config['markup'][] = array(
-	// 	'/^&lt;code&gt;(.+)&lt;\/code&gt;/ms',
-	// 	function($matches) {
-	// 		return highlight_string(html_entity_decode($matches[1]), true);
-	// 	}
-	// );
+	// JBBCode markup
+	$config['markup'][] = array("b", "<strong>{param}</strong>", "true");
+    $config['markup'][] = array("i", "<em>{param}</em>", "true");
+    $config['markup'][] = array("u", "<span style=\"text-decoration: underline\">{param}</span>", "true");
+    $config['markup'][] = array("s", "<span style=\"text-decoration: line-through\">{param}</span>", "true");
+    $config['markup'][] = array("sub", "<sub>{param}</sub>", "true");
+    $config['markup'][] = array("sup", "<sup>{param}</sup>", "true");
+    $config['markup'][] = array("code", "<code>{param}</code>", "false");
+    $config['markup'][] = array("pre", "<pre>{param}</pre>", "false");
+    $config['markup'][] = array("spoiler", "<span class=\"spoiler\">{param}</span>", "true");
+    $config['markup'][] = array("h", "<span class=\"spoiler\">{param}</span>", "true");
+    $config['markup'][] = array("rp", "<span class=\"roleplay\">{param}</span>", "true");
+    $config['markup'][] = array("irony", "<span class=\"irony\">{param}</span>", "true");
 
 	// Repair markup with HTML Tidy. This may be slower, but it solves nesting mistakes. Tinyboad, at the
 	// time of writing this, can not prevent out-of-order markup tags (eg. "**''test**'') without help from
