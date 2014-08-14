@@ -20,6 +20,7 @@ require_once 'inc/events.php';
 require_once 'inc/api.php';
 require_once 'inc/bans.php';
 require_once 'inc/lib/gettext/gettext.inc';
+require_once 'inc/lib/JBBCode/Parser.php';
 
 // the user is not currently logged in as a moderator
 $mod = false;
@@ -1622,13 +1623,20 @@ function markup(&$body, $track_cites = false) {
 	if (mysql_version() < 50503)
 		$body = mb_encode_numericentity($body, array(0x010000, 0xffffff, 0, 0xffffff), 'UTF-8');
 
+    $parser = new JBBCode\Parser();
+
 	foreach ($config['markup'] as $markup) {
 		if (is_string($markup[1])) {
-			$body = preg_replace($markup[0], $markup[1], $body);
-		} elseif (is_callable($markup[1])) {
-			$body = preg_replace_callback($markup[0], $markup[1], $body);
+			$builder = new JBBCode\CodeDefinitionBuilder($markup[0], $markup[1]);
+			if ($markup[2] == "false")
+			    $builder->setParseContent(false);
+			$parser->addCodeDefinition($builder->build());
 		}
 	}
+
+    $parser->addCodeDefinition($builder->build());
+    $parser->parse($body);
+    $body = $parser->getAsHtml();
 
 	if ($config['markup_urls']) {
 		$markup_urls = array();
