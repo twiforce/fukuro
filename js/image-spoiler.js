@@ -18,8 +18,8 @@ $(document).ready(function(){
 				if ($(this).parent().attr("data-expanded") != 'true') {
 					$(this).attr("src","http://static.syn-ch.com/spoiler.png");
 					$(this).css({
-						"width": '128px',
-						"height": '128px'
+						"width": 'auto',
+						"height": 'auto'
 					});
 				}
                 if (settings.neverOpenSpoiler) {
@@ -29,10 +29,10 @@ $(document).ready(function(){
 			}
 		};
 		
-		$('div.post > a > img').each(do_hideSpoiledImages);
+		$('div.post > .media > a > img').each(do_hideSpoiledImages);
 		
 		$(document).bind("new_post", function(e, post) {
-			$('div.post > a > img').each(do_hideSpoiledImages);
+			$('div.post > .media > a > img').each(do_hideSpoiledImages);
 		});
 	}
 });
