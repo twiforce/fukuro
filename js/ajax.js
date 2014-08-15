@@ -21,6 +21,8 @@ $(window).ready(function() {
                 if (settings.growlEnabled) {
                     messageGrowl = $.growl({
                         message: _('Отправка...')
+                    }, {
+                        delay: 0
                     });
                 }
 				if (do_not_ajax)
