@@ -20,7 +20,9 @@ $(document).ready(function () {
         // http://stackoverflow.com/a/7385673
         $(document).mouseup(function (e) {
             if (!$(".hover").is(e.target) && $(".hover").has(e.target).length === 0) {
-                $(".hover").remove();
+                setTimeout(function () {
+                    $(".hover").remove();
+                }, 0);
                 hovering = false;
             }
         });
@@ -83,7 +85,6 @@ $(document).ready(function () {
                     })
                 }
             });
-            ;
         }
 
         init_hover_tree(document);
@@ -93,4 +94,4 @@ $(document).ready(function () {
             init_hover_tree(post);
         });
     }
-})
+});
