@@ -65,6 +65,9 @@ $(document).ready(function(){
 					var id = $(this).attr('id');
 					if($('#' + id).length == 0) {
 						$(this).insertAfter($('div.post:not(.hover):not(.post-hover):last').next()).after('<br class="clear">');
+                        if (settings.useAnimateCSS) {
+                            $(this).addClass('animated fadeIn');
+                        }
 						$(document).trigger('new_post', this);
 						$('#updateThread i').removeClass('fa-spin');
 					}

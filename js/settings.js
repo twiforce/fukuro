@@ -96,6 +96,7 @@ $(document).ready(function () {
 	<div class="checkbox"><label><input type="checkbox" name="previewWebm">' + _('Загружать превью к .webm-файлам') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="forcedAnon">' + _('Принудительная анонимизация') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="simpleNavbar">' + _('Упрощенная панель навигации') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="useAnimateCSS">' + _('Включить CSS-анимации') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="hideRoleplay">' + _('Не отображать тег [rp]') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="hideLongText">' + _('Скрывать текст длиной более') + ' </label> <input type="number" min="0" max="4000" name="hideLongTextNum"> ' + _('символов') + '</div>\
 	<div class="checkbox"><label><input type="checkbox" name="growlEnabled">' + _('Показывать уведомления') +
@@ -195,6 +196,7 @@ $(document).ready(function () {
     if (settings.markupButtons) $("input[name=markupButtons]").attr('checked', true);
     if (settings.forcedAnon) $("input[name=forcedAnon]").attr('checked', true);
     if (settings.simpleNavbar) $("input[name=simpleNavbar]").attr('checked', true);
+    if (settings.useAnimateCSS) $("input[name=useAnimateCSS]").attr('checked', true);
     if (settings.markupHotkeys) $("input[name=markupHotkeys]").attr('checked', true);
     if (settings.showBackLinks) $("input[name=showBackLinks]").attr('checked', true);
     if (settings.backLinksStyle) $('#backLinksStyle option[value="backLinks4chan"]').attr('selected', 'selected');
@@ -307,9 +309,9 @@ $(document).ready(function () {
         ($("input[name=snowfall]").prop('checked')) ? settings.snowfall = true : settings.snowfall = false;
         ($("input[name=forcedAnon]").prop('checked')) ? settings.forcedAnon = true : settings.forcedAnon = false;
         ($("input[name=simpleNavbar]").prop('checked')) ? settings.simpleNavbar = true : settings.simpleNavbar = false;
+        ($("input[name=useAnimateCSS]").prop('checked')) ? settings.useAnimateCSS = true : settings.useAnimateCSS = false;
         ($("input[name=showInfo]").prop('checked')) ? settings.showInfo = true : settings.showInfo = false;
         ($("input[name=hideLongText]").prop('checked')) ? settings.hideLongText = true : settings.hideLongText = false;
-        ($("input[name=enableBots]").prop('checked')) ? settings.enableBots = true : settings.enableBots = false;
         ($("input[name=useCustomCSS]").prop('checked')) ? settings.useCustomCSS = true : settings.useCustomCSS = false;
         settings.customCSS = $("textarea[name=customCSS]").val();
         settings.derpibooruAPIKey = $("input[name=derpibooruAPIKeySettings]").val();
