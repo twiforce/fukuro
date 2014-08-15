@@ -22,12 +22,13 @@ $(document).ready(function(){
 		return; //not thread page
 	
 	var poll_interval;
-	if ((settings.updateFrequency) <= 10) {
+	if ((settings.updateFrequency <= 10) || (typeof settings.updateFrequency == 'undefined')) {
 		settings.updateFrequency = 10;
 	}
 	var poll_accuracy = settings.updateFrequency * 1000;
     var updateGrowl;
     var connectionGrowl;
+    var manualUpdate = false;
 	
 	var poll = function() {
 		$.ajax({
@@ -36,8 +37,13 @@ $(document).ready(function(){
 			beforeSend: function() {
                 $('#updateThread i').addClass('fa-spin');
                 if (settings.growlEnabled) {
-                    updateGrowl = $.growl({
+                    if (manualUpdate && $("[data-growl=container]").length != 0) {
+                        updateGrowl.update('message', 'Продолжаем обновление...');
+                    } else updateGrowl = $.growl({
                         message: _('Обновление...')
+                    }, {
+                        delay: 0,
+                        allow_dismiss: false
                     });
                 }
             },
@@ -52,7 +58,7 @@ $(document).ready(function(){
                 }
             },
 			success: function(data) {
-                if (settings.growlEnabled) {
+                if (settings.updateThread && settings.growlEnabled) {
                     updateGrowl.close();
                 }
 				$(data).find('div.post.reply').each(function() {
@@ -88,8 +94,10 @@ $(document).ready(function(){
 	$('#updateThread').click(function () {
 		$('#updateThread i').addClass('fa-spin');
 		poll_interval = setTimeout(poll, 1000);
+        manualUpdate = true;
 		$(document).bind('new_post', function(e, post) {
 			clearTimeout(poll_interval);
+            updateGrowl.close();
         });
 	});
 });
