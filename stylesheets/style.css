@@ -334,11 +334,11 @@ div.post.reply div.body span.spoiler a {
 span.spoiler:hover, div.post.reply div.body span.spoiler:hover a {
 	color: white;
 }
-span.code {
-	font-family: monospace;
-}
 span.roleplay {
     background-color: rgba(0,0,0,0.1);
+}
+span.irony {
+    color: #FF00FF;
 }
 div.styles {
 	float: right;
