@@ -893,19 +893,13 @@
 	// Make stylesheet selections board-specific.
 	$config['stylesheets_board'] = false;
 
-	// Use Font-Awesome for displaying lock and pin icons, instead of the images in static/.
-	// http://fortawesome.github.io/Font-Awesome/icon/pushpin/
-	// http://fortawesome.github.io/Font-Awesome/icon/lock/
-	$config['font_awesome'] = true;
-	$config['font_awesome_css'] = '/stylesheets/font-awesome/css/font-awesome.min.css';
+	// Additional stylesheets to include on board index and thread pages.
+	$config['additional_stylesheet'][] = '/stylesheets/font-awesome/css/font-awesome.min.css';
+	$config['additional_stylesheet'][] = '/stylesheets/bootstrap/bootstrap.min.css';
+	$config['additional_stylesheet'][] = '/stylesheets/animate/animate.css';
 
-	// Use Bootstrap framework
-    $config['bootstrap'] = true;
-	$config['bootstrap_css'] = '/stylesheets/bootstrap/bootstrap.min.css';
-
-	// Animate.css
-    $config['animate'] = true;
-	$config['animate_css'] = '/stylesheets/animate/animate.css';
+	// Where these stylesheet files are located on the web. Defaults to $config['root'].
+    // $config['additional_stylesheet_url'] = 'http://static.example.org/stylesheet-stuff/';
 
 	/*
 	 * For lack of a better name, “boardlinks” are those sets of navigational links that appear at the top
