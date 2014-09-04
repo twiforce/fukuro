@@ -37,7 +37,8 @@
 		$query->bindValue(':query', $phrase);
 		$query->execute() or error(db_error($query));
 
-		_syslog(LOG_NOTICE, 'Searched /' . $_GET['board'] . '/ for "' . $phrase . '"');
+		if ($config['syslog'])
+		    _syslog(LOG_NOTICE, 'Searched /' . $_GET['board'] . '/ for "' . $phrase . '"');
 
 		// Cleanup search queries table
 		$query = prepare("DELETE FROM ``search_queries`` WHERE `time` <= :time");
@@ -66,7 +67,8 @@
 		$phrase = trim(preg_replace_callback('/(^|\s)(\w+):("(.*)?"|[^\s]*)/', 'search_filters', $phrase));
 
 		if(!preg_match('/[^*^\s]/', $phrase) && empty($filters)) {
-			_syslog(LOG_WARNING, 'Query too broad.');
+		    if ($config['syslog'])
+			    _syslog(LOG_WARNING, 'Query too broad.');
 			$body .= '<p class="unimportant" style="text-align:center">(Query too broad.)</p>';
 			echo Element('page.html', Array(
 				'config'=>$config,
@@ -127,7 +129,8 @@
 		$query->execute() or error(db_error($query));
 
 		if($query->rowCount() == $search_limit) {
-			_syslog(LOG_WARNING, 'Query too broad.');
+		    if ($config['syslog'])
+			    _syslog(LOG_WARNING, 'Query too broad.');
 			$body .= '<p class="unimportant" style="text-align:center">('._('Query too broad.').')</p>';
 			echo Element('page.html', Array(
 				'config'=>$config,
