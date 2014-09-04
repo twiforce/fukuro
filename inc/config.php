@@ -897,6 +897,7 @@
 	$config['additional_stylesheet'][] = '/stylesheets/font-awesome/css/font-awesome.min.css';
 	$config['additional_stylesheet'][] = '/stylesheets/bootstrap/bootstrap.min.css';
 	$config['additional_stylesheet'][] = '/stylesheets/animate/animate.css';
+	$config['additional_stylesheet'][] = '/stylesheets/mediaelementjs/mediaelementplayer.css';
 
 	// Where these stylesheet files are located on the web. Defaults to $config['root'].
     // $config['additional_stylesheet_url'] = 'http://static.example.org/stylesheet-stuff/';
