@@ -956,6 +956,18 @@
 	// <tinyboard flag style>.
 	$config['flag_style'] = 'width:16px;height:11px;';
 
+	// If you want to increase performance of custom flags, you can use CSS sprite sheets.
+	// For example, use this http://draeton.github.io/stitches/ to generate a spritesheet.png and stylesheet.css,
+	// then add $config['additional_stylesheet'][] = '/path/to/stylesheet.css' with pre-generated flags stylesheet.
+	// Don't forget that Fukuro uses "flag flag-flagname" as flag class names, Stitches's editor uses different.
+	// To display flags correctly you might add something like this to your additional stylesheet with flags classes.
+	// .flag {
+    //       background-image: url('/path/to/spritesheet.png');
+    //       background-repeat: no-repeat;
+    //   	 display: inline-block;
+    // }
+	$config['flags_spritesheet'] = false;
+
 /*
  * ====================
  *  Javascript
