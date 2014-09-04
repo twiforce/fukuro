@@ -29,10 +29,10 @@ $(document).ready(function(){
 			}
 		};
 		
-		$('div.post > .media > a > img').each(do_hideSpoiledImages);
+		$('div.post > a > img').each(do_hideSpoiledImages);
 		
 		$(document).bind("new_post", function(e, post) {
-			$('div.post > .media > a > img').each(do_hideSpoiledImages);
+			$('div.post > a > img').each(do_hideSpoiledImages);
 		});
 	}
 });

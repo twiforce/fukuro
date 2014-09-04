@@ -103,20 +103,18 @@ $(window).ready(function() {
 											var id = $(this).attr('id');
 											if($('#' + id).length == 0) {
 												$(this).insertAfter($('div.post:not(.hover):not(.post-hover):last').next()).after('<br class="clear">');
-                                                if (settings.useAnimateCSS) {
+                                                if (settings.useAnimateCSS)
                                                     $(this).addClass('animated fadeIn');
-                                                }
 												$(document).trigger('new_post', this);
                                                 // watch.js retrigger
                                                 setTimeout(function() { $(window).trigger("scroll"); }, 100);
 											}
 										});
-                                        if (settings.growlEnabled) {
+                                        if (settings.growlEnabled)
                                             messageGrowl.close();
-                                        }
 										highlightReply(post_response.id);
 										window.location.hash = post_response.id;
-										$(window).scrollTop($('div.post#reply_' + post_response.id).offset().top);
+                                        $(window).scrollTop($('div.post#reply_' + post_response.id).offset().top);
 										
 										$(form).find('input[type="submit"]').val(submit_txt);
 										$(form).find('input[type="submit"]').removeAttr('disabled');
