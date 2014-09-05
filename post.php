@@ -251,7 +251,7 @@ if (isset($_POST['delete'])) {
 			error($config['error']['noaccess']);
 	}
 	
-	if (!$post['mod']) {
+	if (!$post['mod'] && $config['spam']['checking_enabled']) {
 		$post['antispam_hash'] = checkSpam(array($board['uri'], isset($post['thread']) && !($config['quick_reply'] && isset($_POST['quick-reply'])) ? $post['thread'] : ($config['try_smarter'] && isset($_POST['page']) ? 0 - (int)$_POST['page'] : null)));
 		if ($post['antispam_hash'] === true)
 			error($config['error']['spam']);

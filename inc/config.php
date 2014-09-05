@@ -226,6 +226,9 @@
 	 *
 	 */
 
+	// Disable it only if you have issues with spamfilter.
+	$config['spam']['checking_enabled'] = true;
+
 	// Number of hidden fields to generate.
 	$config['spam']['hidden_inputs_min'] = 4;
 	$config['spam']['hidden_inputs_max'] = 12;
