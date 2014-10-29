@@ -20,15 +20,13 @@ $(document).ready(function(){
 		
 	if($(".post.op").size() != 1)
 		return; //not thread page
-	
-	var poll_interval;
+
 	if ((settings.updateFrequency <= 10) || (typeof settings.updateFrequency == 'undefined')) {
 		settings.updateFrequency = 10;
 	}
 	var poll_accuracy = settings.updateFrequency * 1000;
     var updateGrowl;
     var connectionGrowl;
-    var manualUpdate = false;
 	
 	var poll = function() {
 		$.ajax({
@@ -37,9 +35,7 @@ $(document).ready(function(){
 			beforeSend: function() {
                 $('#updateThread i').addClass('fa-spin');
                 if (settings.growlEnabled) {
-                    if (manualUpdate && $("[data-growl=container]").length != 0) {
-                        updateGrowl.update('message', 'Продолжаем обновление...');
-                    } else updateGrowl = $.growl({
+                    updateGrowl = $.growl({
                         message: _('Обновление...')
                     }, {
                         delay: 0,
@@ -69,16 +65,16 @@ $(document).ready(function(){
                             $(this).addClass('animated fadeIn');
                         }
 						$(document).trigger('new_post', this);
-						$('#updateThread i').removeClass('fa-spin');
 					}
                     if (settings.useMomentJS) {
                         now = moment();
                         momentize(document);
                     }
 				});
+                $('#updateThread i').removeClass('fa-spin');
+                updateGrowl.close();
 			}
 		});
-		(settings.updateThread == "false") ? poll_interval = false : poll_interval = setTimeout(poll, poll_accuracy);
 	};
 
     (settings.simpleNavbar) ? $("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh fa-lg"></i></a>&nbsp;') :
@@ -86,8 +82,7 @@ $(document).ready(function(){
             $("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh"></i> ' + _('Обновить') + '</a>&nbsp;');
 	
 	function pollNewPosts() {
-		clearTimeout(poll_interval);
-		poll_interval = setTimeout(poll, poll_accuracy);
+        setInterval(poll, poll_accuracy);
 	}
 	
 	if(settings.updateThread) {
@@ -95,13 +90,7 @@ $(document).ready(function(){
 	}
 	
 	$('#updateThread').click(function () {
-		$('#updateThread i').addClass('fa-spin');
-		poll_interval = setTimeout(poll, 1000);
-        manualUpdate = true;
-		$(document).bind('new_post', function(e, post) {
-			clearTimeout(poll_interval);
-            updateGrowl.close();
-        });
+        poll();
 	});
 });
 
