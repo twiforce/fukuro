@@ -153,7 +153,7 @@ p.intro span.trip {
 	color: #789922;
 }
 form table tr th {
-	background: #DDDDDD;
+	background: #333333;
 }
 div.ban h2 {
 	background: #FCA;
@@ -173,11 +173,11 @@ div.pages a.selected {
 	color: #800;
 }
 hr {
-	border-color: #CCCCCC;
+	border-color: #333333;
 }
 h1 {
 	color: #FF6600;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 	font-size: 2em;
 	font-family: 'Roboto', Arial;
 	font-weight: bold;
@@ -252,4 +252,18 @@ input[type="submit"]:hover, input[type="reset"]:hover, .buttons input[type="butt
 }
 .pace .pace-progress {
     background: #444444;
+}
+
+.nav-tabs > li {
+	margin-bottom: -4px;
+}
+.nav-tabs > li.active > a {
+	background-color: #333333;
+	border: 1px solid #222222;
+}
+
+.nav-tabs > li > a:hover, .nav-tabs > li.active > a:hover {
+	background-color: #666666;
+	color: #000000!important;
+	border: 1px solid #222222;
 }
