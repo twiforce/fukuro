@@ -521,6 +521,85 @@ if (isset($_POST['delete'])) {
 		}
 	}
 
+    // Giphy random
+    // TODO: merge with derpibooru random
+	if ($config['giphy_random']) {
+        if (strtolower(substr($_POST['email'], 0, 8)) == '#gifrand') {
+            if (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != '')) {
+                $_POST['email'] = '';
+            } else {
+				if (preg_match("/#gifrand:\"(.+)\"/", strtolower($_POST['email']), $booruTagFound)) {
+                    $booruTag = str_replace(" ", "+", $booruTagFound[1]);
+                    $booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey'] . '&tag=' . $booruTag));
+                } else {
+                    $booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey']));
+                }
+                if (!isset($booruRandJSON->{'data'}->{'id'}))
+                    error($config['error']['invalidtag']);
+                $post['file_url'] = ($booruRandJSON->{'data'}->{'image_url'});
+
+                // This is still a shitty way to check and upload images.
+                // TODO: merge with upload by url
+                if (!preg_match('@^https?://s3.amazonaws.com/giphymedia/media/@', $post['file_url']))
+                    error($config['error']['invalidimg']);
+
+                if (mb_strpos($post['file_url'], '?') !== false)
+                    $url_without_params = mb_substr($post['file_url'], 0, mb_strpos($post['file_url'], '?'));
+                else
+                    $url_without_params = $post['file_url'];
+
+                $post['extension'] = strtolower(mb_substr($url_without_params, mb_strrpos($url_without_params, '.') + 1));
+                if (!in_array($post['extension'], $config['allowed_ext']) && !in_array($post['extension'], $config['allowed_ext_files']))
+                    error($config['error']['unknownext']);
+
+                $post['file_tmp'] = tempnam($config['tmp'], 'url');
+                function unlink_tmp_file($file) {
+                    @unlink($file);
+                    fatal_error_handler();
+                }
+                register_shutdown_function('unlink_tmp_file', $post['file_tmp']);
+
+                $fp = fopen($post['file_tmp'], 'w');
+
+                $curl = curl_init();
+                curl_setopt($curl, CURLOPT_URL, $post['file_url']);
+                curl_setopt($curl, CURLOPT_FAILONERROR, true);
+                curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
+                curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
+                curl_setopt($curl, CURLOPT_TIMEOUT, $config['upload_by_url_timeout']);
+                curl_setopt($curl, CURLOPT_USERAGENT, 'Tinyboard');
+                curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
+                curl_setopt($curl, CURLOPT_FILE, $fp);
+                curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+
+                if (curl_exec($curl) === false)
+                    error($config['error']['nomove']);
+
+                curl_close($curl);
+
+                fclose($fp);
+
+                $giphyRatings = array(
+                	"y" => "safe",
+                	"g" => "safe",
+                	"pg" => "suggestive",
+                	"pg-13" => "questionable",
+                	"r" => "explicit",
+                );
+
+                $booruTempFilename = $booruRandJSON->{'data'}->{'id'} . '_' . $giphyRatings[$booruRandJSON->{'data'}->{'rating'}]
+                	. '_' . (implode("_", $booruRandJSON->{'data'}->{'tags'})) . ".gif";
+
+                $_FILES['file'] = array(
+                    'name' => $booruTempFilename,
+                    'tmp_name' => $post['file_tmp'],
+                    'error' => 0,
+                    'size' => filesize($post['file_tmp'])
+                );
+            }
+		}
+	}
+
 	// Check for a file
 	if ($post['op'] && !isset($post['no_longer_require_an_image_for_op'])) {
 		if (!isset($_FILES['file']['tmp_name']) || $_FILES['file']['tmp_name'] == '' && $config['force_image_op'])

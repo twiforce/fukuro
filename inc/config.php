@@ -781,6 +781,13 @@
     // #danrand in email field will attach a random pic from danbooru.donmai.us
     $config['danbooru_random'] = true;
 
+	// #gifrand in email field will attach a random gif from giphy.com
+    $config['giphy_random'] = true;
+
+    // API key is necessary for $config['giphy_random'], this one is for testing only
+    // Register your own API key by contacting api@giphy.com
+    $config['giphyAPIKey'] = "dc6zaTOxFJmzC";
+
     // #letstry in email field will add some hardcoded random string.
     $config['letstry'] = true;
     $config['letstry_random'] = array();
