@@ -83,7 +83,14 @@ function showInfo() {
         dataType: 'json',
         success: function(data){
             githubInfo = data;
-            $('#githubInfo').html("Последний коммит #" + githubContribInfo[0]["total"] + " \"<a href=\""
+            // damn son where did you find this
+            var ii = 0;
+            var totalCommits = 0;
+            while (ii < githubContribInfo.length) {
+                totalCommits = totalCommits + githubContribInfo[ii]["total"];
+                ii++;
+            }
+            $('#githubInfo').html("Последний коммит #" + totalCommits + " \"<a href=\""
                 + githubInfo[0]["html_url"] + "\" target=_blank>" + githubInfo[0]["commit"]["message"]
                 + "</a>\" отправлен " + moment(githubInfo[0]["commit"]["author"]["date"]).fromNow() + ".")
         }
