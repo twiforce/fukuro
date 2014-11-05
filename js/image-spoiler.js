@@ -32,7 +32,7 @@ $(document).ready(function(){
 		$('div.post > a > img').each(do_hideSpoiledImages);
 		
 		$(document).bind("new_post", function(e, post) {
-			$('div.post > a > img').each(do_hideSpoiledImages);
+		 $(post).find('a > img').each(do_hideSpoiledImages);
 		});
 	}
 });
