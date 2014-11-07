@@ -74,8 +74,8 @@
                  {% if config.show_filename and post.filename %}
                  <li><a download="{{ post.filename|e|bidi_cleanup }}" href="{{ config.uri_img }}{{ post.file }}">{% trans%}Save original{% endtrans %}</a></li>
                  {% endif %}
-                 <li class="divider"></li>
                  {% if post.thumb != 'file' and config.image_identification %}
+                 <li class="divider"></li>
                  <li><a href="http://imgops.com/{{ config.uri_img }}{{ post.file }}" target="_blank">{% trans%}ImgOps{% endtrans %}</a></li>
                  {% if post.file|extension == 'jpg' %}
                  <li><a href="http://regex.info/exif.cgi?url={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}View EXIF{% endtrans %}</a></li>
