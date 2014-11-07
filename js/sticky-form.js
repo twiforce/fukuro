@@ -15,7 +15,7 @@
 
 var clearForm = function() {
 	$('#body, input[name="file"], input[name="file_url"], input[name="embed"]').val('');
-}
+};
  
 $(document).ready(function () {
 	var postform = $('form[name="post"]');
@@ -31,21 +31,23 @@ $(document).ready(function () {
 		});
 		
 		if (settings.simpleNavbar) {
-            var hideButton = '<i class=\"fa fa-compress fa-lg\"></i>';
-            var showButton = '<i class=\"fa fa-arrows-alt fa-lg\"></i>';
-            var upButton = '<i class=\"fa fa-chevron-up fa-lg\"></i>';
-            var downButton = '<i class=\"fa fa-chevron-down fa-lg\"></i>';
+            var hideButton = '<a id="toggleForm"><i class=\"fa fa-compress fa-lg\"></i></a>';
+            var showButton = '<a id="toggleForm"><i class=\"fa fa-arrows-alt fa-lg\"></i></a>';
+            var upButton = '<a id="formPosition"><i class=\"fa fa-chevron-up fa-lg\"></i></a>';
+            var downButton = '<a id="formPosition"><i class=\"fa fa-chevron-down fa-lg\"></i></a>';
         } else if (device_type == "mobile") {
-            var hideButton = '<i class=\"fa fa-compress fa-2x\"></i>';
-            var showButton = '<i class=\"fa fa-arrows-alt fa-2x\"></i>';
-            var upButton = '<i class=\"fa fa-chevron-up fa-2x\"></i>';
-            var downButton = '<i class=\"fa fa-chevron-down fa-2x\"></i>';
+            var hideButton = '<a id="toggleForm"><i class=\"fa fa-compress fa-2x\"></i></a>';
+            var showButton = '<a id="toggleForm"><i class=\"fa fa-arrows-alt fa-2x\"></i></a>';
+            var upButton = '<a id="formPosition"><i class=\"fa fa-chevron-up fa-2x\"></i></a>';
+            var downButton = '<a id="formPosition"><i class=\"fa fa-chevron-down fa-2x\"></i></a>';
         } else {
-            var hideButton = '<i class=\"fa fa-compress\"></i> '+ _(' Спрятать');
-            var showButton = '<i class=\"fa fa-arrows-alt\"></i> ' + _(' Открыть');
-            var upButton = '<i class=\"fa fa-chevron-up\"></i> ' + _(' Поднять');
-            var downButton = '<i class=\"fa fa-chevron-down\"></i> ' + _(' Опустить');
+            var hideButton = '<a id="toggleForm"><i class=\"fa fa-compress\"></i> '+ _(' Спрятать') + '</a>';
+            var showButton = '<a id="toggleForm"><i class=\"fa fa-arrows-alt\"></i> ' + _(' Открыть') + '</a>';
+            var upButton = '<a id="formPosition"><i class=\"fa fa-chevron-up\"></i> ' + _(' Поднять') + '</a>';
+            var downButton = '<a id="formPosition"><i class=\"fa fa-chevron-down\"></i> ' + _(' Опустить') + '</a>';
         }
+
+		$("#clearForm").after('&nbsp;', hideButton, '&nbsp;', upButton);
 		
 		$('#toggleForm').click(function () {
 			var link = $(this);
@@ -62,7 +64,7 @@ $(document).ready(function () {
 		if (localStorage.getItem("displayForm") == 'false') {
 			postform.hide();
 			$('#toggleForm').html(showButton)
-		};
+		}
 		$('#formPosition').toggle(function () {
 			$(this).html(downButton);
 			localStorage.setItem("formPosition", 'up');
@@ -84,7 +86,7 @@ $(document).ready(function () {
 				"top": "0px",
 				"bottom": "auto"
 			});
-		};
+		}
 		$('.banner').hide();
 		if (settings.simpleForm) {
 			$('form[name=post] th').hide();
@@ -174,7 +176,7 @@ $(document).ready(function () {
 				postform.show();
 				$('#toggleForm').html(hideButton);
 				localStorage.setItem("displayForm", true);
-			};
+			}
 			$('textarea').height(this.scrollHeight);
 		});
 	}

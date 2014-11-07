@@ -11,34 +11,33 @@
  */
  
 $(document).ready(function () {
-	$('body').append("<div id=\"navigation\"></div>")
-		$("<a id=\"scrollUp\"><i class=\"fa fa-arrow-up\"></i> " + _("Наверх") + "</a>&nbsp;<a id=\"scrollDown\"><i class=\"fa fa-arrow-down\"></i> " + _("Вниз") + "</a>&nbsp;<a onclick=\"clearForm();\"><i class=\"fa fa-trash-o\"></i> " + _("Очистить") + "</a>&nbsp;<a id=\"toggleForm\"><i class=\"fa fa-compress\"></i> " + _("Спрятать") + "</a>&nbsp;<a id=\"formPosition\"><i class=\"fa fa-chevron-up\"></i> " + _("Поднять") + "</a>").appendTo('#navigation');
+	$('body').append("<div id=\"navigation\"></div>");
+		$("<a id=\"scrollUp\"><i class=\"fa fa-arrow-up\"></i> " + _("Наверх") +"</a>&nbsp;" +
+				"<a id=\"scrollDown\"><i class=\"fa fa-arrow-down\"></i> " + _("Вниз") + "</a>&nbsp;" +
+				"<a id=\"clearForm\" onclick=\"clearForm();\"><i class=\"fa fa-trash-o\"></i> " + _("Очистить") +"</a>")
+			.appendTo('#navigation');
 		$('#navigation').css({
 			"position": 'fixed',
 			"bottom": '0px',
 			"right": '0px',
 			'padding': '5px',
-			'background': '#AAAAAA',
+			'background': '#AAAAAA'
 		});
 
     if (settings.simpleNavbar) {
         $('#navigation').html('<a id=\"scrollUp\"><i class=\"fa fa-arrow-up fa-lg\"></i></a>\
 		<a id=\"scrollDown\"><i class=\"fa fa-arrow-down fa-lg\"></i></a>\
-		<a onclick=\"clearForm();\"><i class=\"fa fa-trash-o fa-lg\"></i></a>\
-		<a id=\"toggleForm\"><i class=\"fa fa-compress fa-lg\"></i></a>\
-		<a id=\"formPosition\"><i class=\"fa fa-chevron-up fa-lg\"></i></a>');
-        $('#navigation').css({
-            "letter-spacing": '3px',
-        });
+		<a id=\"clearForm\" onclick=\"clearForm();\"><i class=\"fa fa-trash-o fa-lg\"></i></a>')
+			.css({
+				"letter-spacing": '3px'
+			});
     } else if(device_type == "mobile") {
 		$('#navigation').html('<a id=\"scrollUp\"><i class=\"fa fa-arrow-up fa-2x\"></i></a>\
 		<a id=\"scrollDown\"><i class=\"fa fa-arrow-down fa-2x\"></i></a>\
-		<a onclick=\"clearForm();\"><i class=\"fa fa-trash-o fa-2x\"></i></a>\
-		<a id=\"toggleForm\"><i class=\"fa fa-compress fa-2x\"></i></a>\
-		<a id=\"formPosition\"><i class=\"fa fa-chevron-up fa-2x\"></i></a>');
-		$('#navigation').css({
-			"letter-spacing": '5px',
-		});
+		<a id=\"clearForm\" onclick=\"clearForm();\"><i class=\"fa fa-trash-o fa-2x\"></i></a>')
+			.css({
+				"letter-spacing": '5px'
+			});
 	}
 	$('#scrollDown').click(function () {
         $("html, body").animate({ scrollTop: $(document).height() }, "slow");
