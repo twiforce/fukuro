@@ -47,7 +47,7 @@
         </span>
     </p>
 <a data-file-hash="{{ post.filehash }}" data-file-size="{{ post.filesize }}" {% if post.filewidth and post.fileheight %} data-file-width="{{ post.filewidth }}"  data-file-height="{{ post.fileheight }}"{% endif %} href="{{ config.uri_img }}{{ post.file }}" target="_blank"{% if post.thumb == 'file' or post.modifiers['is_file'] == '1' %} class="file"{% endif %}>
-	<img class="post-image{% if post.thumb == 'spoiler' %} spoiler{% endif %}{% if post.file|extension == 'mp3' %} hide{% endif %}" src="
+	<img class="post-image{% if post.thumb == 'spoiler' %} spoiler{% endif %}{% if post.file|extension == 'mp3' or post.file|extension == 'm4a' %} hide{% endif %}" src="
 	{% if post.thumb == 'file' %}
 		{{ config.root }}
 		{% if config.file_icons[post.filename|extension] %}
@@ -147,7 +147,7 @@
 		<a href="{{ post.root }}{{ board.dir }}{{ config.dir.res }}{{ config.file_page50|sprintf(post.id) }}">[{% trans %}Last {{ lastcount }} Posts{% endtrans %}]</a>
 	{% endif %}
 	{{ post.postControls }}
-	{% if post.file|extension == 'mp3' %}
+	{% if post.file|extension == 'mp3' or post.file|extension == 'm4a' %}
 		<br/>
 		<audio controls="controls" preload="none">
 			<source src="{{ config.uri_img }}{{ post.file }}" type="audio/mpeg" />
