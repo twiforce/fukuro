@@ -34,7 +34,7 @@ $(document).ready(function(){
             data: {nocache: Math.random()},
 			beforeSend: function() {
                 $('#updateThread i').addClass('fa-spin');
-                if (settings.growlEnabled) {
+                if (settings.growlEnabled && $(".growl-animated > span").last().html() != "Обновление...") {
                     updateGrowl = $.growl({
                         message: _('Обновление...')
                     }, {
@@ -52,6 +52,7 @@ $(document).ready(function(){
                         type: "warning"
                     });
                 }
+                updateGrowl.close();
             },
 			success: function(data) {
                 if (settings.updateThread && settings.growlEnabled) {
