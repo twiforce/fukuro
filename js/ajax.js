@@ -9,6 +9,7 @@
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
  *   $config['additional_javascript'][] = 'js/settings.js';
  *   $config['additional_javascript'][] = 'js/ajax.js';
+ *   $config['additional_javascript'][] = 'js/postcount.js';
  *
  */
 var messageGrowl;
@@ -95,6 +96,8 @@ $(window).ready(function() {
 						} else if (post_response.redirect && post_response.id) {
 							if (!$(form).find('input[name="thread"]').length) {
 								document.location = post_response.redirect;
+								stats.threads.created++;
+								saveAndUpdateStats();
 							} else {
 								$.ajax({
 									url: document.location,
@@ -120,6 +123,8 @@ $(window).ready(function() {
 										$(form).find('input[type="submit"]').removeAttr('disabled');
 										$(form).find('input[name="subject"],input[name="file_url"],\
 											textarea[name="body"],input[type="file"],input[name="embed"]').val('').change();
+										stats.posts.sent++;
+										saveAndUpdateStats();
 									},
 									cache: false,
 									contentType: false,

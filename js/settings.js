@@ -11,6 +11,7 @@
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
  *   $config['additional_javascript'][] = 'js/settings.js';
+ *   $config['additional_javascript'][] = 'js/postcount.js';
  *
  */
 
@@ -35,10 +36,10 @@ defaultSettings = {
 };
 if (localStorage.getItem("settings") == null)
     localStorage.setItem("settings", JSON.stringify(defaultSettings));
-
 var settings = JSON.parse(localStorage.getItem("settings"));
 
-// A very rough and dirty settings panel, dollscript-like. Needs rewriting ASAP.
+// A very rough and dirty settings panel, dollscript-like.
+// TODO: rewrite
 $(document).ready(function () {
     (settings.simpleNavbar) ? $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-lg"></i></a>') :
         (device_type == "mobile") ? $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>') :
@@ -110,9 +111,13 @@ $(document).ready(function () {
 	<br>' + _('API-ключ Derpibooru:') + '<input type="text" name="derpibooruAPIKeySettings" size="30">\
 	<span class="help-block">Вы можете найти API-ключ на <a href="https://derpiboo.ru/users/edit" target="_blank">странице редактирования профиля</a>. Он нужен для отправки изображений, скрытых стандартным фильтром.</span>\
 	' + _('Экспорт/импорт настроек') + '<br>\
-	<textarea id="settingsPlain" rows="10" style="width: 100%;" name="settingsPlain"></textarea>\
+	<textarea id="settingsPlain" rows="4" style="width: 100%;" name="settingsPlain"></textarea>\
 	<button class="btn btn-default pull-right btn-sm" id="applySettingsPlain"><i class="fa fa-check"></i> ' + _('Применить') + '</button>\
-	<span class="help-block" id="settingsVersion">' + _('Версия настроек') + ': <span class="label" id="settingsInput"></span><span class="pull-right" style="padding-right: 5px">' + _('Актуальная версия') + ': <span class="label" id="settingsActual"></span></span></div></div>\
+	<span class="help-block" id="settingsVersion">' + _('Версия настроек') + ': <span class="label" id="settingsInput"></span><span class="pull-right" style="padding-right: 5px">' + _('Актуальная версия') + ': <span class="label" id="settingsActual"></span></span>\
+	</span><span>' + _('Статистика') + ' <span class="text-muted" id="stats-start"></span></span>\
+    <span class="help-block">' + _('Отправлено постов') + ': <span class="label label-default" id="stats-posts-sent"></span></span>\
+	<span class="help-block">' + _('Создано тредов') + ': <span class="label label-default" id="stats-threads-created"></span></span>\
+	</div></div>\
 	<div class="btn-group">\
     <button type="button" class="btn btn-default" id="save" href="javascript:void(0);"><i class="fa fa-floppy-o"></i> ' + _('Сохранить') + '</button>\
     <button type="button" class="btn btn-default" id="close" href="javascript:void(0);" onclick="$(\'#settingsPopup\').hide()"><i class="fa fa-times"></i> ' + _('Закрыть') + '</button>\
