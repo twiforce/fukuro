@@ -95,20 +95,17 @@ $(document).ready(function () {
             newPost .css({
                 'display': 'inline',
                 'position': 'absolute',
-                'top': link.offset().top + 20,
+                'top': link.offset().top,
                 'left': link.offset().left
             });
 
-            if ($("body").width() -
-                $("#reply_" + id[1] + ".hover").last().position().left-$("#reply_" + id[1] + ".hover").last().width()
-                < 15)
+            if ($("body").width() - newPost.last().position().left-newPost.last().width() < 15)
             {
-                $("#reply_" + id[1] + ".hover").css({
+                newPost.css({
                     'left': 'auto',
                     'right': '15px'
                 });
             }
-
         };
 
         init_hover_tree(document);
