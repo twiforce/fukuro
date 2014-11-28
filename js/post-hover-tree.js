@@ -60,19 +60,16 @@ $(document).ready(function () {
                         }
                     }
                 })
-            } else if ($("#reply_" + id[1] + ".hover").length == 0) { // mom get the camera
-                $("#reply_" + id[1]).clone().addClass("hover")
-                    .css({'display': 'inline', 'position': 'absolute', 'top': $(this).offset().top + 20, 'left': $(this).offset().left })
-                    .appendTo("body");
-                if ($("body").width()-$("#reply_" + id[1] + ".hover").last().position().left-$("#reply_" + id[1] + ".hover").last().width() < 15) {
-                    $("#reply_" + id[1] + ".hover").css({
-                        'left': 'auto',
-                        'right': '15px'
-                    });
-                }
-                hovering = true;
             }
-        }
+            else
+                if ($("#reply_" + id[1] + ".hover").length == 0)
+                { // mom get the camera
+                    var pst = $("#reply_" + id[1]).clone().addClass("hover").appendTo("body");
+                    position($(this), pst, evnt);
+
+                hovering = true;
+                }
+        };
 
         var hoverLeave = function(evnt)
         {
@@ -90,7 +87,29 @@ $(document).ready(function () {
                     }, 500);
                 }
             })
-        }
+        };
+
+        var position = function(link, newPost, evnt)
+        {
+
+            newPost .css({
+                'display': 'inline',
+                'position': 'absolute',
+                'top': link.offset().top + 20,
+                'left': link.offset().left
+            });
+
+            if ($("body").width() -
+                $("#reply_" + id[1] + ".hover").last().position().left-$("#reply_" + id[1] + ".hover").last().width()
+                < 15)
+            {
+                $("#reply_" + id[1] + ".hover").css({
+                    'left': 'auto',
+                    'right': '15px'
+                });
+            }
+
+        };
 
         init_hover_tree(document);
 
