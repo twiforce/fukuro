@@ -50,7 +50,7 @@ a.post_no:hover {
 	color: #32DD72 !important;
 	text-decoration: underline overline;
 }
-div.post.reply , form[name="post"], #navigation , #settingsPopup, div.op.post-hover {
+div.post.reply , form[name="post"], #navigation , #settingsPopup, div.op.post.hover {
 	background: #333333!important;
 	border: #555555 1px solid;
 		-webkit-border-radius: 10px;
@@ -206,4 +206,9 @@ table.modlog tr th {
 }
 .dropdown-menu .divider {
     background-color: #666666;
+}
+
+div.op.post.hover
+{
+	padding : 0.2em 0.3em 0.5em 0.6em;
 }

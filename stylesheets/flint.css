@@ -81,7 +81,7 @@ a:hover, a.post_no:hover {
 	color: #cccccc;
 	text-decoration: underline!important;
 }
-.btn-default, .dropdown-menu, .open>.dropdown-toggle.btn-default, .btn-group>.btn:focus {
+.btn-default, .dropdown-menu, .open>.dropdown-toggle.btn-default, .btn-group>.btn:focus, select {
     color: #aaaaaa;
     background-color: #333333;
     border-color: #222222;
@@ -99,7 +99,7 @@ a:hover, a.post_no:hover {
 .dropdown-menu .divider {
     background-color: #222222;
 }
-div.post.reply , form[name="post"], #navigation, #settingsPopup, div.op.post-hover {
+div.post.reply , form[name="post"], #navigation, #settingsPopup, div.op.post.hover {
 	color: #aaaaaa;
 	background: #333333!important;
 	border: 1px solid #222222;
@@ -161,8 +161,8 @@ div.ban p {
 	color: black;
 }
 div.pages {
-	background: #F0E0D6;
-	border-color: #D9BFB7;
+	background: #333333!important;
+	border-color: #333333!important;
 }
 div.pages a.selected {
 	color: #800;
@@ -203,7 +203,7 @@ div.post img.post-image {
 	padding: 5px 0px 5px 0px;
 }
 .unimportant {
-	font-size: 0.8 em;
+	font-size: 0.8em;
 }
 textarea, input[type="text"], input[type="file"], input[type="password"], input[name="snum"], input[type="search"] {
 	background-color: #333333;

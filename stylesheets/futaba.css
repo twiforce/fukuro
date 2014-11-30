@@ -51,7 +51,7 @@ div.pages {
 	color: maroon;
 	font-size: 12pt;
 	
-	background: none;
+	background: #f0e0d6;
 	border-width: 1px;
 	border-style: inset;
 
@@ -69,9 +69,48 @@ div.boardlist {
 div.boardlist a {
 	color: #800;
 }
-unimportant, .unimportant * {
+.unimportant, .unimportant * {
 	font-size: 13px;
 }
 table.modlog tr th {
 	background: #EA8;
+}
+
+div.post.op.hover
+{
+	background: #f0e0d6;
+	border: 1px solid #d9bfb7;
+	padding: 0.2em 0.3em 0.5em 0.6em;
+}
+
+div#navigation
+{
+	background: #f0e0d6!important;
+	border: 1px solid #d9bfb7;
+}
+
+div#navigation > a
+{
+	color : inherit;
+}
+
+div#settingsPopup
+{
+	background: #f0e0d6;
+}
+
+div#settingsPopup ul li a
+{
+	color : inherit;;
+	text-decoration: none;
+}
+
+div.post.reply.row > span.file-info > div.btn-group > button
+{
+	background-color: inherit;
+}
+
+div.post.hover
+{
+	border: 1px solid #d9bfb7;
 }

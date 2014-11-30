@@ -12,9 +12,23 @@ a.post_no {
 	color: #800000;
 }
 div.post.reply, form[name="post"], #navigation, #settingsPopup  {
-	background: #f0e0d6;
+	background: #f0e0d6 !important;
 	border-color: #d9bfb7;
 }
+
+div.post.hover
+{
+	background: #f0e0d6;
+	border-color: #d9bfb7;
+	border-width : 1px;
+	border-style : solid;
+}
+
+div.op.hover
+{
+	padding : 0.2em 0.3em 0.5em 0.6em;
+}
+
 div.post.reply.highlighted {
 	background: #f0c0b0;
 	border-color: #d9bfb7;
@@ -56,4 +70,37 @@ div.boardlist a {
 }
 table.modlog tr th {
 	background: #EA8;
+}
+
+button[type=button]
+{
+	background-color: inherit;
+}
+
+ul.dropdown-menu
+{
+	background-color: rgb(255, 255,238);
+}
+
+ul.dropdown-menu  li a:hover
+{
+	background-color: #f0e0d6!important;
+}
+
+#navigation a
+{
+	color : inherit;
+}
+
+#settingsPopup
+{
+	padding-left : 0.5em;
+	border: 1px solid #d9bfb7;
+}
+
+/*inside settingsPopup */
+
+ul.nav.nav-tabs li.active > *
+{
+	background-color: rgb(255, 255,238);
 }

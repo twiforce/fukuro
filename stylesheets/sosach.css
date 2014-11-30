@@ -24,7 +24,7 @@ a.post_no {
     background-color: #DDDDDD;
     border-color: #666666;
 }
-div.post.reply , form[name="post"], #navigation, #settingsPopup, div.op.post-hover {
+div.post.reply , form[name="post"], #navigation, #settingsPopup, div.op.post.hover {
 	background: #DDDDDD!important;
 	border: solid 1px #CCCCCC;
 	padding: 2px 10px 3px 10px;
@@ -41,7 +41,7 @@ form[name="post"] {
 	bottom: -5px!important;
 }
 div.post.reply.highlighted {
-	background: #CCCCCC;
+	background: #CCCCCC!important;
 	border-color: #BBBBBB;
 }
 p.intro span.subject {
@@ -70,8 +70,8 @@ div.ban p {
 	color: black;
 }
 div.pages {
-	background: #F0E0D6;
-	border-color: #D9BFB7;
+	background: rgb(221,221,221);
+	border-color: rgb(221,221,221);
 }
 div.pages a.selected {
 	color: #800;
@@ -119,4 +119,29 @@ p.markup>a:hover {
 	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CCCCCC), color-stop(1, #DDDDDD) );background: -moz-linear-gradient( center top, #CCCCCC 5%, #DDDDDD 100% );
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCCCCC', endColorstr='#DDDDDD');
 	color: #0066FF;
+}
+
+/* op-post dropdown button color fix */
+
+div[id^="thread"] > div.btn-group > button
+{
+	background-color: inherit;
+}
+
+/* dropdown menu color fix */
+
+ul.dropdown-menu
+{
+	background-color: #EEF2FF
+}
+
+ul.dropdown-menu  li a
+{
+	color: #FF6600;
+}
+
+
+ul.dropdown-menu  li a:hover
+{
+	background-color: #CCCCCC;
 }

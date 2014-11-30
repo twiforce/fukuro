@@ -14,7 +14,7 @@ a:hover, p.intro a.post_no:hover , div.post.reply div.body a:hover {
 a.post_no {
 	color: #800000;
 }
-div.post.reply , form[name="post"], #navigation , #settingsPopup, div.op.post-hover {
+div.post.reply , form[name="post"], #navigation , #settingsPopup, div.op.post.hover {
 	background: url('/stylesheets/img/muon_posts.jpg')!important;
 	color: #C6985C;
 	border: solid 1px #34352D;
@@ -88,8 +88,9 @@ div.ban p {
 	color: black;
 }
 div.pages {
-	background: #F0E0D6;
-	border-color: #D9BFB7;
+	background: url('/stylesheets/img/muon_posts.jpg')!important;
+	border : solid 1px #34352D;
+	border-radius: 5px;
 }
 div.pages a.selected {
 	color: #800;
@@ -141,7 +142,7 @@ div>form>select:hover, textarea:hover, input[type="text"]:hover, input[type="fil
 	border: 1px solid #5B5347  !important;
 }
 
-div>form>select:focus, textarea:focus, input[type="text"]:focus, input[type="file"]:focus, input[type="password"]:focus, input[name="snum"]:focus, input[type="submit"]:focus,, input[type="search"]:focus  {
+div>form>select:focus, textarea:focus, input[type="text"]:focus, input[type="file"]:focus, input[type="password"]:focus, input[name="snum"]:focus, input[type="submit"]:focus, input[type="search"]:focus  {
 	box-shadow: 0 0 4px rgba(155,129,101,0.7) !important;
 }
 

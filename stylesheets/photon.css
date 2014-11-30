@@ -325,3 +325,26 @@ form table tr td div {
 .recaptchatable .recaptcha_image_cell {
     padding: 0px !important;
 }
+
+div.post.op.hover
+{
+    background-color: #DDDDDD;
+    border: 1px solid #CCCCCC;
+    padding-left: 0.5em;
+    border-radius: 5px 5px 5px 5px;
+}
+
+ul.dropdown-menu
+{
+    background-color: #EEEEEE;
+}
+
+ul.dropdown-menu  li a:hover
+{
+    background-color: #CCCCCC;
+}
+
+div.btn-group > button
+{
+    background-color: inherit;
+}
