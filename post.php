@@ -355,248 +355,181 @@ if (isset($_POST['delete'])) {
 		);
 	}
 
-	// Derpibooru random
-	if ($config['derpibooru_random']) {
-        if (strtolower(substr($_POST['email'], 0, 7)) == '#random') {
-            if (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != '')) {
-                $_POST['email'] = '';
-            } else {
-                if (preg_match("/#random:\"(.+)\"/", strtolower($_POST['email']), $booruTagFound)) {
-                    $booruTag = str_replace(" ", "+", $booruTagFound[1]);
-                    if (isset($_POST['derpibooruAPIKey']) && ($_POST['derpibooruAPIKey'] != ''))
-                        $booruRand = json_decode(file_get_contents('https://derpiboo.ru/search.json?q=' . $booruTag . '&key=' . $_POST['derpibooruAPIKey'] . '&random_image=y'));
-                    else
-                        $booruRand = json_decode(file_get_contents('https://derpiboo.ru/search.json?q=' . $booruTag . '&random_image=y'));
-                } else {
-                    $booruRand = json_decode(file_get_contents('https://derpiboo.ru/images/random.json?key=' . $_POST['derpibooruAPIKey']));
-                }
-                if (!isset($booruRand->{'id'}))
-                    error($config['error']['invalidtag']);
-                $booruRandJSON = json_decode(file_get_contents('https://derpiboo.ru/' . $booruRand->{'id'} . '.json'));
-                $post['file_url'] = 'https:' . $booruRandJSON->{"image"};
-                if (!preg_match('@^https?://derpicdn.net/@', $post['file_url']))
-                    error($config['error']['invalidimg']);
+	// Random image
+	if ($config['derpibooru_random'] || $config['danbooru_random'] || $config['giphy_random']) {
+		if (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != '')) {
+        	$_POST['email'] = '';
+        } else {
+			switch ($_POST['email']) {
+				case (preg_match('/^#ponyrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+				case (preg_match('/^#derprand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+				case (preg_match('/^#random(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+					if ($config['derpibooru_random']) {
+						if (count($booruTagFound) === 1) {
+							// No tags found
+							$booruRand = json_decode(file_get_contents('https://derpiboo.ru/images/random.json?key=' . $_POST['derpibooruAPIKey']));
+						} else {
+							// Tags are in $booruTagFound[2]
+							$booruTag = str_replace(" ", "+", $booruTagFound[2]);
+                           	if (isset($_POST['derpibooruAPIKey']) && ($_POST['derpibooruAPIKey'] != ''))
+                                $booruRand = json_decode(file_get_contents('https://derpiboo.ru/search.json?q=' . $booruTag . '&key=' . $_POST['derpibooruAPIKey'] . '&random_image=y'));
+                            else
+                                $booruRand = json_decode(file_get_contents('https://derpiboo.ru/search.json?q=' . $booruTag . '&random_image=y'));
+						}
 
-                if (mb_strpos($post['file_url'], '?') !== false)
-                    $url_without_params = mb_substr($post['file_url'], 0, mb_strpos($post['file_url'], '?'));
-                else
-                    $url_without_params = $post['file_url'];
+						if (!isset($booruRand->{'id'}))
+                         	error($config['error']['invalidtag']);
 
-                $post['extension'] = strtolower(mb_substr($url_without_params, mb_strrpos($url_without_params, '.') + 1));
-                if (!in_array($post['extension'], $config['allowed_ext']) && !in_array($post['extension'], $config['allowed_ext_files']))
-                    error($config['error']['unknownext']);
+                    	$booruRandJSON = json_decode(file_get_contents('https://derpiboo.ru/' . $booruRand->{'id'} . '.json'));
+                    	$post['file_url'] = 'https:' . $booruRandJSON->{"image"};
 
-                $post['file_tmp'] = tempnam($config['tmp'], 'url');
-                function unlink_tmp_file($file) {
-                    @unlink($file);
-                    fatal_error_handler();
-                }
-                register_shutdown_function('unlink_tmp_file', $post['file_tmp']);
+                    	if (!preg_match('@^https?://derpicdn.net/@', $post['file_url']))
+                        	error($config['error']['invalidimg']);
+					} else
+						error('This feature is disabled.');
+					break;
 
-                $fp = fopen($post['file_tmp'], 'w');
+					// Giphy random
+					case (preg_match('/^#danrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+						if ($config['danbooru_random']) {
+							if (count($booruTagFound) === 1) {
+								// No tags found
+								// This little one simply donwloads a nice tiny json with the latest post on danbooru.
+								$booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?limit=1'));
+								$booruRand = mt_rand(1, $booruMaxJSON[0]->{"id"});
+							} else {
+								// Tags are in $booruTagFound[2]
+								// Pretty sure there should be a function for this
+								$booruTag = str_replace(" ", "_", $booruTagFound[2]);
+								$booruTag = str_replace("!", "%21", $booruTag);
+								$booruTag = str_replace("&", "%26", $booruTag);
+								$booruTag = str_replace("\(", "%28", $booruTag);
+								$booruTag = str_replace("\)", "%29", $booruTag);
+								// search[name] is also useful, allows multiple tags search
+								// TODO: check $booruTagFound and search with search[name] when commas found
+								$booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/tags.json?search[name_matches]=' . $booruTag));
+								$booruRandPage = mt_rand(1, $booruMaxJSON[0]->{"post_count"}/20);
+								// Danbooru have a limit on maximum displayed pages (1000). I don't have any clue why they did that, but whatever.
+								if ($booruRandPage > 1000)
+									$booruRandPage = mt_rand(1, 1000);
+								$booruRandPageJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?tags=' . $booruTag . '&page=' . $booruRandPage));
+								// Well I already wrote a nice name generator, I don't really want to think about a workaround here.
+								// So let's just proceed to downloading JSON again, even when /posts.json can give all info we need.
+								$booruRand = $booruRandPageJSON[mt_rand(1, count ($booruRandPageJSON))]->{"id"};
+								// count() is here for a reason - last search page may not contain 20 pics.
+							}
 
-                $curl = curl_init();
-                curl_setopt($curl, CURLOPT_URL, $post['file_url']);
-                curl_setopt($curl, CURLOPT_FAILONERROR, true);
-                curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
-                curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
-                curl_setopt($curl, CURLOPT_TIMEOUT, $config['upload_by_url_timeout']);
-                curl_setopt($curl, CURLOPT_USERAGENT, 'Tinyboard');
-                curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
-                curl_setopt($curl, CURLOPT_FILE, $fp);
-                curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+							// Danbooru allows 500 json requests per hour without API key. We're making at least two requests per image.
+							// TODO: API key support
+							$booruRandJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts/' . $booruRand . '.json'));
+							$post['file_url'] = 'https://danbooru.donmai.us' . $booruRandJSON->{"file_url"};
 
-                if (curl_exec($curl) === false)
-                    error($config['error']['nomove']);
+							// This is still a shitty way to check and upload images.
+							// TODO: merge with upload by url
+							if (!preg_match('@^https?://danbooru.donmai.us/@', $post['file_url']))
+								error($config['error']['invalidimg']);
+						} else
+							error('This feature is disabled.');
+						break;
 
-                curl_close($curl);
+					// Giphy random
+					case (preg_match('/^#gifrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']) :
+						if ($config['giphy_random']) {
+							if (count($booruTagFound) === 1) {
+								// No tags found
+								$booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey']));
+							} else {
+								// Tags are in $booruTagFound[2]
+								$booruTag = str_replace(" ", "+", $booruTagFound[2]);
+                                $booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey'] . '&tag=' . $booruTag));
+							}
+							if (!isset($booruRandJSON->{'data'}->{'id'}))
+								error($config['error']['invalidtag']);
 
-                fclose($fp);
+							$post['file_url'] = ($booruRandJSON->{'data'}->{'image_url'});
 
-                $_FILES['file'] = array(
-                    'name' => basename($url_without_params),
-                    'tmp_name' => $post['file_tmp'],
-                    'error' => 0,
-                    'size' => filesize($post['file_tmp'])
-                );
-            }
-		}
-	}
+							if (!preg_match('@^https?://s3.amazonaws.com/giphymedia/media/@', $post['file_url']))
+                                 error($config['error']['invalidimg']);
+						} else
+							error('This feature is disabled.');
+						break;
+			}
 
-    // Danbooru random
-    // TODO: merge with derpibooru random
-	if ($config['danbooru_random']) {
-        if (strtolower(substr($_POST['email'], 0, 8)) == '#danrand') {
-            if (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != '')) {
-                $_POST['email'] = '';
-            } else {
-                if (preg_match("/#danrand:\"(.+)\"/", strtolower($_POST['email']), $booruTagFound)) {
-                    // Pretty sure there should be a function for this
-                    $booruTag = str_replace(" ", "_", $booruTagFound[1]);
-                    $booruTag = str_replace("!", "%21", $booruTag);
-                    $booruTag = str_replace("&", "%26", $booruTag);
-                    $booruTag = str_replace("\(", "%28", $booruTag);
-                    $booruTag = str_replace("\)", "%29", $booruTag);
-                    // search[name] is also useful, allows multiple tags search
-                    // TODO: check $booruTagFound and search with search[name] when commas found
-                    $booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/tags.json?search[name_matches]=' . $booruTag));
-                    $booruRandPage = mt_rand(1, $booruMaxJSON[0]->{"post_count"}/20);
-                    // Danbooru have a limit on maximum displayed pages (1000). I don't have any clue why they did that, but whatever.
-                    if ($booruRandPage > 1000)
-                        $booruRandPage = mt_rand(1, 1000);
-                    $booruRandPageJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?tags=' . $booruTag . '&page=' . $booruRandPage));
-                    // Well I already wrote a nice name generator, I don't really want to think about a workaround here.
-                    // So let's just proceed to downloading JSON again, even when /posts.json can give all info we need.
-                    $booruRand = $booruRandPageJSON[mt_rand(1, count ($booruRandPageJSON))]->{"id"};
-                    // count() is here for a reason - last search page may not contain 20 pics.
-                } else {
-                    // This little one simply donwloads a nice tiny json with the latest post on danbooru.
-                    $booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?limit=1'));
-                    $booruRand = mt_rand(1, $booruMaxJSON[0]->{"id"});
-                }
-                // Danbooru allows 500 json requests per hour without API key. We're making at least two requests per image.
-                // TODO: API key support
-                $booruRandJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts/' . $booruRand . '.json'));
-                $post['file_url'] = 'https://danbooru.donmai.us' . $booruRandJSON->{"file_url"};
+			if (mb_strpos($post['file_url'], '?') !== false)
+				$url_without_params = mb_substr($post['file_url'], 0, mb_strpos($post['file_url'], '?'));
+			else
+				$url_without_params = $post['file_url'];
 
-                // This is still a shitty way to check and upload images.
-                // TODO: merge with upload by url
-                if (!preg_match('@^https?://danbooru.donmai.us/@', $post['file_url']))
-                    error($config['error']['invalidimg']);
+			$post['extension'] = strtolower(mb_substr($url_without_params, mb_strrpos($url_without_params, '.') + 1));
+			if (!in_array($post['extension'], $config['allowed_ext']) && !in_array($post['extension'], $config['allowed_ext_files']))
+				error($config['error']['unknownext']);
 
-                if (mb_strpos($post['file_url'], '?') !== false)
-                    $url_without_params = mb_substr($post['file_url'], 0, mb_strpos($post['file_url'], '?'));
-                else
-                    $url_without_params = $post['file_url'];
+			$post['file_tmp'] = tempnam($config['tmp'], 'url');
+			function unlink_tmp_file($file) {
+				@unlink($file);
+				fatal_error_handler();
+			}
+			register_shutdown_function('unlink_tmp_file', $post['file_tmp']);
 
-                $post['extension'] = strtolower(mb_substr($url_without_params, mb_strrpos($url_without_params, '.') + 1));
-                if (!in_array($post['extension'], $config['allowed_ext']) && !in_array($post['extension'], $config['allowed_ext_files']))
-                    error($config['error']['unknownext']);
+			$fp = fopen($post['file_tmp'], 'w');
 
-                $post['file_tmp'] = tempnam($config['tmp'], 'url');
-                function unlink_tmp_file($file) {
-                    @unlink($file);
-                    fatal_error_handler();
-                }
-                register_shutdown_function('unlink_tmp_file', $post['file_tmp']);
+			$curl = curl_init();
+			curl_setopt($curl, CURLOPT_URL, $post['file_url']);
+			curl_setopt($curl, CURLOPT_FAILONERROR, true);
+			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
+			curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
+			curl_setopt($curl, CURLOPT_TIMEOUT, $config['upload_by_url_timeout']);
+			curl_setopt($curl, CURLOPT_USERAGENT, 'Fukuro/5.0 Tinyboard/0.9.6.22');
+			curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
+			curl_setopt($curl, CURLOPT_FILE, $fp);
+			curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
 
-                $fp = fopen($post['file_tmp'], 'w');
+			if (curl_exec($curl) === false)
+				error($config['error']['nomove']);
 
-                $curl = curl_init();
-                curl_setopt($curl, CURLOPT_URL, $post['file_url']);
-                curl_setopt($curl, CURLOPT_FAILONERROR, true);
-                curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
-                curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
-                curl_setopt($curl, CURLOPT_TIMEOUT, $config['upload_by_url_timeout']);
-                curl_setopt($curl, CURLOPT_USERAGENT, 'Tinyboard');
-                curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
-                curl_setopt($curl, CURLOPT_FILE, $fp);
-                curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+			curl_close($curl);
 
-                if (curl_exec($curl) === false)
-                    error($config['error']['nomove']);
+			fclose($fp);
 
-                curl_close($curl);
+			// Moar hacks incoming
+			switch ($_POST['email']) {
+				case (preg_match('/^#danrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+					// These are more useful for $config['autospoiler_images']
+					$danbooruRatings = array(
+						"s" => "safe",
+						"q" => "questionable",
+						"e" => "explicit",
+					);
 
-                fclose($fp);
+					// I personally not found <md5.ext> filename anyhow useful.
+					$tempFilename = $booruRandJSON->{"id"} . '_' . $booruRandJSON->{"tag_string_character"} . '_' .$danbooruRatings[$booruRandJSON->{"rating"}]
+						 . '_' . $booruRandJSON->{"tag_string_general"} . '.' . $booruRandJSON->{"file_ext"};
+				break;
 
-                // These are more useful for $config['autospoiler_images']
-                $danbooruRatings = array(
-                    "s" => "safe",
-                    "q" => "questionable",
-                    "e" => "explicit",
-                );
+				case (preg_match('/^#gifrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+                	$giphyRatings = array(
+						"y" => "safe",
+						"g" => "safe",
+						"pg" => "suggestive",
+						"pg-13" => "questionable",
+						"r" => "explicit",
+					);
 
-                // I personally not found <md5.ext> filename anyhow useful.
-                $booruTempFilename = $booruRandJSON->{"id"} . '_' . $booruRandJSON->{"tag_string_character"} . '_' . $danbooruRatings[$booruRandJSON->{"rating"}]
-                     . '_' . $booruRandJSON->{"tag_string_general"} . '.' . $booruRandJSON->{"file_ext"};
+					$tempFilename = $booruRandJSON->{'data'}->{'id'} . '_' . $giphyRatings[$booruRandJSON->{'data'}->{'rating'}]
+						. '_' . (implode("_", $booruRandJSON->{'data'}->{'tags'})) . ".gif";
+				break;
 
-                $_FILES['file'] = array(
-                    'name' => $booruTempFilename,
-                    'tmp_name' => $post['file_tmp'],
-                    'error' => 0,
-                    'size' => filesize($post['file_tmp'])
-                );
-            }
-		}
-	}
+				default:
+					$tempFilename = basename($url_without_params);
+				break;
+			}
 
-    // Giphy random
-    // TODO: merge with derpibooru random
-	if ($config['giphy_random']) {
-        if (strtolower(substr($_POST['email'], 0, 8)) == '#gifrand') {
-            if (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != '')) {
-                $_POST['email'] = '';
-            } else {
-				if (preg_match("/#gifrand:\"(.+)\"/", strtolower($_POST['email']), $booruTagFound)) {
-                    $booruTag = str_replace(" ", "+", $booruTagFound[1]);
-                    $booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey'] . '&tag=' . $booruTag));
-                } else {
-                    $booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey']));
-                }
-                if (!isset($booruRandJSON->{'data'}->{'id'}))
-                    error($config['error']['invalidtag']);
-                $post['file_url'] = ($booruRandJSON->{'data'}->{'image_url'});
-
-                // This is still a shitty way to check and upload images.
-                // TODO: merge with upload by url
-                if (!preg_match('@^https?://s3.amazonaws.com/giphymedia/media/@', $post['file_url']))
-                    error($config['error']['invalidimg']);
-
-                if (mb_strpos($post['file_url'], '?') !== false)
-                    $url_without_params = mb_substr($post['file_url'], 0, mb_strpos($post['file_url'], '?'));
-                else
-                    $url_without_params = $post['file_url'];
-
-                $post['extension'] = strtolower(mb_substr($url_without_params, mb_strrpos($url_without_params, '.') + 1));
-                if (!in_array($post['extension'], $config['allowed_ext']) && !in_array($post['extension'], $config['allowed_ext_files']))
-                    error($config['error']['unknownext']);
-
-                $post['file_tmp'] = tempnam($config['tmp'], 'url');
-                function unlink_tmp_file($file) {
-                    @unlink($file);
-                    fatal_error_handler();
-                }
-                register_shutdown_function('unlink_tmp_file', $post['file_tmp']);
-
-                $fp = fopen($post['file_tmp'], 'w');
-
-                $curl = curl_init();
-                curl_setopt($curl, CURLOPT_URL, $post['file_url']);
-                curl_setopt($curl, CURLOPT_FAILONERROR, true);
-                curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
-                curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
-                curl_setopt($curl, CURLOPT_TIMEOUT, $config['upload_by_url_timeout']);
-                curl_setopt($curl, CURLOPT_USERAGENT, 'Tinyboard');
-                curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
-                curl_setopt($curl, CURLOPT_FILE, $fp);
-                curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
-
-                if (curl_exec($curl) === false)
-                    error($config['error']['nomove']);
-
-                curl_close($curl);
-
-                fclose($fp);
-
-                $giphyRatings = array(
-                	"y" => "safe",
-                	"g" => "safe",
-                	"pg" => "suggestive",
-                	"pg-13" => "questionable",
-                	"r" => "explicit",
-                );
-
-                $booruTempFilename = $booruRandJSON->{'data'}->{'id'} . '_' . $giphyRatings[$booruRandJSON->{'data'}->{'rating'}]
-                	. '_' . (implode("_", $booruRandJSON->{'data'}->{'tags'})) . ".gif";
-
-                $_FILES['file'] = array(
-                    'name' => $booruTempFilename,
-                    'tmp_name' => $post['file_tmp'],
-                    'error' => 0,
-                    'size' => filesize($post['file_tmp'])
-                );
-            }
+			$_FILES['file'] = array(
+				'name' => $tempFilename,
+				'tmp_name' => $post['file_tmp'],
+				'error' => 0,
+				'size' => filesize($post['file_tmp'])
+			);
 		}
 	}
 
