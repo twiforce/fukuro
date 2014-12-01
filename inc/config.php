@@ -781,6 +781,9 @@
     // #danrand in email field will attach a random pic from danbooru.donmai.us
     $config['danbooru_random'] = true;
 
+    // #saferand in email field will attach a random pic from safebooru.com
+    $config['safebooru_random'] = true;
+
 	// #gifrand in email field will attach a random gif from giphy.com
     $config['giphy_random'] = true;
 
