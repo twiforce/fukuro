@@ -59,7 +59,7 @@
 		{{ config.uri_thumb }}{{ post.file|slice(0, 27) }}.png
 	{% else %}
 		{{ config.uri_thumb }}{{ post.thumb }}
-	{% endif %}" alt="" /></a>
+	{% endif %}" style="width: {{ post.thumbwidth }}px; height: {{ post.thumbheight }}px"  alt="" /></a>
 {% endif %}
 <div class="post op" id="reply_{{ post.id }}"><p class="intro"{% if not index %} id="{{ post.id }}"{% endif %}>
 	<input type="checkbox" class="delete" name="delete_{{ post.id }}" id="delete_{{ post.id }}" />
