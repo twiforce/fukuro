@@ -361,6 +361,8 @@ if (isset($_POST['delete'])) {
         	$_POST['email'] = '';
         } else {
 			switch ($_POST['email']) {
+
+				// Derpibooru random
 				case (preg_match('/^#ponyrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
 				case (preg_match('/^#derprand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
 				case (preg_match('/^#random(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
@@ -387,72 +389,72 @@ if (isset($_POST['delete'])) {
                         	error($config['error']['invalidimg']);
 					} else
 						error('This feature is disabled.');
-					break;
+				break;
 
-					// Giphy random
-					case (preg_match('/^#danrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
-						if ($config['danbooru_random']) {
-							if (count($booruTagFound) === 1) {
-								// No tags found
-								// This little one simply donwloads a nice tiny json with the latest post on danbooru.
-								$booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?limit=1'));
-								$booruRand = mt_rand(1, $booruMaxJSON[0]->{"id"});
-							} else {
-								// Tags are in $booruTagFound[2]
-								// Pretty sure there should be a function for this
-								$booruTag = str_replace(" ", "_", $booruTagFound[2]);
-								$booruTag = str_replace("!", "%21", $booruTag);
-								$booruTag = str_replace("&", "%26", $booruTag);
-								$booruTag = str_replace("\(", "%28", $booruTag);
-								$booruTag = str_replace("\)", "%29", $booruTag);
-								// search[name] is also useful, allows multiple tags search
-								// TODO: check $booruTagFound and search with search[name] when commas found
-								$booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/tags.json?search[name_matches]=' . $booruTag));
-								$booruRandPage = mt_rand(1, $booruMaxJSON[0]->{"post_count"}/20);
-								// Danbooru have a limit on maximum displayed pages (1000). I don't have any clue why they did that, but whatever.
-								if ($booruRandPage > 1000)
-									$booruRandPage = mt_rand(1, 1000);
-								$booruRandPageJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?tags=' . $booruTag . '&page=' . $booruRandPage));
-								// Well I already wrote a nice name generator, I don't really want to think about a workaround here.
-								// So let's just proceed to downloading JSON again, even when /posts.json can give all info we need.
-								$booruRand = $booruRandPageJSON[mt_rand(1, count ($booruRandPageJSON))]->{"id"};
-								// count() is here for a reason - last search page may not contain 20 pics.
-							}
+				// Danbooru random
+				case (preg_match('/^#danrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+					if ($config['danbooru_random']) {
+						if (count($booruTagFound) === 1) {
+							// No tags found
+							// This little one simply donwloads a nice tiny json with the latest post on danbooru.
+							$booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?limit=1'));
+							$booruRand = mt_rand(1, $booruMaxJSON[0]->{"id"});
+						} else {
+							// Tags are in $booruTagFound[2]
+							// Pretty sure there should be a function for this
+							$booruTag = str_replace(" ", "_", $booruTagFound[2]);
+							$booruTag = str_replace("!", "%21", $booruTag);
+							$booruTag = str_replace("&", "%26", $booruTag);
+							$booruTag = str_replace("\(", "%28", $booruTag);
+							$booruTag = str_replace("\)", "%29", $booruTag);
+							// search[name] is also useful, allows multiple tags search
+							// TODO: check $booruTagFound and search with search[name] when commas found
+							$booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/tags.json?search[name_matches]=' . $booruTag));
+							$booruRandPage = mt_rand(1, $booruMaxJSON[0]->{"post_count"}/20);
+							// Danbooru have a limit on maximum displayed pages (1000). I don't have any clue why they did that, but whatever.
+							if ($booruRandPage > 1000)
+								$booruRandPage = mt_rand(1, 1000);
+							$booruRandPageJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?tags=' . $booruTag . '&page=' . $booruRandPage));
+							// Well I already wrote a nice name generator, I don't really want to think about a workaround here.
+							// So let's just proceed to downloading JSON again, even when /posts.json can give all info we need.
+							$booruRand = $booruRandPageJSON[mt_rand(1, count ($booruRandPageJSON))]->{"id"};
+							// count() is here for a reason - last search page may not contain 20 pics.
+						}
 
-							// Danbooru allows 500 json requests per hour without API key. We're making at least two requests per image.
-							// TODO: API key support
-							$booruRandJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts/' . $booruRand . '.json'));
-							$post['file_url'] = 'https://danbooru.donmai.us' . $booruRandJSON->{"file_url"};
+						// Danbooru allows 500 json requests per hour without API key. We're making at least two requests per image.
+						// TODO: API key support
+						$booruRandJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts/' . $booruRand . '.json'));
+						$post['file_url'] = 'https://danbooru.donmai.us' . $booruRandJSON->{"file_url"};
 
-							// This is still a shitty way to check and upload images.
-							// TODO: merge with upload by url
-							if (!preg_match('@^https?://danbooru.donmai.us/@', $post['file_url']))
-								error($config['error']['invalidimg']);
-						} else
-							error('This feature is disabled.');
-						break;
+						// This is still a shitty way to check and upload images.
+						// TODO: merge with upload by url
+						if (!preg_match('@^https?://danbooru.donmai.us/@', $post['file_url']))
+							error($config['error']['invalidimg']);
+					} else
+						error('This feature is disabled.');
+				break;
 
-					// Giphy random
-					case (preg_match('/^#gifrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']) :
-						if ($config['giphy_random']) {
-							if (count($booruTagFound) === 1) {
-								// No tags found
-								$booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey']));
-							} else {
-								// Tags are in $booruTagFound[2]
-								$booruTag = str_replace(" ", "+", $booruTagFound[2]);
-                                $booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey'] . '&tag=' . $booruTag));
-							}
-							if (!isset($booruRandJSON->{'data'}->{'id'}))
-								error($config['error']['invalidtag']);
+				// Giphy random
+				case (preg_match('/^#gifrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']) :
+					if ($config['giphy_random']) {
+						if (count($booruTagFound) === 1) {
+							// No tags found
+							$booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey']));
+						} else {
+							// Tags are in $booruTagFound[2]
+							$booruTag = str_replace(" ", "+", $booruTagFound[2]);
+							$booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey'] . '&tag=' . $booruTag));
+						}
+						if (!isset($booruRandJSON->{'data'}->{'id'}))
+							error($config['error']['invalidtag']);
 
-							$post['file_url'] = ($booruRandJSON->{'data'}->{'image_url'});
+						$post['file_url'] = ($booruRandJSON->{'data'}->{'image_url'});
 
-							if (!preg_match('@^https?://s3.amazonaws.com/giphymedia/media/@', $post['file_url']))
-                                 error($config['error']['invalidimg']);
-						} else
-							error('This feature is disabled.');
-						break;
+						if (!preg_match('@^https?://s3.amazonaws.com/giphymedia/media/@', $post['file_url']))
+							 error($config['error']['invalidimg']);
+					} else
+						error('This feature is disabled.');
+				break;
 			}
 
 			if (mb_strpos($post['file_url'], '?') !== false)
