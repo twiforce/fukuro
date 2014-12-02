@@ -472,6 +472,44 @@ if (isset($_POST['delete'])) {
 						error('This feature is disabled.');
 				break;
 
+				// Gelbooru random
+				case (preg_match('/^#gelrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+					if ($config['gelbooru_random']) {
+						if (count($booruTagFound) === 1) {
+							// No tags found
+							$booruMaxXML = file_get_contents('http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=0');
+							$booruXML = xml_parser_create();
+							xml_parse_into_struct($booruXML, $booruMaxXML, $booruXMLDecoded);
+							xml_parser_free($booruXML);
+							$booruRand = mt_rand(0, $booruXMLDecoded[0]["attributes"]["COUNT"]-1);
+							$booruRandXML = file_get_contents('http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=1&pid=' . $booruRand);
+						} else {
+							// Tags are in $booruTagFound[2]
+							// Pretty sure there should be a function for this
+							$booruTag = str_replace("!", "%21", $booruTagFound[2]);
+							$booruTag = str_replace("&", "%26", $booruTag);
+							$booruTag = str_replace("\(", "%28", $booruTag);
+							$booruTag = str_replace("\)", "%29", $booruTag);
+							$booruMaxXML = file_get_contents('http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=0&tags=' . $booruTag);
+							$booruXML = xml_parser_create();
+							xml_parse_into_struct($booruXML, $booruMaxXML, $booruXMLDecoded);
+							xml_parser_free($booruXML);
+							$booruRand = mt_rand(0, $booruXMLDecoded[0]["attributes"]["COUNT"]-1);
+							$booruRandXML = file_get_contents('http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=1&tags=' . $booruTag . '&pid=' . $booruRand);
+						}
+
+						$booruXML = xml_parser_create();
+                        xml_parse_into_struct($booruXML, $booruRandXML, $booruXMLDecoded);
+                        xml_parser_free($booruXML);
+
+						$post['file_url'] = $booruXMLDecoded[1]["attributes"]["FILE_URL"];
+
+						if (!preg_match('@^https?://(.+\.)?gelbooru.com/@', $post['file_url']))
+                        	error($config['error']['invalidimg']);
+					} else
+						error('This feature is disabled.');
+				break;
+
 				// Giphy random
 				case (preg_match('/^#gifrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']) :
 					if ($config['giphy_random']) {
@@ -548,8 +586,9 @@ if (isset($_POST['delete'])) {
 				break;
 
 				case (preg_match('/^#saferand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+				case (preg_match('/^#gelrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
 					$tempFilename = $booruXMLDecoded[1]["attributes"]["ID"] . '_' . $danbooruRatings[$booruXMLDecoded[1]["attributes"]["RATING"]]
-						. "_" .substr($booruXMLDecoded[1]["attributes"]["TAGS"], 1, -1)
+						. "_" . substr($booruXMLDecoded[1]["attributes"]["TAGS"], 1, -1)
                     	. "." . pathinfo($booruXMLDecoded[1]["attributes"]["FILE_URL"], PATHINFO_EXTENSION);
 				break;
 
