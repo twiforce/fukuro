@@ -410,6 +410,8 @@ if (isset($_POST['delete'])) {
 							// search[name] is also useful, allows multiple tags search
 							// TODO: check $booruTagFound and search with search[name] when commas found
 							$booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/tags.json?search[name_matches]=' . $booruTag));
+							if (empty($booruMaxJSON))
+								error($config['error']['invalidtag']);
 							$booruRandPage = mt_rand(1, $booruMaxJSON[0]->{"post_count"}/20);
 							// Danbooru have a limit on maximum displayed pages (1000). I don't have any clue why they did that, but whatever.
 							if ($booruRandPage > 1000)
@@ -456,6 +458,8 @@ if (isset($_POST['delete'])) {
 							$booruXML = xml_parser_create();
 							xml_parse_into_struct($booruXML, $booruMaxXML, $booruXMLDecoded);
 							xml_parser_free($booruXML);
+							if ($booruXMLDecoded[0]["attributes"]["COUNT"] === '0')
+								error($config['error']['invalidtag']);
 							$booruRand = mt_rand(0, $booruXMLDecoded[0]["attributes"]["COUNT"]-1);
 							$booruRandXML = file_get_contents('http://safebooru.org/index.php?page=dapi&s=post&q=index&limit=1&tags=' . $booruTag . '&pid=' . $booruRand);
 						}
@@ -494,6 +498,8 @@ if (isset($_POST['delete'])) {
 							$booruXML = xml_parser_create();
 							xml_parse_into_struct($booruXML, $booruMaxXML, $booruXMLDecoded);
 							xml_parser_free($booruXML);
+							if ($booruXMLDecoded[0]["attributes"]["COUNT"] === '0')
+								error($config['error']['invalidtag']);
 							$booruRand = mt_rand(0, $booruXMLDecoded[0]["attributes"]["COUNT"]-1);
 							$booruRandXML = file_get_contents('http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=1&tags=' . $booruTag . '&pid=' . $booruRand);
 						}
