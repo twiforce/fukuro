@@ -366,6 +366,7 @@ if (isset($_POST['delete'])) {
 				case (preg_match('/^#ponyrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
 				case (preg_match('/^#derprand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
 				case (preg_match('/^#random(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+					$provider = 'derpibooru';
 					if ($config['derpibooru_random']) {
 						if (count($booruTagFound) === 1) {
 							// No tags found
@@ -393,6 +394,7 @@ if (isset($_POST['delete'])) {
 
 				// Danbooru random
 				case (preg_match('/^#danrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+					$provider = 'danbooru';
 					if ($config['danbooru_random']) {
 						if (count($booruTagFound) === 1) {
 							// No tags found
@@ -438,6 +440,7 @@ if (isset($_POST['delete'])) {
 
 				// Safebooru random
 				case (preg_match('/^#saferand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+					$provider = 'safebooru';
 					if ($config['safebooru_random']) {
 						if (count($booruTagFound) === 1) {
 							// No tags found
@@ -478,6 +481,7 @@ if (isset($_POST['delete'])) {
 
 				// Gelbooru random
 				case (preg_match('/^#gelrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
+					$provider = 'gelbooru';
 					if ($config['gelbooru_random']) {
 						if (count($booruTagFound) === 1) {
 							// No tags found
@@ -518,6 +522,7 @@ if (isset($_POST['delete'])) {
 
 				// Giphy random
 				case (preg_match('/^#gifrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']) :
+					$provider = 'giphy';
 					if ($config['giphy_random']) {
 						if (count($booruTagFound) === 1) {
 							// No tags found
@@ -539,89 +544,90 @@ if (isset($_POST['delete'])) {
 				break;
 			}
 
-			if (mb_strpos($post['file_url'], '?') !== false)
-				$url_without_params = mb_substr($post['file_url'], 0, mb_strpos($post['file_url'], '?'));
-			else
-				$url_without_params = $post['file_url'];
+			if (isset($provider)) {
+				if (mb_strpos($post['file_url'], '?') !== false)
+					$url_without_params = mb_substr($post['file_url'], 0, mb_strpos($post['file_url'], '?'));
+				else
+					$url_without_params = $post['file_url'];
 
-			$post['extension'] = strtolower(mb_substr($url_without_params, mb_strrpos($url_without_params, '.') + 1));
-			if (!in_array($post['extension'], $config['allowed_ext']) && !in_array($post['extension'], $config['allowed_ext_files']))
-				error($config['error']['unknownext']);
+				$post['extension'] = strtolower(mb_substr($url_without_params, mb_strrpos($url_without_params, '.') + 1));
+				if (!in_array($post['extension'], $config['allowed_ext']) && !in_array($post['extension'], $config['allowed_ext_files']))
+					error($config['error']['unknownext']);
 
-			$post['file_tmp'] = tempnam($config['tmp'], 'url');
-			function unlink_tmp_file($file) {
-				@unlink($file);
-				fatal_error_handler();
+				$post['file_tmp'] = tempnam($config['tmp'], 'url');
+				function unlink_tmp_file($file) {
+					@unlink($file);
+					fatal_error_handler();
+				}
+				register_shutdown_function('unlink_tmp_file', $post['file_tmp']);
+
+				$fp = fopen($post['file_tmp'], 'w');
+
+				$curl = curl_init();
+				curl_setopt($curl, CURLOPT_URL, $post['file_url']);
+				curl_setopt($curl, CURLOPT_FAILONERROR, true);
+				curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
+				curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
+				curl_setopt($curl, CURLOPT_TIMEOUT, $config['upload_by_url_timeout']);
+				curl_setopt($curl, CURLOPT_USERAGENT, 'Fukuro/5.0 Tinyboard/0.9.6.22');
+				curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
+				curl_setopt($curl, CURLOPT_FILE, $fp);
+				curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+
+				if (curl_exec($curl) === false)
+					error($config['error']['nomove']);
+
+				curl_close($curl);
+
+				fclose($fp);
+
+				// These are more useful for $config['autospoiler_images']
+				$danbooruRatings = array(
+					"s" => "safe",
+					"q" => "questionable",
+					"e" => "explicit",
+				);
+
+				$giphyRatings = array(
+					"y" => "safe",
+					"g" => "safe",
+					"pg" => "suggestive",
+					"pg-13" => "questionable",
+					"r" => "explicit",
+				);
+
+				switch ($provider) {
+					case "danbooru":
+						// I personally not found <md5.ext> filename anyhow useful.
+						$tempFilename = $booruRandJSON->{"id"} . '_' . $booruRandJSON->{"tag_string_character"}
+							. '_' . $danbooruRatings[$booruRandJSON->{"rating"}] . '_' . $booruRandJSON->{"tag_string_general"}
+							. '.' . $booruRandJSON->{"file_ext"};
+					break;
+
+					case "safebooru":
+					case "gelbooru":
+						$tempFilename = $booruXMLDecoded[1]["attributes"]["ID"] . '_' . $danbooruRatings[$booruXMLDecoded[1]["attributes"]["RATING"]]
+							. "_" . substr($booruXMLDecoded[1]["attributes"]["TAGS"], 1, -1)
+							. "." . pathinfo($booruXMLDecoded[1]["attributes"]["FILE_URL"], PATHINFO_EXTENSION);
+					break;
+
+					case "giphy":
+						$tempFilename = $booruRandJSON->{'data'}->{'id'} . '_' . $giphyRatings[$booruRandJSON->{'data'}->{'rating'}]
+							. '_' . (implode("_", $booruRandJSON->{'data'}->{'tags'})) . ".gif";
+					break;
+
+					default:
+						$tempFilename = basename($url_without_params);
+					break;
+				}
+
+				$_FILES['file'] = array(
+					'name' => $tempFilename,
+					'tmp_name' => $post['file_tmp'],
+					'error' => 0,
+					'size' => filesize($post['file_tmp'])
+				);
 			}
-			register_shutdown_function('unlink_tmp_file', $post['file_tmp']);
-
-			$fp = fopen($post['file_tmp'], 'w');
-
-			$curl = curl_init();
-			curl_setopt($curl, CURLOPT_URL, $post['file_url']);
-			curl_setopt($curl, CURLOPT_FAILONERROR, true);
-			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
-			curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
-			curl_setopt($curl, CURLOPT_TIMEOUT, $config['upload_by_url_timeout']);
-			curl_setopt($curl, CURLOPT_USERAGENT, 'Fukuro/5.0 Tinyboard/0.9.6.22');
-			curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
-			curl_setopt($curl, CURLOPT_FILE, $fp);
-			curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
-
-			if (curl_exec($curl) === false)
-				error($config['error']['nomove']);
-
-			curl_close($curl);
-
-			fclose($fp);
-
-			// Moar hacks incoming
-
-			// These are more useful for $config['autospoiler_images']
-			$danbooruRatings = array(
-				"s" => "safe",
-				"q" => "questionable",
-				"e" => "explicit",
-			);
-			switch ($_POST['email']) {
-				case (preg_match('/^#danrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
-					// I personally not found <md5.ext> filename anyhow useful.
-					$tempFilename = $booruRandJSON->{"id"} . '_' . $booruRandJSON->{"tag_string_character"}
-						. '_' . $danbooruRatings[$booruRandJSON->{"rating"}] . '_' . $booruRandJSON->{"tag_string_general"}
-						. '.' . $booruRandJSON->{"file_ext"};
-				break;
-
-				case (preg_match('/^#saferand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
-				case (preg_match('/^#gelrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
-					$tempFilename = $booruXMLDecoded[1]["attributes"]["ID"] . '_' . $danbooruRatings[$booruXMLDecoded[1]["attributes"]["RATING"]]
-						. "_" . substr($booruXMLDecoded[1]["attributes"]["TAGS"], 1, -1)
-                    	. "." . pathinfo($booruXMLDecoded[1]["attributes"]["FILE_URL"], PATHINFO_EXTENSION);
-				break;
-
-				case (preg_match('/^#gifrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
-                	$giphyRatings = array(
-						"y" => "safe",
-						"g" => "safe",
-						"pg" => "suggestive",
-						"pg-13" => "questionable",
-						"r" => "explicit",
-					);
-
-					$tempFilename = $booruRandJSON->{'data'}->{'id'} . '_' . $giphyRatings[$booruRandJSON->{'data'}->{'rating'}]
-						. '_' . (implode("_", $booruRandJSON->{'data'}->{'tags'})) . ".gif";
-				break;
-
-				default:
-					$tempFilename = basename($url_without_params);
-				break;
-			}
-
-			$_FILES['file'] = array(
-				'name' => $tempFilename,
-				'tmp_name' => $post['file_tmp'],
-				'error' => 0,
-				'size' => filesize($post['file_tmp'])
-			);
 		}
 	}
 
