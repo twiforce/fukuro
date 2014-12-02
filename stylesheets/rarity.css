@@ -7,7 +7,7 @@ body {
 }
 a, a:visited, p.intro a.email , div.post.reply div.body a, h1, h1 a, div.boardlist a, a.post_no {
 	color: #5E52A3;
-	text-decoraton: none;
+	text-decoration: none;
 	font-weight: bold;
 }
 a:hover, p.intro a.post_no:hover , div.post.reply div.body a:hover {
@@ -115,4 +115,32 @@ p.markup>a:hover {
 	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CCCCCC), color-stop(1, #DDDDDD) );background: -moz-linear-gradient( center top, #CCCCCC 5%, #DDDDDD 100% );
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCCCCC', endColorstr='#DDDDDD');
 	color: #0066FF;
+}
+
+div.btn-group > button
+{
+	background-color: inherit;
+}
+
+div.op.post.hover
+{
+	background: #F3F5F7 url('img/rarity_cutie_mark.png') no-repeat bottom right!important;
+	border: solid 3px #C2C4C6;
+	padding: 2px 10px 3px 10px;
+	margin: 5px;
+	border-spacing: 2px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+ul.dropdown-menu
+{
+	background-color: #F3F5F7;
+}
+
+div.pages
+{
+	background-color: #F3F5F7;
+	border: solid 3px #C2C4C6;
 }

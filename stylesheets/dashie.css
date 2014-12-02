@@ -7,7 +7,7 @@ body {
 }
 a, a:visited, p.intro a.email , div.post.reply div.body a, h1, h1 a, div.boardlist a, a.post_no {
 	color: #0093D1;
-	text-decoraton: none;
+	text-decoration: none;
 	font-weight: bold;
 }
 a:hover, p.intro a.post_no:hover , div.post.reply div.body a:hover {
@@ -105,4 +105,43 @@ p.markup>a:hover {
 	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CCCCCC), color-stop(1, #DDDDDD) );background: -moz-linear-gradient( center top, #CCCCCC 5%, #DDDDDD 100% );
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCCCCC', endColorstr='#DDDDDD');
 	color: #0066FF;
+}
+
+div.op.post.hover
+{
+	background: #93CEE5 url('img/dashie_cutie_mark.png') no-repeat bottom right!important;;
+	border: solid 3px #0093D1;
+	padding: 2px 10px 3px 10px;
+	margin: 5px;
+	border-spacing: 2px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+div.btn-group > button
+{
+	background-color: inherit;
+	border-color: #0093D1;
+}
+
+ul.dropdown-menu
+{
+	background-color: #EEF2FF;
+}
+
+ul.dropdown-menu > li > a:hover
+{
+	background-color: #93CEE5;
+	color : white;
+}
+
+ul.dropdown-menu > li > a
+{
+	color : #0093D1;
+}
+
+div.pages
+{
+	background-color: #EEF2FF;
 }
