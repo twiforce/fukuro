@@ -58,10 +58,15 @@ $(document).ready(function(){
                 if (settings.updateThread && settings.growlEnabled) {
                     updateGrowl.close();
                 }
+                var postctrl = $('form[name=postcontrols]');
+
 				$(data).find('div.post.reply').each(function() {
 					var id = $(this).attr('id');
 					if($('#' + id).length == 0) {
-						$(this).insertAfter($('div.post:not(.hover):not(.post-hover):last').next()).after('<br class="clear">');
+                        //still hating tvorfors
+						//$(this).insertAfter($('div.post:not(.hover):not(.post-hover):last').next()).after('<br class="clear">');
+                        $(this).insertAfter(postctrl.find('div.post:not(.hover):not(.post-hover):last'))
+                            .after('<br class="clear">');
                         if (settings.useAnimateCSS) {
                             $(this).addClass('animated fadeIn');
                         }
