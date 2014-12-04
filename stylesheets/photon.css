@@ -18,6 +18,7 @@ div.boardlist {
     padding: 10px;
     position: fixed;
     top: 0;
+    z-index: 15;
 }
 div.boardlist.bottom {
     margin-top: 20px;
@@ -348,3 +349,4 @@ div.btn-group > button
 {
     background-color: inherit;
 }
+

@@ -214,7 +214,7 @@ div.post div.body {
 	word-wrap: break-word;
 	white-space: pre-wrap;
 }
-div.post.reply {
+div.post.reply, div.op.hover {
 	margin-right: 20px;
 	margin-bottom: 5px;
 	padding: 5px;
@@ -444,4 +444,56 @@ table.mod.config-editor input[type="text"] {
 
 .desktop-style .sub {
   background: none;
+}
+
+/* invisible color fix */
+
+div#style-select > select, input[type=text], textarea, input[type=number], select
+{
+	color : initial;
+}
+
+div#navigation
+{
+	background: rgba(53, 56, 104, 0.6) !important;
+	box-shadow: 2px 2px 2px #353868;
+	display: inline-block;
+	border-radius: 10px;
+	border : 2px solid #353868;
+}
+
+div#settingsPopup
+{
+	border-radius: 10px;
+	border : 2px solid #6B70B6;
+	background-color: rgba(53, 56, 104, 0.4) !important;
+	padding: 10px;
+}
+
+.boardlist.cb-menu
+{
+	background-color: rgba(53, 56, 104, 0.6)!important;
+}
+
+div.btn-group > button
+{
+	background-color: rgb(41, 45, 94)!important;
+	border-color: rgb(126, 163, 214)!important;
+	color : white!important;
+}
+
+.dropdown-menu
+{
+	background-color: rgba(23, 28, 78, 0.9);
+	border: 1px solid #696AB0;
+	border-radius: 5px;
+}
+.dropdown-menu > li > a
+{
+	color : white;
+}
+
+.dropdown-menu > li > a:hover
+{
+	background-color: #7EA3D6;
 }
