@@ -63,10 +63,10 @@ $(document).ready(function(){
 				$(data).find('div.post.reply').each(function() {
 					var id = $(this).attr('id');
 					if($('#' + id).length == 0) {
-                        //still hating tvorfors
-						//$(this).insertAfter($('div.post:not(.hover):not(.post-hover):last').next()).after('<br class="clear">');
-                        $(this).insertAfter(postctrl.find('div.post:not(.hover):not(.post-hover):last'))
-                            .after('<br class="clear">');
+                        var lastPost = postctrl.find('div.post:not(.hover):not(.post-hover):last');
+                        $(this).insertAfter(lastPost);
+                        lastPost.after('<br class="clear">');
+
                         if (settings.useAnimateCSS) {
                             $(this).addClass('animated fadeIn');
                         }

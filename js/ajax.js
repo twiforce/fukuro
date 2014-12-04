@@ -16,7 +16,7 @@ var messageGrowl;
 $(window).ready(function() {
 	if (settings.ajax) {
 		var do_not_ajax = false;
-		
+
 		var setup_form = function($form) {
 			$form.submit(function() {
                 if (settings.growlEnabled) {
@@ -32,7 +32,7 @@ $(window).ready(function() {
 				var submit_txt = $(this).find('input[type="submit"]').val();
 				if (window.FormData === undefined)
 					return true;
-				
+
 				var formData = new FormData(this);
 				formData.append('json_response', '1');
 				formData.append('post', submit_txt);
@@ -107,10 +107,10 @@ $(window).ready(function() {
 											var id = $(this).attr('id');
 											if($('#' + id).length == 0)
 											{
-												//$(this).insertAfter($('div.post:not(.hover):not(.post-hover):last').next()).after('<br class="clear">');
-												//I hate twoforsz
-												$(this).insertAfter(postctrl.find('div.post:not(.hover):not(.post-hover):last'))
-													.after('<br class="clear">');
+												var lastPost = postctrl.find('div.post:not(.hover):not(.post-hover):last');
+												$(this).insertAfter(lastPost);
+												lastPost.after('<br class="clear">');
+
                                                 if (settings.useAnimateCSS)
                                                     $(this).addClass('animated fadeIn');
 												$(document).trigger('new_post', this);
@@ -123,7 +123,7 @@ $(window).ready(function() {
 										highlightReply(post_response.id);
 										window.location.hash = post_response.id;
                                         $(window).scrollTop($('div.post#reply_' + post_response.id).offset().top);
-										
+
 										$(form).find('input[type="submit"]').val(submit_txt);
 										$(form).find('input[type="submit"]').removeAttr('disabled');
 										$(form).find('input[name="subject"],input[name="file_url"],\
@@ -164,10 +164,10 @@ $(window).ready(function() {
 					contentType: false,
 					processData: false
 				}, 'json');
-				
+
 				$(form).find('input[type="submit"]').val(_('Posting...'));
 				$(form).find('input[type="submit"]').attr('disabled', true);
-				
+
 				return false;
 			});
 		};
