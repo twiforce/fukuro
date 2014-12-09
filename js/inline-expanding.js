@@ -17,7 +17,7 @@ onready(function(){
 
 		for (var i = 0; i < link.length; i++) {
 			if (typeof link[i] == "object" && link[i].childNodes && typeof link[i].childNodes[0] !== 'undefined' && link[i].childNodes[0].src && link[i].childNodes[0].className.match(/post-image/) && !link[i].className.match(/file/)) {
-				link[i].childNodes[0].style.maxWidth = '95%';
+				link[i].childNodes[0].style.maxWidth = '100%';
 				link[i].onclick = function(e) {
 					if (this.childNodes[0].className == 'hidden')
 						return false;
@@ -29,18 +29,20 @@ onready(function(){
 						this.dataset.width = this.childNodes[0].style.width;
 						this.dataset.height = this.childNodes[0].style.height;
 						this.childNodes[0].src = this.href;
-						this.childNodes[0].style.width = 'auto';
-						this.childNodes[0].style.height = 'auto';
 						this.childNodes[0].style.opacity = '0.4';
 						this.childNodes[0].style.filter = 'alpha(opacity=40)';
+						this.childNodes[0].style.float = 'none';
 						this.childNodes[0].onload = function() {
-							this.style.opacity = '';
+							this.style.width = 'auto';
+							this.style.height = 'auto';
+							this.style.opacity = '1';
 							delete this.style.filter;
 						}
 					} else {
 						this.childNodes[0].src = this.dataset.src;
 						this.childNodes[0].style.width = this.dataset.width;
 						this.childNodes[0].style.height = this.dataset.height;
+						this.childNodes[0].style.float = 'left';
 						delete this.dataset.expanded;
 						delete this.dataset.src;
 						delete this.childNodes[0].style.opacity;
