@@ -117,7 +117,21 @@
             {% endif %}
         </span>
     </p>
-	<a data-file-hash="{{ post.filehash }}" data-file-size="{{ post.filesize }}" {% if post.filewidth and post.fileheight %} data-file-width="{{ post.filewidth }}"  data-file-height="{{ post.fileheight }}"{% endif %} href="{{ config.uri_img }}{{ post.file }}" target="_blank"{% if post.thumb == 'file' or post.modifiers['is_file'] == '1' %} class="file"{% endif %}>
+    {% if post.file|extension == 'mp3' or  post.file|extension == 'm4a' %}
+    <br/>
+    <audio controls="controls" preload="none">
+        <source src="{{ config.uri_img }}{{ post.file }}" type="audio/mpeg" />
+    </audio>
+    {% elseif post.file|extension == 'webm' %}
+    <video width="310" height="200" controls="controls" preload="none">
+        <source src="{{ config.uri_img }}{{ post.file }}" type="video/webm" />
+    </video>
+    {% elseif post.file|extension == 'mp4' %}
+    <video width="310" height="200" controls="controls" preload="none">
+        <source src="{{ config.uri_img }}{{ post.file }}" type="video/mp4" />
+    </video>
+    {% else %}
+    <a data-file-hash="{{ post.filehash }}" data-file-size="{{ post.filesize }}" {% if post.filewidth and post.fileheight %} data-file-width="{{ post.filewidth }}"  data-file-height="{{ post.fileheight }}"{% endif %} href="{{ config.uri_img }}{{ post.file }}" target="_blank"{% if post.thumb == 'file' or post.modifiers['is_file'] == '1' %} class="file"{% endif %}>
 	<img class="post-image{% if post.thumb == 'spoiler' %} spoiler{% endif %}{% if post.file|extension == 'mp3' or post.file|extension == 'm4a' %} hide{% endif %}" src="
 		{% if post.thumb == 'file' %}
 			{{ config.root }}
@@ -134,19 +148,6 @@
 		{% endif %}" style="width: {{ post.thumbwidth }}px; height: {{ post.thumbheight }}px" alt="" />
 	</a>
 	{% endif %}
-	{% if post.file|extension == 'mp3' or  post.file|extension == 'm4a' %}
-		<br/>
-		<audio controls="controls" preload="none">
-			<source src="{{ config.uri_img }}{{ post.file }}" type="audio/mpeg" />
-		</audio>
-    {% elseif post.file|extension == 'webm' %}
-        <video width="310" height="200" controls="controls" preload="none">
-            <source src="{{ config.uri_img }}{{ post.file }}" type="video/webm" />
-        </video>
-    {% elseif post.file|extension == 'mp4' %}
-    <video width="310" height="200" controls="controls" preload="none">
-        <source src="{{ config.uri_img }}{{ post.file }}" type="video/mp4" />
-    </video>
     {% endif %}
     {% if post.embed %}
         {{ post.embed }}
