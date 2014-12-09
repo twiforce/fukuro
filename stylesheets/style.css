@@ -143,7 +143,7 @@ form table tr td div label {
 .fileinfo, .file-info {
 	display: block;
 	margin: 0;
-	padding-right: 7em;
+	margin-bottom: 5px;
 }
 div.banner {
 	background-color: #E04000;
@@ -170,15 +170,12 @@ img.nsfw {
 img.nsfw:hover {
     opacity: 1;
 }
-img.post-image {
+div.post img.post-image, .mejs-container {
 	display: block;
-	float: left;
-	margin: 10px 20px;
-	border: none;
-}
-div.post img.post-image {
 	padding: 5px;
-	margin: 5px 20px 0 0;
+	margin: 0px 20px 0 0;
+	float: left;
+	border: none;
 }
 div.post img.icon {
 	display: inline;
@@ -227,13 +224,10 @@ div.post.reply p {
 	margin: 0.3em 0 0 0;
 }
 div.post.reply div.body, div.op.post-hover {
-	margin-left: 1.8em;
-	margin-top: 0.8em;
-	padding-right: 3em;
-	padding-bottom: 0.3em;
 	max-height: 400px;
 	overflow-y: auto;
     min-width: 20px;
+	display: inline;
 }
 div.post.reply.highlighted {
 	background: #D6BAD0;
