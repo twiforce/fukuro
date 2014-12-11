@@ -386,7 +386,7 @@ if (isset($_POST['delete'])) {
                     	$booruRandJSON = json_decode(file_get_contents('https://derpiboo.ru/' . $booruRand->{'id'} . '.json'));
                     	$post['file_url'] = 'https:' . $booruRandJSON->{"image"};
 
-                    	if (!preg_match('@^https?://derpicdn.net/@', $post['file_url']))
+                    	if (!preg_match('@^https?://(.+\.)?derpicdn.net/@', $post['file_url']))
                         	error($config['error']['invalidimg']);
 					} else
 						error('This feature is disabled.');
