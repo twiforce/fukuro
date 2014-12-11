@@ -31,10 +31,9 @@ onready(function(){
 						this.childNodes[0].src = this.href;
 						this.childNodes[0].style.opacity = '0.4';
 						this.childNodes[0].style.filter = 'alpha(opacity=40)';
-						this.childNodes[0].style.float = 'none';
+						this.childNodes[0].style.width = 'auto';
+						this.childNodes[0].style.height = 'auto';
 						this.childNodes[0].onload = function() {
-							this.style.width = 'auto';
-							this.style.height = 'auto';
 							this.style.opacity = '1';
 							delete this.style.filter;
 						}
