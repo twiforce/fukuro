@@ -170,10 +170,9 @@ img.nsfw {
 img.nsfw:hover {
     opacity: 1;
 }
-div.post img.post-image, .mejs-container {
+img.post-image, .mejs-container {
 	display: block;
-	padding: 5px;
-	margin: 0px 20px 0 0;
+	margin: 5px 20px 5px 0;
 	float: left;
 	border: none;
 }
