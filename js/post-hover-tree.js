@@ -72,7 +72,9 @@ $(document).ready(function () {
                 }
                 //if parent has hovers (and #hover-id is not an immediate child), remove them
                 else if (parent != this.tail) {
-                    if (!$(post).parent().is(parent)) {
+                    // Moving to data-attributes
+                    // if (!$(post).parent().is(parent)) {
+                    if (!$(parent).data('hover-child') === post.id) {
                         console.log('Rebuilding chain');
                         this.clear(parent);
                     }
@@ -84,7 +86,10 @@ $(document).ready(function () {
                 if (newChain) {
                     $(post).children('.hover').remove();
                     //append hover to current parent
-                    $(parent).append(post);
+                    //no this is lame i'd better use data attributes!11
+                    // $(parent).append(post);
+                    $('body').append(post);
+                    $(parent).data('hover-child', post.id);
                     this.tail = post;
                 }
 
@@ -117,7 +122,15 @@ $(document).ready(function () {
                 clearRoot = clearRoot || this.activeTail;
                 if (!clearRoot) return null;
                 console.log('Clearing subtree of '+clearRoot.id);
-                $(clearRoot).children('.hover').remove();
+                // Not so easy
+                // $(clearRoot).children('.hover').remove();
+                var nextId = $(clearRoot).data('hover-child');
+                $(clearRoot).data('hover-child', null);
+                while (nextId != undefined) {//undefined or null
+                    var toDelete = $('#' + nextId);
+                    nextId = toDelete.data('hover-child');
+                    toDelete.remove();
+                }
                 this.tail = clearRoot;
             }
         };
@@ -135,10 +148,10 @@ $(document).ready(function () {
 
         function init_hover_tree(target) {
 
-            $(target).delegate('div.body >a , .mentioned > a', 'mouseover', linkOver);
-            $(target).delegate('div.body >a , .mentioned > a', 'mouseout', hoverLeave);
-            $(target).delegate('div.post.hover', 'mouseover', hoverOver);
-            $(target).delegate('div.post.hover', 'mouseout', hoverLeave);
+            $(target).delegate('div.body >a , .mentioned > a', 'mouseenter', linkOver);
+            $(target).delegate('div.body >a , .mentioned > a', 'mouseleave', hoverLeave);
+            $(target).delegate('div.post.hover', 'mouseenter', hoverOver);
+            $(target).delegate('div.post.hover', 'mouseleave', hoverLeave);
         }
 
         var linkOver = function(evnt)
