@@ -55,7 +55,7 @@ header {
 	margin: 1em 0;
 }
 h1 {
-	color: #0091ff;
+	color: #CCCCEE;
 	letter-spacing: -2px;
 	font-size: 20pt;
 	margin: 0;
@@ -147,9 +147,13 @@ img {
 	margin: 10px 20px;
 	border: none;
 }
-div.post img {
-	padding: 5px;
+/* inside a post-reply */
+div.post.reply img {
 	margin: 5px 20px 0 0;
+}
+/* op-post image align */
+div[id^=thread] img {
+	margin-left : 20px;
 }
 div.post img.icon {
 	display: inline;
@@ -196,9 +200,8 @@ div.post.reply p {
 	margin: 0.3em 0 0 0;
 }
 div.post.reply div.body {
-	margin-left: 1.8em;
 	margin-top: 0.8em;
-	padding-right: 3em;
+/*	padding-right: 3em; */
 	padding-bottom: 0.3em;
 }
 div.post.reply.highlighted {
@@ -223,6 +226,11 @@ div.post.reply, div.op.hover {
 	box-shadow: 2px 2px 2px #353868;
 	display: inline-block;
 	border-radius: 10px;
+}
+
+div.post.hover {
+	background: rgba(53, 56, 104, 0.95) !important;
+	border : 1px #585EC2 solid;
 }
 span.trip {
 	color: #DDDDDD;
@@ -284,7 +292,7 @@ span.heading {
 span.spoiler {
 	background: black;
 	color: black;
-	padding: 0px 1px;
+	padding: 0 1px;
 }
 div.post.reply div.body span.spoiler a {
 	color: black;
