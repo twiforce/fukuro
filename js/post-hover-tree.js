@@ -53,11 +53,6 @@ $(document).ready(function () {
                             if ($('#' + $(this).attr('id[1]')).length == 0)
                                 $('body').prepend($(this).css('display', 'none'));
                         });
-
-                        $post = $('div.post#reply_' + id);
-                        if ($post.length > 0) {
-                            init_hover_tree();
-                        }
                     }
                 })
             }
@@ -75,7 +70,6 @@ $(document).ready(function () {
         {
             $(".hover").hover(function () {
                 hovering = true;
-                $("#reply_" + id[1]).trigger(init_hover_tree());
             }, function () {
                 hovering = false;
             });
