@@ -92,7 +92,8 @@ function showInfo() {
             }
             $('#githubInfo').html("Последний коммит #" + totalCommits + " \"<a href=\""
                 + githubInfo[0]["html_url"] + "\" target=_blank>" + githubInfo[0]["commit"]["message"]
-                + "</a>\" отправлен " + moment(githubInfo[0]["commit"]["author"]["date"]).fromNow() + ".")
+                + "</a>\" отправил <a href=\"" + githubInfo[0]["author"]["html_url"] +"\"> " + githubInfo[0]["author"]["login"]
+                + "</a> " + moment(githubInfo[0]["commit"]["author"]["date"]).fromNow() + ".")
         }
     });
 }
