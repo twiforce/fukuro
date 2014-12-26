@@ -652,3 +652,7 @@ html.desktop-style .boardlist:nth-child(1) {
     text-align: right;
     padding-left: 0;
 }
+/* op-post image align fix */
+div[id^=thread] > a > img.post-image {
+	margin-left : 25px;
+}

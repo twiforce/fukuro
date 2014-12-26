@@ -230,3 +230,6 @@ input[type="submit"]:hover, input[type="reset"]:hover, .buttons input[type="butt
 	border-bottom-width: 2px;
 	border-top-width: 0;
 }
+div[id^=thread] > a > img.post-image {
+	margin-left: 19px;
+}

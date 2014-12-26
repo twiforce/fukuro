@@ -152,7 +152,7 @@ div.post.reply img {
 	margin: 5px 20px 0 0;
 }
 /* op-post image align */
-div[id^=thread] img {
+div[id^=thread] > a > img.post-image {
 	margin-left : 20px;
 }
 div.post img.icon {
