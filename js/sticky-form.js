@@ -21,6 +21,7 @@ $(document).ready(function () {
 	var postform = $('form[name="post"]');
 	if  (settings.stickyForm) {
         postform.attr('id', 'quick-reply');
+		postform.addClass('sticky-form');
 		postform.css({
 			"position": 'fixed',
 			"bottom": '0px',

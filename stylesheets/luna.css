@@ -113,6 +113,10 @@ form table tr td div input {
 form table tr td div label {
 	font-size: 10px;
 }
+
+form input[type=submit]{
+	color : #000066;
+}
 .unimportant, .unimportant * {
 	font-size: 10px;
 }
@@ -504,4 +508,14 @@ div.btn-group > button
 .dropdown-menu > li > a:hover
 {
 	background-color: #7EA3D6;
+}
+
+form.sticky-form{
+	background-color: rgba(105, 106, 176, 0.82) !important;
+	border-top-left-radius: 10px;
+	padding: 5px;
+}
+
+form.sticky-form > table tr th{
+	background-color: inherit;
 }
