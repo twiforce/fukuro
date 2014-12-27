@@ -11,25 +11,53 @@
 
 $(document).ready(function(){
 	if(settings.inlineForm) {
-		var do_addinlineform = function() {
-			var post = this;
-			var id = $(this).attr('id');
-			$(this).append('<span><a class="inline-form-link" href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-caret-square-o-right"></i></a></span>');
-			$('.inline-form-link').click(function() {
-                // That's a bit faster than parents().get(3)
-                $('form[name="post"]').insertAfter($(this).parent().parent().parent()).css({ 'clear': 'both', 'margin-bottom': '0em' })
-                $('form table').css({ 'margin': '4px' })
-                $('input[name="post"]').click(function() {
-                    $('form[name="post"]').insertAfter($('.banner'));
-                    $('form table').css({ 'margin': 'auto' })
-                })
-            });
+
+		var link = $('<span><a class="inline-form-link" href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-caret-square-o-right"></i></a></span>');
+		var $form = $('form[name="post"]');
+
+		var formInfo = {
+			//in order not to re-apply css every time form is shown
+			changedToInline : false,
+			previousLink : undefined
 		};
 
-		$('p.intro').each(do_addinlineform);
+		var addPostLink = function(index, element){
+			$(element).append(link.clone(true, true));
+
+		};
+
+
+		var showHideForm = function(evnt){
+
+			if (formInfo.previousLink == evnt.target){
+				//if we clicked at this one just before to show form
+				//convert form to default and quit;
+				formInfo.previousLink = undefined;
+				formInfo.changedToInline = false;
+				$form.css('clear', 'none');
+				$form.find('table').css('margin','auto');
+				$form.insertAfter($('.banner'));
+				return;
+			}
+			else {
+				$form.insertAfter($(evnt.target).parents(".post"));
+				formInfo.previousLink = evnt.target;
+			}
+
+			if (!formInfo.changedToInline){
+				//convert to inline
+				$form.find('table').css('margin', '4px');
+				$form.css('clear', 'both');
+				$form.css('margin-bottom', '0');
+				changedToInline = true;
+			}
+		};
+
+		$('p.intro', 'div[id^=thread]').each(addPostLink);
+		$('.inline-form-link', '.post').on('click', showHideForm);
 
 		$(document).bind("new_post", function(e, post) {
-			$(post.firstChild).each(do_addinlineform);
+			$(post.firstChild).each(addPostLink);
 		});
 	}
 });
