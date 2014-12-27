@@ -58,6 +58,7 @@ $(document).ready(function(){
 
 		$(document).bind("new_post", function(e, post) {
 			$(post.firstChild).each(addPostLink);
+			$(post).find('.inline-form-link').on('click', showHideForm);
 		});
 	}
 });
