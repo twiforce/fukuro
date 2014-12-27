@@ -28,8 +28,8 @@ $(document).ready(function () {
             }
             //then search for post in document
             var $post = $('#reply_'+id);
-            if ($post) {
-                return $post.clone().addClass('hover').attr('id', 'hover_reply_'+id);
+            if ($post.length !== 0) {
+                return $post.clone().addClass('hover').attr('id', 'hover_reply_'+id)[0];
             }
 
             //then try to retrieve it via ajax
@@ -59,7 +59,7 @@ $(document).ready(function () {
             _clearTimeout: null,
 
             open: function(parent, post){
-                console.log('Opening '+parent.id+' -> '+id);
+                console.log('Opening '+parent.id+' -> '+post.id);
 
                 var newChain = true;
 
@@ -74,7 +74,7 @@ $(document).ready(function () {
                 else if (parent != this.tail) {
                     // Moving to data-attributes
                     // if (!$(post).parent().is(parent)) {
-                    if (!$(parent).data('hover-child') === post.id) {
+                    if ($(parent).data('hover-child') !== post.id) {
                         console.log('Rebuilding chain');
                         this.clear(parent);
                     }
@@ -88,6 +88,7 @@ $(document).ready(function () {
                     //append hover to current parent
                     //no this is lame i'd better use data attributes!11
                     // $(parent).append(post);
+                    console.log('Appending post ' + post.id);
                     $('body').append(post);
                     $(parent).data('hover-child', post.id);
                     this.tail = post;
@@ -162,7 +163,7 @@ $(document).ready(function () {
             {
                 var parent = $(this).closest('div.post')[0];
                 lesenka.open(parent, post);
-                position($(this), post, evnt);
+                position($(this), $(post), evnt);
             }
         };
 
