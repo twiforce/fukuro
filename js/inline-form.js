@@ -17,13 +17,13 @@ $(document).ready(function(){
 
 		var formInfo = {
 			//in order not to re-apply css every time form is shown
-			changedToInline : false,
-			previousLink : undefined
+			changedToInline: false,
+			previousLink: undefined,
+			postID: 0
 		};
 
 		var addPostLink = function(index, element){
 			$(element).append(link.clone(true, true));
-
 		};
 
 
@@ -42,6 +42,9 @@ $(document).ready(function(){
 			else {
 				$form.insertAfter($(evnt.target).parents(".post"));
 				formInfo.previousLink = evnt.target;
+				formInfo.postID = $(formInfo.previousLink).parent().parent().parent().attr("id");
+				window.location.hash = "#" + formInfo.postID;
+				$("#body").val($("#body").val() + ">>" + formInfo.postID + "\n").focus();
 			}
 
 			if (!formInfo.changedToInline){
