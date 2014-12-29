@@ -10,6 +10,9 @@
  */
 
 $(document).ready(function(){
+	if($(".post.op").size() != 1)
+		return; //not thread page
+
 	if(settings.inlineForm) {
 
 		var link = $('<span><a class="inline-form-link" href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-caret-square-o-right"></i></a></span>');
@@ -42,8 +45,8 @@ $(document).ready(function(){
 			else {
 				$form.insertAfter($(evnt.target).parents(".post"));
 				formInfo.previousLink = evnt.target;
-				formInfo.postID = $(formInfo.previousLink).parent().parent().parent().attr("id");
-				window.location.hash = "#" + formInfo.postID;
+				formInfo.postID = $(formInfo.previousLink).parent().parent().parent().attr("id").replace("reply_", "");
+				window.location.hash = "#reply_" + formInfo.postID;
 				$("#body").val($("#body").val() + ">>" + formInfo.postID + "\n").focus();
 			}
 
@@ -58,6 +61,12 @@ $(document).ready(function(){
 
 		$('p.intro', 'div[id^=thread]').each(addPostLink);
 		$('.inline-form-link', '.post').on('click', showHideForm);
+
+		// quick reply hax
+		if (/^#q\d+$/.test(window.location.hash)) {
+			$("#body").val("");
+			$("#reply_" + window.location.hash.substring(2, window.location.hash.length)).find(".inline-form-link").click();
+		}
 
 		$(document).bind("new_post", function(e, post) {
 			$(post.firstChild).each(addPostLink);
