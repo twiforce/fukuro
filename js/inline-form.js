@@ -46,7 +46,6 @@ $(document).ready(function(){
 				$form.insertAfter($(evnt.target).parents(".post"));
 				formInfo.previousLink = evnt.target;
 				formInfo.postID = $(formInfo.previousLink).parent().parent().parent().attr("id").replace("reply_", "");
-				window.location.hash = "#reply_" + formInfo.postID;
 				$("#body").val($("#body").val() + ">>" + formInfo.postID + "\n").focus();
 			}
 
@@ -55,6 +54,7 @@ $(document).ready(function(){
 				$form.find('table').css('margin', '4px');
 				$form.css('clear', 'both');
 				$form.css('margin-bottom', '0');
+				window.location.hash = "#reply_" + formInfo.postID;
 				changedToInline = true;
 			}
 		};
