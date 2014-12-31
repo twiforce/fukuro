@@ -14,11 +14,33 @@ $(document).ready(function () {
     if (settings.postHover) {
         var hovering = false;
         var dont_fetch_again = [];
-        var id;
-        var hoversBack = false;
+        var toFetch = {}; //{url: [post id list]}
+        //var hoversBack = false;
+
+        function Message(type, text) {
+            var className;
+            switch (type) {
+                case 'error':
+                    className = 'bg-error'; break;
+                case 'warning':
+                    className = 'bg-warning'; break;
+                default:
+                    className = 'bg-info';
+            }
+            return $('<p class="'+className+'">'+text+'</p>');
+        }
+
+        function PostStub(id, content) {
+            var $stub =
+                $('<div class="post reply row hover bg-error" id="hover_reply_' + id + '"></div>');
+            if (content) {
+                $stub.append(content);
+            }
+            return $stub;
+        }
 
         function summonPost(link) {
-            id = $(link).text().match(/^>>(\d+)$/)[1];
+            var id = $(link).text().match(/^>>(\d+)$/)[1];
             console.log('Summoning '+id+"'s clone");
             //first search for hover
             var $hover = $("#hover_reply_"+id);
@@ -31,32 +53,89 @@ $(document).ready(function () {
             if ($post.length !== 0) {
                 return $post.clone().addClass('hover').attr('id', 'hover_reply_'+id)[0];
             }
-
             //then try to retrieve it via ajax
+            console.log('Post is not here. Make a placeholder until it arrives.');
+            $post = PostStub(id);
             var url = $(link).attr('href').replace(/#.*$/, '');
 
             if ($.inArray(url, dont_fetch_again) != -1) {
-                return;
+                console.log('URL is already fetched. Skipping.');
+                return $post.append(Message('warning', 'Пост не найден.'));
             }
-            dont_fetch_again.push(url);
 
+            dont_fetch_again.push(url);
+            //push post id to fetch list if not already there
+            if (!toFetch[url]) {
+                toFetch[url] = [];
+            }
+            if ($.inArray(id, toFetch[url]) == -1) {
+                toFetch[url].push(id);
+            }
+            console.log('Fetching '+url+'...');
             $.ajax({
                 url: url,
                 context: document.body,
                 success: function (data) {
+                    console.log('Successfully fetched ' + url);
+                    /*
                     $(data).find('div.post.reply').each(function () {
                         if ($('#' + $(this).attr('id[1]')).length == 0)
                             $('body').prepend($(this).css('display', 'none'));
                     });
+                    */
+                    //I AM AN ERROR: take url from XHR
+                    var fetchList = toFetch[url];
+                    var $thread = $(data);
+                    for (var i= 0, l=fetchList.length; i<l; i++) {
+                        var id = fetchList[i];
+                        var $post = $thread.find('#reply_'+id);
+                        var $pHolder = $('#hover_reply_' + id); //#placeholder?
+                        if (!$pHolder.length) {
+                            console.log('No placeholder for ' + id + '!');
+                            continue;
+                        }
+                        if ($post.length) {
+                            $('body').prepend($post.css('display', 'none'));
+                            //replace placeholder with post clone
+                            //I AM AN ERROR!!!
+                            $pHolder.empty().append($post.clone().css('display', 'block'));
+                        }
+                        else {
+                            //replace placeholder with an error.
+                            $pHolder.empty().append(Message('warning', 'Пост не найден.'));
+                        }
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var message;
+                    switch (jqXHR.status) {
+                        case 404:
+                            message = Message('warning', 'Тред не существует.');
+                            break;
+                        default:
+                            message = Message('warning', 'Что-то пошло не так.');
+                    }
+                    //error here [url]
+                    var fetchList = toFetch[url];
+                    for (var i= 0, l=fetchList.length; i<l; i++) {
+                        var id = fetchList[i];
+                        var $pHolder = $('#hover_reply_' + id); //DRY?
+                        if (!$pHolder.length) {
+                            console.log('No placeholder for ' + id + '!');
+                            continue;
+                        }
+                        $pHolder.empty().append(message);
+                    }
                 }
-            })
+            });
+            return $post.append(Message('info', 'Загрузка...'))[0];
         }
 
-        var lesenka = {
+        var chainCtrl = {
             tail: null,
             activeTail: null,
             root: null,
-            _clearTimeout: null,
+            _timeout: null,
 
             open: function(parent, post){
                 console.log('Opening '+parent.id+' -> '+post.id);
@@ -66,17 +145,15 @@ $(document).ready(function () {
                 //prevent branching: remove all hovers when switching root
                 if (!$(parent).hasClass('hover') && parent != this.root) {
                     console.log('Changing root to '+parent.id);
-                    this.clear(this.root);
+                    this._clear(this.root);
                     //if parent is not .hover, set root to parent
                     this.root = parent;
                 }
                 //if parent has hovers (and #hover-id is not an immediate child), remove them
                 else if (parent != this.tail) {
-                    // Moving to data-attributes
-                    // if (!$(post).parent().is(parent)) {
-                    if ($(parent).data('hover-child') !== post.id) {
+                    if ($(parent).hasClass('hover') && !$(parent).next().is(post)) {
                         console.log('Rebuilding chain');
-                        this.clear(parent);
+                        this._clear(parent);
                     }
                     else {
                         newChain = false;
@@ -84,13 +161,9 @@ $(document).ready(function () {
                 }
 
                 if (newChain) {
-                    $(post).children('.hover').remove();
-                    //append hover to current parent
-                    //no this is lame i'd better use data attributes!11
-                    // $(parent).append(post);
+                    //[re]append hover to end of the body
                     console.log('Appending post ' + post.id);
                     $('body').append(post);
-                    $(parent).data('hover-child', post.id);
                     this.tail = post;
                 }
 
@@ -103,35 +176,27 @@ $(document).ready(function () {
                 console.log('Setting active tail to '+post.id);
                 this.activeTail = post;
                 //[re]launch the clear timer
-                clearTimeout(this._clearTimeout);
+                clearTimeout(this._timeout);
                 if (post != this.tail) {
-                    this._clearTimeout = setTimeout(this.clear.bind(this), 1000);
+                    this._timeout = setTimeout(this._clear.bind(this), 1000);
                 }
-                /*
-                 $('.active').removeClass('active');
-                 $(post).addClass('active'); //if it's hover
-                 */
             },
+
             out: function(){
                 if (this.root) {
                     this.inPost(this.root);
                 }
             },
             //removes hover subchain beginning from clearRoot's child
-            clear: function(clearRoot){
+            _clear: function(clearRoot){
                 //if root is unspecified, clear from active tail
                 clearRoot = clearRoot || this.activeTail;
                 if (!clearRoot) return null;
-                console.log('Clearing subtree of '+clearRoot.id);
-                // Not so easy
-                // $(clearRoot).children('.hover').remove();
-                var nextId = $(clearRoot).data('hover-child');
-                $(clearRoot).data('hover-child', null);
-                while (nextId != undefined) {//undefined or null
-                    var toDelete = $('#' + nextId);
-                    nextId = toDelete.data('hover-child');
-                    toDelete.remove();
+                if (clearRoot == this.root) {
+                    $('.hover').remove();
                 }
+                console.log('Clearing subtree of '+clearRoot.id);
+                $(clearRoot).nextAll('.hover').remove();
                 this.tail = clearRoot;
             }
         };
@@ -162,34 +227,28 @@ $(document).ready(function () {
             if (post)
             {
                 var parent = $(this).closest('div.post')[0];
-                lesenka.open(parent, post);
+                chainCtrl.open(parent, post);
                 position($(this), $(post), evnt);
             }
         };
 
         var hoverOver = function(evnt)
         {
-            lesenka.inPost(evnt.target);
+            console.log('Event target: ' + this.tagName);
+            chainCtrl.inPost(this);
         };
 
         var hoverLeave = function(evnt)
         {
-            lesenka.out();
-            /* Oh my Celestia!
-             $(".hover").hover(function () {
-             hovering = true;
-             }, function () {
-             hovering = false;
-             });
-
-             $("html").mousemove(function () {
-             if (!(hovering) && ($(".hover").is(":visible"))) {
-             setTimeout(function () {
-             $(".hover").remove();
-             }, 500);
-             }
-             })
-             */
+            if (evnt.relatedTarget) {
+                var $toPost = $(evnt.relatedTarget).closest('.hover');
+                if ($toPost.length != 0) {
+                    chainCtrl.inPost($toPost[0]);
+                    return;
+                }
+            }
+            //else
+            chainCtrl.out();
         };
 
 
@@ -223,114 +282,3 @@ $(document).ready(function () {
          */
     }
 });
-
-
-///////////////////////////////////////////////////////////////////////
-
-
-/*
- document.addEventListener('DOMContentLoaded', function(e) {
- var posts = document.querySelectorAll("div.post");
- for (var i=0, len=posts.length; i<len; i++) {
- linkify(posts[i]);
- }
- }, false);
-
- var lesenka = {
- tail: null,
- activeTail: null,
- root: null,
- _clearTimeout: null,
-
- open: function(parent, id){
- console.log('Opening '+parent.id+' -> '+id);
-
- var newChain = true;
-
- //clone post #id if not already
- var post = summonPost(id);
-
- //prevent branching: remove all hovers when switching root
- if (!$(parent).hasClass('hover') && parent != this.root) {
- console.log('Changing root to '+parent.id);
- this.clear(this.root);
- //if parent is not .hover, set root to parent
- this.root = parent;
- }
- //if parent has hovers (and #hover-id is not an immediate child), remove them
- else if (parent != this.tail) {
- if ($(parent).children("#hover-"+id).length === 0) {
- console.log('Rebuilding chain');
- this.clear(parent);
- }
- else {
- newChain = false;
- }
- }
-
- if (newChain) {
- $(post).children('.hover').remove();
- //append hover to current parent
- $(parent).append(post);
- this.tail = post;
- }
-
- //do inPost(#hover-id) (manage active tail)
- this.inPost(post);
- },
-
- inPost: function(post){
- //set active tail
- console.log('Setting active tail to '+post.id);
- this.activeTail = post;
- //[re]launch the clear timer
- clearTimeout(this._clearTimeout);
- if (post != this.tail) {
- this._clearTimeout = setTimeout(this.clear.bind(this), 1000);
- }
- $('.active').removeClass('active');
- $(post).addClass('active'); //if it's hover
- },
- out: function(){
- if (this.root) {
- this.inPost(this.root);
- }
- },
- //removes hover subchain beginning from clearRoot's child
- clear: function(clearRoot){
- clearRoot = clearRoot || this.activeTail;
- if (!clearRoot) return null;
- console.log('Clearing subtree of '+clearRoot.id);
- $(clearRoot).children('.hover').remove();
- this.tail = clearRoot;
- }
- };
-
- document.addEventListener('mouseover', function(event) {
- var target = event.target;
- if ($(target).is(".post > a")) {
- //parse post id
- var match = $(target).text().match(/>>(\d+)/);
- if (match) {
- var id = 'p'+match[1];
- lesenka.open(target.parentNode, id);
- }
- else {
- //bad link
- return;
- }
- }
- if ($(target).is(".hover")) {
- lesenka.inPost(target);
- }
- }, false);
- document.addEventListener('mouseout', function(event) {
- var target = event.target;
- if ($(target).is(".post.hover")) {
- lesenka.out();
- }
- else if ($(target).is('.post > a')) {
- lesenka.out();
- }
- }, false);
- */
