@@ -134,60 +134,63 @@ $(document).ready(function () {
         var chainCtrl = {
             tail: null,
             activeTail: null,
-            root: null,
             _timeout: null,
 
-            open: function(parent, post){
-                console.log('Opening '+parent.id+' -> '+post.id);
-
-                var newChain = true;
-
-                //prevent branching: remove all hovers when switching root
-                if (!$(parent).hasClass('hover') && parent != this.root) {
-                    console.log('Changing root to '+parent.id);
-                    this._clear(this.root);
-                    //if parent is not .hover, set root to parent
-                    this.root = parent;
-                }
-                //if parent has hovers (and #hover-id is not an immediate child), remove them
-                else if (parent != this.tail) {
-                    if ($(parent).hasClass('hover') && !$(parent).next().is(post)) {
-                        console.log('Rebuilding chain');
-                        this._clear(parent);
-                    }
-                    else {
-                        newChain = false;
+            open: function(parent, post) {
+                console.log('Opening preview '+parent.id+'->'+post.id);
+                var clearRoot = undefined;
+                if ($(parent).is('.hover')) {
+                    if ($(parent).next() != post) {
+                        clearAfter = parent;
                     }
                 }
-
-                if (newChain) {
-                    //[re]append hover to end of the body
-                    console.log('Appending post ' + post.id);
+                else {
+                    clearAfter = null; //All previews
+                }
+                if (clearAfter !== undefined) {
+                    this._clear(clearAfter);
+                }
+                if (!this.tail || this.tail == parent) {
                     $('body').append(post);
                     this.tail = post;
                 }
-
-                //do inPost(#hover-id) (manage active tail)
                 this.inPost(post);
             },
 
             inPost: function(post){
                 //set active tail
-                console.log('Setting active tail to '+post.id);
+                console.log('Setting active tail to '+(post?post.id:'null'));
                 this.activeTail = post;
                 //[re]launch the clear timer
                 clearTimeout(this._timeout);
                 if (post != this.tail) {
                     this._timeout = setTimeout(this._clear.bind(this), 1000);
+                } else {
+                    console.log('Not activating timer because post is tail');
                 }
             },
 
-            out: function(){
-                if (this.root) {
-                    this.inPost(this.root);
-                }
+            out: function() {
+                this.inPost(null);
             },
             //removes hover subchain beginning from clearRoot's child
+            _clear: function(clearAfter) {
+                //if root is unspecified, clear from active tail
+                if (clearAfter === undefined) {
+                    clearAfter = this.activeTail;
+                }
+                if (clearAfter !== null) {
+                    console.log('Removing chain after ' + clearAfter.id);
+                    $(clearAfter).nextAll('.hover').remove();
+                    this.tail = clearAfter;
+                }
+                else {
+                    console.log('Clearing entire chain.');
+                    $('.hover').remove();
+                    this.tail = null;
+                }
+            }
+            /*
             _clear: function(clearRoot){
                 //if root is unspecified, clear from active tail
                 clearRoot = clearRoot || this.activeTail;
@@ -199,6 +202,7 @@ $(document).ready(function () {
                 $(clearRoot).nextAll('.hover').remove();
                 this.tail = clearRoot;
             }
+            */
         };
 
         // http://stackoverflow.com/a/7385673
@@ -234,13 +238,19 @@ $(document).ready(function () {
 
         var hoverOver = function(evnt)
         {
-            console.log('Event target: ' + this.tagName);
-            chainCtrl.inPost(this);
+            console.log('Event target: ' + event.target.tagName);
+            if (!$(evnt.target).is('div.body > a, .mentioned > a')) {
+                //links are handled by linkOver
+                chainCtrl.inPost(this);
+            }
         };
 
         var hoverLeave = function(evnt)
         {
-            if (evnt.relatedTarget) {
+            console.log('Mouse leaved hover ' + evnt.target.id);
+            //mouse move to links completely processed by linkOver
+            if (evnt.relatedTarget && !$(evnt.relatedTarget).is('div.body > a, .mentioned > a')) {
+                console.log('!!'+evnt.relatedTarget.tagName);
                 var $toPost = $(evnt.relatedTarget).closest('.hover');
                 if ($toPost.length != 0) {
                     chainCtrl.inPost($toPost[0]);
