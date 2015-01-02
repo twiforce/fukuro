@@ -8,12 +8,15 @@
  *   $config['additional_javascript'][] = 'js/settings.js';
  *   $config['additional_javascript'][] = 'js/post-hover-tree.js';
  *
+ * Known bugs:
+ * 1) Re-fetch single thread for different posts
+ * 2) No horizontal positioning
  */
 
 $(document).ready(function () {
     if (settings.postHover) {
         var hovering = false;
-        var dont_fetch_again = [];
+        //var dont_fetch_again = [];
         var toFetch = {}; //{url: [post id list]}
 
         function _debug(text) {
@@ -60,12 +63,13 @@ $(document).ready(function () {
             //then try to retrieve it via ajax
             $post = PostStub(id);
             var url = $(link).attr('href').replace(/#.*$/, '');
-
+            /*
             if ($.inArray(url, dont_fetch_again) != -1) {
                 return $post.append(Message('warning', 'Пост не найден.'));
             }
 
             dont_fetch_again.push(url);
+            */
             //push post id to fetch list if not already there
             if (!toFetch[url]) {
                 toFetch[url] = [];
@@ -105,11 +109,13 @@ $(document).ready(function () {
                             $pHolder.empty().append(Message('warning', 'Пост не найден.'));
                         }
                     }
+                    delete toFetch[url];
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     var message;
                     switch (jqXHR.status) {
                         case 404:
+                            //TODO: keep non-existent thread ids or error messages.
                             message = Message('warning', 'Тред не существует.');
                             break;
                         default:
@@ -125,6 +131,7 @@ $(document).ready(function () {
                         }
                         $pHolder.empty().append(message);
                     }
+                    delete toFetch[url];
                 }
             });
             return $post.append(Message('info', 'Загрузка...'))[0];
