@@ -11,13 +11,26 @@
  * Known bugs:
  * 1) Re-fetch single thread for different posts
  * 2) No horizontal positioning
+ *
+ * ToDo: Immediate clear when clicked inside post.
  */
 
 $(document).ready(function () {
     if (settings.postHover) {
+        //Some hardcoded 'settings':
+        //hovering time before opening preview (ms)
+        rollOnDelay = 100;
+        //timeout for closing inactive previews (ms)
+        rollOverDelay = 1000;
+        //minimal distance in pixels between post preview and the screen edge
+        deadZone = 20;
+
+        //end of 'settings'.
+
         var hovering = false;
         //var dont_fetch_again = [];
         var toFetch = {}; //{url: [post id list]}
+        var rollOnTimer = null;
 
         function _debug(text) {
             if (window.FUKURO_DEBUG) {
@@ -172,7 +185,7 @@ $(document).ready(function () {
                 //[re]launch the clear timer
                 clearTimeout(this._timeout);
                 if (post != this.tail) {
-                    this._timeout = setTimeout(this._clear.bind(this), 1000);
+                    this._timeout = setTimeout(this._clear.bind(this), rollOverDelay);
                 }
             },
 
@@ -212,25 +225,28 @@ $(document).ready(function () {
 
         function init_hover_tree(target) {
 
-            $(target).delegate('div.body >a , .mentioned > a', 'mouseenter', linkOver);
+            $(target).delegate('div.body >a , .mentioned > a', 'mouseenter', linkEnter);
             $(target).delegate('div.body >a , .mentioned > a', 'mouseleave', hoverLeave);
-            $(target).delegate('div.post.hover', 'mouseenter', hoverOver);
+            $(target).delegate('div.post.hover', 'mouseenter', hoverEnter);
             $(target).delegate('div.post.hover', 'mouseleave', hoverLeave);
         }
 
-        var linkOver = function(evnt)
+        var linkEnter = function(evnt)
         {
             //if (!summon(id) { //retrieve url; //summonAjax(url, id) }
-            var post = summonPost(this);
-            if (post)
-            {
-                var parent = $(this).closest('div.post')[0];
-                chainCtrl.open(parent, post);
-                position($(this), $(post), evnt);
-            }
+            clearTimeout(rollOnTimer);
+            var that = this;
+            rollOnTimer = setTimeout(function() {
+                var post = summonPost(that);
+                if (post) {
+                    var parent = $(that).closest('div.post')[0];
+                    chainCtrl.open(parent, post);
+                    position($(that), $(post), evnt);
+                }
+            }, rollOnDelay);
         };
 
-        var hoverOver = function(evnt)
+        var hoverEnter = function(evnt)
         {
             if (!$(evnt.target).is('div.body > a, .mentioned > a')) {
                 //links are handled by linkOver
@@ -240,6 +256,7 @@ $(document).ready(function () {
 
         var hoverLeave = function(evnt)
         {
+            clearTimeout(rollOnTimer);
             //mouse move to links completely processed by linkOver
             if (evnt.relatedTarget && !$(evnt.relatedTarget).is('div.body > a, .mentioned > a')) {
                 var $toPost = $(evnt.relatedTarget).closest('.hover');
@@ -288,7 +305,7 @@ $(document).ready(function () {
 
             switch (position.direction) {
                 case 'down':
-                    if (newPost.height() > viewportLow) {
+                    if (newPost.height() + deadZone > viewportLow) {
                         position.direction = 'up';
                         positionUp();
                     }
@@ -298,7 +315,7 @@ $(document).ready(function () {
                     break;
 
                 case 'up':
-                    if (newPost.height() > viewportHigh) {
+                    if (newPost.height() + deadZone > viewportHigh) {
                         position.direction = 'down';
                         positionDown();
                     }
