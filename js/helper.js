@@ -71,7 +71,7 @@ function showInfo() {
     // well thank you Github
     $.ajax({
         type: 'GET',
-        url: "https://api.github.com/repos/twiforce/fukuro/stats/contributors",
+        url: "https://api.github.com/repos/twiforce/fukuro/contributors?anon=1",
         dataType: 'json',
         success: function(data){
             githubContribInfo = data;
@@ -87,7 +87,7 @@ function showInfo() {
             var ii = 0;
             var totalCommits = 0;
             while (ii < githubContribInfo.length) {
-                totalCommits = totalCommits + githubContribInfo[ii]["total"];
+                totalCommits = totalCommits + githubContribInfo[ii]["contributions"];
                 ii++;
             }
             $('#githubInfo').html("Последний коммит #" + totalCommits + " \"<a href=\""
