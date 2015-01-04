@@ -23,7 +23,7 @@ $(document).ready(function () {
         //hovering time before opening preview (ms)
         rollOnDelay = 100;
         //timeout for closing inactive previews (ms)
-        rollOverDelay = 1000;
+        rollOverDelay = 600;
         //minimal distance in pixels between post preview and the screen edge
         deadZone = 20;
 
@@ -158,6 +158,7 @@ $(document).ready(function () {
             activeTail: null,
             _timeout: null,
 
+            //appends post preview in correct place
             open: function(parent, post) {
                 //_debug('Opening preview '+parent.id+'->'+post.id);
                 var clearAfter = undefined;
