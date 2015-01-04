@@ -159,9 +159,11 @@ $(document).ready(function () {
             _timeout: null,
 
             //appends post preview in correct place
+            //returns true if preview position in DOM changed
             open: function(parent, post) {
                 //_debug('Opening preview '+parent.id+'->'+post.id);
                 var clearAfter = undefined;
+                var moved = false;
                 if ($(parent).is('.hover')) {
                     if ($(parent).next()[0] != post) {
                         clearAfter = parent;
@@ -178,8 +180,10 @@ $(document).ready(function () {
                 if (!this.tail || this.tail == parent) {
                     $('body').append(post);
                     this.tail = post;
+                    moved = true;
                 }
                 this.inPost(post);
+                return moved;
             },
 
             inPost: function(post){
@@ -238,15 +242,20 @@ $(document).ready(function () {
         var linkEnter = function(evnt)
         {
             //if (!summon(id) { //retrieve url; //summonAjax(url, id) }
+            if (! /^>>(\d+)$/.test($(this).text())) {
+                //Just regular link. Skip it.
+                return true;
+            }
             clearTimeout(rollOnTimer);
-            var that = this;
+            var link = this;
             rollOnTimer = setTimeout(function() {
-                var post = summonPost(that);
+                var post = summonPost(link);
                 if (post) {
-                    var parent = $(that).closest('div.post')[0];
-                    chainCtrl.open(parent, post);
-                    position($(that), $(post).hide(), evnt);
-                    $(post).show();
+                    var parent = $(link).closest('div.post')[0];
+                    if (chainCtrl.open(parent, post)) {
+                        position($(link), $(post).hide(), evnt);
+                        $(post).show();
+                    }
                 }
             }, rollOnDelay);
         };
@@ -276,7 +285,6 @@ $(document).ready(function () {
 
         //credits for original function to GhostPerson
         var position = function(link, newPost, evnt) {
-
             newPost.css({
                 //use jQuery .show() instead (less style-dependend)
                 //'display': 'block',
