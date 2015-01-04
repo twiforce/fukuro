@@ -9,8 +9,10 @@
  *   $config['additional_javascript'][] = 'js/post-hover-tree.js';
  *
  * Known bugs:
- * 1) Re-fetch single thread for different posts
- * 2) No horizontal positioning
+ * 1) Re-fetch single thread for different posts;
+ * 2) Multiple positioning calls;
+ * 3) No right 'dead zone';
+ * 4) Wrong positioning for fetched posts;
  *
  * ToDo: Immediate clear when clicked inside post.
  */
@@ -116,6 +118,7 @@ $(document).ready(function () {
                             $('body').prepend($post.css('display', 'none'));
                             //replace placeholder with post clone
                             $pHolder.empty().append($post.clone().contents());
+                            //ToDo: call position here.
                         }
                         else {
                             //replace placeholder with an error.
@@ -241,7 +244,8 @@ $(document).ready(function () {
                 if (post) {
                     var parent = $(that).closest('div.post')[0];
                     chainCtrl.open(parent, post);
-                    position($(that), $(post), evnt);
+                    position($(that), $(post).hide(), evnt);
+                    $(post).show();
                 }
             }, rollOnDelay);
         };
@@ -273,22 +277,18 @@ $(document).ready(function () {
         var position = function(link, newPost, evnt) {
 
             newPost.css({
-                //'display': 'inline',
-                'display': 'block', //for 'cached' posts
+                //use jQuery .show() instead (less style-dependend)
+                //'display': 'block',
                 'position': 'absolute',
-                //    'top': link.offset().top,
-                'left': link.offset().left
+                //margins prevent precise positioning
+                'margin-top': 0,
+                'margin-left': 0
             });
 
-            if ($("body").width() - newPost.last().position().left - newPost.last().width() < 15) {
-                newPost.css({
-                    'left': 'auto',
-                    'right': '15px'
-                });
-            }
             //a bit more complex positioning
             if (!position.direction)
                 position.direction = 'down';
+            //TODO: reset direction on preview clear?
 
             //  mouseEvent has .clientX and .clientY (viewport coords of cursor)
             //  Supported by "all" modern browsers (except IE<=8 but who cares)
@@ -297,15 +297,15 @@ $(document).ready(function () {
             var viewportLow = window.innerHeight - viewportHigh;
 
             function positionUp() {
-                newPost.css('top', link.offset().top - 10 - newPost.height());
+                newPost.css('top', link.offset().top - newPost.outerHeight());
             }
             function positionDown() {
-                newPost.css('top', link.offset().top + link.height());
+                newPost.css('top', link.offset().top + link.outerHeight());
             }
 
             switch (position.direction) {
                 case 'down':
-                    if (newPost.height() + deadZone > viewportLow) {
+                    if (newPost.outerHeight() + deadZone > viewportLow) {
                         position.direction = 'up';
                         positionUp();
                     }
@@ -315,7 +315,7 @@ $(document).ready(function () {
                     break;
 
                 case 'up':
-                    if (newPost.height() + deadZone > viewportHigh) {
+                    if (newPost.outerHeight() + deadZone > viewportHigh) {
                         position.direction = 'down';
                         positionDown();
                     }
@@ -326,25 +326,39 @@ $(document).ready(function () {
 
                 default:
                     console.error('now you fucked up');
-
             }
 
-            /*
-             //simple horizontal positioning
-             var viewportRight = $(window).innerWidth() - evnt.screenX;
-             var viewportLeft = $(window).innerWidth() - viewportRight;
+            //simple horizontal positioning
+            function positionLeft() {
+                newPost.css({
+                    'left': Math.max(
+                        link.offset().left + link.outerWidth() - newPost.outerWidth(),
+                        deadZone),
+                    'right': 'auto'
+                });
+            }
+            function positionRight() {
+                newPost.css({
+                    'left': link.offset().left,
+                    'right': 'auto'
+                });
+            }
 
-             if (viewportLeft > viewportRight)
-             {
-             newPost.css('left', link.offset().left - newPost.width())
-             }
-             */
-        }
+            var viewportRight = $(window).width() - evnt.clientX;
+            var viewportLeft = $(window).width() - viewportRight;
+
+            if (viewportRight > viewportLeft) {
+                positionRight();
+            }
+            else {
+                positionLeft();
+            }
+        };
 
         init_hover_tree(document);
 
         // allow to work with auto-reload.js, etc.
-        //no need in this now, "deledate" takes care of everything
+        //no need in this now, "delegate" takes care of everything
         /*
          $(document).bind('new_post', function (e, post) {
          init_hover_tree(post);
