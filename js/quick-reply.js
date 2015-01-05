@@ -25,11 +25,11 @@ if (settings.quickReply){
 
 			floatingForm.css({
 				display : 'inline-block',
-				left : '40%',
-				top : '40%',
+				right : '0px',
+				top : '60px',
 				position : 'fixed'
 			});
-		floatingForm.attr('id', 'quick-reply');
+		floatingForm.attr('id', 'quick-reply').addClass('floating-form');
 		$('body').append(floatingForm);
 
 		//placeholders and stuff
@@ -39,7 +39,6 @@ if (settings.quickReply){
 		//a placeholder for input in that row
 		floatingForm.find('tr').each(function(index, element){
 			var headerText = $(element).find('th').hide().text();
-				console.log(headerText);
 
 			var textContainer = $(element).find('textarea, input');
 				textContainer.attr('placeholder', headerText);
@@ -58,26 +57,43 @@ if (settings.quickReply){
 		$(window).on('cite', function(evnt){
 			floatingForm.show();
 			floatingForm.find('textarea[name=body]').focus();
-		})
+		});
 
 		//form drag
 		dragForm = interact('#quick-reply .form-header');
 		dragForm.draggable({
 			inertia : false,
-			restriction : window,
+			restriction : window
 
 		});
 		dragForm.on('dragmove', function(evnt){
-			var left = parseFloat(floatingForm.css('left'));
+			var right = parseFloat(floatingForm.css('right'));
 			var top = parseFloat(floatingForm.css('top'));
-			floatingForm.css('left', left + evnt.dx);
+			floatingForm.css('right', right - evnt.dx);
 			floatingForm.css('top', top + evnt.dy);
 		});
 
 		dragForm.on('dragend', function(evnt){
-		//TODO: save coordinates of floating form to localStorage
+			var position = {top:0, right: 0};
+			position.right = parseFloat(floatingForm.css('right'));
+			position.top = parseFloat(floatingForm.css('top'));
+			localStorage.setItem('quickReplyPosition', JSON.stringify(position));
 		});
 
+		//retrieve floating form coordinates from localStorage, if present
+		var qrPosition;
+		if ( qrPosition = localStorage.getItem('quickReplyPosition')){
+			//if there is a saved position, check whether form is inside the viewport
+			qrPosition = JSON.parse(qrPosition);
+			if (qrPosition.right < 0 || qrPosition.top > $(window).height()){
+				//form is outside, reset
+				qrPosition.right = 0;
+				qrPosition.top = 60;
+			}
+
+			floatingForm.css('right', qrPosition.right);
+			floatingForm.css('top', qrPosition.top);
+		}
 	};
 
 

@@ -25,5 +25,6 @@ $(document).ready(function() {
         $('input[name=email]').css({"width": '50%', "float": 'right'});
         $('input[name=post]').css({"float": 'right'});
         $('input[name=subject]').css({"width": '50%'});
+        $('form[name=post]').addClass('simplified');
     }
 });
