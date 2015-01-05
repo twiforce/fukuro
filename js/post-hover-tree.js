@@ -10,9 +10,7 @@
  *
  * Known bugs:
  * 1) Re-fetch single thread for different posts;
- * 2) Multiple positioning calls;
- * 3) No right 'dead zone';
- * 4) Wrong positioning for fetched posts;
+ * 2) No right 'dead zone';
  *
  * ToDo: Immediate clear when clicked inside post.
  */
@@ -55,7 +53,7 @@ $(document).ready(function () {
 
         function PostStub(id, content) {
             var $stub =
-                $('<div class="post reply row hover bg-error" id="hover_reply_' + id + '"></div>');
+                $('<div class="post reply row hover stub" id="hover_reply_' + id + '"></div>');
             if (content) {
                 $stub.append(content);
             }
@@ -117,8 +115,8 @@ $(document).ready(function () {
                         if ($post.length) {
                             $('body').prepend($post.css('display', 'none'));
                             //replace placeholder with post clone
-                            $pHolder.empty().append($post.clone().contents());
-                            //ToDo: call position here.
+                            $pHolder.empty().append($post.clone().contents()).removeClass('stub');
+                            position(null, $pHolder, null);
                         }
                         else {
                             //replace placeholder with an error.
@@ -299,11 +297,23 @@ $(document).ready(function () {
                 position.direction = 'down';
             //TODO: reset direction on preview clear?
 
-            //  mouseEvent has .clientX and .clientY (viewport coords of cursor)
-            //  Supported by "all" modern browsers (except IE<=8 but who cares)
+            //save data for delayed position
+            if (newPost.hasClass('stub')) {
+                newPost.data('positionInfo', {
+                    evnt: evnt,
+                    link: link
+                });
+            }
+            //recover data for delayed position
+            if (!evnt) {
+                var info = newPost.data('positionInfo');
+                evnt = info.evnt;
+                link = info.link;
+                newPost.removeData('positionInfo');
+            }
 
             var viewportHigh = evnt.clientY;
-            var viewportLow = window.innerHeight - viewportHigh;
+            var viewportLow = $(window).height() - viewportHigh;
 
             function positionUp() {
                 newPost.css('top', link.offset().top - newPost.outerHeight());
@@ -348,7 +358,7 @@ $(document).ready(function () {
             }
             function positionRight() {
                 newPost.css({
-                    'left': link.offset().left,
+                    'left': Math.min(link.offset().left, $(window).width() - newPost.outerWidth()/* - deadZone*/),
                     'right': 'auto'
                 });
             }
