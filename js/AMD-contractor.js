@@ -22,8 +22,8 @@ if (settings.quickReply) {
         require(['AMD/sticky-form'], function(){});
     })
 } else if (settings.bottomForm){
-    $(document).ready(function(){
-        require(['AMD/bottom-form'], function(){});
+        require(['AMD/bottom-form'], function(moveForm){
+            $(document).ready(moveForm);
     })
 }
 

@@ -58,7 +58,12 @@ onready(function(){
 
 		// allow to work with auto-reload.js, etc.
 		$(document).bind('new_post', function(e, post) {
-			inline_expand_post.call(post);
+			if (post.length){
+				//post is a jQuery array
+				post.each(inline_expand_post)
+			}
+			else
+				inline_expand_post.call(post);
 		});
 	} else {
 		inline_expand_post.call(document);

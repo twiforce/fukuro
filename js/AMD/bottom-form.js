@@ -11,10 +11,13 @@
  */
 
 define(function(){
-
-        if($('div.banner').length == 0)
+    function moveForm() {
+        if ($('div.banner').length == 0)
             return; // not index
 
         $("div.banner").insertBefore("div.delete:first");
         $("form[name='post']").insertBefore("div.delete:first");
+    }
+
+    return moveForm;
 });
