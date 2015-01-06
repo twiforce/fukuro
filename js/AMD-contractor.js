@@ -17,3 +17,9 @@ if (settings.quickReply) {
         $(document).ready(doForm);
     })
 }
+
+if (settings.simpleForm){
+    require(['AMD/simple-form'], function(simplify){
+        $(document).ready(simplify);
+    });
+}
