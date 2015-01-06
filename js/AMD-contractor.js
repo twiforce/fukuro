@@ -12,4 +12,8 @@ if (settings.quickReply) {
         )
 
     })
+} else if (settings.inlineForm){
+    require(['AMD/inline-form'], function(doForm){
+        $(document).ready(doForm);
+    })
 }
