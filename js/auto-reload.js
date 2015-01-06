@@ -16,16 +16,16 @@
 
 $(document).ready(function(){
 
-	if($('div.banner').length == 0)
-		return; // not index
-		
-	if($(".post.op").size() != 1)
-		return; //not thread page
+    if($('div.banner').length == 0)
+        return; // not index
 
-	if ((settings.updateFrequency <= 10) || (typeof settings.updateFrequency == 'undefined')) {
-		settings.updateFrequency = 10;
-	}
-	var poll_accuracy = settings.updateFrequency * 1000;
+    if($(".post.op").size() != 1)
+        return; //not thread page
+
+    if ((settings.updateFrequency <= 10) || (typeof settings.updateFrequency == 'undefined')) {
+        settings.updateFrequency = 10;
+    }
+    var poll_accuracy = settings.updateFrequency * 1000;
 
     //kinda cache these
     var postctrl = $('form[name=postcontrols]');
@@ -93,11 +93,12 @@ $(document).ready(function(){
                         .each(function (index, element) {
                             $(element).after($br.clone());
                         });
-                        if (settings.useAnimateCSS) {
-                            posts.addClass('animated fadeIn');
-                        }
+                    if (settings.useAnimateCSS) {
+                        posts.addClass('animated fadeIn');
+                    }
                     if (posts.length) {
-                        $(document).trigger('new_post', posts);
+                        //jQuery allows to pass either object or array
+                        $(document).trigger('new_post', [posts]);
                         //TODO: make it more loosely-coupled.
                         if (settings.useMomentJS) {
                             now = moment();
@@ -107,7 +108,7 @@ $(document).ready(function(){
                         //Should be last action
                         lastPost.after(posts);
                     }
-                    }
+                }
                 //var time = moment().diff(startTime);
                 //wonder if that'll prevent some memory leaks
                 data = null;
@@ -129,22 +130,21 @@ $(document).ready(function(){
     (settings.simpleNavbar) ? $("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh fa-lg"></i></a>&nbsp;') :
         (device_type == "mobile") ? $("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh fa-2x"></i></a>&nbsp;') :
             $("#navigation").prepend('<a id=\"updateThread\"><i class="fa fa-refresh"></i> ' + _('Обновить') + '</a>&nbsp;');
-	
-	function pollNewPosts() {
+
+    function pollNewPosts() {
         setInterval(function () {
             poll(growlAjaxOptions())
         }, poll_accuracy);
     }
-	
-	if(settings.updateThread) {
+
+    if(settings.updateThread) {
         pollNewPosts();
-	}
-	
-	$('#updateThread').click(function () {
+    }
+
+    $('#updateThread').click(function () {
         poll(growlAjaxOptions());
 
-	});
+    });
 
 
 });
-
