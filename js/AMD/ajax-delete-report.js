@@ -1,28 +1,16 @@
 /*
- * ajax-post-controls.js
- * https://github.com/savetheinternet/Tinyboard/blob/master/js/ajax-post-controls.js
- *
- * Released under the MIT license
- * Copyright (c) 2013 Michael Save <savetheinternet@tinyboard.org>
- *
- * Usage:
- *   $config['additional_javascript'][] = 'js/jquery.min.js';
- *   $config['additional_javascript'][] = 'js/ajax-post-controls.js';
+ * Former ajax-post-controls.js
  *
  */
 
-$(window).ready(function () {
-    var do_not_ajax = false;
-
-    var setup_form = function ($form) {
+define(function(){
+    function setupForm ($form) {
         $form.find('input[type="submit"]').click(function () {
             $form.data('submit-btn', this);
         });
 
         $form.submit(function (e) {
             if (!$(this).data('submit-btn'))
-                return true;
-            if (do_not_ajax)
                 return true;
             if (window.FormData === undefined) {
                 return true;
@@ -78,9 +66,13 @@ $(window).ready(function () {
 
             return false;
         });
-    };
-    setup_form($('form[name="postcontrols"]'));
+    }
+
+    //setup_form($('form[name="postcontrols"]'));
+    /*
     $(window).on('quick-post-controls', function (e, form) {
-        setup_form($(form));
+        setupForm($(form));
     });
+    */
+    return setupForm
 });

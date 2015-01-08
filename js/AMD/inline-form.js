@@ -68,9 +68,15 @@ define(function () {
         }
 
         $(document).bind("new_post", function (e, post) {
-            //post is an array now, sorry
-            post[0].children('.intro').each(addPostLink);
-            post[0].find('.inline-form-link').on('click', showHideForm);
+            //post could be jQuery object now, sorry
+            if (post.length) {
+                post.find('.intro').each(addPostLink);
+                post.find('.inline-form-link').on('click', showHideForm);
+            }
+            else {
+                $(post).find('.intro').each(addPostLink);
+                $(post).find('.inline-form-link').on('click', showHideForm);
+            }
         });
     };
     return perform;

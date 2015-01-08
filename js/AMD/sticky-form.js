@@ -104,6 +104,7 @@ if (settings.autoResizeForm) {
 }
 
 // No refresh with jQuery Form Plugin
+/* I'll make use of this later
 if (settings.noRefresh) {
     var ajaxErrors = false;
     postform.ajaxForm({
@@ -137,6 +138,7 @@ if (settings.noRefresh) {
     });
 
 }
+*/
 if (settings.textCountForm) {
     $('#body').textareaCount({
         'maxCharacterSize': 4000,
@@ -148,6 +150,7 @@ if (settings.textCountForm) {
         "clear": 'both'
     });
 }
+
 if (settings.showFormOnCite) {
     $(window).on('cite', function () {
         if (localStorage.getItem("displayForm") == 'false') {
