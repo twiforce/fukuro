@@ -12,9 +12,9 @@
 
 onready(function(){
 	if (settings.textSpoiler) {
-		var do_unspoil = function() {
-			$('span.spoiler').css({'color':'black', 'background-color': '#BBBBBB'})
-		}
+		var do_unspoil = function(elem) {
+			$(elem).find('span.spoiler').css({'color':'black', 'background-color': '#BBBBBB'})
+		};
 		
 		do_unspoil(document);
 
@@ -25,9 +25,9 @@ onready(function(){
 	}
 	
 	if (settings.hideRoleplay) {
-		var do_unroleplay = function() {
-			$('.body span.roleplay').remove();
-		}
+		var do_unroleplay = function(elem) {
+			$(elem).find('.body span.roleplay').remove();
+		};
 		
 		do_unroleplay(document);
 
