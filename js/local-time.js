@@ -54,12 +54,9 @@ onready(function(){
 
         // allow to work with auto-reload.js, etc.
         $(document).bind('new_post', function(e, post) {
-            if (post.length){
-                post.each(function(index, elem){
+                $(post).each(function(index, elem){
                     do_localtime(elem);
-                })
-            }
-            else do_localtime(post);
+            });
         });
     }
 
