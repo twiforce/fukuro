@@ -85,7 +85,7 @@ if (settings.quickReply){
 		if ( qrPosition = localStorage.getItem('quickReplyPosition')){
 			//if there is a saved position, check whether form is inside the viewport
 			qrPosition = JSON.parse(qrPosition);
-			if (qrPosition.right < 0 || qrPosition.top > $(window).height()){
+			if (qrPosition.right < 0 || qrPosition.top > $(window).height() || qrPosition.top < 0){
 				//form is outside, reset
 				qrPosition.right = 0;
 				qrPosition.top = 60;
