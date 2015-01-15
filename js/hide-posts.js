@@ -99,7 +99,8 @@ $(document).ready(function(){
 		$('.post.reply p.intro').each(do_hidepost);
 		
 		$(document).bind("new_post", function(e, post) {
-			$(post.firstChild).each(do_hidepost);
+			post = $(post);
+            post.find('.intro').each(do_hidepost);
 		});
 	}
 });
