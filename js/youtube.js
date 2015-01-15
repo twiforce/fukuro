@@ -35,7 +35,7 @@ onready(function(){
     do_embed_yt(document);
 
     var do_yt_loadName = function (tag) {
-        $('div.video-container').hover(function () {
+        $('div.video-container', tag).hover(function () {
             var videoID = $(this).data('video');
             var vidtmp = $(this);   // omg
             $.ajax({
@@ -53,8 +53,15 @@ onready(function(){
 
     // allow to work with auto-reload.js, etc.
     $(document).bind('new_post', function(e, post) {
+        /* old version
         do_embed_yt(post);
         do_yt_loadName(post);
+        */
+        post = $(post);
+        post.each(function(index, element){
+            do_embed_yt(element);
+            do_yt_loadName(element);
+        })
     });
 });
 
