@@ -356,12 +356,12 @@ if (isset($_POST['delete'])) {
 	}
 
 	// Random image
-	if ($config['derpibooru_random'] || $config['danbooru_random'] || $config['giphy_random']) {
+	if( ($config['derpibooru_random'] || $config['danbooru_random'] || $config['safebooru_random'] || $config['gelbooru_random'] || $config['giphy_random'])
+	    && (preg_match("/^#((pony|safe|derp|gel|gif)rand|random)/i", strtolower($_POST['email'])))) {
 		if (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != '')) {
         	$_POST['email'] = '';
         } else {
 			switch ($_POST['email']) {
-
 				// Derpibooru random
 				case (preg_match('/^#ponyrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
 				case (preg_match('/^#derprand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
