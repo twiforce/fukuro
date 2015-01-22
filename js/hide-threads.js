@@ -28,9 +28,11 @@ $(document).ready(function(){
 	};
 	
 	// Delete old hidden threads (7+ days old)
+	var weekAgo = Math.round((Date.now() / 1000) - 60 * 60 * 24 * 7)
 	for (var key in hidden_data) {
 		for (var id in hidden_data[key]) {
-			if (hidden_data[key][id] < Math.round(Date.now() / 1000) - 60 * 60 * 24 * 7) {
+			//if (hidden_data[key][id] < Math.round(Date.now() / 1000) - 60 * 60 * 24 * 7) {
+			if (hidden_data[key][id] < weekAgo){
 				delete hidden_data[key][id];
 				store_data();
 			}
@@ -44,7 +46,8 @@ $(document).ready(function(){
 	var do_hide_threads = function() {
 		var id = $(this).children('p.intro').children('a.post_no:eq(1)').text();
 		var thread_container = $(this).parent();
-		$('<a class="hide-thread-link" style="float:left;margin-right:5px;text-decoration: none;" href="javascript:void(0)"><i class="fa fa-minus-square"></i></a><span> </span>')
+		$('<a class="hide-thread-link" style="float:left;margin-right:5px;text-decoration: none;" href="javascript:void(0)">' +
+			'<i class="fa fa-minus-square"></i></a><span> </span>')
 			.insertBefore(thread_container.find(':not(h2,h2 *):first'))
 			.click(function() {
 				hidden_data[board][id] = Math.round(Date.now() / 1000);
@@ -75,8 +78,11 @@ $(document).ready(function(){
 	}
 
 	$('div.post.op').each(do_hide_threads);
+/*
+	what is that thing for?
 
 	$(document).bind('new_post', function(e, post) {
 		do_hide_threads.call($(post).find('div.post.op')[0]);
 	});
+*/
 });
