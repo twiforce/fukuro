@@ -42,50 +42,53 @@ $(document).ready(function(){
 		}
 
 		//$('div.post > a > img, div > a > img').each(function() {
-		var do_hideimg = function() {
-			var img = this;
-			var fileinfo = $(this).parent().prev();
-			var id = $(this).parent().parent().find('>p.intro>a.post_no:eq(1),>div.post.op>p.intro>a.post_no:eq(1)').text();
+		function do_hideimg() {
+			var img = $(this);
+			var fileinfo = img.parent().siblings('.file-info');
+			var id = img.parent().parent().find('>p.intro> a.post_no:eq(1),>div.post.op>p.intro>a.post_no:eq(1)').text();
 			
-			var replacement = $('<span><a class="hide-image-link" href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-ban"></i></a> </span>');
-					
-			replacement.find('a').click(function() {
+			var buttonHide = $('<button type="button" class="btn btn-default btn-xs">' +
+				'<a class="hide-image-link" href="javascript:void(0)" style="text-decoration: none;">' +
+					'<i class="fa fa-ban"></i></a></button>');
+
+
+			var buttonShow = $('<button type=button class="btn btn-default btn-xs">' +
+				'<a class="show-image-link" href="javascript:void(0)" style="text-decoration: none;">' +
+					'<i class="fa fa-check-circle-o"></i></a></button>')
+				.hide();
+
+
+			buttonHide.click(function(evnt){
+				img.addClass('hidden');
+				buttonHide.hide();
+				buttonShow.show()
+
 				hidden_data[board][id] = Math.round(Date.now() / 1000);
 				store_data();
-				
-				var show_link = $('<a class="show-image-link" href="javascript:void(0)" style="text-decoration: none;"><i class="fa fa-check-circle-o"></i></a> ').click(function() {
-					delete hidden_data[board][id];
-					store_data();
-					
-					$(img)
-						.removeClass('hidden')
-						.attr('src', $(img).data('orig'));
-					$(this).prev().show();
-					$(this).remove();
-				});
-				
-				$(this).hide().after(show_link);
-				
-				if ($(img).parent()[0].dataset.expanded == 'true') {
-					$(img).parent().click();
-				}
-				$(img)
-					.data('orig', img.src)
-					//.attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')
-					.addClass('hidden');
 			});
-			
-			$(this).parent().prev().contents().first().replaceWith(replacement);
-			
+
+			buttonShow.click(function(evnt){
+				img.removeClass('hidden');
+				buttonHide.show();
+				buttonShow.hide();
+
+				delete hidden_data[board][id];
+				store_data();
+			});
+
+			fileinfo.find('.btn-group').prepend(buttonHide).prepend(buttonShow);
+
 			if (hidden_data[board][id])
-				$(this).parent().prev().find('.hide-image-link').click();
+				buttonHide.click();
 			
-		};
+		}
 		
 		$('div.post > a > img, div > a > img').each(do_hideimg);
-		
+
+
 		$(document).bind("new_post", function(e, post) {
-			$('post div.post > a > img, div > a > img').each(do_hideimg);
+			post = $(post);
+			post.find('a > img').each(do_hideimg);
 		});
 	}
 });
