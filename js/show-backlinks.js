@@ -14,7 +14,7 @@
 
 onready(function(){
 	if (settings.showBackLinks) {
-		//console.profile('backlinks');
+
 		var showBackLinks = function() {
 			var reply_id = $(this).attr('id').replace(/^reply_/, '');
 			
@@ -53,7 +53,10 @@ onready(function(){
 		};
 
 		function addReference(postid, num, context) {
-			var post = context.filter('#reply_' + postid);
+
+			var post = $('#reply_' + postid);
+			if (post.length == 0)
+				post = context.filter('#reply_' + postid);
 
 			var link = '<a class="mentioned-' + num + '" ';
 			link += 'onclick="highlightReply(\'' + num + '\');" ';
@@ -74,10 +77,11 @@ onready(function(){
 			}
 		}
 
-		function buildRefs(postArray) {
+		ids = [];
+		function buildRefs(postArray, context) {
 			var regex = /^>>(\d+)/; //>>number
-			var refmap = {},
-			ids = [];
+			var refmap = {};
+
 
 			postArray.each(function (index, post) {
 				post = $(post);
@@ -108,10 +112,10 @@ onready(function(){
 					}
 				}
 			}
+
 		}
 
 		buildRefs($('.post'))
-
 
 			$(document).bind('new_post', function(e, post) {
 			var post = $(post)
