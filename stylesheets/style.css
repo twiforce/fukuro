@@ -64,6 +64,15 @@ p.intro time, p.intro a.ip-link, p.intro a.capcode {
 	direction: ltr;
 	unicode-bidi: embed;
 }
+
+p.intro time {
+	margin : 5px;
+}
+
+p.intro a.post_no > i{
+	margin-right : 3px;
+}
+
 h2 {
 	color: #AF0A0F;
 	font-size: 11pt;

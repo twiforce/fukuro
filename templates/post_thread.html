@@ -1,4 +1,4 @@
-{% filter remove_whitespace %}
+{% spaceless %}
 {# tabs and new lines will be ignored #}
 
 <div id="thread_{{ post.id }}">
@@ -164,7 +164,7 @@
     {% endif %}
 	</p>
 	<div class="body">
-		{% endfilter %}{% if index %}{{ post.body|truncate_body(post.link) }}{% else %}{{ post.body }}{% endif %}{% filter remove_whitespace %}
+		{% endspaceless %}{% if index %}{{ post.body|truncate_body(post.link) }}{% else %}{{ post.body }}{% endif %}{% spaceless %}
 		{% if post.modifiers['ban message'] %}
 			{{ config.mod.ban_message|sprintf(post.modifiers['ban message']) }}
 		{% endif %}
@@ -192,7 +192,7 @@
 	{% endif %}
 {% if not index %}
 {% endif %}
-</div>{% endfilter %}
+</div>{% endspaceless %}
 {% set hr = post.hr %}
 {% for post in post.posts %}
 	{% include 'post_reply.html' %}
