@@ -73,6 +73,10 @@ p.intro a.post_no > i{
 	margin-right : 3px;
 }
 
+p.intro a.post_no + a.post_no{
+	margin-left: 2px
+}
+
 h2 {
 	color: #AF0A0F;
 	font-size: 11pt;
