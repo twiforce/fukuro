@@ -32,7 +32,7 @@ onready(function(){
             return [Math.pow(10, count - num.toString().length), num].join('').substr(1);
         };
 
-        var do_localtime = function(elem) {
+        var do_localtime = function(elem)   {
             var times = elem.getElementsByTagName('time');
 
             for(var i = 0; i < times.length; i++) {
@@ -54,16 +54,18 @@ onready(function(){
 
         // allow to work with auto-reload.js, etc.
         $(document).bind('new_post', function(e, post) {
-            do_localtime(post);
+            $(post).each(function(index, elem){
+                do_localtime(elem);
+            });
         });
     }
 
     if (settings.useMomentJS) {
         momentize(document);
-        
+
         // allow to work with auto-reload.js, etc.
         $(document).bind('new_post', function(e, post) {
-            momentize(post);
+            momentize();
         });
     }
 });

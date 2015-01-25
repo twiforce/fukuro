@@ -656,3 +656,7 @@ html.desktop-style .boardlist:nth-child(1) {
 div[id^=thread] > a > img.post-image {
 	margin-left : 25px;
 }
+div.body + span.mentioned{
+	display : block;
+	margin-top : 10px;
+}

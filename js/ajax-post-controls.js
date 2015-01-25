@@ -13,7 +13,7 @@
 
 $(window).ready(function() {
 	var do_not_ajax = false;
-	
+
 	var setup_form = function($form) {
 		$form.find('input[type="submit"]').click(function() {
 			$form.data('submit-btn', this);
@@ -25,13 +25,13 @@ $(window).ready(function() {
 				return true;
 			if (window.FormData === undefined)
 				return true;
-			
+
 			var form = this;
-						
+
 			var formData = new FormData(this);
 			formData.append('json_response', '1');
 			formData.append($($(form).data('submit-btn')).attr('name'), $($(form).data('submit-btn')).val());
-			
+
 			$.ajax({
 				url: this.action,
 				type: 'POST',
@@ -64,9 +64,9 @@ $(window).ready(function() {
 				contentType: false,
 				processData: false
 			}, 'json');
-			
+
 			$($(form).data('submit-btn')).attr('disabled', true).data('orig-val', $($(form).data('submit-btn')).val()).val(_('Working...'));
-			
+
 			return false;
 		});
 	};
