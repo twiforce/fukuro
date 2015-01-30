@@ -22,12 +22,12 @@ $(document).ready(function(){
                 plugins:['flash','silverlight'],
                 pluginPath:'/js/mediaelement/'
         });
-        $('video').mediaelementplayer();
-    }
+        element.find('video').mediaelementplayer();
+    };
 
     var do_preview_webm = function(element) {
         $(element).find('video').attr('preload', 'metadata')
-    }
+    };
 
     var do_add_shorten = function(element) {
     	var element = $(element);
@@ -36,7 +36,7 @@ $(document).ready(function(){
             lessText: 'Скрыть',
             showChars: (settings.hideLongTextNum),
         });
-    }
+    };
 
     do_replace_audio(document);
     if (settings.previewWebm)
