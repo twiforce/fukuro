@@ -23,7 +23,7 @@ $(window).ready(function() {
 		//kinda cache these
 		var postctrl = $('form[name=postcontrols]');
 
-		function receive(data, textStatus, jqXHR){
+		function receive(data){
 
 			var lastPost = postctrl.find('.post').last(),
 				lastID = lastPost.attr('id').replace(/reply_/, '');
@@ -146,7 +146,7 @@ $(window).ready(function() {
 								}, 'html')
 									.done(receive)
 									.done(function(){
-										stats.posts.sent += posts.length;
+										stats.posts.sent++;
 										saveAndUpdateStats();
 										highlightReply(post_response.id);
 
@@ -174,7 +174,7 @@ $(window).ready(function() {
 							submitBtn.removeAttr('disabled');
 						}
 					},
-					error: function(xhr, status, er) {
+					error: function() {
 						// An error occured
 						do_not_ajax = true;
 						submitBtn.each(function() {
