@@ -16,7 +16,7 @@
  *
  */
 
-$(function(){
+onready(function(){
 	var inline_expand_post = function() {
 		var link = this.getElementsByTagName('a');
 
