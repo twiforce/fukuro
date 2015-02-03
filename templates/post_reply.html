@@ -118,7 +118,6 @@
         </span>
     </p>
     {% if post.file|extension == 'mp3' or  post.file|extension == 'm4a' %}
-    <br/>
     <audio controls="controls" preload="none">
         <source src="{{ config.uri_img }}{{ post.file }}" type="audio/mpeg" />
     </audio>
