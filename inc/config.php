@@ -286,8 +286,11 @@
 	// Simple captcha
 	$config['captcha'] = false;
 
-	// Enable reCaptcha to make spam even harder. Rarely necessary.
+	// Enable old reCaptcha (API 1.0) to make spam even harder. Rarely necessary.
 	$config['recaptcha'] = false;
+
+	// Enable new reCaptcha (API 2.0) to make spam even harder. Rarely necessary.
+	$config['recaptcha2'] = false;
 
 	// Public and private key pair from https://www.google.com/recaptcha/admin/create
 	$config['recaptcha_public'] = '6LcXTcUSAAAAAKBxyFWIt2SO8jwx4W7wcSMRoN3f';

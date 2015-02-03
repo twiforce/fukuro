@@ -92,6 +92,20 @@
                 {{ antibot.html() }}
             </td>
         </tr>
+		{% elseif config.recaptcha2 %}
+		<tr>
+			<th>
+				{% trans %}Verification{% endtrans %}
+				{{ antibot.html() }}
+			</th>
+			<td>
+				<div class="g-recaptcha" data-sitekey="{{ config.recaptcha_public }}"></div>
+				<script type="text/javascript"
+						src="https://www.google.com/recaptcha/api.js?hl=ru">
+				</script>
+				{{ antibot.html() }}
+			</td>
+		</tr>
 		{% endif %}
 		<tr>
 			<th>

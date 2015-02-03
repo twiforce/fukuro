@@ -1,8 +1,13 @@
-/*
+/**
  * sticky-form.js
+ * https://github.com/twiforce/fukuro/blob/master/js/sticky-form.js
  * 
  * Sticks the reply form to the bottom right edge of the screen.
  * This file contains a lot of features and really needs to be cleaned up, I'll do it a bit later.
+ *
+ * Released under the MIT license
+ * Copyright (c) 2013-2015 Simon Twiforce <twiforce@syn-ch.ru>
+ *               2014-2015 GhostPerson <https://github.com/GhostPerson>
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -131,6 +136,9 @@ $(document).ready(function () {
                     if ($('#captchaimg')) {
                         $('#captchaimg').click();
                     }
+					if (typeof grecaptcha === "object") {
+						grecaptcha.reset();
+					}
 					$('input[name=post]').attr("disabled", false);
 					$('input[name=post]').attr('value',_('Ответить'));
 				}

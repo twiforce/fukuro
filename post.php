@@ -231,6 +231,21 @@ if (isset($_POST['delete'])) {
 			error($config['error']['captcha']);
 		}
 	}
+
+	// Check for CAPTCHA right after opening the board so the "return" link is in there
+	if ($config['recaptcha2']) {
+		if (!isset($_POST['g-recaptcha-response']))
+			error($config['error']['bot']);
+		// Check what reCAPTCHA has to say...
+		$reCaptcha = new ReCaptcha($config['recaptcha_private']);
+		$resp = $reCaptcha->verifyResponse(
+			$_SERVER["REMOTE_ADDR"],
+			$_POST["g-recaptcha-response"]
+		);
+		if (!$resp->success) {
+			error($config['error']['captcha']);
+		}
+	}
 	
 	if ($post['mod'] = isset($_POST['mod']) && $_POST['mod']) {
 		require 'inc/mod/auth.php';

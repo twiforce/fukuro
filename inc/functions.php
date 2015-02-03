@@ -195,6 +195,8 @@ function loadConfig() {
 
 	if ($config['recaptcha'])
 		require_once 'inc/lib/recaptcha/recaptchalib.php';
+	if ($config['recaptcha2'])
+		require_once 'inc/lib/recaptcha2/recaptchalib.php';
 	if ($config['cache']['enabled'])
 		require_once 'inc/cache.php';
 	event('load-config');
