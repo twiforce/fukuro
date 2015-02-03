@@ -17,7 +17,7 @@
 
 // Current settings version. We'll be using this to notify users for updates
 // Let's just start from one. That's kinda not the first settings.js but still, whatever, nobody cares
-var version = 8;
+var version = 9;
 
 defaultSettings = {
     ajax: true,
@@ -30,6 +30,7 @@ defaultSettings = {
     showSaveOriginalLinks: true,
     showBackLinks: true,
     growlEnabled: true,
+    inline: true,
     growlPositionY: 'top',
     growlPositionX: 'left',
     version: version
@@ -72,11 +73,12 @@ $(document).ready(function () {
 	<div class="checkbox"><label><input type="checkbox" name="showBackLinks">' + _('Отображать ссылки на ответы') + ' </label> <select id="backLinksStyle"><option value="backLinksNormal">' + _('внизу') + '</option><option value="backLinks4chan">' + _('наверху') + '</option></select></div>\
 	<select id="postHover"><option value="postHover">' + _('Новое') + '</option><option value="postHoverOld">' + _('Старое') + '</option><option value="postHoverDisabled">' + _('Не отображать') + '</option></select> ' + _('превью поста при наведении на ссылку') + '<br>\
 	<div class="checkbox"><label><input type="checkbox" name="imageHover">' + _('Показывать изображение при наведении на превью') + '</label></div>\
+	' + _('Открывать изображения') + ' <select id="openImages"><option value="newTab">' + _('в новой вкладке') + '</option><option value="inline">' + _('внутри сообщения') + '</option><option value="lightbox">' + _('в галерее Lightbox') + '</option></select><br>\
 	<div class="checkbox"><label><input type="checkbox" name="showNewMessages">' + _('Отображать количество новых постов в заголовке') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="boopNewMessages">' + _('Звуковые уведомления о новых постах') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="quoteSelection">' + _('Цитировать текст при выделении в посте') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="hidePosts">' + _('Добавить кнопки для скрытия постов') + '</label></div>\
-	<div class="checkbox"><label><input type="checkbox" name="hidePostsMD5">' + _('Автоматически скрывать посты, содержащие изображения уже скрытых постов') + '</label></div>\
+	<div class="checkbox"><label><input type="checkbox" name="hidePostsMD5">' + _('Cкрывать посты, содержащие изображения ранее скрытых постов') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="noko50clear">' + _('Оставлять только 50 постов в версии +50 постов') + '</label></div>\
 	<div class="checkbox"><label><input type="checkbox" name="hideImageLinks">' + _('Добавить кнопки для скрытия изображений') + '</label></div>\
 	</div><div class="tab-pane" id="form">\
@@ -170,6 +172,9 @@ $(document).ready(function () {
     if (settings.postHoverOld) $('#postHover option[value="postHoverOld"]').attr('selected', 'selected');
     if (settings.postHoverDisabled)  $('#postHover option[value="postHoverDisabled"]').attr('selected', 'selected');
     if (settings.imageHover) $("input[name=imageHover]").attr('checked', true);
+    if (settings.newTab) $('#openImages option[value="newTab"]').attr('selected', 'selected');
+    if (settings.inline) $('#openImages option[value="inline"]').attr('selected', 'selected');
+    if (settings.lightbox) $('#openImages option[value="lightbox"]').attr('selected', 'selected');
     if (settings.boopNewMessages) $("input[name=boopNewMessages]").attr('checked', true);
     if (settings.ajax) $('#ajaxPolling option[value="ajax"]').attr('selected', 'selected');
     if (settings.noRefresh) $('#ajaxPolling option[value="noRefresh"]').attr('selected', 'selected');
@@ -227,6 +232,24 @@ $(document).ready(function () {
                 settings.externalPolling = true;
                 break;
             // shouldn't there be default case?
+        }
+
+        switch ($('#openImages option:selected').val()) {
+            case 'newTab':
+                settings.newTab = true;
+                settings.inline = false;
+                settings.lightbox = false;
+                break;
+            case 'inline':
+                settings.newTab = false;
+                settings.inline = true;
+                settings.lightbox = false;
+                break;
+            case 'lightbox':
+                settings.newTab = false;
+                settings.inline = false;
+                settings.lightbox = true;
+                break;
         }
         // huh, I thought it would look better this way
         switch ($('#formStyle option:selected').val()) {

@@ -660,3 +660,11 @@ div.body + span.mentioned{
 	display : block;
 	margin-top : 10px;
 }
+
+#lightbox {
+	position: fixed;
+	top: 30px!important;
+}
+.lb-prev, .lb-next {
+	width: 15%!important;
+}

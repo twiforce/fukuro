@@ -60,20 +60,22 @@ onready(function(){
 		}
 	};
 
-	if (window.jQuery) {
-		$('div[id^="thread_"]').each(inline_expand_post);
+	if ((!settings.lightbox) && (!settings.newTab)) {
+		console.log('k');
+		if (window.jQuery) {
+			$('div[id^="thread_"]').each(inline_expand_post);
 
-		// allow to work with auto-reload.js, etc.
-		$(document).bind('new_post', function(e, post) {
-			if ('selector' in post){
-				//post is a jQuery array
-				post.each(inline_expand_post)
-			}
-			else
-				inline_expand_post.call(post);
-		});
-	} else {
-		inline_expand_post.call(document);
+			// allow to work with auto-reload.js, etc.
+			$(document).bind('new_post', function (e, post) {
+				if ('selector' in post) {
+					//post is a jQuery array
+					post.each(inline_expand_post)
+				}
+				else
+					inline_expand_post.call(post);
+			});
+		} else {
+			inline_expand_post.call(document);
+		}
 	}
-
 });

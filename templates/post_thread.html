@@ -47,7 +47,7 @@
             {% endif %}
         </span>
     </span>
-<a data-file-hash="{{ post.filehash }}" data-file-size="{{ post.filesize }}" {% if post.filewidth and post.fileheight %} data-file-width="{{ post.filewidth }}"  data-file-height="{{ post.fileheight }}"{% endif %} href="{{ config.uri_img }}{{ post.file }}" target="_blank"{% if post.thumb == 'file' or post.modifiers['is_file'] == '1' %} class="file"{% endif %}>
+<a data-lightbox="image-thread" data-title="{{ post.filename|e|bidi_cleanup }}" data-file-hash="{{ post.filehash }}" data-file-size="{{ post.filesize }}" {% if post.filewidth and post.fileheight %} data-file-width="{{ post.filewidth }}"  data-file-height="{{ post.fileheight }}"{% endif %} href="{{ config.uri_img }}{{ post.file }}" target="_blank"{% if post.thumb == 'file' or post.modifiers['is_file'] == '1' %} class="file"{% endif %}>
 	<img class="post-image{% if post.thumb == 'spoiler' %} spoiler{% endif %}{% if post.file|extension == 'mp3' or post.file|extension == 'm4a' %} hide{% endif %}" src="
 	{% if post.thumb == 'file' %}
 		{{ config.root }}
