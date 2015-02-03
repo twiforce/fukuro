@@ -1,9 +1,14 @@
-/*
+/**
  * inline-expanding.js
- * https://github.com/savetheinternet/Tinyboard/blob/master/js/inline-expanding.js
+ * https://github.com/twiforce/fukuro/blob/master/js/inline-expanding.js
+ *
+ * Expands images inside div.post.
  *
  * Released under the MIT license
  * Copyright (c) 2012-2013 Michael Save <savetheinternet@tinyboard.org>
+ *     			 2013-2015 Simon Twiforce <twiforce@syn-ch.ru>
+ *               2015 GhostPerson <https://github.com/GhostPerson>
+ *               2015 appleboom <appleboom@syn-ch.ru>
  *
  * Usage:
  *   // $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -11,7 +16,7 @@
  *
  */
 
-onready(function(){
+$(function(){
 	var inline_expand_post = function() {
 		var link = this.getElementsByTagName('a');
 
@@ -53,14 +58,14 @@ onready(function(){
 				}
 			}
 		}
-	}
+	};
 
 	if (window.jQuery) {
 		$('div[id^="thread_"]').each(inline_expand_post);
 
 		// allow to work with auto-reload.js, etc.
 		$(document).bind('new_post', function(e, post) {
-			if (post.length){
+			if ('selector' in post){
 				//post is a jQuery array
 				post.each(inline_expand_post)
 			}
