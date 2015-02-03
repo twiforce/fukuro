@@ -1,9 +1,13 @@
-/*
+/**
  * ajax.js
- * https://github.com/savetheinternet/Tinyboard/blob/master/js/ajax.js
+ * https://github.com/twiforce/fukuro/blob/master/js/ajax.js
+ *
+ * Send posts via AJAX
  *
  * Released under the MIT license
  * Copyright (c) 2013 Michael Save <savetheinternet@tinyboard.org>
+ * 				 2013-2015 Simon Twiforce <twiforce@syn-ch.ru>
+ * 				 2014-2015 GhostPerson <https://github.com/GhostPerson>
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -99,6 +103,9 @@ $(window).ready(function() {
 						}
 						if ($('#captchaimg')) {
 							$('#captchaimg').click();
+						}
+						if (typeof grecaptcha === "object") {
+							grecaptcha.reset();
 						}
 						if (post_response.error) {
 							if (post_response.banned) {
