@@ -15,7 +15,7 @@ onready(function(){
         var noko50clear = function () {
             if (window.location.pathname.split("+").pop() == '50.html')
                 while ($(".post.reply").length > 50)
-                    $(".post.reply:first").remove();
+                    $(".post.reply:first").next('br').andSelf().remove();
         };
         noko50clear();
         // allow to work with auto-reload.js, etc.
