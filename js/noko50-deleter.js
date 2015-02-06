@@ -12,15 +12,17 @@
 
 onready(function(){
     if (settings.noko50clear) {
-        var noko50clear = function () {
+        // Pass new posts number to clear function
+        // because it's called before new posts are appended to document.
+        var noko50clear = function (newPosts) {
             if (window.location.pathname.split("+").pop() == '50.html')
-                while ($(".post.reply").length > 50)
+                while ($(".post.reply").length + newPosts > 50)
                     $(".post.reply:first").next('br').andSelf().remove();
         };
-        noko50clear();
+        noko50clear(0);
         // allow to work with auto-reload.js, etc.
         $(document).bind('new_post', function (e, post) {
-            noko50clear();
+            noko50clear(post.length);
         });
     }
 });
