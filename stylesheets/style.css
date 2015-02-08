@@ -459,6 +459,9 @@ p.intro.thread-hidden {
 	margin: 0px;
 	padding: 0px;
 }
+p.intro.thread-hidden > .mejs-container {
+	display: none;
+}
 #markup a, #navigaton {
     cursor: pointer;
     padding-left: 2px;
