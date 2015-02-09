@@ -529,7 +529,7 @@ if (isset($_POST['delete'])) {
 
 						$post['file_url'] = $booruXMLDecoded[1]["attributes"]["FILE_URL"];
 
-						if (!preg_match('@^https?://(.+\.)?gelbooru.com/@', $post['file_url']))
+						if ((!preg_match('@^https?://(.+\.)?gelbooru.com/@', $post['file_url'])) && (!preg_match('@^https?://(.+\.)?youhate.us/@', $post['file_url'])))
                         	error($config['error']['invalidimg']);
 					} else
 						error('This feature is disabled.');
