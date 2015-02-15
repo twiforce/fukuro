@@ -39,6 +39,13 @@
 		'size' => 3,
 		'comment' => '(number of recent news entries to display; "0" is infinite)'
 	);
+
+    $theme['config'][] = Array(
+        'title' => 'Email',
+        'name' => 'email',
+        'type' => 'text',
+        'comment' => '(for contact)'
+    );
 	
 	// Unique function name for building everything
 	$theme['build_function'] = 'basic_build';
