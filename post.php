@@ -377,10 +377,25 @@ if (isset($_POST['delete'])) {
         	$_POST['email'] = '';
         } else {
 			switch ($_POST['email']) {
+                // Google random
+                case (preg_match('/^#random:\"(.+)\"$/', $_POST['email'], $googleTagFound) ? $_POST['email'] : !$_POST['email']):
+                    $provider = 'google';
+                    if ($config['google_random']) {
+                        // Tag is required.
+                        if ($googleTagFound == "")
+                            error ("Tag is required.");
+                        $googleTag = str_replace(" ", "%20", $googleTagFound[1]);
+                        // Google shows only first 64 images from search results
+                        // So there is no need to get total images count and make two requests, at least I hope so
+                        $googleJSON = json_decode(file_get_contents('http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=1&q=' . $googleTag . '&start=' . mt_rand(0,63)));
+                        $post['file_url'] = $googleJSON->{"responseData"}->{"results"}[0]->{"unescapedUrl"};
+                    } else
+                        error('This feature is disabled.');
+                break;
+
 				// Derpibooru random
 				case (preg_match('/^#ponyrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
 				case (preg_match('/^#derprand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
-				case (preg_match('/^#random(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
 					$provider = 'derpibooru';
 					if ($config['derpibooru_random']) {
 						if (count($booruTagFound) === 1) {

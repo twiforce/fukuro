@@ -87,7 +87,7 @@
         </div>
         <span class="unimportant">
             {% if post.thumb == 'spoiler' %}({% trans %}Spoiler Image{% endtrans %}){% endif %}
-            {% if (post.email[:7] == '#random') or (post.email[:9] == '#ponyrand') or (post.email[:9] == '#derprand') or (post.email[:8] == '#danrand')
+            {% if (post.email[:9] == '#random:"') or (post.email[:9] == '#ponyrand') or (post.email[:9] == '#derprand') or (post.email[:8] == '#danrand')
                 or (post.email[:9] == '#saferand') or (post.email[:8] == '#gelrand') or (post.email[:8] == '#gifrand') %}({% trans %}Random Image{% endtrans %}){% endif %}
             {{ post.filesize|filesize }}{% if post.filewidth and post.fileheight %}, {{ post.filewidth}}x{{post.fileheight }}{% if config.show_ratio %}, {{ post.ratio }}{% endif %}{% endif %}
             {% if config.show_filename and post.filename %},

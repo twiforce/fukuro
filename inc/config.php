@@ -778,7 +778,10 @@
     // Amount of unique dices that can be rolled in a single post.
     $config['dice_limit'] = 5;
 
-    // #random in email field will attach a random pic from derpiboo.ru.
+    // #random in email field will attach a random pic from google.com.
+    $config['google_random'] = true;
+
+    // #ponyrand in email field will attach a random pic from derpiboo.ru.
     $config['derpibooru_random'] = true;
 
     // #danrand in email field will attach a random pic from danbooru.donmai.us
