@@ -898,6 +898,13 @@
 	// shifted down a few pixels when it does. Making the banner a fixed size will prevent this.
 	// $config['banner_width'] = 300;
 	// $config['banner_height'] = 100;
+    // Specify images and links. "id" is the filename for .png banner file (path is specified in banner.php)
+    // $config['banners'] = array (
+    //  array(
+    //      "id"	 => "fukuro",
+    //      "link"	 => "https://github.com/twiforce/fukuro"
+    // )
+    //);
 
 	// Custom stylesheets available for the user to choose. See the "stylesheets/" folder for a list of
 	// available stylesheets (or create your own).
