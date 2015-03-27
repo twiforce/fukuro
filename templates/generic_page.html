@@ -21,7 +21,7 @@
     {% if config.url_banner %}
     {% set bRnd = random(config.banners|length - 1) %}
     <a href="{{ config.banners[bRnd]['link'] }}" target="_blank">
-        <img class="banner" src="{{ config.url_banner }}?id={{ config.banners[bRnd]['id'] }}" {% if config.banner_width or config.banner_height %}
+        <img class="randbnr" src="{{ config.url_banner }}?id={{ config.banners[bRnd]['id'] }}" {% if config.banner_width or config.banner_height %}
              style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" /></a>
     {% endif %}
 	<header>
