@@ -13,6 +13,10 @@
 # templates cache
 /templates/cache
 
+# Vagrant
+.vagrant
+Vagrantfile
+
 # other stuff
 .DS_Store
 .idea
