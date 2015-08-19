@@ -721,9 +721,20 @@ function mod_view_thread($boardName, $thread) {
 	global $config, $mod;
 	
 	if (!openBoard($boardName))
+	if (!openBoard($boardName))
 		error($config['error']['noboard']);
 	
 	$page = buildThread($thread, true, $mod);
+	echo $page;
+}
+
+function mod_view_thread50($boardName, $thread) {
+	global $config, $mod;
+
+	if (!openBoard($boardName))
+		error($config['error']['noboard']);
+
+	$page = buildThread50($thread, true, $mod);
 	echo $page;
 }
 
