@@ -10,6 +10,10 @@
 # script file
 /main.js
 
+# /b/ and /cdn - why they are showing up again?
+/b
+/cdn
+
 # templates cache
 /templates/cache
 
