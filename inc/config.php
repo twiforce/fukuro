@@ -582,6 +582,9 @@
  */
 
 	// JBBCode markup
+	// Third parameter should be "false" if you don't want to parse markup inside
+	// Third parameter should be "option" if you want to use option parameter like [tag="option"][/tag]
+	// Otherwise, use "true"
 	$config['markup'][] = array("b", "<strong>{param}</strong>", "true");
     $config['markup'][] = array("i", "<em>{param}</em>", "true");
     $config['markup'][] = array("u", "<span style=\"text-decoration: underline\">{param}</span>", "true");
@@ -589,6 +592,7 @@
     $config['markup'][] = array("sub", "<sub>{param}</sub>", "true");
     $config['markup'][] = array("sup", "<sup>{param}</sup>", "true");
     $config['markup'][] = array("code", "<code>{param}</code>", "false");
+	// More code tags from Bootstrap, uncomment if you need them
     // $config['markup'][] = array("pre", "<pre>{param}</pre>", "false");
     // $config['markup'][] = array("kbd", "<kbd>{param}</kbd>", "false");
     // $config['markup'][] = array("samp", "<samp>{param}</samp>", "false");

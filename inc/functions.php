@@ -1634,7 +1634,9 @@ function markup(&$body, $track_cites = false) {
 	foreach ($config['markup'] as $markup) {
 		if (is_string($markup[1])) {
 			$builder = new JBBCode\CodeDefinitionBuilder($markup[0], $markup[1]);
-			if ($markup[2] == "false")
+			if ($markup[2] == "option")
+				$builder->setUseOption(true);
+			else if ($markup[2] == "false")
 			    $builder->setParseContent(false);
 			$parser->addCodeDefinition($builder->build());
 		}
