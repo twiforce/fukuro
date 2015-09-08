@@ -1076,6 +1076,9 @@
 	$config['embed_width'] = 300;
 	$config['embed_height'] = 246;
 
+	// Youtube APIv3 key for js/youtube.js
+	$config['youtube_apiv3_key'] = "go-register-your-own-key";
+
 /*
  * ====================
  *  Error messages

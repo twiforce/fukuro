@@ -277,6 +277,8 @@ var RecaptchaOptions = {
 	theme : 'clean'
 };
 
+var youtubeApi3Key = '{% endraw %}{{ config.youtube_apiv3_key }}{% raw %}';
+
 onready_callbacks = [];
 function onready(fnc) {
 	onready_callbacks.push(fnc);

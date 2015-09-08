@@ -40,9 +40,9 @@ onready(function(){
             var vidtmp = $(this);   // omg
             $.ajax({
                 dataType: "json",
-                url: 'http://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=jsonc',
+                url: 'https://www.googleapis.com/youtube/v3/videos?id=' + videoID + '&part=snippet&key=' + youtubeApi3Key,
                 success: function (data, status, xhr) {
-                    vidtmp.attr("title", data.data.title);
+                    vidtmp.attr("title", data.items[0].snippet.title);
                 }
             });
         });
@@ -64,4 +64,3 @@ onready(function(){
         })
     });
 });
-
