@@ -1206,8 +1206,8 @@
 	// If you want to put images and other dynamic-static stuff on another (preferably cookieless) domain.
 	// This will override $config['root'] and $config['dir']['...'] directives. "%s" will get replaced with
 	//  $board['dir'], which includes a trailing slash.
-	// $config['uri_thumb'] = 'http://images.example.org/%sthumb/';
-	// $config['uri_img'] = 'http://images.example.org/%ssrc/';
+	$config['uri_thumb'] = 'cdn/thumb';
+	$config['uri_img'] = 'cdn/src';
 
 	// Set custom locations for stylesheets and the main script file. This can be used for load balancing
 	// across multiple servers or hostnames.
