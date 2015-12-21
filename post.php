@@ -629,25 +629,25 @@ if (isset($_POST['delete'])) {
 				switch ($provider) {
 					case "danbooru":
 						// I personally not found <md5.ext> filename anyhow useful.
-						$tempFilename = $booruRandJSON->{"id"} . '_' . $booruRandJSON->{"tag_string_character"}
-							. '_' . $danbooruRatings[$booruRandJSON->{"rating"}] . '_' . $booruRandJSON->{"tag_string_general"}
+						$tempFilename = substr($booruRandJSON->{"id"} . '_' . $booruRandJSON->{"tag_string_character"}
+							. '_' . $danbooruRatings[$booruRandJSON->{"rating"}] . '_' . $booruRandJSON->{"tag_string_general"}, 0, 250)
 							. '.' . $booruRandJSON->{"file_ext"};
 					break;
 
 					case "safebooru":
 					case "gelbooru":
-						$tempFilename = $booruXMLDecoded[1]["attributes"]["ID"] . '_' . $danbooruRatings[$booruXMLDecoded[1]["attributes"]["RATING"]]
-							. "_" . substr($booruXMLDecoded[1]["attributes"]["TAGS"], 1, -1)
+						$tempFilename = substr($booruXMLDecoded[1]["attributes"]["ID"] . '_' . $danbooruRatings[$booruXMLDecoded[1]["attributes"]["RATING"]]
+							. "_" . substr($booruXMLDecoded[1]["attributes"]["TAGS"], 1, -1), 0, 250)
 							. "." . pathinfo($booruXMLDecoded[1]["attributes"]["FILE_URL"], PATHINFO_EXTENSION);
 					break;
 
 					case "giphy":
-						$tempFilename = $booruRandJSON->{'data'}->{'id'} . '_' . $giphyRatings[$booruRandJSON->{'data'}->{'rating'}]
-							. '_' . (implode("_", $booruRandJSON->{'data'}->{'tags'})) . ".gif";
+						$tempFilename = substr($booruRandJSON->{'data'}->{'id'} . '_' . $giphyRatings[$booruRandJSON->{'data'}->{'rating'}]
+							. '_' . (implode("_", $booruRandJSON->{'data'}->{'tags'})), 0, 250) . ".gif";
 					break;
 
 					default:
-						$tempFilename = basename($url_without_params);
+						$tempFilename = substr(basename($url_without_params), 0, 250);
 					break;
 				}
 
