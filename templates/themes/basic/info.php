@@ -46,7 +46,14 @@
         'type' => 'text',
         'comment' => '(for contact)'
     );
-	
+
+	$theme['config'][] = Array(
+		'title' => 'Skype',
+		'name' => 'skype',
+		'type' => 'text',
+		'comment' => '(for contact)'
+	);
+
 	// Unique function name for building everything
 	$theme['build_function'] = 'basic_build';
 	$theme['install_callback'] = 'build_install';

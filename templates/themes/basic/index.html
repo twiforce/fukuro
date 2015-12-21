@@ -50,6 +50,18 @@
       </div>
     </div>
 	<div class="container" id="main" style="z-index: 10;">
+        {% for category, boards in categories %}
+        <fieldset>
+            <legend>
+                {{ category }}
+            </legend>
+            {% for board in boards %}
+            <li>
+                <a href="{{ board.uri }}">{{ board.title|e }}</a>
+            </li>
+            {% endfor %}
+        </fieldset>
+        {% endfor %}
 		<div class="col-md-3" id="boardlinks">
             <div class="list-group">
                 <a href="/0/" class="list-group-item">/0/ — универсальная нулевая<span id="0" class="badge posts pull-right">0</span></a>
@@ -82,6 +94,7 @@
                 <li class="list-group-item">
                     <h4 class="list-group-item-heading">Контакты:</h4>
                     <p class="list-group-item-text">email: <a href="mailto:{{ settings.email }}">{{ settings.email }}</a></p>
+                    <p class="list-group-item-text">skype: <a href="skype:{{ settings.skype }}">{{ settings.skype }}</a></p>
                 </li>
             </div>
 		</div>
