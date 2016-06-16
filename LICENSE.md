@@ -10,7 +10,7 @@ furnished to do so, subject to the following conditions:
 
 All copyright notices and permission notices (including this file) shall be
 included and remain unedited in all copies or substantial portions of the
-Software. This explicitly includes but is not limited to the Tinyboard copyright
+Software. This explicitly includes but is not limited to the Fukuro copyright
 notices found in the footers of some template files.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
