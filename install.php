@@ -301,7 +301,6 @@ if ($step == 0) {
     	return sprintf("%s", time() . "-" . substr(md5(microtime()),rand(0,16),5));
     };
 
-    $config['thumb_method'] = 'convert';
     $config['post_date'] = '%a %e %b %G %T';
     $config['locale'] = 'ru_RU.UTF-8';
     $config['timezone'] = 'Europe/Moscow';
