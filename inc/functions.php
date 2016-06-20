@@ -2,6 +2,7 @@
 
 /*
  *  Copyright (c) 2010-2013 Tinyboard Development Group
+ *  Copyright (c) 2013-2016 Fukuro, Synch IE Developers
  */
 
 if (realpath($_SERVER['SCRIPT_FILENAME']) == str_replace('\\', '/', __FILE__)) {
@@ -73,7 +74,7 @@ function loadConfig() {
 
 	require 'inc/config.php';
 	if (!file_exists('inc/instance-config.php'))
-		$error('Tinyboard is not configured! Create inc/instance-config.php.');
+		copy ('inc/instance-config.php.example', 'inc/instance-config.php');
 
 	require 'inc/instance-config.php';
 

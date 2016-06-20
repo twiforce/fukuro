@@ -20,5 +20,141 @@
 
 	//$config['root']				= '/';
 
+	$config['filename_func'] = function($post) {
+    	return sprintf("%s", time() . "-" . substr(md5(microtime()),rand(0,16),5));
+    };
 
+    $config['thumb_method'] = 'convert';
+    $config['post_date'] = '%a %e %b %G %T';
+    $config['locale'] = 'ru_RU.UTF-8';
+    $config['timezone'] = 'Europe/Moscow';
+    $config['button_newtopic'] = 'Создать тред';
+    $config['button_reply'] = 'Ответить';
+    $config['thread_subject_in_title'] = true;
+    $config['quick_reply'] = true;
+
+	$config['api']['enabled'] = true;
+	$config['api']['extra_fields'] = array('thumb' => 'thumb');
+
+	$config['stylesheets']['Quartz'] = 'quartz.css';
+    $config['stylesheets']['Morion'] = 'morion.css';
+    $config['uri_stylesheets'] = '/stylesheets/';
+    $config['default_stylesheet'] = array('Quartz', $config['stylesheets']['Quartz']);
+
+    // Additional javascripts
+    $config['additional_javascript'][] = 'js/lib/jquery.min.js';
+    $config['additional_javascript'][] = 'js/lib/bootstrap/dropdown.js';
+    $config['additional_javascript'][] = 'js/lib/bootstrap/tab.js';
+    $config['additional_javascript'][] = 'js/lib/jquery/jquery.rangyinputs.min.js';
+    $config['additional_javascript'][] = 'js/lib/jquery/jquery.textareaCounter.plugin.js';
+    $config['additional_javascript'][] = 'js/lib/jquery/jquery.shorten.js';
+    $config['additional_javascript'][] = 'js/lib/jquery/jquery.form.js';
+    $config['additional_javascript'][] = 'js/lib/bootstrap-growl.min.js';
+    $config['additional_javascript'][] = 'js/lib/keymaster.js';
+    $config['additional_javascript'][] = 'js/lib/moment.min.js';
+    $config['additional_javascript'][] = 'js/lib/moment.js.ru.js';
+    $config['additional_javascript'][] = 'js/lib/mediaelement-and-player.min.js';
+    $config['additional_javascript'][] = 'js/lib/interact-1.2.1.min.js';
+    $config['additional_javascript'][] = 'js/mobile-style.js';
+    $config['additional_javascript'][] = 'js/navigation.js';
+    $config['additional_javascript'][] = 'js/settings.js';
+    $config['additional_javascript'][] = 'js/lib/lightbox.js'; // after settings.js
+    $config['additional_javascript'][] = 'js/inline-expanding.js';
+    $config['additional_javascript'][] = 'js/sticky-form.js';
+    $config['additional_javascript'][] = 'js/bottom-form.js';
+    $config['additional_javascript'][] = 'js/quick-reply.js';
+    $config['additional_javascript'][] = 'js/markup-buttons.js';
+    $config['additional_javascript'][] = 'js/local-time.js';
+    $config['additional_javascript'][] = 'js/auto-reload.js'; // after local-time.js because of moment.js
+    $config['additional_javascript'][] = 'js/ajax.js';
+    $config['additional_javascript'][] = 'js/title-notifier.js';
+    $config['additional_javascript'][] = 'js/post-hover.js';
+    $config['additional_javascript'][] = 'js/post-hover-tree.js';
+    $config['additional_javascript'][] = 'js/image-hover.js';
+    $config['additional_javascript'][] = 'js/show-backlinks.js';
+    $config['additional_javascript'][] = 'js/post-expand.js';
+    $config['additional_javascript'][] = 'js/quote-selection.js';
+    $config['additional_javascript'][] = 'js/style-select.js';
+    $config['additional_javascript'][] = 'js/forced-anon.js';
+    $config['additional_javascript'][] = 'js/hide-threads.js';
+    $config['additional_javascript'][] = 'js/expand-all-images.js';
+    $config['additional_javascript'][] = 'js/hide-images.js';
+    $config['additional_javascript'][] = 'js/toggle-images.js';
+    $config['additional_javascript'][] = 'js/hide-posts.js';
+    $config['additional_javascript'][] = 'js/noko50-deleter.js';
+    $config['additional_javascript'][] = 'js/inline-form.js';
+    $config['additional_javascript'][] = 'js/simple-form.js'; // after all forms
+    $config['additional_javascript'][] = 'js/watch.js';
+    $config['additional_javascript'][] = 'js/catalog-link.js';
+    $config['additional_javascript'][] = 'js/archive-link.js';
+    $config['additional_javascript'][] = 'js/save-user_flag.js';
+    $config['additional_javascript'][] = 'js/fix-report-delete-submit.js';
+    $config['additional_javascript'][] = 'js/youtube.js';
+    $config['additional_javascript'][] = 'js/image-spoiler.js';
+    $config['additional_javascript'][] = 'js/toggle-spoiler.js';
+    $config['additional_javascript'][] = 'js/smartphone-spoiler.js';
+    $config['additional_javascript'][] = 'js/ajax-post-controls.js';
+    $config['additional_javascript'][] = 'js/csseditor.js';
+    $config['additional_javascript'][] = 'js/compact-boardlist.js';
+    $config['additional_javascript'][] = 'js/postcount.js';
+
+    // Flood/spam settings
+    $config['spam']['enabled'] = false;
+    // Always update this when adding new valid fields to the post form, or EVERYTHING WILL BE DETECTED AS SPAM!
+    $config['spam']['valid_inputs'] = array(
+        'hash',
+        'board',
+        'thread',
+        'mod',
+        'name',
+        'email',
+        'subject',
+        'post',
+        'body',
+        'file',
+        'password',
+        'sticky',
+        'lock',
+        'raw',
+        'embed',
+        'captcha',
+        'recaptcha_challenge_field',
+        'recaptcha_response_field',
+        'g-recaptcha-response',
+        'spoiler',
+        'quick-reply',
+        'page',
+        'file_url',
+        'json_response',
+        'user_flag',
+        'derpibooruAPIKey',
+    );
+
+    $config['robot_enable'] = false;
+
+    // Strip repeating characters when making hashes.
+    $config['robot_strip_repeating'] = false;
+    $config['robot_mute'] = false;
+
+    $config['flood_cache'] = 3600;
+
+    $config['bytes_array'] = array(' Б', ' КБ', ' МБ', ' ГБ', ' ТБ');
+
+    // Mod links (full HTML).
+    $config['mod']['link_delete'] = 'Удалить пост';
+    $config['mod']['link_ban'] = 'Забанить';
+    $config['mod']['link_bandelete'] = 'Забанить и удалить';
+    $config['mod']['link_deletefile'] = 'Удалить файл';
+    $config['mod']['link_spoilerimage'] = 'Спойлер';
+    $config['mod']['link_deletebyip'] = 'Удалить все посты на доске';
+    $config['mod']['link_deletebyip_global'] = 'Удалить все посты глобально';
+    $config['mod']['link_sticky'] = 'Прикрепить';
+    $config['mod']['link_desticky'] = 'Открепить';
+    $config['mod']['link_lock'] = 'Закрыть тред';
+    $config['mod']['link_unlock'] = 'Открыть тред';
+    $config['mod']['link_bumplock'] = 'Бампилимит';
+    $config['mod']['link_bumpunlock'] = 'Снять бамплимит';
+    $config['mod']['link_editpost'] = 'Редактировать';
+    $config['mod']['link_move'] = 'Переместить';
+    $config['mod']['link_arch'] = 'В архив';
 ?>
