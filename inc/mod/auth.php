@@ -145,7 +145,7 @@ function create_pm_header() {
 	$query->execute() or error(db_error($query));
 	
 	if ($pm = $query->fetch(PDO::FETCH_ASSOC))
-		$header = array('id' => $pm['id'], 'waiting' => $query->rowCount() - 1);
+		$header = array('id' => $pm['id'], 'waiting' => $query->rowCount() - 1, 'new' => $query->rowCount());
 	else
 		$header = true;
 	

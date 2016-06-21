@@ -7,10 +7,86 @@
     </script>
 	{% include 'header.html' %}
 	<title>{{ title }}</title>
+    <script type="text/javascript" src="/js/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/lib/bootstrap/dropdown.js"></script>
+    <script type="text/javascript" src="/js/lib/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap-select.min.css">
+    <style>
+        html, body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p{
+            font-family: "Roboto", Helvetica, Arial, sans;
+        }
+        h1, .h1 {
+            font-weight: bold;
+            font-size: 38.5px;
+        }
+        body {
+            margin-top: 60px;
+            background-color: #E5E5E5;
+        }
+
+        .navbar-brand  {
+            font-size: 28px;
+        }
+
+        .navbar-nav > li {
+            font-size: 16px;
+        }
+        .navbar-inverse {
+            background-color: #002140;
+            border-color: #002140;
+        }
+
+        .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+            color: #fff!important;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-brand{
+            color: #fff!important;
+        }
+
+        .container>.navbar-header {
+            padding-left: 15px;
+            background: url('http://static.syn-ch.com/synch-logo-header.png') no-repeat 0 50%;
+        }
+
+        .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+            width: auto;
+        }
+    </style>
 </head>
 <body>
-	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr>{% endif %}
-	<header>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Fukuro</a>
+            </div>
+            <li class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/mod.php">Dashboard</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if pm %}
+                        <li><a href="?/PM/{{ pm.id }}"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            {% if pm.new > 0 %}<span> {{ pm.new }}</span>{% endif %}</a>
+                        </li>
+                    {% endif %}
+                    {% if mod|hasPermission(config.mod.search) %}
+                        <li>
+                            {% include 'mod/search_form.html' %}
+                        </li>
+                    {%  endif %}
+                    <li><a href="?/logout/{{ logout_token }}">{% trans 'Logout' %}</a></li>
+                </ul>
+            </div><!–/.nav-collapse –>
+        </div>
+    </div>
+    <header>
 		<h1>{{ title }}</h1>
 		<div class="subtitle">
 			{% if subtitle %}
@@ -20,8 +96,7 @@
 		</div>
 	</header>
 	{{ body }}
-	<hr>
-	<footer>
+	<footer class="col-md-12">
         <p class="unimportant" style="margin-top:20px;text-align:center;"><a href="https://github.com/twiforce/fukuro">Fukuro</a> {{ config.subversion }} | <a href="http://tinyboard.org/">Tinyboard</a> {{ config.version }} + <a href="https://github.com/vichan-devel/vichan">vichan</a></p>
     </footer>
 </body>
