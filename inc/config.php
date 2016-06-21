@@ -31,7 +31,7 @@
  */
 
     // Subversion -- using for mod versioning
-    $config['subversion'] = '5.0 Beta 1';
+    $config['subversion'] = 'v5.0.2-beta';
 
 	// Global announcement -- the very simple version.
 	// This used to be wrongly named $config['blotter'] (still exists as an alias).

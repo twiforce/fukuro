@@ -1,7 +1,7 @@
 <?php
 
 // Installation/upgrade file	
-define('VERSION', 'v5.0.1');
+define('VERSION', 'v5.0.2-beta');
 
 require 'inc/functions.php';
 
