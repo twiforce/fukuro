@@ -42,8 +42,8 @@ var settings = JSON.parse(localStorage.getItem("settings"));
 // A very rough and dirty settings panel, dollscript-like.
 // TODO: rewrite
 $(document).ready(function () {
-    (settings.simpleNavbar) ? $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-lg"></i></a>') :
-        (device_type == "mobile") ? $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>') :
+    (settings.simpleNavbar) ? $('#navigation').append('<a id=\"toggleSettings\"><i class="fa fa-cogs fa-lg"></i></a>') :
+        (device_type == "mobile") ? $('#navigation').append('<a id=\"toggleSettings\"><i class="fa fa-cogs fa-2x"></i></a>') :
             $('#navigation').append('&nbsp;<a id=\"toggleSettings\"><i class="fa fa-cogs"></i> ' + _('Настройки') + '</a>');
     $('body').append('<div id="settingsPopup"><h1><small>' + _('Настройки') + '</small></h1></div>');
 

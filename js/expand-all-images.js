@@ -16,11 +16,11 @@
 
 $(document).ready(function() {
     if (settings.simpleNavbar) {
-        $('#scrollUp').before('<a id="expand-all-images" href="javascript:void(0)"><i class="fa fa-search-plus fa-lg"></i></a>&nbsp;');
+        $('#scrollUp').before('<a id="expand-all-images" href="javascript:void(0)"><i class="fa fa-search-plus fa-lg"></i></a>');
     } else  if (device_type == "mobile") {
-        $('#scrollUp').before('<a id="expand-all-images" href="javascript:void(0)"><i class="fa fa-search-plus"></i></a>&nbsp;');
+        $('#scrollUp').before('<a id="expand-all-images" href="javascript:void(0)"><i class="fa fa-search-plus fa-2x"></i></a>');
     } else
-	$('#scrollUp').before('<a id="expand-all-images" href="javascript:void(0)"><i class="fa fa-search-plus"></i> ' + _('Expand all images') + '</a>&nbsp;');
+	$('#scrollUp').before('<a id="expand-all-images" href="javascript:void(0)"><i class="fa fa-search-plus"></i> ' + _('Expand all images') + '</a>');
 	$('#expand-all-images').click(function() {
 			$('a img.post-image').each(function() {
 				//check whether its an youtube link

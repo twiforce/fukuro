@@ -462,7 +462,7 @@ p.intro.thread-hidden {
 p.intro.thread-hidden > .mejs-container {
 	display: none;
 }
-#markup a, #navigaton {
+#markup a, #navigaton a {
     cursor: pointer;
     padding-left: 2px;
     padding-right: 2px;
@@ -546,11 +546,14 @@ ul#filestuff li:hover #fileDropdown {
 	@viewport {
 	   user-zoom: fixed;
 	}
-	p.intro time, .file-info {
-		display: none!important;
+	p.intro time {
+        font-size: smaller;
 	}
+    .file-info .btn-default:not(.dropdown-toggle) {
+        display: none;
+    }
 	#navigaton  a.title{
-		visibility:hidden;
+		/*visibility:hidden;*/
 	}
 	body {
 		margin: 0px!important;
@@ -565,7 +568,7 @@ ul#filestuff li:hover #fileDropdown {
 	div.post img.post-image {
 		margin: 5px 10px 0 0;
 		min-width: 20%!important;
-		max-width: 40%!important;
+		/*max-width: 40%!important;*/
 		height: auto!important;
 	}
 	div.post.reply div.body {
@@ -577,6 +580,14 @@ ul#filestuff li:hover #fileDropdown {
 		width: 95%!important;
 		height: 95%!important;
 	}
+    .hide-post-link, .show-post-link {
+        float: right;
+        margin: 0px 5px 0px 0px;
+    }
+    .name:after {
+        content:"\a";
+        white-space: pre;
+    }
 }
 
 button, input[type="submit"], input[type="file"], input[name="spoiler"], label[for="spoiler"] {
@@ -670,4 +681,12 @@ div.body + span.mentioned{
 }
 .lb-prev, .lb-next {
 	width: 15%!important;
+}
+
+#navigation > a {
+	padding: 0px 2px;
+}
+
+.nav-mobile > a{
+    padding: 0px 4px!important;
 }

@@ -49,7 +49,7 @@ $(document).ready(function(){
 		}
 	};
 
-    $('#scrollUp').before('<a id="toggle-images" href="javascript:void(0)"></a>&nbsp;');
+    $('#scrollUp').before('<a id="toggle-images" href="javascript:void(0)"></a>');
     if (settings.simpleNavbar) {
         $('#toggle-images').html(hide_images ? '<i class="fa fa-eye-slash fa-lg"></i>' : '<i class="fa fa-eye fa-lg"></i>');
     } else if (device_type == "mobile") {

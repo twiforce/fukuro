@@ -61,7 +61,7 @@ $(document).ready(function(){
 			buttonHide.click(function(evnt){
 				img.addClass('hidden');
 				buttonHide.hide();
-				buttonShow.show()
+				buttonShow.show();
 
 				hidden_data[board][id] = Math.round(Date.now() / 1000);
 				store_data();

@@ -53,7 +53,7 @@ $(document).ready(function () {
             var downButton = '<a id="formPosition"><i class=\"fa fa-chevron-down\"></i> ' + _(' Опустить') + '</a>';
         }
 
-		$("#clearForm").after('&nbsp;', hideButton, '&nbsp;', upButton);
+		$("#clearForm").after(hideButton, upButton);
 		
 		$('#toggleForm').click(function () {
 			var link = $(this);
