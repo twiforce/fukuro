@@ -61,7 +61,6 @@ onready(function(){
 	};
 
 	if ((!settings.lightbox) && (!settings.newTab)) {
-		console.log('k');
 		if (window.jQuery) {
 			$('div[id^="thread_"]').each(inline_expand_post);
 
