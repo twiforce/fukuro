@@ -400,20 +400,20 @@ if (isset($_POST['delete'])) {
 					if ($config['derpibooru_random']) {
 						if (count($booruTagFound) === 1) {
 							// No tags found
-							$booruRand = json_decode(file_get_contents('https://derpiboo.ru/images/random.json?key=' . $_POST['derpibooruAPIKey']));
+							$booruRand = json_decode(file_get_contents('https://derpibooru.org/images/random.json?key=' . $_POST['derpibooruAPIKey']));
 						} else {
 							// Tags are in $booruTagFound[2]
 							$booruTag = str_replace(" ", "+", $booruTagFound[2]);
                            	if (isset($_POST['derpibooruAPIKey']) && ($_POST['derpibooruAPIKey'] != ''))
-                                $booruRand = json_decode(file_get_contents('https://derpiboo.ru/search.json?q=' . $booruTag . '&key=' . $_POST['derpibooruAPIKey'] . '&random_image=y'));
+                                $booruRand = json_decode(file_get_contents('https://derpibooru.org/search.json?q=' . $booruTag . '&key=' . $_POST['derpibooruAPIKey'] . '&random_image=y'));
                             else
-                                $booruRand = json_decode(file_get_contents('https://derpiboo.ru/search.json?q=' . $booruTag . '&random_image=y'));
+                                $booruRand = json_decode(file_get_contents('https://derpibooru.org/search.json?q=' . $booruTag . '&random_image=y'));
 						}
 
 						if (!isset($booruRand->{'id'}))
                          	error($config['error']['invalidtag']);
 
-                    	$booruRandJSON = json_decode(file_get_contents('https://derpiboo.ru/' . $booruRand->{'id'} . '.json'));
+                    	$booruRandJSON = json_decode(file_get_contents('https://derpibooru.org/' . $booruRand->{'id'} . '.json'));
                     	$post['file_url'] = 'https:' . $booruRandJSON->{"image"};
 
                     	if (!preg_match('@^https?://(.+\.)?derpicdn.net/@', $post['file_url']))
