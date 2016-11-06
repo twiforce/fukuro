@@ -390,7 +390,7 @@ if (isset($_POST['delete'])) {
                         $googleJSON = json_decode(file_get_contents('http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=1&q=' . $googleTag . '&start=' . mt_rand(0,63)));
                         $post['file_url'] = $googleJSON->{"responseData"}->{"results"}[0]->{"unescapedUrl"};
                     } else
-                        error('This feature is disabled.');
+                        error('This feature is no longer supported.');
                 break;
 
 				// Derpibooru random

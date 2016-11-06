@@ -783,7 +783,8 @@
     $config['dice_limit'] = 5;
 
     // #random in email field will attach a random pic from google.com.
-    $config['google_random'] = true;
+    // This API is now deprecated, alternative solution is heavily limited in requests.
+    $config['google_random'] = false;
 
     // #ponyrand in email field will attach a random pic from derpiboo.ru.
     $config['derpibooru_random'] = true;
