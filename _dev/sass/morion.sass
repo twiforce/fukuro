@@ -1,0 +1,208 @@
+$background-main: #151515
+$text-main: #666666
+$border-main: #222222
+$text-contrast: #777777
+$background-contrast: #333333
+
+@import "_crystals.sass"
+
+a
+  color: #777777 !important
+  text-decoration: none !important
+  &.post_no
+    color: #cccccc !important
+    text-decoration: none !important
+
+#navigation a:hover, #markup a:hover, div.post.reply div.body a, p.intro a.email span.name
+  color: #cccccc !important
+  text-decoration: none !important
+
+.btn-default, .dropdown-menu, .open > .dropdown-toggle.btn-default, .btn-group > .btn:focus
+  color: #aaaaaa
+  background-color: #333333
+  border-color: #222222
+
+.btn-default:hover
+  color: #000000
+  background-color: #666666
+  border-color: #222222
+
+.dropdown-menu
+  > li > a
+    &:hover, &:focus
+      color: #000000
+      text-decoration: none
+      background-color: #151515
+  .divider
+    background-color: #222222
+
+div.post.reply div.body a
+  text-decoration: underline !important
+
+a
+  &:hover, &.post_no:hover
+    color: #cccccc
+    text-decoration: underline !important
+
+p.intro a.email:hover span.name
+  color: #cccccc
+  text-decoration: underline !important
+
+div.post.reply, form[name="post"], #navigation, #settingsPopup, div.op.post.hover
+  color: #aaaaaa
+  background: #333333 !important
+  border: solid 1px #222222
+  padding: 5px 10px 5px 10px
+  margin: 5px 0
+  border-radius: 4px
+  -moz-border-radius: 4px
+  -webkit-border-radius: 4px
+  border-bottom-width: 3px
+
+div.post.reply.highlighted
+  background: #CCCCCC
+  border-color: #444
+
+p
+  &.intro
+    font-size: 1.1em
+    font-weight: 100
+    border-bottom: $border-def
+  &.fileinfo
+    color: #aaaaaa
+    a
+      color: #aaaaaa
+    span.unimportant
+      font-size: 12px
+      font-weight: 100
+      color: #b5b5b5
+      font-style: italic
+
+p.intro span
+  &.subject
+    font-size: 1.2em
+    color: #cccccc
+    font-weight: bold
+  &.name
+    color: #cccccc
+    font-weight: normal
+  &.trip
+    color: #789922
+
+form table tr th
+  background: #333333
+
+div
+  &.ban
+    h2
+      background: #FCA
+      color: inherit
+    border-color: #800
+    p
+      color: black
+  &.pages
+    background-color: #333333
+    border-color: #333333
+    a.selected
+      color: #800
+
+hr
+  border-color: #333333
+
+h1
+  color: #FF6600
+  letter-spacing: 0
+  font-size: 2em
+  font-family: $roboto
+  font-weight: bold
+  text-decoration: none
+
+div.boardlist
+  color: #333333
+  font-size: 1em
+  a
+    color: #333333
+
+table.modlog tr th
+  background: #333333
+
+span
+  &.spoiler
+    background: #666666
+    color: #666666
+    &:hover
+      background: #666666
+      color: #000000
+  &.quote
+    color: #789922
+
+.unimportant
+  font-size: 0.8em
+
+textarea
+  background-color: #333333
+  border: solid 1px #222222
+  +border-radius(2px)
+  color: #cccccc
+
+input
+  &[type="text"], &[type="file"], &[type="password"], &[name="snum"], &[type="search"]
+    background-color: #333333
+    border: solid 1px #222222
+    +border-radius(2px)
+    color: #cccccc
+  &[type="text"], &[type="file"], &[type="password"], &[name="snum"], &[type="search"]
+    font-family: $roboto
+
+p.intro time:after
+  color: #789922
+
+input
+  &[type="submit"], &[type="reset"]
+    +appearance(none)
+    background-color: #333333
+    +border-radius(2px)
+    border: $border-def
+    color: #aaaaaa
+
+.buttons input[type="button"], .ui-button, #code_markup_select, .linkbutton, .uname, .button li
+  +appearance(none)
+  background-color: #333333
+  +border-radius(2px)
+  border: $border-def
+  color: #aaaaaa
+
+input
+  &[type="submit"]:hover, &[type="reset"]:hover
+    +appearance(none)
+    background-color: #333333
+    +border-radius(2px)
+    border: $border-def
+    color: #aaaaaa
+    border-bottom-width: 2px
+
+.buttons input[type="button"]:hover, .button li:hover
+  +appearance(none)
+  background-color: #333333
+  +border-radius(2px)
+  border: $border-def
+  color: #aaaaaa
+  border-bottom-width: 2px
+
+.pace .pace-progress
+  background: #444444
+
+.nav-tabs > li
+  margin-bottom: -4px
+  &.active
+    > a
+      background-color: #333333
+      border: $border-def
+    > a:hover
+      background-color: #666666
+      color: #000000 !important
+      border: $border-def
+  > a:hover
+    background-color: #666666
+    color: #000000 !important
+    border: $border-def

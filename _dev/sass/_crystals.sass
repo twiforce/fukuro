@@ -1,0 +1,28 @@
+// ----- Fukuro default themes partials
+@import "variables.sass"
+@import "fonts/roboto.sass"
+
+$border-def: 1px solid $border-main
+
+body
+  background-image: none
+  background-color: $background-main
+  color: $text-main
+  font-family: $roboto
+  font-size: 14px
+  -webkit-font-smoothing: antialiased
+
+#navigation a, #navigation a:hover, #markup a:hover, p.intro a.email span.name
+  color: $text-contrast !important
+  text-decoration: none !important
+
+form[name="post"]
+  padding: 2px !important
+
+div.post.reply div.body
+  margin-left: 0
+  padding-right: 0
+  margin-top: 7px
+
+div[id^=thread] > a > img.post-image
+  margin-left: 19px
