@@ -1,0 +1,166 @@
+$background-main: #E5E5E5
+$text-main: #333333
+$border-main: #D8D8D8
+$text-contrast: #555555
+$background-contrast: #FFFFFF
+
+@import "_crystals.sass"
+
+a
+  color: $text-main !important
+  text-decoration: none !important
+  &.post_no
+    color: $text-main !important
+    text-decoration: none !important
+
+div.post.reply div.body a
+  color: $text-main !important
+  text-decoration: underline !important
+
+a
+  &:not(#settingsPopup):hover, &.post_no:hover
+    color: $text-main
+    text-decoration: underline !important
+
+div.post.reply, form[name="post"], #navigation, #settingsPopup, div.op.post.hover
+  background: $background-contrast !important
+  border: $border-def
+  padding: 5px 10px 5px 10px
+  margin: 5px 0
+  border-radius: 4px
+  -moz-border-radius: 4px
+  -webkit-border-radius: 4px
+  border-bottom-width: 3px
+
+div.post.reply.highlighted
+  background: #CCCCCC
+  border-color: #BBBBBB
+
+p
+  &.intro
+    font-size: 1.1em
+    font-weight: 100
+    border-bottom: 1px solid #F1F1F1
+  &.fileinfo
+    color: #aaaaaa
+    a
+      color: #aaaaaa
+    span.unimportant
+      font-size: 12px
+      font-weight: 100
+      color: #b5b5b5
+      font-style: italic
+
+p.intro span
+  &.subject
+    font-size: 1.2em
+    color: #002244
+    font-weight: bold
+  &.name
+    color: $text-main
+    font-weight: normal
+  &.trip
+    color: #228854
+
+form table tr th
+  background: #DDDDDD
+
+div
+  &.ban
+    h2
+      background: #FCA
+      color: inherit
+    border-color: #800
+    p
+      color: black
+  &.pages
+    background: #F0E0D6
+    border-color: #D9BFB7
+    a.selected
+      color: #800
+
+hr
+  border-color: #CCCCCC
+
+h1
+  color: #002244
+  letter-spacing: 0
+  font-size: 2em
+  font-family: $roboto
+  font-weight: bold
+  text-decoration: none
+
+div.boardlist
+  color: $text-main
+  font-size: 1em
+  a
+    color: $text-main
+
+table.modlog tr th
+  background: #CCCCCC
+
+span
+  &.spoiler
+    background: #BBBBBB
+    color: #BBBBBB
+    &:hover
+      background: #BBBBBB
+      color: $text-main
+  &.quote
+    color: #789922
+
+textarea
+  border: $border-def
+  +border-radius(2px)
+  color: $text-main
+
+input
+  &[type="text"], &[type="file"], &[type="password"], &[name="snum"], &[type="search"]
+    border: $border-def
+    +border-radius(2px)
+    color: $text-main
+    font-family: $roboto
+  &[type="submit"], &[type="reset"]
+    +appearance(none)
+    font-family: $roboto
+    background-color: $background-contrast
+    +border-radius(2px)
+    border: 1px solid $border-main
+    color: $text-main
+
+.buttons input[type="button"], .ui-button, #code_markup_select, .linkbutton, .uname, .button li
+  +appearance(none)
+  font-family: $roboto
+  background-color: $background-contrast
+  +border-radius(2px)
+  border: 1px solid $border-main
+  color: $text-main
+
+input
+  &[type="submit"]:hover, &[type="reset"]:hover
+    +appearance(none)
+    font-family: $roboto
+    background-color: $background-main
+    +border-radius(2px)
+    border: 1px solid $border-main
+    color: $text-main
+
+.buttons input[type="button"]:hover, .button li:hover
+  +appearance(none)
+  font-family: $roboto
+  background-color: $background-main
+  +border-radius(2px)
+  border: 1px solid $border-main
+  color: $text-main
+
+.pace .pace-progress
+  background: #BBBBBB
+
+.stub
+  background: $background-contrast
+  border: 1px solid $border-main
+  padding: 2px 10px 3px 10px
+  margin: 5px 0px
+  +border-radius(2px)
+  border-bottom-width: 2px
+  border-top-width: 0
