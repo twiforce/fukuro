@@ -17,6 +17,9 @@
 # templates cache
 /templates/cache
 
+# Sass cache
+/.sass-cache
+
 # Vagrant
 .vagrant
 Vagrantfile
