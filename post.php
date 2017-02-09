@@ -501,7 +501,7 @@ if (isset($_POST['delete'])) {
                         xml_parse_into_struct($booruXML, $booruRandXML, $booruXMLDecoded);
                         xml_parser_free($booruXML);
 
-						$post['file_url'] = $booruXMLDecoded[1]["attributes"]["FILE_URL"];
+						$post['file_url'] = 'https:' . $booruXMLDecoded[1]["attributes"]["FILE_URL"];
 
 						if (!preg_match('@^https?://safebooru.org/@', $post['file_url']))
                         	error($config['error']['invalidimg']);
@@ -542,7 +542,7 @@ if (isset($_POST['delete'])) {
                         xml_parse_into_struct($booruXML, $booruRandXML, $booruXMLDecoded);
                         xml_parser_free($booruXML);
 
-						$post['file_url'] = $booruXMLDecoded[1]["attributes"]["FILE_URL"];
+						$post['file_url'] = 'https:' . $booruXMLDecoded[1]["attributes"]["FILE_URL"];
 
 						if ((!preg_match('@^https?://(.+\.)?gelbooru.com/@', $post['file_url'])) && (!preg_match('@^https?://(.+\.)?youhate.us/@', $post['file_url'])))
                         	error($config['error']['invalidimg']);
