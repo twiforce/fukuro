@@ -23,7 +23,7 @@
 				<li class="divider"></li>
                 <li><a href="http://imgops.com/{{ config.uri_img }}{{ post.file }}" target="_blank">{% trans%}ImgOps{% endtrans %}</a></li>
                 {% if post.file|extension == 'jpg' %}
-                <li><a href="http://regex.info/exif.cgi?url={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}View EXIF{% endtrans %}</a></li>
+                <li><a href="http://metapicz.com/?imgsrc={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}View EXIF{% endtrans %}</a></li>
                 {% endif %}
                 <li><a href="http://www.google.com/searchbyimage?image_url={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}Google Search{% endtrans %}</a></li>
                 <li><a href="http://www.tineye.com/search?url={{ config.uri_img }}{{ post.file }}" target="_blank">{% trans %}Tineye Search{% endtrans %}</a></li>
