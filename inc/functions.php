@@ -1174,7 +1174,8 @@ function getPageButtons($pages, $mod=false) {
 			// Previous button
 			if ($num == 0) {
 				// There is no previous page.
-				$btn['prev'] = _('Previous');
+                //$btn['prev'] = '<li><a href="#" class="disabled">' . _('Previous') . '</a></li>';
+                $btn['prev'] = '';
 			} else {
 				$loc = ($mod ? '?/' . $board['uri'] . '/' : '') .
 					($num == 1 ?
@@ -1183,26 +1184,30 @@ function getPageButtons($pages, $mod=false) {
 						sprintf($config['file_page'], $num)
 					);
 
-				$btn['prev'] = '<form action="' . ($mod ? '' : $root . $loc) . '" method="get">' .
+				/*$btn['prev'] = '<form action="' . ($mod ? '' : $root . $loc) . '" method="get">' .
 					($mod ?
 						'<input type="hidden" name="status" value="301" />' .
 						'<input type="hidden" name="r" value="' . htmlentities($loc) . '" />'
 					:'') .
-				'<input type="submit" value="' . _('Previous') . '" /></form>';
+				'<input type="submit" value="' . _('Previous') . '" /></form>';*/
+                $btn['prev'] = '<li><a href=" ' . htmlentities($loc) . '"> ' . _('Previous') . '</a></li>';
 			}
 
 			if ($num == count($pages) - 1) {
 				// There is no next page.
-				$btn['next'] = _('Next');
+				//$btn['next'] = '<li><a href="#" class="disabled">' . _('Next') . '</a></li>';
+                $btn['next'] = '';
 			} else {
 				$loc = ($mod ? '?/' . $board['uri'] . '/' : '') . sprintf($config['file_page'], $num + 2);
 
-				$btn['next'] = '<form action="' . ($mod ? '' : $root . $loc) . '" method="get">' .
+				/*$btn['next'] = '<form action="' . ($mod ? '' : $root . $loc) . '" method="get">' .
 					($mod ?
 						'<input type="hidden" name="status" value="301" />' .
 						'<input type="hidden" name="r" value="' . htmlentities($loc) . '" />'
 					:'') .
-				'<input type="submit" value="' . _('Next') . '" /></form>';
+				'<input type="submit" value="' . _('Next') . '" /></form>';*/
+
+                $btn['next'] = '<li><a href=" ' . htmlentities($loc) . '"> ' . _('Next') . '</a></li>';
 			}
 		}
 	}

@@ -64,15 +64,14 @@
 	{{ body }}
 	{% include 'report_delete.html' %}
 	</form>
-	
-	<div class="pages">
-		{{ btn.prev }} {% for page in pages %}
-		 [<a {% if page.selected %}class="selected"{% endif %}{% if not page.selected %}href="{{ page.link }}"{% endif %}>{{ page.num }}</a>]{% if loop.last %} {% endif %}
-		{% endfor %} {{ btn.next }}
+	<ul class="pagination">
+        <li>{{ btn.prev }}</li> {% for page in pages %}
+		<li><a {% if page.selected %}class="disabled"{% endif %}{% if not page.selected %}href="{{ page.link }}"{% endif %}>{{ page.num }}</a></li>{% if loop.last %} {% endif %}
+        {% endfor %}<li>{{ btn.next }}</li>
 		{% if config.catalog_link %}
-			 | <a href="{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">Catalog</a>
+        <li><a href="{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">Catalog</a></li>
 		{% endif %}
-	</div>
+    </ul>
 	
 	{{ boardlist.bottom }}
 	<footer>
