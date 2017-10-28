@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* Bootstrap fixes */
 input[type=file] {
   display: inline; }
@@ -53,17 +52,21 @@ a.post_no {
 p.intro a.post_no {
   color: inherit;
   margin: 0; }
+
 p.intro a.email {
   margin: 0; }
   p.intro a.email span.name {
     color: #34345C; }
   p.intro a.email:hover span.name {
     color: #ff0000; }
+
 p.intro label {
   display: inline; }
+
 p.intro time {
   direction: ltr;
   unicode-bidi: embed; }
+
 p.intro a.ip-link, p.intro a.capcode {
   direction: ltr;
   unicode-bidi: embed; }
@@ -92,6 +95,7 @@ header div.subtitle {
 
 form:not(#searchform) {
   margin-bottom: 4em; }
+
 form table {
   margin: auto; }
   form table input {
@@ -120,12 +124,15 @@ form table tr td {
   text-align: left;
   margin: 0;
   padding: 0; }
+
 form table.mod tr td {
   padding: 2px; }
+
 form table tr th {
   text-align: left;
   padding: 4px;
   background: #98E; }
+
 form table tr td div {
   text-align: center;
   float: left;
@@ -143,8 +150,8 @@ form table tr td div {
 
 .fileinfo, .file-info {
   display: block;
-  margin: 0;
-  margin-bottom: 5px; }
+  margin: 0 0 5px;
+  padding: 8px 10px 0; }
 
 div.banner {
   background-color: #E04000;
@@ -163,13 +170,15 @@ img.randbnr {
   display: block;
   border: 1px solid #a9a9a9;
   margin: 12px auto 0 auto; }
+
 img.nsfw {
   opacity: 0.02; }
   img.nsfw:hover {
     opacity: 1; }
+
 img.post-image {
   display: block;
-  margin: 5px 20px 5px 0;
+  margin: 5px 20px 5px 10px;
   float: left;
   border: none; }
 
@@ -183,9 +192,11 @@ div.post img.icon {
   display: inline;
   margin: 0 5px;
   padding: 0; }
+
 div.post i.icon {
   margin: 0 4px;
   font-size: 16px; }
+
 div.post.op {
   margin-right: 20px;
   margin-bottom: 5px; }
@@ -204,12 +215,15 @@ input.delete {
 p.intro span.subject {
   color: #0F0C5D;
   font-weight: bold; }
+
 p.intro span.name {
   color: #117743;
   font-weight: bold; }
+
 p.intro span.capcode {
   color: #F00000;
   margin-left: 0; }
+
 p.intro a {
   margin-left: 8px; }
   p.intro a.capcode, p.intro a.nametag {
@@ -224,7 +238,8 @@ div {
   div.delete {
     float: right; }
   div.post.reply p {
-    margin: 0 auto; }
+    margin: 0 auto;
+    padding: 0 10px 4px; }
   div.post.reply div.body {
     max-height: 400px;
     overflow-y: auto;
@@ -260,8 +275,10 @@ div {
 
 span.trip {
   color: #228854; }
+
 span.quote {
   color: #789922; }
+
 span.omitted {
   display: block;
   margin-top: 1em; }
@@ -285,6 +302,7 @@ span.controls {
 div#wrap {
   width: 900px;
   margin: 0 auto; }
+
 div.ban {
   background: white;
   border: 1px solid #98E;
@@ -307,6 +325,7 @@ span.heading {
   color: #AF0A0F;
   font-size: 11pt;
   font-weight: bold; }
+
 span.spoiler {
   background: black;
   color: black;
@@ -320,6 +339,7 @@ span.spoiler:hover, div.post.reply div.body span.spoiler:hover a {
 
 span.roleplay {
   background-color: rgba(0, 0, 0, 0.1); }
+
 span.irony {
   color: #FF00FF; }
 
@@ -378,6 +398,7 @@ div.boardlist {
     margin-top: 20px; }
   div.boardlist a {
     text-decoration: none; }
+
 div.report {
   color: #333; }
 
@@ -407,6 +428,7 @@ span.public_ban {
   color: red;
   font-weight: bold;
   margin-top: 15px; }
+
 span.toolong {
   display: block;
   margin-top: 15px; }
@@ -461,17 +483,19 @@ time:after {
 
 #wrapper div.tabs {
   display: none; }
+
 #wrapper a.active {
   color: black;
   cursor: default;
   text-decoration: none; }
+
 #wrapper div.active {
   display: block;
   width: 100%; }
 
 a[href="mailto:sage"]:after, a[href="mailto:Sage"]:after, a[href="mailto:SAGE"]:after {
   font-family: FontAwesome;
-  content: " ";
+  content: ' \f088';
   color: red;
   text-decoration: none !important; }
 
@@ -487,6 +511,7 @@ ul#filestuff {
     padding: 0px;
     width: auto;
     height: 20px; }
+
 ul#fileDropdown {
   position: relative;
   left: 0px;
@@ -494,6 +519,7 @@ ul#fileDropdown {
   padding: 0px;
   margin: 0px !important;
   background-color: gray; }
+
 ul#filestuff li:hover #fileDropdown {
   visibility: visible;
   display: inline-block; }
@@ -505,20 +531,18 @@ ul#filestuff li:hover #fileDropdown {
 @media screen and (max-width: 920px) {
   .video-container {
     float: none; } }
+
 @media screen and (max-width: 520px) {
   @viewport {
     user-zoom: fixed; }
   p.intro time {
     font-size: smaller; }
-
   .file-info .btn-default:not(.dropdown-toggle) {
     display: none; }
-
   /*visibility:hidden; */
   body {
     margin: 0px !important;
     padding: 5px !important; }
-
   div.post.reply {
     width: 98%;
     max-width: 98%;
@@ -533,18 +557,16 @@ ul#filestuff li:hover #fileDropdown {
     /*clear: both; */
     margin: 0px !important;
     padding: 0px !important; }
-
   .video-container img {
     width: 95% !important;
     height: 95% !important; }
-
   .hide-post-link, .show-post-link {
     float: right;
     margin: 0px 5px 0px 0px; }
-
   .name:after {
     content: "\a";
     white-space: pre; } }
+
 button {
   cursor: pointer; }
 
@@ -559,6 +581,7 @@ div.post.reply.closed .fileinfo, div.post.reply.closed .file-info, div.post.repl
 
 .ip-link:hover span {
   display: none; }
+
 .ip-link:hover:before {
   content: attr(data-hover); }
 
@@ -621,6 +644,7 @@ html.desktop-style .boardlist:nth-child(1) {
 /* op-post image align fix */
 div[id^=thread] > a > img.post-image {
   margin-left: 25px; }
+
 div.body + span.mentioned {
   display: block;
   margin-top: 10px; }
@@ -633,9 +657,11 @@ div.body + span.mentioned {
   width: 15% !important; }
 
 #navigation > a {
-  padding: 0px 2px; }
+  padding: 0px 2px;
+  cursor: pointer; }
 
 .nav-mobile > a {
   padding: 0px 4px !important; }
 
-/*# sourceMappingURL=style.css.map */
+.media-body {
+  padding-left: 10px; }

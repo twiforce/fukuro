@@ -20,6 +20,9 @@
 # Sass cache
 /.sass-cache
 
+# NPM
+/node_modules
+
 # Vagrant
 .vagrant
 Vagrantfile
