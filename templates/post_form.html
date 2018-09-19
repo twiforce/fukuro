@@ -45,20 +45,20 @@
 				<input accesskey="s" style="margin-left:2px;" type="submit" name="post" value="{% if id %}{{ config.button_reply }}{% else %}{{ config.button_newtopic }}{% endif %}" />{% if config.spoiler_images %} <input id="spoiler" name="spoiler" type="checkbox"> <label for="spoiler">{% trans %}Spoiler Image{% endtrans %}</label>{% endif %}
 			</td>
 		</tr>
-        {% if config.user_flags %}
-        <tr>
-            <th>Flag</th>
-            <td>
-                <select name="user_flag" id="user_flag">
-                    <option value="">Select one&hellip;</option>
-                    {% for flag, text in config.user_flags %}
-                    <option value="{{ flag }}">{{ text }}</option>
-                    {% endfor %}
-                </select>
-                <small class="flag-preview"></small>
-            </td>
-        </tr>
-        {% endif %}
+		{% if config.user_flags %}
+		<tr>
+			<th>Flag</th>
+			<td>
+				<select name="user_flag" id="user_flag">
+					<option value="">Select one&hellip;</option>
+					{% for flag, text in config.user_flags %}
+					<option value="{{ flag }}">{{ text }}</option>
+					{% endfor %}
+				</select>
+				<small class="flag-preview"></small>
+			</td>
+		</tr>
+		{% endif %}
 		<tr>
 			<th>
 				{% trans %}Comment{% endtrans %}
@@ -69,29 +69,33 @@
 				{{ antibot.html() }}
 			</td>
 		</tr>
-        {% if config.captcha %}
-        <tr>
-            <th>
-                {% trans %}Verification{% endtrans %}
-                {{ antibot.html() }}
-            </th>
-            <td>
-            <img src="/inc/lib/captcha/captcha.php" id="captchaimg" name="captchaimg" width="120" style="margin-top: 2px; cursor: pointer;" height="20" onclick="javascript:document.getElementById('captchaimg').src = '/inc/lib/captcha/captcha.php?' + Math.random();$('#captcha').val('').focus();return false;">
-            <input type="text" id="captcha" name="captcha" class="form-control" size="4" required="">
-                {{ antibot.html() }}
-            </td>
-        </tr>
-        {% elseif config.recaptcha %}
-        <tr>
-            <th>
-                {% trans %}Verification{% endtrans %}
-                {{ antibot.html() }}
-            </th>
-            <td>
-                <script type="text/javascript" src="//www.google.com/recaptcha/api/challenge?k={{ config.recaptcha_public }}"></script>
-                {{ antibot.html() }}
-            </td>
-        </tr>
+		{% if config.captcha.enabled or (config.new_thread_capt and not id) %}
+		<tr class='captcha'>
+			<th>
+				{% trans %}Verification{% endtrans %}
+				{{ antibot.html() }}
+			</th>
+			<td>
+				<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" onload="load_captcha('{{ config.captcha.provider_get }}', '{{ config.captcha.extra }}')">
+				<noscript>You seem to have JavaScript disabled. To complete the CAPTCHA,<br><a href="{{ config.captcha.provider_get }}?mode=get&amp;extra={{ config.captcha.extra }}&amp;nojs=true" target="_blank">open this link in a new tab</a> and put the result in the boxes below:
+				<br>
+				ID: <input class="captcha_cookie" type="text" name="captcha_cookie" size="25" autocomplete="off"><br>
+				Answer: <input class="captcha_text" type="text" name="captcha_text" size="25" maxlength="6" autocomplete="off">
+				</noscript>
+				{{ antibot.html() }}
+			</td>
+		</tr>
+		{% elseif config.recaptcha %}
+		<tr>
+			<th>
+				{% trans %}Verification{% endtrans %}
+				{{ antibot.html() }}
+			</th>
+			<td>
+				<script type="text/javascript" src="//www.google.com/recaptcha/api/challenge?k={{ config.recaptcha_public }}"></script>
+				{{ antibot.html() }}
+			</td>
+		</tr>
 		{% elseif config.recaptcha2 %}
 		<tr>
 			<th>
