@@ -665,3 +665,8 @@ div.body + span.mentioned {
 
 .media-body {
   padding-left: 10px; }
+
+.captcha_html {
+    float: none;
+    text-align: left;
+}

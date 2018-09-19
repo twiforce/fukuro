@@ -205,17 +205,27 @@ if (isset($_POST['delete'])) {
 	checkBan($board['uri']);
 
 	// CAPTCHA
-	if ($config['captcha']) {
-        if (isset($_POST['captcha']) and $_POST['captcha'] != "") {
-            session_start();
-            if (isset($_SESSION['captcha']) && strtoupper($_SESSION['captcha']) == strtoupper($_POST['captcha']))
-                unset($_SESSION['captcha']);
-            else {
-                error($config['error']['captcha']);
-                unset($_SESSION['captcha']);
+	if (($config['captcha']['enabled']) || (($post['op']) && ($config['new_thread_capt'])) ) {
+        if (
+            isset($_POST['captcha_text']) &&
+            $_POST['captcha_text'] != "" &&
+            isset($_POST['captcha_cookie']) &&
+            $_POST['captcha_cookie'] != ""
+        ) {
+            $resp = file_get_contents($config['captcha']['provider_check'] . "?" . http_build_query([
+                'mode' => 'check',
+                'text' => $_POST['captcha_text'],
+                'extra' => $config['captcha']['extra'],
+                'cookie' => $_POST['captcha_cookie']
+            ]));
+    
+            if ($resp !== '1') {
+                            error($config['error']['captcha'] .
+                '<script>if (actually_load_captcha !== undefined) actually_load_captcha("'.$config['captcha']['provider_get'].'", "'.$config['captcha']['extra'].'");</script>');
             }
-         } else
+        } else {
             error($config['error']['bot']);
+        }
 	}
 
 	// Check for CAPTCHA right after opening the board so the "return" link is in there

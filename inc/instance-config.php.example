@@ -96,6 +96,8 @@
     $config['additional_javascript'][] = 'js/csseditor.js';
     $config['additional_javascript'][] = 'js/compact-boardlist.js';
     $config['additional_javascript'][] = 'js/postcount.js';
+    // $config['additional_javascript'][] = 'js/captcha.js';
+    // $config['additional_javascript'][] = 'js/dollchan.js';
 
     // Flood/spam settings
     $config['spam']['enabled'] = false;
@@ -117,6 +119,8 @@
         'raw',
         'embed',
         'captcha',
+        'captcha_text',
+        'captcha_cookie',
         'recaptcha_challenge_field',
         'recaptcha_response_field',
         'g-recaptcha-response',

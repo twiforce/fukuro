@@ -284,6 +284,20 @@ CREATE TABLE IF NOT EXISTS `ban_appeals` (
   KEY `ban_id` (`ban_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `captchas`
+--
+
+CREATE TABLE IF NOT EXISTS `captchas` (
+  `cookie` VARCHAR(50),
+  `extra` VARCHAR(200),
+  `text` VARCHAR(255),
+  `created_at` INT(11),
+  PRIMARY KEY (cookie, extra)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

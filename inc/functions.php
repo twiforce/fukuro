@@ -22,6 +22,7 @@ require_once 'inc/api.php';
 require_once 'inc/bans.php';
 require_once 'inc/lib/gettext/gettext.inc';
 require_once 'inc/lib/JBBCode/Parser.php';
+require_once '8chan-captcha/functions.php';
 
 // the user is not currently logged in as a moderator
 $mod = false;

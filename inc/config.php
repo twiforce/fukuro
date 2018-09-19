@@ -273,6 +273,8 @@
 		'raw',
 		'embed',
 		'captcha',
+		'captcha_text',
+		'captcha_cookie',
 		'recaptcha_challenge_field',
 		'recaptcha_response_field',
 		'spoiler',
@@ -283,8 +285,31 @@
 		'derpibooruAPIKey',
 	);
 
-	// Simple captcha
-	$config['captcha'] = false;
+	$config['captcha'] = array();
+
+	// Enable custom captcha provider
+	$config['captcha']['enabled'] = false;
+	$config['new_thread_capt'] = false;
+
+	// Custom CAPTCHA provider general settings
+
+	// Captcha expiration:
+	$config['captcha']['expires_in'] = 120; // 120 seconds
+
+	// Captcha length:
+	$config['captcha']['length'] = 6;
+
+	/* 
+	 * Custom captcha provider path (You will need to change these depending on your configuration! It cannot be
+	 * automatically determined because provider_check requires curl which needs to know the domain of your site.)
+	 * 
+	 * Specify yourimageboard.com/$config['root']/8chan-captcha/entrypoint.php for the default provider or write your own
+	 */
+	$config['captcha']['provider_get']   = 'http://localhost/8chan-captcha/entrypoint.php';
+	$config['captcha']['provider_check'] = 'http://localhost/8chan-captcha/entrypoint.php';
+
+	// Custom captcha extra field (eg. charset)
+	$config['captcha']['extra'] = 'abcdefghijklmnopqrstuvwxyz';
 
 	// Enable old reCaptcha (API 1.0) to make spam even harder. Rarely necessary.
 	$config['recaptcha'] = false;
@@ -1021,7 +1046,9 @@
 	// $config['additional_javascript'][] = 'js/inline-expanding.js';
 	// $config['additional_javascript'][] = 'js/auto-reload.js';
 	// $config['additional_javascript'][] = 'js/post-hover.js';
-	// $config['additional_javascript'][] = 'js/style-select.js';
+    // $config['additional_javascript'][] = 'js/style-select.js';
+    // $config['additional_javascript'][] = 'js/captcha.js';
+    // $config['additional_javascript'][] = 'js/dollchan.js';
 
 	// Where these script files are located on the web. Defaults to $config['root'].
 	// $config['additional_javascript_url'] = 'http://static.example.org/tinyboard-javascript-stuff/';

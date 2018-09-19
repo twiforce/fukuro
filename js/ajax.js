@@ -101,8 +101,8 @@ $(window).ready(function() {
 						if (typeof Recaptcha != 'undefined') {
 							Recaptcha.reload();
 						}
-						if ($('#captchaimg')) {
-							$('#captchaimg').click();
+						if ((typeof actually_load_captcha === 'function') && captchaProvider && captchaExtra) {
+							actually_load_captcha(captchaProvider, captchaExtra);
 						}
 						if (typeof grecaptcha === "object") {
 							grecaptcha.reset();
