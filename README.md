@@ -9,19 +9,21 @@ Fukuro (ранее Synch IE) основан на исходном коде Tinyb
 
 Минимальные системные требования
 ------------
-1.	PHP >= 5.3
-2.	Сервер MySQL
-3.	[mbstring](http://www.php.net/manual/en/mbstring.installation.php) 
-4.	[PHP GD](http://www.php.net/manual/en/intro.image.php)
-5.	[PHP PDO](http://www.php.net/manual/en/intro.pdo.php)
+1.	PHP >= 8.5 (жёсткое требование установщика; проверено на PHP 8.5.11)
+2.	Сервер MySQL >= 5.5.3 (или MariaDB)
+3.	[mbstring](https://www.php.net/manual/en/mbstring.installation.php)
+4.	[PHP GD](https://www.php.net/manual/en/intro.image.php)
+5.	[PHP PDO](https://www.php.net/manual/en/intro.pdo.php) (pdo_mysql)
+6.	[curl](https://www.php.net/manual/en/book.curl.php)
 
 Fukuro не требует файла ```.htaccess``` для работы, так что вы можете запустить его
 практически на любом веб-сервере.
 
 ### Рекомендованные системные требования
-1.	Сервер MySQL >= 5.5.3
-2.	ImageMagick (предпочтительнее командная строка ImageMagick или GraphicsMagick).
-3.	[APC (Alternative PHP Cache)](http://php.net/manual/en/book.apc.php), [XCache](http://xcache.lighttpd.net/) или [Memcached](http://www.php.net/manual/en/intro.memcached.php)
+1.	ImageMagick (предпочтительнее командная строка ImageMagick или GraphicsMagick).
+2.	[OPcache](https://www.php.net/manual/en/book.opcache.php) для ускорения исполнения.
+3.	[APCu](https://www.php.net/manual/en/book.apcu.php), [Redis](https://redis.io/) или [Memcached](https://www.php.net/manual/en/intro.memcached.php) для кэширования.
+4.	Расширения [intl](https://www.php.net/manual/en/book.intl.php) и [bcmath](https://www.php.net/manual/en/book.bc.php).
 
 Помощь в разработке
 ------------

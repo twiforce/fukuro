@@ -30,6 +30,64 @@ register_shutdown_function('fatal_error_handler');
 mb_internal_encoding('UTF-8');
 loadConfig();
 
+/**
+ * Fetches an URL over HTTP(S) with sane timeouts and TLS verification.
+ * Replaces bare file_get_contents('http://...') calls, which could hang
+ * forever when `allow_url_fopen` has no default timeout configured.
+ *
+ * @param string $url        Absolute http(s) URL.
+ * @param int    $timeout    Total transfer timeout, seconds (0 = use config/default).
+ * @return string|false      Response body on success, false on any failure.
+ */
+function fetch_url($url, $timeout = 0) {
+	global $config;
+
+	if (!preg_match('@^https?://@i', $url))
+		return false;
+
+	if ($timeout <= 0)
+		$timeout = (isset($config['upload_by_url_timeout']) && $config['upload_by_url_timeout'] > 0) ? $config['upload_by_url_timeout'] : 15;
+
+	if (function_exists('curl_init')) {
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_FAILONERROR, true);
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($curl, CURLOPT_MAXREDIRS, 3);
+		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
+		curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+		curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+		curl_setopt($curl, CURLOPT_USERAGENT, 'Tinyboard');
+
+		$response = curl_exec($curl);
+		curl_close($curl);
+
+		if ($response === false)
+			return false;
+
+		return $response;
+	}
+
+	/* cURL not available — fall back to streams, but never without a timeout. */
+	$context = stream_context_create(array(
+		'http' => array(
+			'method'          => 'GET',
+			'timeout'         => $timeout,
+			'user_agent'      => 'Tinyboard',
+			'follow_location' => 1,
+			'max_redirects'   => 3,
+			'protocol_allowlist' => array('http', 'https'),
+			'verify_peer'     => true,
+			'verify_peer_name'=> true,
+		),
+	));
+
+	return @file_get_contents($url, false, $context);
+}
+
 function loadConfig() {
 	global $board, $config, $__ip, $debug, $__version, $microtime_start;
 
@@ -87,6 +145,15 @@ function loadConfig() {
 	$config['version'] = $__version;
 
 	date_default_timezone_set($config['timezone']);
+
+	// Security: warn (without breaking the site) if the public placeholder secrets
+	// from inc/config.php were never replaced with random ones.
+	if (!defined('TINYBOARD_INSTALL') && PHP_SAPI !== 'cli') {
+		if (($config['cookies']['salt'] ?? '') === 'abcdefghijklmnopqrstuvwxyz09123456789!@#$%^&*()' ||
+			($config['secure_trip_salt'] ?? '') === ')(*&^%$#@!98765432190zyxwvutsrqponmlkjihgfedcba') {
+			_syslog(LOG_WARNING, 'Insecure default cookie/trip salts detected. Run install.php or set $config[\'cookies\'][\'salt\'] and $config[\'secure_trip_salt\'] in inc/instance-config.php.');
+		}
+	}
 
 	if (!isset($config['global_message']))
 		$config['global_message'] = false;
@@ -194,8 +261,6 @@ function loadConfig() {
 	if ($config['syslog'])
 		openlog('tinyboard', LOG_ODELAY, LOG_SYSLOG); // open a connection to sysem logger
 
-	if ($config['recaptcha'])
-		require_once 'inc/lib/recaptcha/recaptchalib.php';
 	if ($config['recaptcha2'])
 		require_once 'inc/lib/recaptcha2/recaptchalib.php';
 	if ($config['cache']['enabled'])
@@ -1336,7 +1401,7 @@ function checkMute() {
 
 	if ($config['cache']['enabled']) {
 		// Cached mute?
-		if (($mute = cache::get("mute_${_SERVER['REMOTE_ADDR']}")) && ($mutetime = cache::get("mutetime_${_SERVER['REMOTE_ADDR']}"))) {
+		if (($mute = cache::get("mute_{$_SERVER["REMOTE_ADDR"]}")) && ($mutetime = cache::get("mutetime_{$_SERVER["REMOTE_ADDR"]}"))) {
 			error(sprintf($config['error']['youaremuted'], $mute['time'] + $mutetime - time()));
 		}
 	}
@@ -1355,8 +1420,8 @@ function checkMute() {
 
 		if ($mute['time'] + $mutetime > time()) {
 			if ($config['cache']['enabled']) {
-				cache::set("mute_${_SERVER['REMOTE_ADDR']}", $mute, $mute['time'] + $mutetime - time());
-				cache::set("mutetime_${_SERVER['REMOTE_ADDR']}", $mutetime, $mute['time'] + $mutetime - time());
+				cache::set("mute_{$_SERVER["REMOTE_ADDR"]}", $mute, $mute['time'] + $mutetime - time());
+				cache::set("mutetime_{$_SERVER["REMOTE_ADDR"]}", $mutetime, $mute['time'] + $mutetime - time());
 			}
 			// Not expired yet
 			error(sprintf($config['error']['youaremuted'], $mute['time'] + $mutetime - time()));

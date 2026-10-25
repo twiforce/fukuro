@@ -81,18 +81,7 @@
                 {{ antibot.html() }}
             </td>
         </tr>
-        {% elseif config.recaptcha %}
-        <tr>
-            <th>
-                {% trans %}Verification{% endtrans %}
-                {{ antibot.html() }}
-            </th>
-            <td>
-                <script type="text/javascript" src="//www.google.com/recaptcha/api/challenge?k={{ config.recaptcha_public }}"></script>
-                {{ antibot.html() }}
-            </td>
-        </tr>
-		{% elseif config.recaptcha2 %}
+        {% elseif config.recaptcha2 %}
 		<tr>
 			<th>
 				{% trans %}Verification{% endtrans %}

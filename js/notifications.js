@@ -21,7 +21,9 @@ function getNotifications() {
         dataType: 'json',
         success: function(data) {
             notification_timestamp = data.timestamp;
-            if (getCookie('notification_dismissed') < data.timestamp) {
+            // getCookie() returns "" when the cookie is absent; compare as a
+            // number so an empty value reliably means "never dismissed".
+            if ((parseInt(getCookie('notification_dismissed'), 10) || 0) < data.timestamp) {
                 if ($(".alert-notification").length == 0) {
                     notificationGrowl = $.growl(data.message, {
                         type: data.type + ' alert-notification',
@@ -45,12 +47,20 @@ function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    // Escape the value so it cannot break out of the cookie string and inject
+    // extra attributes (e.g. a forged domain/path).
+    var cnameSafe = encodeURIComponent(cname);
+    var cvalueSafe = encodeURIComponent(cvalue);
+    var cookieStr = cnameSafe + "=" + cvalueSafe + ";" + expires + ";path=/;SameSite=Lax";
+    if (window.location.protocol === 'https:') {
+        cookieStr += ";Secure";
+    }
+    document.cookie = cookieStr;
 }
 
 function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
+    var name = encodeURIComponent(cname) + "=";
+    var decodedCookie = document.cookie;
     var ca = decodedCookie.split(';');
     for(var i = 0; i <ca.length; i++) {
         var c = ca[i];
@@ -58,7 +68,7 @@ function getCookie(cname) {
             c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
+            return decodeURIComponent(c.substring(name.length, c.length));
         }
     }
     return "";

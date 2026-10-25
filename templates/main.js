@@ -292,6 +292,10 @@ function ready() {
 
 onready(init);
 
-{% endraw %}{% if config.google_analytics %}{% raw %}
+{% endraw %}{% if config.google_analytics and config.google_analytics|slice(0,2) == 'G-' %}{% raw %}
 
-+var _gaq = _gaq || [];_gaq.push(['_setAccount', '{% endraw %}{{ config.google_analytics }}{% raw %}']);{% endraw %}{% if config.google_analytics_domain %}{% raw %}_gaq.push(['_setDomainName', '{% endraw %}{{ config.google_analytics_domain }}{% raw %}']){% endraw %}{% endif %}{% if not config.google_analytics_domain %}{% raw %}_gaq.push(['_setDomainName', 'none']){% endraw %}{% endif %}{% raw %};_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();{% endraw %}{% endif %}
+(function(){/* Google Analytics 4 (gtag.js) — Universal Analytics закрыт 1 июля 2023 */
+var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id={% endraw %}{{ config.google_analytics|e('js') }}{% raw %}';
+document.getElementsByTagName('head')[0].appendChild(s);
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}window.gtag=gtag;
+gtag('js',new Date());gtag('config','{% endraw %}{{ config.google_analytics|e('js') }}{% raw %}'{% endraw %}{% if config.google_analytics_domain %}{% raw %},{'send_page_view':true,'cookie_domain':'{% endraw %}{{ config.google_analytics_domain|e('js') }}{% raw %}'}{% endraw %}{% endif %}{% raw %});})();{% endraw %}{% endif %}

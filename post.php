@@ -7,16 +7,6 @@
 require 'inc/functions.php';
 require 'inc/anti-bot.php';
 
-// Fix for magic quotes
-if (get_magic_quotes_gpc()) {
-	function strip_array($var) {
-		return is_array($var) ? array_map('strip_array', $var) : stripslashes($var);
-	}
-	
-	$_GET = strip_array($_GET);
-	$_POST = strip_array($_POST);
-}
-
 if (isset($_POST['delete'])) {
 	// Delete
 	
@@ -219,23 +209,9 @@ if (isset($_POST['delete'])) {
 	}
 
 	// Check for CAPTCHA right after opening the board so the "return" link is in there
-	if ($config['recaptcha']) {
-		if (!isset($_POST['recaptcha_challenge_field']) || !isset($_POST['recaptcha_response_field']))
-			error($config['error']['bot']);
-		// Check what reCAPTCHA has to say...
-		$resp = recaptcha_check_answer($config['recaptcha_private'],
-			$_SERVER['REMOTE_ADDR'],
-			$_POST['recaptcha_challenge_field'],
-			$_POST['recaptcha_response_field']);
-		if (!$resp->is_valid) {
-			error($config['error']['captcha']);
-		}
-	}
-
-	// Check for CAPTCHA right after opening the board so the "return" link is in there
 	if ($config['recaptcha2']) {
-		if (!isset($_POST['g-recaptcha-response']))
-			error($config['error']['bot']);
+		if (!isset($_POST['g-recaptcha-response']) || $_POST['g-recaptcha-response'] === '')
+			error($config['error']['captcha']);
 		// Check what reCAPTCHA has to say...
 		$reCaptcha = new ReCaptcha($config['recaptcha_private']);
 		$resp = $reCaptcha->verifyResponse(
@@ -351,7 +327,6 @@ if (isset($_POST['delete'])) {
 		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
 		curl_setopt($curl, CURLOPT_TIMEOUT, $config['upload_by_url_timeout']);
 		curl_setopt($curl, CURLOPT_USERAGENT, 'Tinyboard');
-		curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
 		curl_setopt($curl, CURLOPT_FILE, $fp);
 		curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
 		
@@ -372,26 +347,11 @@ if (isset($_POST['delete'])) {
 
 	// Random image
 	if( ($config['derpibooru_random'] || $config['danbooru_random'] || $config['safebooru_random'] || $config['gelbooru_random'] || $config['giphy_random'])
-	    && (preg_match("/^#((pony|safe|derp|gel|gif|dan)rand|random)/i", strtolower($_POST['email'])))) {
+	    && (preg_match("/^#(pony|safe|derp|gel|gif|dan)rand/i", strtolower($_POST['email'])))) {
 		if (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != '')) {
         	$_POST['email'] = '';
         } else {
 			switch ($_POST['email']) {
-                // Google random
-                case (preg_match('/^#random:\"(.+)\"$/', $_POST['email'], $googleTagFound) ? $_POST['email'] : !$_POST['email']):
-                    $provider = 'google';
-                    if ($config['google_random']) {
-                        // Tag is required.
-                        if ($googleTagFound == "")
-                            error ("Tag is required.");
-                        $googleTag = str_replace(" ", "%20", $googleTagFound[1]);
-                        // Google shows only first 64 images from search results
-                        // So there is no need to get total images count and make two requests, at least I hope so
-                        $googleJSON = json_decode(file_get_contents('http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=1&q=' . $googleTag . '&start=' . mt_rand(0,63)));
-                        $post['file_url'] = $googleJSON->{"responseData"}->{"results"}[0]->{"unescapedUrl"};
-                    } else
-                        error('This feature is no longer supported.');
-                break;
 
 				// Derpibooru random
 				case (preg_match('/^#ponyrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']):
@@ -400,20 +360,20 @@ if (isset($_POST['delete'])) {
 					if ($config['derpibooru_random']) {
 						if (count($booruTagFound) === 1) {
 							// No tags found
-							$booruRand = json_decode(file_get_contents('https://derpibooru.org/images/random.json?key=' . $_POST['derpibooruAPIKey']));
+							$booruRand = json_decode(fetch_url('https://derpibooru.org/images/random.json?key=' . $_POST['derpibooruAPIKey']));
 						} else {
 							// Tags are in $booruTagFound[2]
 							$booruTag = str_replace(" ", "+", $booruTagFound[2]);
                            	if (isset($_POST['derpibooruAPIKey']) && ($_POST['derpibooruAPIKey'] != ''))
-                                $booruRand = json_decode(file_get_contents('https://derpibooru.org/search.json?q=' . $booruTag . '&key=' . $_POST['derpibooruAPIKey'] . '&random_image=y'));
+                                $booruRand = json_decode(fetch_url('https://derpibooru.org/search.json?q=' . $booruTag . '&key=' . $_POST['derpibooruAPIKey'] . '&random_image=y'));
                             else
-                                $booruRand = json_decode(file_get_contents('https://derpibooru.org/search.json?q=' . $booruTag . '&random_image=y'));
+                                $booruRand = json_decode(fetch_url('https://derpibooru.org/search.json?q=' . $booruTag . '&random_image=y'));
 						}
 
 						if (!isset($booruRand->{'id'}))
                          	error($config['error']['invalidtag']);
 
-                    	$booruRandJSON = json_decode(file_get_contents('https://derpibooru.org/' . $booruRand->{'id'} . '.json'));
+                    	$booruRandJSON = json_decode(fetch_url('https://derpibooru.org/' . $booruRand->{'id'} . '.json'));
                     	$post['file_url'] = 'https:' . $booruRandJSON->{"image"};
 
                     	if (!preg_match('@^https?://(.+\.)?derpicdn.net/@', $post['file_url']))
@@ -429,7 +389,7 @@ if (isset($_POST['delete'])) {
 						if (count($booruTagFound) === 1) {
 							// No tags found
 							// This little one simply donwloads a nice tiny json with the latest post on danbooru.
-							$booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?limit=1'));
+							$booruMaxJSON = json_decode(fetch_url('https://danbooru.donmai.us/posts.json?limit=1'));
 							$booruRand = mt_rand(1, $booruMaxJSON[0]->{"id"});
 						} else {
 							// Tags are in $booruTagFound[2]
@@ -441,14 +401,14 @@ if (isset($_POST['delete'])) {
 							$booruTag = str_replace("\)", "%29", $booruTag);
 							// search[name] is also useful, allows multiple tags search
 							// TODO: check $booruTagFound and search with search[name] when commas found
-							$booruMaxJSON = json_decode(file_get_contents('https://danbooru.donmai.us/tags.json?search[name_matches]=' . $booruTag));
+							$booruMaxJSON = json_decode(fetch_url('https://danbooru.donmai.us/tags.json?search[name_matches]=' . $booruTag));
 							if (empty($booruMaxJSON))
 								error($config['error']['invalidtag']);
 							$booruRandPage = mt_rand(1, $booruMaxJSON[0]->{"post_count"}/20);
 							// Danbooru have a limit on maximum displayed pages (1000). I don't have any clue why they did that, but whatever.
 							if ($booruRandPage > 1000)
 								$booruRandPage = mt_rand(1, 1000);
-							$booruRandPageJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts.json?tags=' . $booruTag . '&page=' . $booruRandPage));
+							$booruRandPageJSON = json_decode(fetch_url('https://danbooru.donmai.us/posts.json?tags=' . $booruTag . '&page=' . $booruRandPage));
 							// Well I already wrote a nice name generator, I don't really want to think about a workaround here.
 							// So let's just proceed to downloading JSON again, even when /posts.json can give all info we need.
 							$booruRand = $booruRandPageJSON[mt_rand(1, count ($booruRandPageJSON))]->{"id"};
@@ -457,7 +417,7 @@ if (isset($_POST['delete'])) {
 
 						// Danbooru allows 500 json requests per hour without API key. We're making at least two requests per image.
 						// TODO: API key support
-						$booruRandJSON = json_decode(file_get_contents('https://danbooru.donmai.us/posts/' . $booruRand . '.json'));
+						$booruRandJSON = json_decode(fetch_url('https://danbooru.donmai.us/posts/' . $booruRand . '.json'));
 						$post['file_url'] = 'https://danbooru.donmai.us' . $booruRandJSON->{"file_url"};
 
 						// This is still a shitty way to check and upload images.
@@ -474,12 +434,12 @@ if (isset($_POST['delete'])) {
 					if ($config['safebooru_random']) {
 						if (count($booruTagFound) === 1) {
 							// No tags found
-							$booruMaxXML = file_get_contents('http://safebooru.org/index.php?page=dapi&s=post&q=index&limit=0');
+							$booruMaxXML = fetch_url('https://safebooru.org/index.php?page=dapi&s=post&q=index&limit=0');
 							$booruXML = xml_parser_create();
 							xml_parse_into_struct($booruXML, $booruMaxXML, $booruXMLDecoded);
 							xml_parser_free($booruXML);
 							$booruRand = mt_rand(0, $booruXMLDecoded[0]["attributes"]["COUNT"]-1);
-							$booruRandXML = file_get_contents('http://safebooru.org/index.php?page=dapi&s=post&q=index&limit=1&pid=' . $booruRand);
+							$booruRandXML = fetch_url('https://safebooru.org/index.php?page=dapi&s=post&q=index&limit=1&pid=' . $booruRand);
 						} else {
 							// Tags are in $booruTagFound[2]
 							// Pretty sure there should be a function for this
@@ -487,14 +447,14 @@ if (isset($_POST['delete'])) {
 							$booruTag = str_replace("&", "%26", $booruTag);
 							$booruTag = str_replace("\(", "%28", $booruTag);
 							$booruTag = str_replace("\)", "%29", $booruTag);
-							$booruMaxXML = file_get_contents('http://safebooru.org/index.php?page=dapi&s=post&q=index&limit=0&tags=' . $booruTag);
+							$booruMaxXML = fetch_url('https://safebooru.org/index.php?page=dapi&s=post&q=index&limit=0&tags=' . $booruTag);
 							$booruXML = xml_parser_create();
 							xml_parse_into_struct($booruXML, $booruMaxXML, $booruXMLDecoded);
 							xml_parser_free($booruXML);
 							if ($booruXMLDecoded[0]["attributes"]["COUNT"] === '0')
 								error($config['error']['invalidtag']);
 							$booruRand = mt_rand(0, $booruXMLDecoded[0]["attributes"]["COUNT"]-1);
-							$booruRandXML = file_get_contents('http://safebooru.org/index.php?page=dapi&s=post&q=index&limit=1&tags=' . $booruTag . '&pid=' . $booruRand);
+							$booruRandXML = fetch_url('https://safebooru.org/index.php?page=dapi&s=post&q=index&limit=1&tags=' . $booruTag . '&pid=' . $booruRand);
 						}
 
 						$booruXML = xml_parser_create();
@@ -515,12 +475,12 @@ if (isset($_POST['delete'])) {
 					if ($config['gelbooru_random']) {
 						if (count($booruTagFound) === 1) {
 							// No tags found
-							$booruMaxXML = file_get_contents('http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=0');
+							$booruMaxXML = fetch_url('https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=0');
 							$booruXML = xml_parser_create();
 							xml_parse_into_struct($booruXML, $booruMaxXML, $booruXMLDecoded);
 							xml_parser_free($booruXML);
 							$booruRand = mt_rand(0, $booruXMLDecoded[0]["attributes"]["COUNT"]-1);
-							$booruRandXML = file_get_contents('http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=1&pid=' . $booruRand);
+							$booruRandXML = fetch_url('https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=1&pid=' . $booruRand);
 						} else {
 							// Tags are in $booruTagFound[2]
 							// Pretty sure there should be a function for this
@@ -528,14 +488,14 @@ if (isset($_POST['delete'])) {
 							$booruTag = str_replace("&", "%26", $booruTag);
 							$booruTag = str_replace("\(", "%28", $booruTag);
 							$booruTag = str_replace("\)", "%29", $booruTag);
-							$booruMaxXML = file_get_contents('http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=0&tags=' . $booruTag);
+							$booruMaxXML = fetch_url('https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=0&tags=' . $booruTag);
 							$booruXML = xml_parser_create();
 							xml_parse_into_struct($booruXML, $booruMaxXML, $booruXMLDecoded);
 							xml_parser_free($booruXML);
 							if ($booruXMLDecoded[0]["attributes"]["COUNT"] === '0')
 								error($config['error']['invalidtag']);
 							$booruRand = mt_rand(0, $booruXMLDecoded[0]["attributes"]["COUNT"]-1);
-							$booruRandXML = file_get_contents('http://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=1&tags=' . $booruTag . '&pid=' . $booruRand);
+							$booruRandXML = fetch_url('https://gelbooru.com/index.php?page=dapi&s=post&q=index&limit=1&tags=' . $booruTag . '&pid=' . $booruRand);
 						}
 
 						$booruXML = xml_parser_create();
@@ -554,21 +514,29 @@ if (isset($_POST['delete'])) {
 				case (preg_match('/^#gifrand(:\"(.+)\")?$/', $_POST['email'], $booruTagFound) ? $_POST['email'] : !$_POST['email']) :
 					$provider = 'giphy';
 					if ($config['giphy_random']) {
+						if (!$config['giphyAPIKey'])
+							error('Giphy API key is not configured. Set $config[\'giphyAPIKey\'] in inc/config.php (free key at https://developers.giphy.com/).');
 						if (count($booruTagFound) === 1) {
 							// No tags found
-							$booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey']));
-						} else {
-							// Tags are in $booruTagFound[2]
-							$booruTag = str_replace(" ", "+", $booruTagFound[2]);
-							$booruRandJSON = json_decode(file_get_contents('http://api.giphy.com/v1/gifs/random?api_key=' . $config['giphyAPIKey'] . '&tag=' . $booruTag));
-						}
-						if (!isset($booruRandJSON->{'data'}->{'id'}))
-							error($config['error']['invalidtag']);
+						$booruRandJSON = json_decode(fetch_url('https://api.giphy.com/v1/gifs/random?api_key=' . urlencode($config['giphyAPIKey']) . '&rating=g'));
+					} else {
+						// Tags are in $booruTagFound[2]
+						$booruTag = str_replace(" ", "+", $booruTagFound[2]);
+						$booruRandJSON = json_decode(fetch_url('https://api.giphy.com/v1/gifs/random?api_key=' . urlencode($config['giphyAPIKey']) . '&tag=' . urlencode($booruTag) . '&rating=g'));
+					}
+					if (!isset($booruRandJSON->{'data'}->{'id'}))
+						error($config['error']['invalidtag']);
 
-						$post['file_url'] = ($booruRandJSON->{'data'}->{'image_url'});
+					// Giphy API returns the gif under images.original.url (v2) or image_url (legacy).
+					if (isset($booruRandJSON->{'data'}->{'images'}->{'original'}->{'url'}))
+						$post['file_url'] = $booruRandJSON->{'data'}->{'images'}->{'original'}->{'url'};
+					elseif (isset($booruRandJSON->{'data'}->{'image_url'}))
+						$post['file_url'] = $booruRandJSON->{'data'}->{'image_url'};
+					else
+						error($config['error']['invalidimg']);
 
-						if (!preg_match('@^https?://s3.amazonaws.com/giphymedia/media/@', $post['file_url']))
-							 error($config['error']['invalidimg']);
+					if (!preg_match('@^https?://(\w+\.|)giphy\.com/@', $post['file_url']))
+						error($config['error']['invalidimg']);
 					} else
 						error('This feature is disabled.');
 				break;
@@ -600,7 +568,6 @@ if (isset($_POST['delete'])) {
 				curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
 				curl_setopt($curl, CURLOPT_TIMEOUT, $config['upload_by_url_timeout']);
 				curl_setopt($curl, CURLOPT_USERAGENT, 'Fukuro/5.0 Tinyboard/0.9.6.22');
-				curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
 				curl_setopt($curl, CURLOPT_FILE, $fp);
 				curl_setopt($curl, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
 
@@ -676,9 +643,9 @@ if (isset($_POST['delete'])) {
 	
 	if ($post['has_file']) {
 		if (strtolower($post['email']) == '#hide') {
-			$post['filename'] = "hidden." . pathinfo(urldecode(get_magic_quotes_gpc() ? stripslashes($_FILES['file']['name']) : $_FILES['file']['name']), PATHINFO_EXTENSION);
+			$post['filename'] = "hidden." . pathinfo(urldecode($_FILES['file']['name']), PATHINFO_EXTENSION);
 		} else {
-			$post['filename'] = urldecode(get_magic_quotes_gpc() ? stripslashes($_FILES['file']['name']) : $_FILES['file']['name']);
+			$post['filename'] = urldecode($_FILES['file']['name']);
 		}
 	}
 	

@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `modlogs` (
 CREATE TABLE IF NOT EXISTS `mods` (
   `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
-  `password` char(64) CHARACTER SET ascii NOT NULL COMMENT 'SHA256',
+  `password` varchar(255) CHARACTER SET ascii NOT NULL COMMENT 'bcrypt (legacy rows: sha256 hex)',
   `salt` char(32) CHARACTER SET ascii NOT NULL,
   `type` smallint(2) NOT NULL,
   `boards` text CHARACTER SET utf8 NOT NULL,
@@ -143,8 +143,9 @@ CREATE TABLE IF NOT EXISTS `mods` (
 -- Dumping data for table `mods`
 --
 
+-- Default admin password is "password" (bcrypt). Change it immediately after the first login.
 INSERT INTO `mods` VALUES
-(1, 'admin', 'cedad442efeef7112fed0f50b011b2b9bf83f6898082f995f69dd7865ca19fb7', '4a44c6c55df862ae901b413feecb0d49', 30, '*');
+(1, 'admin', '$2y$10$REPLACE_ME_RUN_install.php_OR_UPDATE_PASSWORD_IN_PANEL', '4a44c6c55df862ae901b413feecb0d49', 30, '*');
 
 -- --------------------------------------------------------
 

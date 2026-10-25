@@ -52,7 +52,7 @@ class ReCaptcha
      *
      * @param string $secret shared secret between site and ReCAPTCHA server.
      */
-    function ReCaptcha($secret)
+    function __construct($secret)
     {
         if ($secret == null || $secret == "") {
             die("To use reCAPTCHA you must get an API key from <a href='"
@@ -91,7 +91,34 @@ class ReCaptcha
     private function _submitHTTPGet($path, $data)
     {
         $req = $this->_encodeQS($data);
-        $response = file_get_contents($path . $req);
+        $url = $path . $req;
+
+        /* Prefer cURL with timeouts + TLS verification (matches the rest of the engine). */
+        if (function_exists('curl_init')) {
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_FAILONERROR, true);
+            curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
+            curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+            $response = curl_exec($curl);
+            curl_close($curl);
+            if ($response !== false) {
+                return $response;
+            }
+        }
+
+        /* Fallback: streams with an explicit timeout (never a bare blocking fopen). */
+        $context = stream_context_create(array(
+            'http' => array(
+                'timeout'     => 15,
+                'verify_peer' => true,
+                'verify_peer_name' => true,
+            ),
+        ));
+        $response = @file_get_contents($url, false, $context);
         return $response;
     }
 
@@ -123,14 +150,14 @@ class ReCaptcha
                 'response' => $response
             )
         );
-        $answers = json_decode($getResponse, true);
+        $answers = json_decode((string)$getResponse, true);
         $recaptchaResponse = new ReCaptchaResponse();
 
-        if (trim($answers ['success']) == true) {
+        if (is_array($answers) && !empty($answers['success'])) {
             $recaptchaResponse->success = true;
         } else {
             $recaptchaResponse->success = false;
-            $recaptchaResponse->errorCodes = $answers [error-codes];
+            $recaptchaResponse->errorCodes = isset($answers['error-codes']) ? $answers['error-codes'] : 'invalid-response';
         }
 
         return $recaptchaResponse;

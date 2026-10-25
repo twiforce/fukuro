@@ -103,59 +103,9 @@ function mod_dashboard() {
 	$query = query('SELECT COUNT(*) FROM ``reports``') or error(db_error($query));
 	$args['reports'] = $query->fetchColumn();
 	
-	if ($mod['type'] >= ADMIN && $config['check_updates']) {
-		if (!$config['version'])
-			error(_('Could not find current version! (Check .installed)'));
-		
-		if (isset($_COOKIE['update'])) {
-			$latest = unserialize($_COOKIE['update']);
-		} else {
-			$ctx = stream_context_create(array('http' => array('timeout' => 5)));
-			if ($code = @file_get_contents('http://tinyboard.org/version.txt', 0, $ctx)) {
-				$ver = strtok($code, "\n");
-				
-				if (preg_match('@^// v(\d+)\.(\d+)\.(\d+)\s*?$@', $ver, $matches)) {
-					$latest = array(
-						'massive' => $matches[1],
-						'major' => $matches[2],
-						'minor' => $matches[3]
-					);
-					if (preg_match('/v(\d+)\.(\d)\.(\d+)(-dev.+)?$/', $config['version'], $matches)) {
-						$current = array(
-							'massive' => (int) $matches[1],
-							'major' => (int) $matches[2],
-							'minor' => (int) $matches[3]
-						);
-						if (isset($m[4])) { 
-							// Development versions are always ahead in the versioning numbers
-							$current['minor'] --;
-						}
-						// Check if it's newer
-						if (!(	$latest['massive'] > $current['massive'] ||
-							$latest['major'] > $current['major'] ||
-								($latest['massive'] == $current['massive'] &&
-									$latest['major'] == $current['major'] &&
-									$latest['minor'] > $current['minor']
-								)))
-							$latest = false;
-					} else {
-						$latest = false;
-					}
-				} else {
-					// Couldn't get latest version
-					$latest = false;
-				}
-			} else {
-				// Couldn't get latest version
-				$latest = false;
-			}
-	
-			setcookie('update', serialize($latest), time() + $config['check_updates_time'], $config['cookies']['jail'] ? $config['cookies']['path'] : '/', null, false, true);
-		}
-		
-		if ($latest)
-			$args['newer_release'] = $latest;
-	}
+	// Проверка обновлений tinyboard.org удалена: URL недоступен (mrtg/tinyboard.org),
+	// результат (newer_release) нигде не отображался в шаблонах, а unserialize() из
+	// пользовательского cookie 'update' был вектором PHP Object Injection.
 	
 	$args['logout_token'] = make_secure_link_token('logout');
 	
@@ -1204,7 +1154,7 @@ function mod_move($originBoard, $postID) {
 			}
 		}
 		
-		modLog("Moved thread #${postID} to " . sprintf($config['board_abbreviation'], $targetBoard) . " (#${newID})", $originBoard);
+		modLog("Moved thread #$postID to " . sprintf($config['board_abbreviation'], $targetBoard) . " (#$newID)", $originBoard);
 		
 		// build new thread
 		buildThread($newID);
@@ -1664,7 +1614,7 @@ function mod_user($uid) {
 		
 		if ($_POST['password'] != '') {
 			$salt = generate_salt();
-			$password = hash('sha256', $salt . sha1($_POST['password']));
+			$password = mod_password_hash(sha1($_POST['password']));
 			
 			$query = prepare('UPDATE ``mods`` SET `password` = :password, `salt` = :salt WHERE `id` = :id');
 			$query->bindValue(':id', $uid);
@@ -1691,7 +1641,7 @@ function mod_user($uid) {
 	if (hasPermission($config['mod']['change_password']) && $uid == $mod['id'] && isset($_POST['password'])) {
 		if ($_POST['password'] != '') {
 			$salt = generate_salt();
-			$password = hash('sha256', $salt . sha1($_POST['password']));
+			$password = mod_password_hash(sha1($_POST['password']));
 
 			$query = prepare('UPDATE ``mods`` SET `password` = :password, `salt` = :salt WHERE `id` = :id');
 			$query->bindValue(':id', $uid);
@@ -1764,7 +1714,7 @@ function mod_user_new() {
 			error(sprintf($config['error']['invalidfield'], 'type'));
 		
 		$salt = generate_salt();
-		$password = hash('sha256', $salt . sha1($_POST['password']));
+		$password = mod_password_hash(sha1($_POST['password']));
 		
 		$query = prepare('INSERT INTO ``mods`` VALUES (NULL, :username, :password, :salt, :type, :boards)');
 		$query->bindValue(':username', $_POST['username']);

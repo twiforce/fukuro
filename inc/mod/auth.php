@@ -6,29 +6,58 @@
 
 defined('TINYBOARD') or exit;
 
-// create a hash/salt pair for validate logins
-function mkhash($username, $password, $salt = false) {
-	global $config;
-	
-	if (!$salt) {
-		// create some sort of salt for the hash
-		$salt = substr(base64_encode(sha1(rand() . time(), true) . $config['cookies']['salt']), 0, 15);
-		
-		$generated_salt = true;
-	}
-	
-	// generate hash (method is not important as long as it's strong)
-	$hash = substr(base64_encode(md5($username . $config['cookies']['salt'] . sha1($username . $password . $salt . ($config['mod']['lock_ip'] ? $_SERVER['REMOTE_ADDR'] : ''), true), true)), 0, 20);
-	
-	if (isset($generated_salt))
-		return array($hash, $salt);
-	else
-		return $hash;
+// Create a session token for validating moderator cookies.
+// The token is derived from the user's password hash via HMAC-SHA256 keyed with
+// the board-wide cookie salt, so the stored password hash itself is never sent
+// to the client. When mod/lock_ip is enabled the client IP is mixed into the
+// token, binding the session to that IP.
+function mkhash($username, $password, $salt = null) {
+global $config;
+
+$data = $username . '|' . $password . '|' . ($salt === null ? '' : $salt);
+if (!empty($config['mod']['lock_ip'])) {
+$data .= '|' . ($_SERVER['REMOTE_ADDR'] ?? '');
 }
 
+return hash_hmac('sha256', $data, $config['cookies']['salt']);
+}
+
+// Generate a new random per-login salt for the session cookie.
+function mkcookie_salt() {
+return bin2hex(random_bytes(8));
+}
+
+// Cryptographically secure per-user password salt (32 hex chars, fits `salt` char(32)).
 function generate_salt() {
-	mt_srand(microtime(true) * 100000 + memory_get_usage(true));
-	return md5(uniqid(mt_rand(), true));
+return bin2hex(random_bytes(16));
+}
+
+// Hash a plaintext (already sha1()'d) password for storage. New hashes use bcrypt;
+// the legacy format was hash('sha256', $salt . $password).
+function mod_password_hash($hashed_input) {
+return password_hash($hashed_input, PASSWORD_BCRYPT);
+}
+
+// Verify a submitted (sha1'd) password against the stored hash, transparently
+// migrating legacy SHA-256-salted records to bcrypt on successful login.
+function mod_password_verify($user, $password) {
+if (strlen($user['password']) === 64 && ctype_xdigit($user['password'])) {
+// Legacy: hash('sha256', salt . sha1(password)) — constant-time compare, then upgrade.
+if (!hash_equals($user['password'], hash('sha256', $user['salt'] . $password))) {
+return false;
+}
+$salt = generate_salt();
+$newhash = mod_password_hash($password);
+$q = prepare('UPDATE ``mods`` SET `password` = :password, `salt` = :salt WHERE `id` = :id');
+$q->bindValue(':password', $newhash);
+$q->bindValue(':salt', $salt);
+$q->bindValue(':id', $user['id'], PDO::PARAM_INT);
+$q->execute() or error(db_error($q));
+$user['password'] = $newhash;
+$user['salt'] = $salt;
+return true;
+}
+return password_verify($password, $user['password']);
 }
 
 function login($username, $password, $makehash=true) {
@@ -44,12 +73,13 @@ function login($username, $password, $makehash=true) {
 	$query->execute() or error(db_error($query));
 	
 	if ($user = $query->fetch(PDO::FETCH_ASSOC)) {
-		if ($user['password'] === hash('sha256', $user['salt'] . $password)) {
+		if (mod_password_verify($user, $password)) {
+			$cookie_salt = mkcookie_salt();
 			return $mod = array(
 				'id' => $user['id'],
 				'type' => $user['type'],
 				'username' => $username,
-				'hash' => mkhash($username, $user['password']),
+				'hash' => array(mkhash($username, $user['password'], $cookie_salt), $cookie_salt),
 				'boards' => explode(',', $user['boards'])
 			);
 		}
@@ -63,19 +93,29 @@ function setCookies() {
 	if (!$mod)
 		error('setCookies() was called for a non-moderator!');
 	
-	setcookie($config['cookies']['mod'],
-			$mod['username'] . // username
-			':' . 
-			$mod['hash'][0] . // password
-			':' .
-			$mod['hash'][1], // salt
-		time() + $config['cookies']['expire'], $config['cookies']['jail'] ? $config['cookies']['path'] : '/', null, false, $config['cookies']['httponly']);
+	setcookie(
+		$config['cookies']['mod'],
+		$mod['username'] . ':' . $mod['hash'][0] . ':' . $mod['hash'][1], // username:token:salt
+		array(
+			'expires' => time() + $config['cookies']['expire'],
+			'path' => $config['cookies']['jail'] ? $config['cookies']['path'] : '/',
+			'secure' => boolval($config['cookies']['secure'] ?? false),
+			'httponly' => $config['cookies']['httponly'],
+			'samesite' => 'Lax'
+		)
+	);
 }
 
 function destroyCookies() {
 	global $config;
 	// Delete the cookies
-	setcookie($config['cookies']['mod'], 'deleted', time() - $config['cookies']['expire'], $config['cookies']['jail']?$config['cookies']['path'] : '/', null, false, true);
+	setcookie($config['cookies']['mod'], 'deleted', array(
+		'expires' => time() - $config['cookies']['expire'],
+		'path' => $config['cookies']['jail'] ? $config['cookies']['path'] : '/',
+		'secure' => boolval($config['cookies']['secure'] ?? false),
+		'httponly' => true,
+		'samesite' => 'Lax'
+	));
 }
 
 function modLog($action, $_board=null) {
@@ -114,8 +154,8 @@ if (isset($_COOKIE[$config['cookies']['mod']])) {
 	$query->execute() or error(db_error($query));
 	$user = $query->fetch(PDO::FETCH_ASSOC);
 	
-	// validate password hash
-	if ($cookie[1] !== mkhash($cookie[0], $user['password'], $cookie[2])) {
+	// validate session token
+	if (!$user || !hash_equals(mkhash($cookie[0], $user['password'], $cookie[2]), $cookie[1])) {
 		// Malformed cookies
 		destroyCookies();
 		mod_login();

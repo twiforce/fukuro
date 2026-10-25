@@ -39,7 +39,8 @@
 	$config['blotter'] = &$config['global_message'];
 
 	// Automatically check if a newer version of Tinyboard is available when an administrator logs in.
-	$config['check_updates'] = true;
+	// Устарело: проверка обновлений (tinyboard.org/version.txt) удалена из inc/mod/pages.php.
+	$config['check_updates'] = false;
 	// How often to check for updates
 	$config['check_updates_time'] = 43200; // 12 hours
 
@@ -115,8 +116,7 @@
 	 */
 
 	$config['cache']['enabled'] = false;
-	// $config['cache']['enabled'] = 'xcache';
-	// $config['cache']['enabled'] = 'apc';
+	// $config['cache']['enabled'] = 'apcu';
 	// $config['cache']['enabled'] = 'memcached';
 	// $config['cache']['enabled'] = 'redis';
 
@@ -159,12 +159,16 @@
 	$config['cookies']['expire'] = 60 * 60 * 24 * 30 * 6; // ~6 months
 
 	// Make this something long and random for security.
+	// NOTE: the value below is a public placeholder. install.php replaces it with a
+	// random secret; if you configured the board manually, override it in
+	// inc/instance-config.php (a runtime warning reminds you until you do).
 	$config['cookies']['salt'] = 'abcdefghijklmnopqrstuvwxyz09123456789!@#$%^&*()';
 
 	// Whether or not you can access the mod cookie in JavaScript. Most users should not need to change this.
 	$config['cookies']['httponly'] = true;
 
 	// Used to salt secure tripcodes ("##trip") and poster IDs (if enabled).
+	// Also a public placeholder — override it in inc/instance-config.php.
 	$config['secure_trip_salt'] = ')(*&^%$#@!98765432190zyxwvutsrqponmlkjihgfedcba';
 
 /*
@@ -273,8 +277,6 @@
 		'raw',
 		'embed',
 		'captcha',
-		'recaptcha_challenge_field',
-		'recaptcha_response_field',
 		'spoiler',
 		'quick-reply',
 		'page',
@@ -286,15 +288,12 @@
 	// Simple captcha
 	$config['captcha'] = false;
 
-	// Enable old reCaptcha (API 1.0) to make spam even harder. Rarely necessary.
-	$config['recaptcha'] = false;
-
-	// Enable new reCaptcha (API 2.0) to make spam even harder. Rarely necessary.
+	// Enable reCAPTCHA v2 (API 2.0) to make spam even harder. Rarely necessary.
 	$config['recaptcha2'] = false;
 
 	// Public and private key pair from https://www.google.com/recaptcha/admin/create
-	$config['recaptcha_public'] = '6LcXTcUSAAAAAKBxyFWIt2SO8jwx4W7wcSMRoN3f';
-	$config['recaptcha_private'] = '6LcXTcUSAAAAAOGVbVdhmEM1_SyRF4xTKe8jbzf_';
+	$config['recaptcha_public'] = '';
+	$config['recaptcha_private'] = '';
 
 	/*
 	 * Custom filters detect certain posts and reject/ban accordingly. They are made up of a condition and an
@@ -782,9 +781,8 @@
     // Amount of unique dices that can be rolled in a single post.
     $config['dice_limit'] = 5;
 
-    // #random in email field will attach a random pic from google.com.
-    // This API is now deprecated, alternative solution is heavily limited in requests.
-    $config['google_random'] = false;
+    // NOTE: the old "#random:\"tag\"" Google image feature was removed: it relied on
+    // the Google Custom Search API v1 (ajax.googleapis.com), discontinued in 2017.
 
     // #ponyrand in email field will attach a random pic from derpiboo.ru.
     $config['derpibooru_random'] = true;
@@ -801,9 +799,9 @@
 	// #gifrand in email field will attach a random gif from giphy.com
     $config['giphy_random'] = true;
 
-    // API key is necessary for $config['giphy_random'], this one is for testing only
-    // Register your own API key by contacting api@giphy.com
-    $config['giphyAPIKey'] = "dc6zaTOxFJmzC";
+    // API key is necessary for $config['giphy_random'].
+    // Get a free public (beta) key at https://developers.giphy.com/ and set it here.
+    $config['giphyAPIKey'] = "";
 
     // #letstry in email field will add some hardcoded random string.
     $config['letstry'] = true;
@@ -1049,27 +1047,27 @@
 	$config['embedding'] = array(
 		array(
 			'/^https?:\/\/(\w+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-_]{10,11})(&.+)?$/i',
-			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" type="text/html" src="http://www.youtube.com/embed/$2"></iframe>'
+			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" type="text/html" src="//www.youtube.com/embed/$2"></iframe>'
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?vimeo\.com\/(\d{2,10})(\?.+)?$/i',
-			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="%%tb_width%%" height="%%tb_height%%"></embed></object>'
+			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="//vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="//vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="%%tb_width%%" height="%%tb_height%%"></embed></object>'
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?dailymotion\.com\/video\/([a-zA-Z0-9]{2,10})(_.+)?$/i',
-			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="movie" value="http://www.dailymotion.com/swf/video/$2"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><param name="wmode" value="transparent"></param><embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/$2" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowfullscreen="true" allowscriptaccess="always"></embed></object>'
+			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="movie" value="//www.dailymotion.com/swf/video/$2"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><param name="wmode" value="transparent"></param><embed type="application/x-shockwave-flash" src="//www.dailymotion.com/swf/video/$2" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowfullscreen="true" allowscriptaccess="always"></embed></object>'
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?metacafe\.com\/watch\/(\d+)\/([a-zA-Z0-9_\-.]+)\/(\?.+)?$/i',
-			'<div style="float:left;margin:10px 20px;width:%%tb_width%%px;height:%%tb_height%%px"><embed flashVars="playerVars=showStats=no|autoPlay=no" src="http://www.metacafe.com/fplayer/$2/$3.swf" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowFullScreen="true" allowScriptAccess="always" name="Metacafe_$2" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"></embed></div>'
+			'<div style="float:left;margin:10px 20px;width:%%tb_width%%px;height:%%tb_height%%px"><embed flashVars="playerVars=showStats=no|autoPlay=no" src="//www.metacafe.com/fplayer/$2/$3.swf" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowFullScreen="true" allowScriptAccess="always" name="Metacafe_$2" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"></embed></div>'
 		),
 		array(
 			'/^https?:\/\/video\.google\.com\/videoplay\?docid=(\d+)([&#](.+)?)?$/i',
-			'<embed src="http://video.google.com/googleplayer.swf?docid=$1&hl=en&fs=true" style="width:%%tb_width%%px;height:%%tb_height%%px;float:left;margin:10px 20px" allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>'
+			'<embed src="//video.google.com/googleplayer.swf?docid=$1&hl=en&fs=true" style="width:%%tb_width%%px;height:%%tb_height%%px;float:left;margin:10px 20px" allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>'
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?vocaroo\.com\/i\/([a-zA-Z0-9]{2,15})$/i',
-			'<object style="float: left;margin: 10px 20px;" width="148" height="44"><param name="movie" value="http://vocaroo.com/player.swf?playMediaID=$2&autoplay=0"></param><param name="wmode" value="transparent"></param><embed src="http://vocaroo.com/player.swf?playMediaID=$2&autoplay=0" width="148" height="44" wmode="transparent" type="application/x-shockwave-flash"></embed></object>'
+			'<object style="float: left;margin: 10px 20px;" width="148" height="44"><param name="movie" value="//vocaroo.com/player.swf?playMediaID=$2&autoplay=0"></param><param name="wmode" value="transparent"></param><embed src="//vocaroo.com/player.swf?playMediaID=$2&autoplay=0" width="148" height="44" wmode="transparent" type="application/x-shockwave-flash"></embed></object>'
 		)
 	);
 

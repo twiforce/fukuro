@@ -20,7 +20,7 @@
 		<div class="thread">
 			<a href="{{post.link}}">
                 {% if post.youtube %}
-                    <img src="http://img.youtube.com/vi/{{ post.youtube }}/0.jpg" class="{{post.board}}" title="{{post.bump|date('%b %d %H:%M')}}">
+                    <img src="https://img.youtube.com/vi/{{ post.youtube }}/0.jpg" class="{{post.board}}" title="{{post.bump|date('%b %d %H:%M')}}">
                 {% elseif post.file %}
 				    <img src="{{post.file}}" class="{{post.board}}" title="{{post.bump|date('%b %d %H:%M')}}">
                 {% endif %}

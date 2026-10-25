@@ -24,6 +24,9 @@ class Cache {
 				}
 				self::$cache->select($config['cache']['redis'][3]) or die('cache select failure');
 				break;
+			case 'apcu':
+				// APCu user cache; no connection object needed.
+				break;
 			case 'php':
 				self::$cache = array();
 				break;
@@ -41,11 +44,15 @@ class Cache {
 					self::init();
 				$data = self::$cache->get($key);
 				break;
-			case 'apc':
-				$data = apc_fetch($key);
-				break;
-			case 'xcache':
-				$data = xcache_get($key);
+			case 'apcu':
+				$ok = false;
+				if (function_exists('apcu_fetch')) {
+					$data = apcu_fetch($key, $ok);
+				} elseif (function_exists('apc_fetch')) {
+					// Legacy: original APC extension (PHP < 5.5).
+					$data = apc_fetch($key, $ok);
+				}
+				if (!$ok) $data = false;
 				break;
 			case 'php':
 				$data = isset(self::$cache[$key]) ? self::$cache[$key] : false;
@@ -81,11 +88,12 @@ class Cache {
 					self::init();
 				self::$cache->setex($key, $expires, json_encode($value));
 				break;
-			case 'apc':
-				apc_store($key, $value, $expires);
-				break;
-			case 'xcache':
-				xcache_set($key, $value, $expires);
+			case 'apcu':
+				if (function_exists('apcu_store')) {
+					apcu_store($key, $value, $expires);
+				} elseif (function_exists('apc_store')) {
+					apc_store($key, $value, $expires);
+				}
 				break;
 			case 'php':
 				self::$cache[$key] = $value;
@@ -107,11 +115,12 @@ class Cache {
 					self::init();
 				self::$cache->delete($key);
 				break;
-			case 'apc':
-				apc_delete($key);
-				break;
-			case 'xcache':
-				xcache_unset($key);
+			case 'apcu':
+				if (function_exists('apcu_delete')) {
+					apcu_delete($key);
+				} elseif (function_exists('apc_delete')) {
+					apc_delete($key);
+				}
 				break;
 			case 'php':
 				unset(self::$cache[$key]);
@@ -129,8 +138,13 @@ class Cache {
 				if (!self::$cache)
 					self::init();
 				return self::$cache->flush();
-			case 'apc':
-				return apc_clear_cache('user');
+			case 'apcu':
+				if (function_exists('apcu_clear_cache')) {
+					return apcu_clear_cache();
+				} elseif (function_exists('apc_clear_cache')) {
+					return apc_clear_cache('user');
+				}
+				return false;
 			case 'php':
 				self::$cache = array();
 				break;

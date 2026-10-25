@@ -95,15 +95,23 @@ function sql_open() {
 	}
 }
 
-// 5.6.10 becomes 50610
+// 5.6.10 becomes 50610, 8.0.34 becomes 80034, 11.4.2 becomes 110402 (MariaDB)
 function mysql_version() {
 	global $pdo;
 	
 	$version = $pdo->getAttribute(PDO::ATTR_SERVER_VERSION);
-	$v = explode('.', $version);
-	if (count($v) != 3)
+	// Some builds report a package epoch prefix, e.g. Debian MariaDB "1:11.4.2+maria~ubu2204".
+	if (preg_match('/^\d+:\d/', $version))
+		$version = substr($version, strpos($version, ':') + 1);
+	// Match the leading numeric version and drop suffixes like "-log", "-MariaDB", "+maria~ubu2204".
+	if (!preg_match('/^(\d+)\.(\d+)(?:\.(\d+))?/', $version, $m))
 		return false;
-	return (int) sprintf("%02d%02d%02d", $v[0], $v[1], $v[2]);
+	$major = (int)$m[1];
+	$minor = (int)$m[2];
+	$patch = isset($m[3]) ? (int)$m[3] : 0;
+	// Clamp to two digits so absurd values can't overflow into neighboring fields
+	// (real servers never reach .99 anyway). Comparisons in this codebase use >= 50503.
+	return 10000 * min($major, 99) + 100 * min($minor, 99) + min($patch, 99);
 }
 
 function prepare($query) {

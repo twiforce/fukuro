@@ -16,9 +16,11 @@ imagefill($img, 0, 0, $bg);
 putenv( 'GDFONTPATH=' . realpath('.') );
  
 $captcha = '';
+// The code itself must be unpredictable: use a CSPRNG (rand()/mt_rand() are
+// seeded per-request in a guessable way and were deprecated for security use).
 for ($i = 0; $i < $caplen; $i++)
 {
-    $captcha .= $letters[ rand(0, strlen($letters)-1) ];
+    $captcha .= $letters[random_int(0, strlen($letters)-1)];
     $x = ($width - 20) / $caplen * $i + 10;
     $x = rand($x, $x+4);
     $y = $height - ( ($height - $fontsize) / 2 );
