@@ -11,14 +11,8 @@ $twig = false;
 function load_twig() {
 	global $twig, $config;
 	
-	require 'lib/Twig/Autoloader.php';
-	Twig_Autoloader::register();
+	require_once 'lib/Twig/autoload.php';
 
-	Twig_Autoloader::autoload('Twig_Extensions_Node_Trans');
-	Twig_Autoloader::autoload('Twig_Extensions_TokenParser_Trans');
-	Twig_Autoloader::autoload('Twig_Extensions_Extension_I18n');
-	Twig_Autoloader::autoload('Twig_Extensions_Extension_Tinyboard');
-	
 	$loader = new Twig_Loader_Filesystem($config['dir']['template']);
 	$loader->setPaths($config['dir']['template']);
 	$twig = new Twig_Environment($loader, array(
@@ -63,7 +57,7 @@ function Element($templateFile, array $options) {
 	}
 	
 	// Read the template file
-	if (@file_get_contents("{$config['dir']['template']}/${templateFile}")) {
+	if (@file_get_contents("{$config['dir']['template']}/{$templateFile}")) {
 		$body = $twig->render($templateFile, $options);
 		
 		if ($config['minify_html'] && preg_match('/\.html$/', $templateFile)) {
@@ -72,7 +66,7 @@ function Element($templateFile, array $options) {
 		
 		return $body;
 	} else {
-		throw new Exception("Template file '${templateFile}' does not exist or is empty in '{$config['dir']['template']}'!");
+		throw new Exception("Template file '{$templateFile}' does not exist or is empty in '{$config['dir']['template']}'!");
 	}
 }
 

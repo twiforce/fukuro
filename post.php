@@ -7,16 +7,6 @@
 require 'inc/functions.php';
 require 'inc/anti-bot.php';
 
-// Fix for magic quotes
-if (get_magic_quotes_gpc()) {
-	function strip_array($var) {
-		return is_array($var) ? array_map('strip_array', $var) : stripslashes($var);
-	}
-	
-	$_GET = strip_array($_GET);
-	$_POST = strip_array($_POST);
-}
-
 if (isset($_POST['delete'])) {
 	// Delete
 	
@@ -143,7 +133,7 @@ if (isset($_POST['delete'])) {
 		$query = prepare("INSERT INTO ``reports`` VALUES (NULL, :time, :ip, :board, :post, :reason)");
 		$query->bindValue(':time', time(), PDO::PARAM_INT);
 		$query->bindValue(':ip', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
-		$query->bindValue(':board', $board['uri'], PDO::PARAM_INT);
+		$query->bindValue(':board', $board['uri'], PDO::PARAM_STR);
 		$query->bindValue(':post', $id, PDO::PARAM_INT);
 		$query->bindValue(':reason', $reason, PDO::PARAM_STR);
 		$query->execute() or error(db_error($query));
@@ -679,16 +669,16 @@ if (isset($_POST['delete'])) {
 	
 	$post['name'] = $_POST['name'] != '' ? $_POST['name'] : $config['anonymous'];
 	$post['subject'] = $_POST['subject'];
-	$post['email'] = str_replace(' ', '%20', htmlspecialchars($_POST['email']));
+	$post['email'] = str_replace(' ', '%20', htmlspecialchars($_POST['email'], ENT_COMPAT));
 	$post['body'] = $_POST['body'];
 	$post['password'] = $_POST['password'];
 	$post['has_file'] = (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != ''));
 	
 	if ($post['has_file']) {
 		if (strtolower($post['email']) == '#hide') {
-			$post['filename'] = "hidden." . pathinfo(urldecode(get_magic_quotes_gpc() ? stripslashes($_FILES['file']['name']) : $_FILES['file']['name']), PATHINFO_EXTENSION);
+			$post['filename'] = "hidden." . pathinfo(urldecode($_FILES['file']['name']), PATHINFO_EXTENSION);
 		} else {
-			$post['filename'] = urldecode(get_magic_quotes_gpc() ? stripslashes($_FILES['file']['name']) : $_FILES['file']['name']);
+			$post['filename'] = urldecode($_FILES['file']['name']);
 		}
 	}
 	

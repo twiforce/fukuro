@@ -22,7 +22,7 @@ class Twig_Extensions_Extension_Tinyboard extends Twig_Extension
 			new Twig_SimpleFilter('date', 'twig_date_filter'),
 			new Twig_SimpleFilter('poster_id', 'poster_id'),
 			new Twig_SimpleFilter('remove_whitespace', 'twig_remove_whitespace_filter'),
-			new Twig_SimpleFilter('count', 'count'),
+			new Twig_SimpleFilter('count', 'twig_count_filter'),
 			new Twig_SimpleFilter('ago', 'ago'),
 			new Twig_SimpleFilter('until', 'until'),
 			new Twig_SimpleFilter('push', 'twig_push_filter'),
@@ -64,6 +64,10 @@ class Twig_Extensions_Extension_Tinyboard extends Twig_Extension
 
 function twig_timezone_function() {
 	return 'Z';
+}
+
+function twig_count_filter($value) {
+	return is_array($value) || $value instanceof Countable ? count($value) : ($value === null ? 0 : 1);
 }
 
 function twig_push_filter($array, $value) {
@@ -128,7 +132,7 @@ function twig_ratio_function($w, $h) {
 function twig_secure_link_confirm($text, $title, $confirm_message, $href) {
 	global $config;
 
-	return '<a onclick="if (event.which==2) return true;if (confirm(\'' . htmlentities(addslashes($confirm_message)) . '\')) document.location=\'?/' . htmlspecialchars(addslashes($href . '/' . make_secure_link_token($href))) . '\';return false;" title="' . htmlentities($title) . '" href="?/' . $href . '">' . $text . '</a>';
+	return '<a onclick="if (event.which==2) return true;if (confirm(\'' . htmlentities(addslashes($confirm_message), ENT_COMPAT) . '\')) document.location=\'?/' . htmlspecialchars(addslashes($href . '/' . make_secure_link_token($href)), ENT_COMPAT) . '\';return false;" title="' . htmlentities($title, ENT_COMPAT) . '" href="?/' . $href . '">' . $text . '</a>';
 }
 function twig_secure_link($href) {
 	return $href . '/' . make_secure_link_token($href);

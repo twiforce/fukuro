@@ -69,6 +69,7 @@ function sql_open() {
 	try {
 		$options = array(
 			PDO::ATTR_TIMEOUT => $config['db']['timeout'],
+			PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT,
 			PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true
 		);
 		if ($config['db']['persistent'])

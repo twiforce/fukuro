@@ -288,7 +288,7 @@ function bidi_cleanup($data) {
 function secure_link_confirm($text, $title, $confirm_message, $href) {
 	global $config;
 
-	return '<li role="presentation"><a role="menuitem" tabindex="-1" onclick="if (event.which==2) return true;if (confirm(\'' . htmlentities(addslashes($confirm_message)) . '\')) document.location=\'?/' . htmlspecialchars(addslashes($href . '/' . make_secure_link_token($href))) . '\';return false;" title="' . htmlentities($title) . '" href="?/' . $href . '">' . $text . '</a></li<>';
+	return '<li role="presentation"><a role="menuitem" tabindex="-1" onclick="if (event.which==2) return true;if (confirm(\'' . htmlentities(addslashes($confirm_message), ENT_COMPAT) . '\')) document.location=\'?/' . htmlspecialchars(addslashes($href . '/' . make_secure_link_token($href)), ENT_COMPAT) . '\';return false;" title="' . htmlentities($title, ENT_COMPAT) . '" href="?/' . $href . '">' . $text . '</a></li<>';
 }
 function secure_link($href) {
 	return $href . '/' . make_secure_link_token($href);

@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 $mode = @$_GET['mode'];
 
 chdir('..'); // for "cool PHP CAPTCHA"'s resourcesPath
-include "inc/functions.php";
+require_once "inc/functions.php";
 
 switch ($mode) {
 // Request: GET entrypoint.php?mode=get&extra=1234567890

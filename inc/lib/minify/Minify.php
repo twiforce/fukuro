@@ -438,7 +438,7 @@ class Minify {
     {
         $url = htmlspecialchars($url, ENT_QUOTES);
         list(,$h1) = explode(' ', $header, 2);
-        $h1 = htmlspecialchars($h1);
+        $h1 = htmlspecialchars($h1, ENT_COMPAT);
         // FastCGI environments require 3rd arg to header() to be set
         list(, $code) = explode(' ', $header, 3);
         header($header, true, $code);

@@ -484,10 +484,10 @@ class ImageJPEG extends ImageJPG {
 
 class ImageBMP extends ImageBase {
 	public function from() {
-		$this->image = @imagecreatefrombmp($this->src);
+		$this->image = @imagecreatefrombmp_legacy($this->src);
 	}
 	public function to($src) {
-		imagebmp($this->image, $src);
+		imagebmp_legacy($this->image, $src);
 	}
 }
 
@@ -500,7 +500,7 @@ class ImageBMP extends ImageBase {
 /* Version:  2.0B                            */
 /*********************************************/
 
-function imagecreatefrombmp($filename) {
+function imagecreatefrombmp_legacy($filename) {
    if (! $f1 = fopen($filename,"rb")) return FALSE;
    $FILE = unpack("vfile_type/Vfile_size/Vreserved/Vbitmap_offset", fread($f1,14));
    if ($FILE['file_type'] != 19778) return FALSE;
@@ -578,7 +578,7 @@ function imagecreatefrombmp($filename) {
  return $res;
 }
 
-function imagebmp(&$img, $filename='') {
+function imagebmp_legacy(&$img, $filename='') {
 	$widthOrig = imagesx($img);
 	$widthFloor = ((floor($widthOrig/16))*16);
 	$widthCeil = ((ceil($widthOrig/16))*16);

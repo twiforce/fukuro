@@ -264,8 +264,16 @@ function _syslog($priority, $message) {
 }
 
 function verbose_error_handler($errno, $errstr, $errfile, $errline) {
-	if (error_reporting() == 0)
+	if (!(error_reporting() & $errno))
 		return false; // Looks like this warning was suppressed by the @ operator.
+	if ($errno == E_DEPRECATED || $errno == E_USER_DEPRECATED) {
+		// Deprecations are not errors. Log them only while debugging, so the production log stays readable.
+		global $config;
+		if ($config['debug'])
+			error_log('PHP Deprecated: ' . $errstr . ' in ' . $errfile . ' on line ' . $errline);
+		return true;
+	}
+	error_log('PHP ' . ($errno == E_NOTICE || $errno == E_USER_NOTICE ? 'Notice' : 'Warning') . ': ' . $errstr . ' in ' . $errfile . ' on line ' . $errline);
 	error(utf8tohtml($errstr), true, array(
 		'file' => $errfile . ':' . $errline,
 		'errno' => $errno,
@@ -280,7 +288,7 @@ function define_groups() {
 	foreach ($config['mod']['groups'] as $group_value => $group_name) {
 		$group_name = strtoupper($group_name); // added for the sake of semantics
 		if(!defined($group_name)) {
-			define($group_name, $group_value, true);
+			define($group_name, $group_value);
 		}
 	}
 	
@@ -847,7 +855,7 @@ function post(array $post) {
 	}
 
 	if ($post['mod'] && isset($post['capcode']) && $post['capcode']) {
-		$query->bindValue(':capcode', $post['capcode'], PDO::PARAM_INT);
+		$query->bindValue(':capcode', $post['capcode'], PDO::PARAM_STR);
 	} else {
 		$query->bindValue(':capcode', null, PDO::PARAM_NULL);
 	}
@@ -942,7 +950,7 @@ function deleteFile($id, $remove_entirely_if_already=true) {
 		file_unlink('cdn/src' . $post['file']);
 
 		// Set file to 'deleted'
-		$query->bindValue(':file', 'deleted', PDO::PARAM_INT);
+		$query->bindValue(':file', 'deleted', PDO::PARAM_STR);
 	}
 
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
@@ -1191,7 +1199,7 @@ function getPageButtons($pages, $mod=false) {
 						'<input type="hidden" name="r" value="' . htmlentities($loc) . '" />'
 					:'') .
 				'<input type="submit" value="' . _('Previous') . '" /></form>';*/
-                $btn['prev'] = '<li><a href=" ' . htmlentities($loc) . '"> ' . _('Previous') . '</a></li>';
+                $btn['prev'] = '<li><a href=" ' . htmlentities($loc, ENT_COMPAT) . '"> ' . _('Previous') . '</a></li>';
 			}
 
 			if ($num == count($pages) - 1) {
@@ -1208,7 +1216,7 @@ function getPageButtons($pages, $mod=false) {
 					:'') .
 				'<input type="submit" value="' . _('Next') . '" /></form>';*/
 
-                $btn['next'] = '<li><a href=" ' . htmlentities($loc) . '"> ' . _('Next') . '</a></li>';
+                $btn['next'] = '<li><a href=" ' . htmlentities($loc, ENT_COMPAT) . '"> ' . _('Next') . '</a></li>';
 			}
 		}
 	}
@@ -1337,7 +1345,7 @@ function checkMute() {
 
 	if ($config['cache']['enabled']) {
 		// Cached mute?
-		if (($mute = cache::get("mute_${_SERVER['REMOTE_ADDR']}")) && ($mutetime = cache::get("mutetime_${_SERVER['REMOTE_ADDR']}"))) {
+		if (($mute = cache::get("mute_{$_SERVER['REMOTE_ADDR']}")) && ($mutetime = cache::get("mutetime_{$_SERVER['REMOTE_ADDR']}"))) {
 			error(sprintf($config['error']['youaremuted'], $mute['time'] + $mutetime - time()));
 		}
 	}
@@ -1356,8 +1364,8 @@ function checkMute() {
 
 		if ($mute['time'] + $mutetime > time()) {
 			if ($config['cache']['enabled']) {
-				cache::set("mute_${_SERVER['REMOTE_ADDR']}", $mute, $mute['time'] + $mutetime - time());
-				cache::set("mutetime_${_SERVER['REMOTE_ADDR']}", $mutetime, $mute['time'] + $mutetime - time());
+				cache::set("mute_{$_SERVER['REMOTE_ADDR']}", $mute, $mute['time'] + $mutetime - time());
+				cache::set("mutetime_{$_SERVER['REMOTE_ADDR']}", $mutetime, $mute['time'] + $mutetime - time());
 			}
 			// Not expired yet
 			error(sprintf($config['error']['youaremuted'], $mute['time'] + $mutetime - time()));
@@ -1580,7 +1588,7 @@ function markup_url($matches) {
 	foreach ($link as $attr => $value) {
 		if ($attr == 'text' || $attr == 'after')
 			continue;
-		$parts[] = $attr . '="' . htmlspecialchars($value) . '"';
+		$parts[] = $attr . '="' . htmlspecialchars($value, ENT_COMPAT) . '"';
 	}
 	if (isset($link['after']))
 		$after = $link['after'] . $after;
